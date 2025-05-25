@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Generator</title>
+    
+    <!-- links the stylesheet (css) for website -->
+    <link rel="stylesheet" href="Pass_gen.css">
+</head>
+<body>
+    <!-- Home button thats linked to the Home page -->
+    <br><br>
+    <a href="../Home/home.html">
+    <button id="home"> Home </button>
+    </a>
+<!-- Div containter taht holds everything such as paramters, button, and everything else-->
+    <div class="container">
+        <!-- Password Gentrator text -->
+        <h1>Password Generator</h1>
+
+        <!-- class that holds all of the paramters -->
+        <div class="input">
+
+            <label for="length">Password Length:</label>
+            <input type="number" id="length" min="1" max="50" value="15">
+      
+            <label for="includeUppercase">Include Uppercase Letters:</label>
+            <input type="checkbox" id="includeUppercase" checked>
+      
+            <label for="includeNumbers">Include Numbers:</label>
+            <input type="checkbox" id="includeNumbers" checked>
+        
+            <label for="includeSymbols">Include Symbols:</label>
+            <input type="checkbox" id="includeSymbols" checked>
+
+        </div>
+        <!-- button to genterate the password -->
+        <button id="generate">Generate Password</button>
+
+        <!-- textbox where the randomized password is-->
+        <div class="output-group">
+            <label for="password"> Password:</label>
+            <input type="text" id="password" readonly>
+        </div>
+        <p id="text"> Great Password</p>
+
+    </div>
+
+
+<br>
+<!-- links the picture-->
+<img id="pass_pic" alt="Picture" src="./pass_pics/pass.jpg"> 
+<br><br><br><br><br><br>
+
+
+<!-- links the javaScript for the website -->
+    <script src="Pass_gen.js"></script>
+</body>
+</html>

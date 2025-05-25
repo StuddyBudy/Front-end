@@ -1,0 +1,335 @@
+/*
+
+    version (apr 29) - robert
+
+    - cleaned up pg
+    - added course length dropdown to all the other css
+
+
+*/
+
+
+body{
+  background-color: #9b090b;
+  color: #FFD700;
+  margin: 0;
+}
+
+/*.headerTitle - THIS IS THE SKELETON OF THE BACKGROUND WITH THE FORMAT*/
+
+.headerTitle{
+ background: #FFD700;
+ color: #FFD700;
+
+}
+
+
+/* title (ehs gpa calc) */
+  h1,h4 {
+    color: #FFD700;
+    font-family: Verdana;
+    margin: 0;
+    margin-left: 10px;
+    text-align: center;
+  }
+
+/*p - (as of rn, _ / 8 classes) */
+
+  p {
+    margin-left: 10px;
+    font-size: 26px; 
+    margin: 5px; 
+    font-family: Verdana; 
+    color: #FFD700; 
+    text-align: center
+  }
+
+/* dropdown menus title (all) */
+  label{
+    font-size: 20px;
+    font-family: Verdana;
+    color: #FFD700;
+    text-align: center;
+  }
+
+/*hr - the line that separates the header and the body*/
+  hr {
+    border:solid 1px gainsboro
+  }
+
+
+#options{
+  text-align: center; 
+  display:none;
+}
+
+ 
+ 
+ /* hr {
+  position: absolute;
+  top: 100px;
+  left: 50px;
+  }
+ */
+ 
+/*            ------            Buttons !                -----                      */
+
+ /* all buttons */
+ button{
+  cursor: pointer;
+  font-family: Verdana;
+}
+
+ #home,#help,#next_pg,#reset_data,#clear_table{
+  height: 55px; 
+  width:200px; 
+  margin: 10px;
+  background-color: #FEA1A1;
+  font-size: 20px;
+  font-family: Verdana;
+  color: #000;
+  border-radius: 30px;
+ }
+
+ #submit_butt{
+  padding-left: 1.25%;
+  width:200px;
+
+  display: flex;
+  text-align: center;
+
+
+
+}
+  #home,#help{
+    height: 60px;
+    width: 105px;
+    font-size: 16px;
+
+    border-radius: 90% 50%;
+
+  }
+ 
+  
+  #add_class{
+    font-size: 20px;
+    width: 400px;
+    height: 80px;
+    background-color: bisque;
+    font-family: 'Lucida Sans Unicode';
+    display: inline;
+    border-radius: 30px;
+
+  }
+  
+  
+  #next_pg{
+    float: right;
+    margin-right: 50px;
+    height: 50px;
+    width: 95px;
+    font-size:15px
+  }
+
+  #easter_egg{
+    width: 0.001px; 
+    height: 0.001px;
+    border: none;
+    background-color: transparent; 
+    cursor: none;
+    font-size: 7px;
+  }
+  
+ 
+  
+ 
+ 
+ /*          drop down menu css                                                       */
+  
+  #subject, #course_lv, #subject_title, #elective, #language,#course_length{
+  
+  height: 40px;
+  width:200px;
+  font-family: georgia;
+  text-align: center;
+  font-size: 16px;
+  color: black ;
+  }
+  
+
+
+
+
+  
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+  
+  }
+  .inputs {
+    font-size: 30px;
+    padding-left: 1.25%;
+    display: flex;
+    flex-direction: column;
+    align-content: space-evenly;
+    text-align: center;
+
+    flex: 1;
+    margin-right: 20px;
+
+  }
+  table {
+    color: #FFD700;
+    flex: 1;
+    margin: 20px;
+  }
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 8px;
+    border-color: inherit;
+  }
+
+
+
+
+/* MP Buttons  */
+  .parent{
+    text-align: center;
+    
+  }
+  .butt{
+
+    background-color: var(--background-color);
+    color: black;
+    padding: .5em 1em;
+    border: none;
+    outline: none;
+    position: relative;
+    cursor: pointer;
+    border-radius: 30px;
+
+ 
+ 
+    --background-color:#FEA1A1;
+    --border-size:2px;
+    --white_outline:#fafafa;
+    --black_outline:#000;
+    --yellow_outline:#FFD700;
+  }
+
+  /* mp1 button animation */
+  .butt.mp1::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom:0;
+    z-index: -1;
+    border: var(--border-size) solid var(--white_outline);
+    border-radius: 30px;
+
+
+    transition: top,left,right,bottom, 300ms ease-in-out;
+
+ }
+ .butt.mp1:hover::before,
+ .butt.mp1:focus::before{
+    top: calc(var(--border-size)*-2);
+    left: calc(var(--border-size)*-2);
+    right: calc(var(--border-size)*-2);
+    bottom: calc(var(--border-size)*-2);
+
+ }
+/* ----------------------------------------------------------------------------*/
+
+   /* mp2 button animation */
+   .butt.mp2::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom:0;
+    z-index: -1;
+    border: var(--border-size) solid var(--white_outline);
+    border-radius: 30px;
+
+
+    transition: top,left,right,bottom, 300ms ease-in-out;
+
+ }
+ .butt.mp2:hover::before,
+ .butt.mp2:focus::before{
+    top: calc(var(--border-size)*-2);
+    left: calc(var(--border-size)*-2);
+    right: calc(var(--border-size)*-2);
+    bottom: calc(var(--border-size)*-2);
+
+ }
+/* ----------------------------------------------------------------------------*/
+
+   /* mp3 button animation */
+   .butt.mp3::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom:0;
+    z-index: -1;
+    border: var(--border-size) solid var(--white_outline);
+    border-radius: 30px;
+
+
+    transition: top,left,right,bottom, 300ms ease-in-out;
+
+ }
+ .butt.mp3:hover::before,
+ .butt.mp3:focus::before{
+    top: calc(var(--border-size)*-2);
+    left: calc(var(--border-size)*-2);
+    right: calc(var(--border-size)*-2);
+    bottom: calc(var(--border-size)*-2);
+
+ }
+
+/* ----------------------------------------------------------------------------*/
+
+   /* mp4 button animation */
+   .butt.mp4::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom:0;
+    z-index: -1;
+    border: var(--border-size) solid var(--white_outline);
+    border-radius: 30px;
+
+
+    transition: top,left,right,bottom, 300ms ease-in-out;
+
+ }
+ .butt.mp4:hover::before,
+ .butt.mp4:focus::before{
+    top: calc(var(--border-size)*-2);
+    left: calc(var(--border-size)*-2);
+    right: calc(var(--border-size)*-2);
+    bottom: calc(var(--border-size)*-2);
+    background-color: #9b090b;
+
+ }
+ .butt.mp1:hover,
+ .butt.mp2:hover,
+ .butt.mp3:hover,
+ .butt.mp4:hover{
+  /*background-color: #C5C6D0;*/
+  background-color: #D18585;
+
+  
+
+ }

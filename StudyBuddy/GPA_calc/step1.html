@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- css sheet ref-->
+    <link rel="stylesheet" href="step1.css">
+<title> Step 1 </title>
+</head>
+<body>
+
+<!--
+
+    version (may 11) - robert
+
+    - changed: mp button function 
+
+    - added: more elctive options
+
+
+-->
+
+
+<!-- Title -->
+ <header>
+  <div class="title">
+     <h1 style="font-size: 42.5px; font-family: Georgia ;"> EHS GPA Calculator  </h1>
+     <h4 style="font-size: 25px;"> Step 1/3 </h4>
+     <h4 style="font-size: 18px;"> Before we continue, we need you to please input your classes: </h4>
+  </div>
+</header>
+
+
+<hr>
+<!--- Top buttons -->
+<div style="text-align: center;">
+    <a href="/index.html">
+        <button id="home"> Home </button>
+    </a>
+    <button id="help"> Help/FAQ </button>
+</div>
+
+<!--- Top area buttons -->
+<!-- mp buttons -->
+ <div class="parent">
+    
+        <button class="butt mp1" id="mp1" onclick="mpButts(1)"> mp1</button>
+        <button class="butt mp2" id="mp2" onclick="mpButts(2)"> mp2</button>
+        <button class="butt mp3" id="mp3" onclick="mpButts(3)"> mp3</button>
+        <button class="butt mp4" id="mp4" onclick="mpButts(4)"> mp4</button>
+    
+</div>
+<br>
+
+
+
+<!-- add class button -->
+<div id="options">
+    <button id="add_class" onclick="unhide2(); valueReset();"> Add Class </button>
+    <br><br>
+
+    <!-- class num and max num -->
+    <p id="class_num1">0 out of 8 classes used </p>
+    <p id="class_num2">0 out of 8 classes used </p>
+    <p id="class_num3">0 out of 8 classes used </p>
+    <p id="class_num4">0 out of 8 classes used </p>
+
+    <br>
+
+    <h2 id="max_classes" style="display:none"> You have reached the Maximum amount of classes allowed! </h2>
+
+    <!-- Clear data/storage buttons -->
+    <button id="reset_data" onclick="clearLocalStorage()"> Reset Data </button>
+    <br>
+    <button id="clear_table" onclick="clearTable()"> Clear Table </button>
+
+</div>
+
+<br>
+<p id="mpSel" style="display: none;"> You are now editing mp </p>
+
+<br> <hr>
+
+<!-- Input Fields -->
+<div class="container">
+    <div class="inputs">
+        <div id="input_id"> 
+
+            <!-- subject input -->
+             
+            <div id="subject_id" style="display:none"> 
+
+                <label for="subject"> Subject: </label>
+                <br>
+                <select name="subject" id="subject">
+
+              <option value="" disabled selected> Select a subject: </option>
+                    <option value="English">English</option>
+                    <option value="Math">Math</option>
+                    <option value="Science">Science</option>
+                    <option value="History">History</option>
+                    <option value="Health">Health</option>
+                    <option value="Gym">Gym</option>
+                    <option value="Electives">Electives</option>
+                </select>
+                <br>
+            </div>
+
+            <!-- Elective input -->
+
+            <div id="elective_id" style = "display: none"> 
+
+                <label for="elective"> Electives: </label> 
+                <br>
+                <select name="elective" id="elective">
+
+                    <option value="" disabled selected> Select your elective: </option> 
+                    <option value="Language" > Language </option>
+                    <option value="Comp_sci"> Computer Science </option>
+                    <option value="Family_Science"> Family / Consumer Science </option>
+                    <option value="Tech_Edu"> Technology Education </option>
+                    <option value="Visual_Arts"> Visual Arts </option>
+                    <option value="Perf_Arts"> Performing Arts </option>
+                    <option value="Science Electives"> Performing Arts </option>
+
+
+                    
+                    
+                </select>
+                <br>
+            </div>
+
+
+           
+
+            <!-- Course Level input -->
+
+            <div id="course_lv_id" style = "display: none"> 
+
+                <label for="course_lv"> Course Lv: </label> 
+                <br>
+                <select name="course_lv" id="course_lv">
+
+                    <option value="start" disabled selected> Select the course level: </option> 
+                    <option value="Standard" disabled> Standard </option>
+                    <option value="Academic"> Academic </option>
+                    <option value="Accelerated"> Accelerated </option>
+                    <option value="Honors"> Honors </option>
+                    <option value="AP"> AP </option>
+                </select>
+                <br>
+            </div>
+
+            
+                        <!-- langauge dropdown menu -->
+
+                        <div id="language_id" style = "display: none "> 
+
+                            <label for="language"> Langauges: </label> 
+                            <br>
+                            <select name="language" id="language">
+            
+                                <option value="" disabled selected> Select your language: </option> 
+                                <option value="Spanish" > Spanish </option>
+                                <option value="French"> French </option>
+                                <option value="Italian"> Italian </option>
+                                <option value="Mandarin"> Mandarin </option>
+            
+                            </select>
+                            <br>
+                        </div>
+
+            <!-- Course length  -->
+
+            <div id="course_length_id" style = "display: none"> 
+
+                <label for="course_length"> Course Length: </label> 
+                <br>
+                <select name="course_length" id="course_length">
+
+                    <option value="start" disabled selected> Select the course length: </option> 
+                    <option value="Full" > Full Year </option>
+                    <option value="1mp" disabled> 1 Marking Period </option>
+                    <option value="2mp" disabled> 2 Marking Periods (semester) </option>
+                </select>
+                <br>
+            </div>
+
+
+            <!--  Title input -->
+            <div id="title_id" style="display:none">
+
+                <label for="subject_title"> Course Title: </label>
+                <br>
+                <select name="subject_title" id="subject_title">
+    
+                    <option value="" disabled selected> Select your class name: </option>
+    
+                </select>
+                <br>
+            </div>
+
+            <!-- Submit button -->
+            <button id="submit" onclick="input(); hide()" style="display:none"> Submit </button>
+ <!-- input closing div -->
+        </div>
+<!-- class inputs closing div -->
+    </div>
+
+
+<!-- Table Centeral -->
+ <!-- mp1 table -->
+    <div style="display:none" id="mp1_table">
+        <table>
+            <tr>
+                <th> # </th>
+                <th> Subject </th>
+                <th> Course Lv </th>
+                <th> Course Title </th>
+            </tr>
+            <tr>
+                <td> 1) </td>
+                <td id="1subject_1"></td>
+                <td id="1lv_1"> uno </td>
+                <td id="1title_1"></td>
+
+            </tr>
+            <tr>
+                <td> 2) </td>
+                <td id="1subject_2"></td>
+                <td id="1lv_2">  </td>
+                <td id="1title_2"></td>
+
+            </tr>
+            <tr>
+                <td > 3) </td>
+                <td id="1subject_3" > </td>
+                <td id="1lv_3"> </td>
+                <td id="1title_3"> </td>
+
+            </tr>
+            <tr>
+                <td > 4) </td>
+                <td id="1subject_4" > </td>
+                <td id="1lv_4"> </td>
+                <td id="1title_4"> </td>
+
+            </tr>
+            <tr>
+                <td > 5) </td>
+                <td id="1subject_5"> </td>
+                <td id="1lv_5"> </td>
+                <td id="1title_5"> </td>
+            </tr>
+            <tr>
+                <td > 6) </td>
+                <td id="1subject_6"> </td>
+                <td id="1lv_6"> </td>
+                <td id="1title_6"> </td>
+            </tr>
+            <tr>
+                <td > 7) </td>
+                <td id="1subject_7" > </td>
+                <td id="1lv_7"> </td>
+                <td id="1title_7"> </td>
+            </tr>
+            <tr>
+                <td > 8) </td>
+                <td id="1subject_8"> </td>
+                <td id="1lv_8"> </td>
+                <td id="1title_8"> </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- mp2 table --> 
+    <div style="display:none" id="mp2_table">
+        <table>
+            <tr>
+                <th> # </th>
+                <th> Subject </th>
+                <th> Course Lv </th>
+                <th> Course Title </th>
+            </tr>
+            <tr>
+                <td> 1) </td>
+                <td id="2subject_1"></td>
+                <td id="2lv_1"> dos </td>
+                <td id="2title_1"></td>
+
+            </tr>
+            <tr>
+                <td> 2) </td>
+                <td id="2subject_2"></td>
+                <td id="2lv_2">  </td>
+                <td id="2title_2"></td>
+
+            </tr>
+            <tr>
+                <td > 3) </td>
+                <td id="2subject_3" > </td>
+                <td id="2lv_3"> </td>
+                <td id="2title_3"> </td>
+
+            </tr>
+            <tr>
+                <td > 4) </td>
+                <td id="2subject_4" > </td>
+                <td id="2lv_4"> </td>
+                <td id="2title_4"> </td>
+
+            </tr>
+            <tr>
+                <td > 5) </td>
+                <td id="2subject_5"> </td>
+                <td id="2lv_5"> </td>
+                <td id="2title_5"> </td>
+            </tr>
+            <tr>
+                <td > 6) </td>
+                <td id="2subject_6"> </td>
+                <td id="2lv_6"> </td>
+                <td id="2title_6"> </td>
+            </tr>
+            <tr>
+                <td > 7) </td>
+                <td id="2subject_7" > </td>
+                <td id="2lv_7"> </td>
+                <td id="2title_7"> </td>
+            </tr>
+            <tr>
+                <td > 8) </td>
+                <td id="2subject_8"> </td>
+                <td id="2lv_8"> </td>
+                <td id="2title_8"> </td>
+            </tr>
+        </table>
+    </div>
+
+
+    <!-- mp3 table -->
+    <div style="display:none" id="mp3_table">
+        <table>
+            <tr>
+                <th> # </th>
+                <th> Subject </th>
+                <th> Course Lv </th>
+                <th> Course Title </th>
+            </tr>
+            <tr>
+                <td> 1) </td>
+                <td id="3subject_1"></td>
+                <td id="3lv_1"> tres </td>
+                <td id="3title_1"></td>
+
+            </tr>
+            <tr>
+                <td> 2) </td>
+                <td id="3subject_2"></td>
+                <td id="3lv_2">  </td>
+                <td id="3title_2"></td>
+
+            </tr>
+            <tr>
+                <td > 3) </td>
+                <td id="3subject_3" > </td>
+                <td id="3lv_3"> </td>
+                <td id="3title_3"> </td>
+
+            </tr>
+            <tr>
+                <td > 4) </td>
+                <td id="3subject_4" > </td>
+                <td id="3lv_4"> </td>
+                <td id="3title_4"> </td>
+
+            </tr>
+            <tr>
+                <td > 5) </td>
+                <td id="3subject_5"> </td>
+                <td id="3lv_5"> </td>
+                <td id="3title_5"> </td>
+            </tr>
+            <tr>
+                <td > 6) </td>
+                <td id="3subject_6"> </td>
+                <td id="3lv_6"> </td>
+                <td id="3title_6"> </td>
+            </tr>
+            <tr>
+                <td > 7) </td>
+                <td id="3subject_7" > </td>
+                <td id="3lv_7"> </td>
+                <td id="3title_7"> </td>
+            </tr>
+            <tr>
+                <td > 8) </td>
+                <td id="3subject_8"> </td>
+                <td id="3lv_8"> </td>
+                <td id="3title_8"> </td>
+            </tr>
+        </table>
+    </div>
+
+
+    <!-- mp4 table -->
+    <div style="display:none" id="mp4_table">
+        <table>
+            <tr>
+                <th> # </th>
+                <th> Subject </th>
+                <th> Course Lv </th>
+                <th> Course Title </th>
+            </tr>
+            <tr>
+                <td> 1) </td>
+                <td id="4subject_1"></td>
+                <td id="4lv_1"> quatro </td>
+                <td id="4title_1"></td>
+
+            </tr>
+            <tr>
+                <td> 2) </td>
+                <td id="4subject_2"></td>
+                <td id="4lv_2">  </td>
+                <td id="4title_2"></td>
+
+            </tr>
+            <tr>
+                <td > 3) </td>
+                <td id="4subject_3" > </td>
+                <td id="4lv_3"> </td>
+                <td id="4title_3"> </td>
+
+            </tr>
+            <tr>
+                <td > 4) </td>
+                <td id="4subject_4" > </td>
+                <td id="4lv_4"> </td>
+                <td id="4title_4"> </td>
+
+            </tr>
+            <tr>
+                <td > 5) </td>
+                <td id="4subject_5"> </td>
+                <td id="4lv_5"> </td>
+                <td id="4title_5"> </td>
+            </tr>
+            <tr>
+                <td > 6) </td>
+                <td id="4subject_6"> </td>
+                <td id="4lv_6"> </td>
+                <td id="4title_6"> </td>
+            </tr>
+            <tr>
+                <td > 7) </td>
+                <td id="4subject_7" > </td>
+                <td id="4lv_7"> </td>
+                <td id="4title_7"> </td>
+            </tr>
+            <tr>
+                <td > 8) </td>
+                <td id="4subject_8"> </td>
+                <td id="4lv_8"> </td>
+                <td id="4title_8"> </td>
+            </tr>
+        </table>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<br><br><br><br><br><br><br><br><br>
+
+
+
+<!-- Next page -->
+<a href="step2.html">
+    <button id="next_pg" style="float: right"> Next Page </button>
+</a>
+
+
+<br><br><br><br><br><br><br><br><br>
+<hr> 
+<h1> Dev Tools</h1>
+
+<button onclick="loggy()">console_loggy</button> <br>
+<button onclick="show_tables()"> SHOW All mp tables</button> <br>
+<button onclick="hide_tables()"> HIDE All mp tables</button> <br><br>
+
+<button onclick="unhideADMIN()"> UNHIDES EVERYTHING</button> <br>
+<button onclick="hideADMIN()"> HIDES EVERYTHING</button> <br><br>
+
+<button onclick="unoMore()"> uno class </button> <br>
+<button onclick="fillTable()"> fill class </button> <br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Tester Easter Egg
+
+<br>
+<button id="easter_egg" onclick="easter1()"> porypine </button>
+
+-->
+
+<br><br><br><br><br><br><br><br>
+<!-- JavaScript -->
+<script src="step1.js"></script>
+
+
+</body>
+</html>
