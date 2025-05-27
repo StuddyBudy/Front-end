@@ -1,0 +1,91 @@
+body {
+   font-family: Verdana;
+   background-color: #9b090b;
+   margin: 0;
+   padding: 0;
+   text-align: center;
+}
+
+.container {
+   width: 90%;
+   max-width: 600px;
+   margin: 50px auto;
+   background: #B50B0D;
+   padding: 20px;
+   border-radius: 8px;
+   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+}
+
+h1 {
+   color: #FFD700;
+}
+
+label {
+   display: block;
+   margin: 15px 0 5px;
+   color: #FFD700;
+}
+
+input[type="number"],
+input[type="checkbox"] {
+   width: 100%;
+   padding: 10px;
+   margin-bottom: 20px;
+   border: 1px solid #ccc;
+   border-radius: 4px;
+}
+
+#length{
+   width: 10%;
+   text-align: center;
+}
+#includeUppercase,#includeNumbers,#includeSymbols{
+   height: 20px;
+}
+button {
+   width: 100%;
+   padding: 10px;
+   background-color: #FFD700;
+   color: white;
+   border: none;
+   border-radius: 4px;
+   cursor: pointer;
+   font-size: 16px;
+   font-family: Verdana;
+}
+
+button:hover {
+   background-color: bisque;
+   color: black
+}
+
+.password-output {
+   margin-top: 20px;
+   padding: 10px;
+   background-color: #147ae0;
+   border: 1px solid #ccc;
+   border-radius: 4px;
+   font-size: 18px;
+   color: #333;
+   font-size: 30px
+}
+p{
+   padding: 5px;
+   height:30px;
+   font-size: 20px;
+   text-align: center;
+   color: white;
+   background-color: #218838;
+   display: none;
+}
+#pass_pic{
+   height: 600px;
+   width: 560px;
+   text-align: center;
+}
+
+#home{
+   width: 100px;
+   
+}
