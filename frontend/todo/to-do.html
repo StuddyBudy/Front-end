@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multi-List To-Do</title>
+  <link href="https://fonts.googleapis.com/css?family=Inter:400,600&display=swap" rel="stylesheet">
+  <link href="to-do.css" rel="stylesheet">
+  <script defer src="../theme.js"></script>
+
+<!-- og to-do header -->
+
+  <link href="../style.css" rel="stylesheet" />
+    <script defer src="todo.js"></script>
+    <script defer src="../theme.js"></script>
+    <link rel="shortcut icon" href="/favicon.svg" type="image/x-icon" />
+  </head>
+  
+
+  <body class="bg-zinc-100 dark:bg-zinc-700 dark:text-zinc-100">
+    <nav class="flex justify-between w-full shadow hidden sm:flex sticky mb-2">
+      <a class="hover:bg-zinc-200 p-2 rounded dark:hover:bg-zinc-600" 
+      href="../index.html">Home</a
+      >
+
+      <div class="flex justify-around gap-x-2">
+        <a
+          class="hover:bg-zinc-200 p-2 rounded dark:hover:bg-zinc-600"
+          href="../gpa/step1.html"
+          >GPA</a
+        >
+        <a
+          class="hover:bg-zinc-200 p-2 rounded dark:hover:bg-zinc-600"
+          href="../todo/to-do.html"
+          >Todo</a
+        >
+        <a
+          class="hover:bg-zinc-200 p-2 rounded dark:hover:bg-zinc-600"
+          href="../pass/index.html"
+          >Passwords</a
+        >
+
+        <select
+          id="theme-toggle"
+          class="p-2 hover:bg-zinc-200 rounded dark:hover:bg-zinc-600 text-center"
+        >
+          <option value="dark">dark</option>
+          <option value="light">light</option>
+          <option value="system">system</option>
+        </select>
+      </div>
+    </nav>
+
+  <nav
+      class="sm:hidden flex flex-col gap-2 h-full absolute bg-zinc-100 border-r-4 dark:bg-zinc-700"
+    >
+      <a class="hover:bg-zinc-200 border p-2 rounded" href="../index.html">Home</a>
+      <a class="hover:bg-zinc-200 border p-2 rounded" href="../gpa/step1.html">GPA</a>
+      <a class="hover:bg-zinc-200 border p-2 rounded" href="../todo/to-do.html">Todo</a>
+      <a class="hover:bg-zinc-200 border p-2 rounded" href="../pass/index.html">Passwords</a>
+    </nav>
+    <h1 class="text-4xl font-bold text-center" style="font-family: Inter">LifeLine</h1>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+<!-- new to-do -->
+
+
+    <div class="grid place-content-center">
+      <div class="container">
+        <aside class="sidebar">
+          <h2>Lists</h2>
+          <div class="lists" id="lists"></div>
+          <button class="add-list-btn" id="add-list-btn">+ New List</button>
+        </aside>
+
+        <main class="main">
+          <h1 id="list-title">To-Do</h1>
+          <form class="add-task" id="add-task-form" autocomplete="off">
+            <input
+              type="text"
+              id="task-input"
+              placeholder="Add a new task..."
+              required
+            />
+            <button type="submit">Add</button>
+          </form>
+          <ul class="tasks" id="tasks"></ul>
+          <button class="clear" id="clear-all-btn">Clear all</button>
+        </main>
+      </div>
+    </div>
+
+
+  <script src="to-do.js"></script>
+</body>
+</html>

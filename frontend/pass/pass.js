@@ -1,9 +1,4 @@
-function generatePassword(
-  length,
-  includeUppercase,
-  includeNumbers,
-  includeSymbols,
-) {
+function generatePassword(length,includeUppercase,includeNumbers,includeSymbols,) {
   const lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
   const uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   const numberChars = "0123456789";
@@ -32,24 +27,28 @@ function generatePassword(
 //function to check the length and dpending on the length change the words
 function lenCheck(length) {
   const text = document.getElementById("text");
-  text.classList.remove("hidden");
+  //text.classList.remove("hidden");
 
   if (length >= 13) {
+    text.style.display="block";
     text.innerHTML = "Great Password!";
     text.style.backgroundColor = "#218838";
   } else if (length < 13 && length >= 9) {
+    text.style.display="block";
     text.innerHTML = "Weak Password";
     text.style.backgroundColor = "#F28048";
   } else if (length <= 8) {
+    text.style.display="block";
     text.innerHTML = "Bad Password";
     text.style.backgroundColor = "#750708";
   }
 }
+
 //---------------------------------------------------------------------------------
 
 //calling functions
 document.getElementById("generate").addEventListener("click", () => {
-  const length = document.getElementById("length").value;
+  const length = Number(document.getElementById("length").value);
   const includeUppercase = document.getElementById("includeUppercase").checked;
   const includeNumbers = document.getElementById("includeNumbers").checked;
   const includeSymbols = document.getElementById("includeSymbols").checked;
@@ -60,8 +59,9 @@ document.getElementById("generate").addEventListener("click", () => {
     includeNumbers,
     includeSymbols,
   );
-  document.getElementById("password").innerText = generatedPassword;
+  document.getElementById("password").value = generatedPassword;
 
   lenCheck(length);
-  navigator.clipboard.writeText(document.getElementById("password").innerText);
+  //navigator.clipboard.writeText(document.getElementById("password").innerText);
 });
+

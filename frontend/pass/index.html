@@ -4,32 +4,40 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Password Generator</title>
-    <link href="/style.css" rel="stylesheet" />
-    <script defer src="/theme.js"></script>
-    <script defer src="pass.js"></script>
-    <link rel="shortcut icon" href="/favicon.svg" type="image/x-icon" />
+
+<!-- main files for pass gen -->
+    <link href="Pass_gen.css" rel="stylesheet" />
   </head>
+
+ 
+    <script defer src="../theme.js"></script>
+    <link rel="shortcut icon" href="../favicon.svg" type="image/x-icon" />
+    <link href="../style.css" rel="stylesheet" />
+    <script defer src="../theme.js"></script>
+    
+  </head>
+
+
   <body class="bg-zinc-100 dark:bg-zinc-700 dark:text-zinc-100">
     <nav class="flex justify-between w-full shadow hidden sm:flex sticky mb-2">
-      <a class="hover:bg-zinc-200 p-2 rounded dark:hover:bg-zinc-600" href="/"
-        >Home</a
+      <a class="hover:bg-zinc-200 p-2 rounded dark:hover:bg-zinc-600" 
+      href="../index.html">Home</a
       >
 
       <div class="flex justify-around gap-x-2">
         <a
           class="hover:bg-zinc-200 p-2 rounded dark:hover:bg-zinc-600"
-          href="/gpa"
+          href="../gpa/step1.html"
           >GPA</a
         >
-
         <a
           class="hover:bg-zinc-200 p-2 rounded dark:hover:bg-zinc-600"
-          href="/todo"
+          href="../todo/to-do.html"
           >Todo</a
         >
         <a
           class="hover:bg-zinc-200 p-2 rounded dark:hover:bg-zinc-600"
-          href="/pass"
+          href="../pass/index.html"
           >Passwords</a
         >
 
@@ -44,57 +52,72 @@
       </div>
     </nav>
 
-    <nav
+  <nav
       class="sm:hidden flex flex-col gap-2 h-full absolute bg-zinc-100 border-r-4 dark:bg-zinc-700"
     >
-      <a class="hover:bg-zinc-200 border p-2 rounded" href="/">Home</a>
-      <a class="hover:bg-zinc-200 border p-2 rounded" href="/gpa">GPA</a>
-      <a class="hover:bg-zinc-200 border p-2 rounded" href="/todo">Todo</a>
-      <a class="hover:bg-zinc-200 border p-2 rounded" href="/pass">Passwords</a>
+      <a class="hover:bg-zinc-200 border p-2 rounded" href="../index.html">Home</a>
+      <a class="hover:bg-zinc-200 border p-2 rounded" href="../gpa/step1.html">GPA</a>
+      <a class="hover:bg-zinc-200 border p-2 rounded" href="../todo/to-do.html">Todo</a>
+      <a class="hover:bg-zinc-200 border p-2 rounded" href="../pass/index.html">Passwords</a>
     </nav>
+    <h1 class="text-4xl font-bold text-center" id="life">LifeLinee</h1>
 
-    <div class="mx-auto rounded border w-fit flex flex-col p-4 m-2 gap-2">
-      <h1 class="text-center text-5xl font-bold">Password Generator</h1>
 
-      <div class="input flex flex-col text-center">
-        <label>
-          Password Length:
-          <input type="number" id="length" min="1" max="50" value="15" />
-        </label>
 
-        <label>
-          Include Uppercase Letters:
-          <input type="checkbox" id="includeUppercase" checked />
-        </label>
 
-        <label>
-          Include Numbers:
-          <input type="checkbox" id="includeNumbers" checked />
-        </label>
 
-        <label>
-          Include Symbols:
-          <input type="checkbox" id="includeSymbols" checked />
-        </label>
-      </div>
 
-      <button class="rounded border w-fit mx-auto p-2" id="generate">
-        Generate Password
-      </button>
+    <!-- Home button thats linked to the Home page -->
+<div class="main cont">
+<!--
+    <br>
+    <a href="../index.html">
+    <button id="home"> Home </button>
+    </a>
 
-      <label class="h-fit mx-auto">
-        Password:
-        <span id="password" class="break-all"></span>
-      </label>
+-->
 
-      <p id="text" class="hidden rounded text-center h-fit mx-auto p-2">
-        Great Password
-      </p>
-      <img
-        class="w-128 mx-auto rounded"
-        alt="Description of how longer passwords take much longer times to break"
-        src="./pass_pics/pass.webp"
-      />
+<!-- Div containter that holds everything such as paramters, button, and everything else-->
+    <div class="container">
+        <h1 id="tit">Password Generator</h1>
+
+        <div class="input">
+
+            <label for="length"  >Password Length:</label>
+            <input type="number" id="length" min="1" max="50" value="15"> <br>
+      
+            <label for="includeUppercase">Include Uppercase Letters:</label>
+            <input type="checkbox" id="includeUppercase" checked>
+      
+            <label for="includeNumbers">Include Numbers:</label>
+            <input type="checkbox" id="includeNumbers" checked>
+        
+            <label for="includeSymbols">Include Symbols:</label>
+            <input type="checkbox" id="includeSymbols" checked>
+
+        </div>
+        <!-- button to genterate the password -->
+        <button id="generate" >Generate Password</button>
+
+        <!-- textbox where the randomized password is-->
+        <div class="output-group">
+            <label for="password"> Password:</label>
+            <input type="text" id="password"placeholder="Type a length!" readonly>
+        </div>
+        <br>
+        <h1 id="text" style="display: none;"> Great Password</h1>
     </div>
-  </body>
+
+<br><br><br><br><br><br><br>
+
+<!-- links the picture-->
+<img id="pass_pic" alt="Picture" src="./pass_pics/pass.jpg"> 
+<br><br><br><br><br><br>
+
+
+</div>
+
+<script src="pass.js" defer></script>
+
+</body>
 </html>
