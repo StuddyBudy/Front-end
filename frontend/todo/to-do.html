@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Multi-List To-Do</title>
-  <link href="https://fonts.googleapis.com/css?family=Inter:400,600&display=swap" rel="stylesheet">
   <link href="to-do.css" rel="stylesheet">
+
+<!-- copy here for universal header-->
+
+  <link href="https://fonts.googleapis.com/css?family=Inter:400,600&display=swap" rel="stylesheet">
   <script defer src="../theme.js"></script>
-
-<!-- og to-do header -->
-
   <link href="../style.css" rel="stylesheet" />
     <script defer src="todo.js"></script>
     <script defer src="../theme.js"></script>
@@ -17,7 +18,7 @@
   </head>
   
 
-  <body class="bg-zinc-100 dark:bg-zinc-700 dark:text-zinc-100">
+  <body class="bg-stone-200-200 dark:bg-zinc-700 dark:text-zinc-100 ehs:bg-red-800">
     <nav class="flex justify-between w-full shadow hidden sm:flex sticky mb-2">
       <a class="hover:bg-zinc-200 p-2 rounded dark:hover:bg-zinc-600" 
       href="../index.html">Home</a
@@ -44,9 +45,12 @@
           id="theme-toggle"
           class="p-2 hover:bg-zinc-200 rounded dark:hover:bg-zinc-600 text-center"
         >
-          <option value="dark">dark</option>
-          <option value="light">light</option>
-          <option value="system">system</option>
+          <option disabled> Theme: </option>
+          <option value="dark">Dark</option>
+          <option value="light">Light</option>
+          <option value="system" selected>System</option>
+          <option value="ehs">Ehs</option>
+
         </select>
       </div>
     </nav>
@@ -59,26 +63,16 @@
       <a class="hover:bg-zinc-200 border p-2 rounded" href="../todo/to-do.html">Todo</a>
       <a class="hover:bg-zinc-200 border p-2 rounded" href="../pass/index.html">Passwords</a>
     </nav>
-    <h1 class="text-4xl font-bold text-center" style="font-family: Inter">LifeLine</h1>
+    <br>
+    <h1 class="text-4xl font-bold text-center" id="tit" style="font-family: inter; ">LifeLinee</h1>
+    <br>
+<!-- End of copy for universal header-->
 
 
-
-
-  
-
-
-
-
-
-
-
-
-<!-- new to-do -->
-
-
+<!-- to-do -->
     <div class="grid place-content-center">
-      <div class="container">
-        <aside class="sidebar">
+      <div class="rounded m-2 flex border">
+        <aside class="sidebar bg-zinc-200 dark:bg-zinc-600">
           <h2>Lists</h2>
           <div class="lists" id="lists"></div>
           <button class="add-list-btn" id="add-list-btn">+ New List</button>
@@ -95,7 +89,7 @@
             />
             <button type="submit">Add</button>
           </form>
-          <ul class="tasks" id="tasks"></ul>
+          <ul class="tasks dark:bg- dark:hover:zinc-600 " id="tasks"></ul>
           <button class="clear" id="clear-all-btn">Clear all</button>
         </main>
       </div>

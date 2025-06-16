@@ -3,25 +3,81 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- css sheet ref-->
     <link rel="stylesheet" href="step1.css">
-<title> Step 1 </title>
+    <title> Step 1 </title>
+
+    <!-- copy here for universal header-->
+  <link href="https://fonts.googleapis.com/css?family=Inter:400,600&display=swap" rel="stylesheet">
+  <script defer src="../theme.js"></script>
+  <link href="../style.css" rel="stylesheet" />
+  <link rel="shortcut icon" href="/favicon.svg" type="image/x-icon" />
+
+  </head>
+  
+
+  <body class="bg-stone-200-200 dark:bg-zinc-700 dark:text-zinc-100 ehs:bg-red-800">
+    <nav class="flex justify-between w-full shadow hidden sm:flex sticky mb-2">
+      <a class="hover:bg-zinc-200 p-2 rounded dark:hover:bg-zinc-600" 
+      href="../index.html">Home</a
+      >
+
+      <div class="flex justify-around gap-x-2">
+        <a
+          class="hover:bg-zinc-200 p-2 rounded dark:hover:bg-zinc-600"
+          href="../gpa/step1.html"
+          >GPA</a
+        >
+        <a
+          class="hover:bg-zinc-200 p-2 rounded dark:hover:bg-zinc-600"
+          href="../todo/to-do.html"
+          >Todo</a
+        >
+        <a
+          class="hover:bg-zinc-200 p-2 rounded dark:hover:bg-zinc-600"
+          href="../pass/index.html"
+          >Passwords</a
+        >
+
+        <select
+          id="theme-toggle"
+          class="p-2 hover:bg-zinc-200 rounded dark:hover:bg-zinc-600 text-center"
+        >
+          <option disabled> Theme: </option>
+          <option value="dark">Dark</option>
+          <option value="light">Light</option>
+          <option value="system" selected>System</option>
+          <option value="ehs">Ehs</option>
+
+        </select>
+      </div>
+    </nav>
+
+  <nav
+      class="sm:hidden flex flex-col gap-2 h-full absolute bg-zinc-100 border-r-4 dark:bg-zinc-700"
+    >
+      <a class="hover:bg-zinc-200 border p-2 rounded" href="../index.html">Home</a>
+      <a class="hover:bg-zinc-200 border p-2 rounded" href="../gpa/step1.html">GPA</a>
+      <a class="hover:bg-zinc-200 border p-2 rounded" href="../todo/to-do.html">Todo</a>
+      <a class="hover:bg-zinc-200 border p-2 rounded" href="../pass/index.html">Passwords</a>
+    </nav>
+    <br>
+    <h1 class="text-4xl font-bold text-center" id="tit" style="font-family: inter; ">LifeLinee</h1>
+    <br>
+<!-- End of copy for universal header-->
 </head>
+
+
+
+
+
+
+
+
+
+
+
 <body>
 
-<!--
-
-    version (may 11) - robert
-
-    - changed: mp button function 
-
-    - added: more elctive options
-
-
--->
-
-
-<!-- Title -->
  <header>
   <div class="title">
      <h1 style="font-size: 42.5px; font-family: Georgia ;"> EHS GPA Calculator  </h1>
@@ -42,7 +98,7 @@
 
 <!--- Top area buttons -->
 <!-- mp buttons -->
- <div class="parent">
+ <div class="parent ehs:bg-blue-500">
     
         <button class="butt mp1" id="mp1" onclick="mpButts(1)"> mp1</button>
         <button class="butt mp2" id="mp2" onclick="mpButts(2)"> mp2</button>
@@ -559,7 +615,7 @@
 
 <br><br><br><br><br><br><br><br>
 <!-- JavaScript -->
-<script src="step1.js"></script>
+<script defer src="step1.js"></script>
 
 
 </body>

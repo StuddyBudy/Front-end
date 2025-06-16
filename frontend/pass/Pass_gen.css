@@ -2,7 +2,7 @@
 
 body {
    font-family: Verdana;
-   background-color: #9b090b;
+  /* background-color: #9b090b*/;
    margin: 0;
    padding: 0;
    text-align: center;
@@ -12,7 +12,7 @@ body {
    width: 90%;
    max-width: 600px;
    margin: 50px auto;
-   background: #B50B0D;
+   /*background: #B50B0D*/;
    padding: 20px;
    border-radius: 8px;
    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -22,11 +22,11 @@ body {
 #tit {
    font-size:30px;
    font-weight: bold; 
-   color: #FFD700;
+   /*color: #FFD700;*/
 }
 #life{
    font-family: Inter;
-   color: #FFD700;
+   /*color: #FFD700;*/
 }
 /* changes the color / positioning of the paramters */
 label {
@@ -48,8 +48,8 @@ input[type="checkbox"] {
 #length{
    width: 10%;
    text-align: center;
-   background-color: #FFFFFF;
-   color:black !important;
+   /*background-color: #FFFFFF;
+   color:black !important;*/
 }
 
 /* changes the height of the checkboxes */
@@ -79,14 +79,33 @@ button:hover {
 #password{
    margin-top: 5px;
    border-radius: 5px;
-   background-color: #FFFFFF;
-   color:black !important;
+   /*background-color: #FFFFFF;
+   color:black !important;*/
 }
 .password-output {
    margin-top: 20px;
-   color:black !important;
+   /*color:black !important;*/
    font-size: 18px !important;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* changes styling and color of the 'great password text' */
 p{
    display: block;

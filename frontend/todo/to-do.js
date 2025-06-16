@@ -65,13 +65,13 @@ addListBtn.onclick = () => {
   renderTasks();
 }
 clearButt.onclick = () => {
-   console.log("current list: "+currentList);
       for (let i =0; i<= currentList.length; i++){
          data[currentList].splice(i);
       }
       save();
       renderTasks();
 }
+
 
 function renderTasks() {
   listTitle.textContent = currentList;

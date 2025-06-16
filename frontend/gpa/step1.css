@@ -1,17 +1,15 @@
 /*
-
-    version (apr 29) - robert
-
-    - cleaned up pg
-    - added course length dropdown to all the other css
-
-
+@import "tailwindcss";
+@theme {
+  --color-mint-500: oklch(0.72 0.11 178);
+  --color-ehs
+}
 */
 
 
+    /*--color-ehs: #9b090b;*/
+  
 body{
-  background-color: #9b090b;
-  color: #FFD700;
   margin: 0;
 }
 
@@ -78,6 +76,12 @@ body{
  button{
   cursor: pointer;
   font-family: Verdana;
+  /*background-color: #9b090b;
+  height:30px;
+  width: 250px;
+  border-radius: 30px;
+  border: #fafafa;
+  */
 }
 
  #home,#help,#next_pg,#reset_data,#clear_table{
@@ -201,7 +205,7 @@ body{
   }
   .butt{
 
-    background-color: var(--background-color);
+    /*background-color: var(--background-color);*/
     color: black;
     padding: .5em 1em;
     border: none;
@@ -212,7 +216,6 @@ body{
 
  
  
-    --background-color:#FEA1A1;
     --border-size:2px;
     --white_outline:#fafafa;
     --black_outline:#000;
@@ -328,7 +331,7 @@ body{
  .butt.mp3:hover,
  .butt.mp4:hover{
   /*background-color: #C5C6D0;*/
-  background-color: #D18585;
+  background-color: #D18585; 
 
   
 

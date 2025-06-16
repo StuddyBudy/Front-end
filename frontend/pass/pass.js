@@ -42,7 +42,18 @@ function lenCheck(length) {
     text.innerHTML = "Bad Password";
     text.style.backgroundColor = "#750708";
   }
+    console.log("----");
+
 }
+
+
+function logs(){
+//  for (let i=0; i>=20; i++){
+
+  conosle.log(" ----- ");
+//}
+}
+
 
 //---------------------------------------------------------------------------------
 
@@ -52,7 +63,6 @@ document.getElementById("generate").addEventListener("click", () => {
   const includeUppercase = document.getElementById("includeUppercase").checked;
   const includeNumbers = document.getElementById("includeNumbers").checked;
   const includeSymbols = document.getElementById("includeSymbols").checked;
-
   const generatedPassword = generatePassword(
     length,
     includeUppercase,
@@ -62,6 +72,7 @@ document.getElementById("generate").addEventListener("click", () => {
   document.getElementById("password").value = generatedPassword;
 
   lenCheck(length);
+  //logs();
   //navigator.clipboard.writeText(document.getElementById("password").innerText);
 });
 
