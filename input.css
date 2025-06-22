@@ -3,3 +3,11 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @custom-variant ehs (&:where(.ehs, .ehs *));
+
+
+@import "tailwindcss";
+@theme { 
+   --color-ehsBgShadow: #121063;  
+   --color-ehsBg: #3ab7bf;  
+}
+

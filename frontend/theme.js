@@ -49,3 +49,19 @@ toggle.addEventListener("change", () => {
     }
   }
 });
+
+
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        ehsBg: '#3ab7bf',
+        ehsBgShadow: '#121063',
+        ehsRed: '#9B090B',
+        testing: 'var(--color-ehsBgShadow-100)'
+        // Add more custom colors here
+      },
+    },
+  },
+  // ...other config
+}
