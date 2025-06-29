@@ -1,67 +1,27 @@
 const toggle = document.getElementById("theme-toggle");
-//const sideToggle
-document.documentElement.classList.toggle(
-  "dark",
-  localStorage.theme === "dark" ||
-    (!("theme" in localStorage) &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches),
-);
 
-if (localStorage.theme === "dark") {
-  document.documentElement.classList.add("dark");
-  
-  document.documentElement.classList.remove("ehs");
-  toggle.value = "dark";
-} else if (localStorage.theme === "light") {
-  document.documentElement.classList.remove("dark");
-  
-  document.documentElement.classList.remove("ehs");
-  toggle.value = "light";
-} else if (localStorage.theme === "ehs") {
-  document.documentElement.classList.remove("dark");
-  
-  document.documentElement.classList.add("ehs");
-  toggle.value = "ehs";
-} else {
-  if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-    document.documentElement.classList.add("dark");
-  }
-  toggle.value = "system";
+if (localStorage.theme === undefined) {
+  localStorage.theme = "system";
 }
 
-toggle.addEventListener("change", () => {
-  localStorage.theme = toggle.value;
-  if (localStorage.theme === "dark") {
-    document.documentElement.classList.add("dark");
-    
-      document.documentElement.classList.remove("ehs");
-  } else if (localStorage.theme === "light") {
-    document.documentElement.classList.remove("dark");
-      document.documentElement.classList.remove("ehs");
-  }
-  else if (localStorage.theme === "ehs") {
-    document.documentElement.classList.remove("dark");
-    document.documentElement.classList.add("ehs");
-  } else {
+toggle.value = localStorage.theme;
+
+const updateTheme = () => {
+  if (toggle.value === "system") {
+    localStorage.theme = "system";
     if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      document.documentElement.classList.add("dark");
-      document.documentElement.classList.remove("ehs");
+      document.documentElement.setAttribute("data-theme", "dark");
+    } else {
+      document.documentElement.setAttribute("data-theme", "light");
     }
+
+    return;
   }
-});
 
+  document.documentElement.setAttribute("data-theme", toggle.value);
+  localStorage.theme = toggle.value;
+  console.log(toggle.theme);
+};
 
-module.exports = {
-  theme: {
-    extend: {
-      colors: {
-        ehsBg: '#3ab7bf',
-        ehsBgShadow: '#121063',
-        ehsRed: '#9B090B',
-        testing: 'var(--color-ehsBgShadow-100)'
-        // Add more custom colors here
-      },
-    },
-  },
-  // ...other config
-}
+toggle.addEventListener("change", updateTheme);
+updateTheme();
