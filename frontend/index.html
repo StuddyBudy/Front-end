@@ -4,9 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Lifelinee</title>
+
+<!-- universal header * start to copy here * -->    
     <link href="style.css" rel="stylesheet" />
     <script defer src="theme.js"></script>
-    <link rel="shortcut icon" href="/favicon.svg" type="image/x-icon" />
+    <link rel="shortcut icon" href="favicon.svg" type="image/x-icon" />
   </head>
   <body class="bg-background-1 text-text">
     <nav class="flex justify-between w-full shadow hidden sm:flex sticky mb-2">
@@ -26,7 +28,7 @@
           Passwords
         </a>
 
-        <select id="theme-toggle" class="p-2 rounded hover:bg-background-2">
+        <select id="theme-toggle-web" class="p-2 rounded hover:bg-background-2">
           <option value="dark">Dark</option>
           <option value="light">Light</option>
           <option value="system">System</option>
@@ -38,6 +40,27 @@
       </div>
     </nav>
 
+  <nav class="sm:hidden flex flex-col gap-2 h-full absolute bg-background-1" >
+      <a class="hover:bg-background-2 border p-2 rounded" href="../index.html">Home</a>
+      <a class="hover:bg-background-2 border p-2 rounded" href="../gpa/step1.html">GPA</a>
+      <a class="hover:bg-background-2 border p-2 rounded" href="../todo/to-do.html">Todo</a>
+      <a class="hover:bg-background-2 border p-2 rounded" href="../pass/index.html">Passwords</a>
+
+      <select id="theme-toggle-mobile" class="p-2 rounded hover:bg-background-2">
+          <option value="dark">Dark</option>
+          <option value="light">Light</option>
+          <option value="system">System</option>
+          <option value="rose-pine">Rosé Pine</option>
+          <option value="nord">Nord</option>
+          <option value="ehs">Eagles</option>
+          <option value="catpuccin">Catpuccin</option>
+        </select>
+      
+    </nav>
+    <br>
     <h1 class="text-4xl font-bold text-center">Lifelinee</h1>
+
+<!-- universal header * end copy here * -->    
+
   </body>
 </html>
