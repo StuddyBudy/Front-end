@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lifelinee</title>
+    <link href="/style.css" rel="stylesheet" />
+    <script defer src="/theme.js"></script>
+    <link rel="shortcut icon" href="/favicon.svg" type="image/x-icon" />
+    <script defer src="./main.js"></script>
+  </head>
+  <body class="bg-background-1 text-text">
+    <nav class="flex justify-between w-full shadow hidden sm:flex sticky mb-2">
+      <a class="p-2 rounded transition hover:bg-background-2" href="/index.html"
+        >Lifelinee</a
+      >
+
+      <div class="flex justify-around gap-x-2">
+        <a class="hover:bg-background-2 p-2 rounded" href="gpa/step1.html"
+          >GPA</a
+        >
+
+        <a class="hover:bg-background-2 p-2 rounded" href="todo/to-do.html">
+          Todo
+        </a>
+        <a class="hover:bg-background-2 p-2 rounded" href="pass/index.html">
+          Passwords
+        </a>
+
+        <select id="theme-toggle" class="p-2 rounded hover:bg-background-2">
+          <option value="dark">Dark</option>
+          <option value="light">Light</option>
+          <option value="system">System</option>
+          <option value="rose-pine">Rosé Pine</option>
+          <option value="nord">Nord</option>
+          <option value="ehs">Eagles</option>
+          <option value="catpuccin">Catpuccin</option>
+        </select>
+      </div>
+    </nav>
+
+    <div class="grid grid-cols-[4fr_1fr] gap-2">
+      <div class="grid">
+        <div id="panel" class="hidden">
+          <h1>Events</h1>
+        </div>
+        <div>
+          <div class="flex justify-between">
+            <span id="curr" class="text-3xl font-bold p-2">July 2025</span>
+            <span id="btns">
+              <button class="p-2 rounded bg-background-2 m-2">&lt;</button>
+              <button class="p-2 rounded bg-background-2 m-2">&gt;</button>
+            </span>
+          </div>
+          <div id="cal" class="grid grid-cols-7 gap-2"></div>
+        </div>
+      </div>
+      <div id="todos" class="bg-background-2">d</div>
+    </div>
+  </body>
+</html>
