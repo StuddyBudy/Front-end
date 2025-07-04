@@ -68,6 +68,7 @@ clearButt.onclick = () => {
       for (let i =0; i<= currentList.length; i++){
          data[currentList].splice(i);
       }
+      num=0;
       save();
       renderTasks();
 }
@@ -79,9 +80,55 @@ function renderTasks() {
   (data[currentList] || []).forEach((task, i) => {
     const li = document.createElement('li');
     li.className = 'task' + (task.completed ? ' completed' : '');
-    li.textContent = task.text;
+    li.className += "dark:bg-zinc-600 rounded p-2 flex justify-between ";
+
+    const text = document.createElement("span");
+    text.innerText = task.text;
+    text.className = "flex-1";
+    li.appendChild(text);
+
+    // Edit icon (hidden by default, shown on hover)
+    const editBtn = document.createElement('button');
+    editBtn.innerHTML = '✏️';
+    editBtn.className = 'edit-task opacity-0 group-hover:opacity-100 transition-opacity duration-200 ml-2';
+    editBtn.title = 'Edit task';
+    editBtn.onclick = function(e) {
+      e.stopPropagation();
+      // Create input for editing
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.value = task.text;
+      input.className = 'bg-transparent border-b border-zinc-400 outline-none flex-1';
+      input.style.minWidth = '0';
+      input.onkeydown = function(ev) {
+        if (ev.key === 'Enter') {
+          finishEdit();
+        } else if (ev.key === 'Escape') {
+          li.replaceChild(text, input);
+          li.replaceChild(editBtn, input.nextSibling);
+        }
+      };
+      input.onblur = finishEdit;
+      function finishEdit() {
+        const newText = input.value.trim();
+        if (newText) {
+          task.text = newText;
+          save();
+          renderTasks();
+        } else {
+          li.replaceChild(text, input); // Don't save empty
+          li.replaceChild(editBtn, input.nextSibling);
+        }
+      }
+      li.replaceChild(input, text);
+      li.replaceChild(document.createElement('span'), editBtn); // Hide edit icon while editing
+      input.focus();
+      input.select();
+    };
+    li.appendChild(editBtn);
+
     li.onclick = e => {
-      if (e.target.classList.contains('remove-task')) return;
+      if (e.target.classList.contains('remove-task') || e.target.classList.contains('edit-task') || e.target.tagName === 'INPUT') return;
       task.completed = !task.completed;
       save();
       renderTasks();

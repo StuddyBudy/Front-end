@@ -1,4 +1,9 @@
-function generatePassword(length,includeUppercase,includeNumbers,includeSymbols,) {
+function generatePassword(
+  length,
+  includeUppercase,
+  includeNumbers,
+  includeSymbols,
+) {
   const lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
   const uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   const numberChars = "0123456789";
@@ -30,30 +35,27 @@ function lenCheck(length) {
   //text.classList.remove("hidden");
 
   if (length >= 13) {
-    text.style.display="block";
+    text.style.display = "block";
     text.innerHTML = "Great Password!";
     text.style.backgroundColor = "#218838";
   } else if (length < 13 && length >= 9) {
-    text.style.display="block";
+    text.style.display = "block";
     text.innerHTML = "Weak Password";
     text.style.backgroundColor = "#F28048";
   } else if (length <= 8) {
-    text.style.display="block";
+    text.style.display = "block";
     text.innerHTML = "Bad Password";
     text.style.backgroundColor = "#750708";
   }
-    console.log("----");
-
+  console.log("----");
 }
 
-
-function logs(){
-//  for (let i=0; i>=20; i++){
+function logs() {
+  //  for (let i=0; i>=20; i++){
 
   conosle.log(" ----- ");
-//}
+  //}
 }
-
 
 //---------------------------------------------------------------------------------
 
@@ -69,10 +71,9 @@ document.getElementById("generate").addEventListener("click", () => {
     includeNumbers,
     includeSymbols,
   );
-  document.getElementById("password").value = generatedPassword;
+  document.getElementById("password").innerText = generatedPassword;
 
   lenCheck(length);
   //logs();
-  //navigator.clipboard.writeText(document.getElementById("password").innerText);
+  navigator.clipboard.writeText(document.getElementById("password").innerText);
 });
-

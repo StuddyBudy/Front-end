@@ -1,5 +1,64 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:where(.dark, .dark *));
+@theme {
+  --color-primary: #34d399;
+  --color-accent: #6ee7b7;
+  --color-text: #18181b;
+  --color-background-1: #f4f4f5;
+  --color-background-2: #d4d4d8;
+  --color-background-3: #a1a1aa;
+}
 
-@custom-variant ehs (&:where(.ehs, .ehs *));
+@layer theme {
+  [data-theme="dark"],
+  [data-theme="dark"] * {
+    --color-primary: #047857;
+    --color-accent: #059669;
+    --color-text: #f4f4f5;
+    --color-background-1: #3f3f46;
+    --color-background-2: #52525b;
+    --color-background-3: #71717a;
+  }
+
+  [data-theme="ehs"],
+  [data-theme="ehs"] * {
+    --color-primary: #f6c177;
+    --color-accent: #ea9d34;
+    --color-text: #e0def4;
+    --color-background-1: #9b090b;
+    --color-background-2: #be123c;
+    --color-background-3: #f43f5e;
+  }
+
+  [data-theme="nord"],
+  [data-theme="nord"] * {
+    --color-primary: #81a1c1;
+    --color-accent: #8fbcbb;
+    --color-text: #eceff4;
+    --color-background-1: #3b4252;
+    --color-background-2: #434c5e;
+    --color-background-3: #4c566a;
+  }
+
+  [data-theme="rose-pine"],
+  [data-theme="rose-pine"] * {
+    --color-primary: #c4a7e7;
+    --color-accent: #ea9a97;
+    --color-text: #e0def4;
+    --color-background-1: #232136;
+    --color-background-2: #2a273f;
+    --color-background-3: #393552;
+  }
+
+  [data-theme="catpuccin"],
+  [data-theme="catpuccin"] * {
+    --color-primary: #b7bdf8;
+    --color-accent: #7dc4e4;
+    --color-text: #cad3f5;
+    --color-background-1: #24273a;
+    --color-background-2: #363a4f;
+    --color-background-3: #494d64;
+  }
+
+  
+}
