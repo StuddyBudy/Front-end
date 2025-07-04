@@ -11,32 +11,74 @@
   </head>
   <body class="bg-background-1 text-text">
     <nav class="flex justify-between w-full shadow hidden sm:flex sticky mb-2">
-      <a class="p-2 rounded transition hover:bg-background-2" href="/index.html"
-        >Lifelinee</a
+      <a
+        class="p-2 rounded transition hover:bg-background-2"
+        href="../index.html"
+        >Home</a
       >
 
       <div class="flex justify-around gap-x-2">
-        <a class="hover:bg-background-2 p-2 rounded" href="gpa/step1.html"
+        <a class="hover:bg-background-2 p-2 rounded" href="../gpa/step1.html"
           >GPA</a
         >
+        <a class="hover:bg-background-2 p-2 rounded" href="../todo/to-do.html"
+          >Todo</a
+        >
+        <a class="hover:bg-background-2 p-2 rounded" href="../pass/index.html"
+          >Passwords</a
+        >
 
-        <a class="hover:bg-background-2 p-2 rounded" href="todo/to-do.html">
-          Todo
-        </a>
-        <a class="hover:bg-background-2 p-2 rounded" href="pass/index.html">
-          Passwords
-        </a>
-
-        <select id="theme-toggle" class="p-2 rounded hover:bg-background-2">
+        <select
+          id="theme-toggle-web"
+          class="bg-background-1 border p-2 rounded hover:bg-background-2"
+        >
+          <option disabled selected>Theme:</option>
+          <option value="system">System</option>
           <option value="dark">Dark</option>
           <option value="light">Light</option>
-          <option value="system">System</option>
           <option value="rose-pine">Rosé Pine</option>
           <option value="nord">Nord</option>
           <option value="ehs">Eagles</option>
           <option value="catpuccin">Catpuccin</option>
         </select>
       </div>
+    </nav>
+
+    <nav
+      class="sm:hidden flex flex-col shadow gap-2 h-full absolute bg-background-1"
+    >
+      <a class="hover:bg-background-2 border p-2 rounded" href="../index.html"
+        >Home</a
+      >
+      <a
+        class="hover:bg-background-2 border p-2 rounded"
+        href="../gpa/step1.html"
+        >GPA</a
+      >
+      <a
+        class="hover:bg-background-2 border p-2 rounded"
+        href="../todo/to-do.html"
+        >Todo</a
+      >
+      <a
+        class="hover:bg-background-2 border p-2 rounded"
+        href="../pass/index.html"
+        >Passwords</a
+      >
+
+      <select
+        id="theme-toggle-mobile"
+        class="bg-background-1 border p-2 rounded hover:bg-background-2"
+      >
+        <option disabled selected>Theme:</option>
+        <option value="system">System</option>
+        <option value="dark">Dark</option>
+        <option value="light">Light</option>
+        <option value="rose-pine">Rosé Pine</option>
+        <option value="nord">Nord</option>
+        <option value="ehs">Eagles</option>
+        <option value="catpuccin">Catpuccin</option>
+      </select>
     </nav>
 
     <div class="grid grid-cols-[4fr_1fr] gap-2">

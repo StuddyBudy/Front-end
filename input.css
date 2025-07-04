@@ -1,5 +1,16 @@
 @import "tailwindcss";
 
+nav a,
+nav select {
+  border: 2px solid transparent;
+  text-align: center;
+}
+nav a:hover,
+nav select:hover {
+  border: 2px solid #4f8cff;
+  transition: border 0.15s;
+}
+
 @theme {
   --color-button: #fef08a;
   --color-text: #18181b;
@@ -53,6 +64,4 @@
     --color-background-2: #363a4f;
     --color-background-3: #494d64;
   }
-
-  
 }
