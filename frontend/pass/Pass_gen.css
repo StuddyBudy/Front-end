@@ -1,8 +1,7 @@
 /* sets the css / styling for the overall body of the document  */
 
 body {
-   font-family: Verdana;
-  /* background-color: #9b090b*/;
+  /* background-color: #9b090b*/
    margin: 0;
    padding: 0;
    text-align: center;
