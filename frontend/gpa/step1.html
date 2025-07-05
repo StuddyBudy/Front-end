@@ -116,14 +116,13 @@
     <br><br>
 
     <!-- class num and max num -->
-    <p id="class_num1">0 out of 8 classes used </p>
-    <p id="class_num2">0 out of 8 classes used </p>
-    <p id="class_num3">0 out of 8 classes used </p>
-    <p id="class_num4">0 out of 8 classes used </p>
+    <p id="class_num">0 out of 8 classes used </p>
 
     <br>
 
     <h2 id="max_classes" style="display:none"> You have reached the Maximum amount of classes allowed! </h2>
+
+    <h2 id="errorMessage">  </h2>
 
     <!-- Clear data/storage buttons -->
     <button id="reset_data" onclick="clearLocalStorage()"> Reset Data </button>
@@ -149,15 +148,7 @@
                 <label for="subject"> Subject: </label>
                 <br>
                 <select name="subject" id="subject">
-
-              <option value="" disabled selected> Select a subject: </option>
-                    <option value="English">English</option>
-                    <option value="Math">Math</option>
-                    <option value="Science">Science</option>
-                    <option value="History">History</option>
-                    <option value="Health">Health</option>
-                    <option value="Gym">Gym</option>
-                    <option value="Electives">Electives</option>
+                    <option value="" disabled selected> Select your subject: </option>  
                 </select>
                 <br>
             </div>
@@ -169,24 +160,24 @@
                 <label for="elective"> Electives: </label> 
                 <br>
                 <select name="elective" id="elective">
-
-                    <option value="" disabled selected> Select your elective: </option> 
-                    <option value="Language" > Language </option>
-                    <option value="Comp_sci"> Computer Science </option>
-                    <option value="Family_Science"> Family / Consumer Science </option>
-                    <option value="Tech_Edu"> Technology Education </option>
-                    <option value="Visual_Arts"> Visual Arts </option>
-                    <option value="Perf_Arts"> Performing Arts </option>
-                    <option value="Science Electives"> Performing Arts </option>
-
-
-                    
+                    <option value="" disabled selected> Select your elective: </option>
+     
                     
                 </select>
                 <br>
             </div>
 
+            <!-- langauge dropdown menu -->
 
+            <div id="language_id" style = "display: none "> 
+
+                <label for="language"> Langauges: </label> 
+                <br>
+                <select name="language" id="language">
+                    <option value="" disabled selected> Select your language: </option>
+                </select>
+                <br>
+            </div>
            
 
             <!-- Course Level input -->
@@ -208,23 +199,7 @@
             </div>
 
             
-                        <!-- langauge dropdown menu -->
 
-                        <div id="language_id" style = "display: none "> 
-
-                            <label for="language"> Langauges: </label> 
-                            <br>
-                            <select name="language" id="language">
-            
-                                <option value="" disabled selected> Select your language: </option> 
-                                <option value="Spanish" > Spanish </option>
-                                <option value="French"> French </option>
-                                <option value="Italian"> Italian </option>
-                                <option value="Mandarin"> Mandarin </option>
-            
-                            </select>
-                            <br>
-                        </div>
 
             <!-- Course length  -->
 
@@ -265,294 +240,25 @@
 
 
 <!-- Table Centeral -->
+     <div class="table" style="display:none" id="miniTable">
+    </div>
  <!-- mp1 table -->
-    <div style="display:none" id="mp1_table">
-        <table>
-            <tr>
-                <th> # </th>
-                <th> Subject </th>
-                <th> Course Lv </th>
-                <th> Course Title </th>
-            </tr>
-            <tr>
-                <td> 1) </td>
-                <td id="1subject_1"></td>
-                <td id="1lv_1"> uno </td>
-                <td id="1title_1"></td>
-
-            </tr>
-            <tr>
-                <td> 2) </td>
-                <td id="1subject_2"></td>
-                <td id="1lv_2">  </td>
-                <td id="1title_2"></td>
-
-            </tr>
-            <tr>
-                <td > 3) </td>
-                <td id="1subject_3" > </td>
-                <td id="1lv_3"> </td>
-                <td id="1title_3"> </td>
-
-            </tr>
-            <tr>
-                <td > 4) </td>
-                <td id="1subject_4" > </td>
-                <td id="1lv_4"> </td>
-                <td id="1title_4"> </td>
-
-            </tr>
-            <tr>
-                <td > 5) </td>
-                <td id="1subject_5"> </td>
-                <td id="1lv_5"> </td>
-                <td id="1title_5"> </td>
-            </tr>
-            <tr>
-                <td > 6) </td>
-                <td id="1subject_6"> </td>
-                <td id="1lv_6"> </td>
-                <td id="1title_6"> </td>
-            </tr>
-            <tr>
-                <td > 7) </td>
-                <td id="1subject_7" > </td>
-                <td id="1lv_7"> </td>
-                <td id="1title_7"> </td>
-            </tr>
-            <tr>
-                <td > 8) </td>
-                <td id="1subject_8"> </td>
-                <td id="1lv_8"> </td>
-                <td id="1title_8"> </td>
-            </tr>
-        </table>
+    <div class="table" style="display:none" id="mp1_table">
     </div>
 
     <!-- mp2 table --> 
-    <div style="display:none" id="mp2_table">
-        <table>
-            <tr>
-                <th> # </th>
-                <th> Subject </th>
-                <th> Course Lv </th>
-                <th> Course Title </th>
-            </tr>
-            <tr>
-                <td> 1) </td>
-                <td id="2subject_1"></td>
-                <td id="2lv_1"> dos </td>
-                <td id="2title_1"></td>
-
-            </tr>
-            <tr>
-                <td> 2) </td>
-                <td id="2subject_2"></td>
-                <td id="2lv_2">  </td>
-                <td id="2title_2"></td>
-
-            </tr>
-            <tr>
-                <td > 3) </td>
-                <td id="2subject_3" > </td>
-                <td id="2lv_3"> </td>
-                <td id="2title_3"> </td>
-
-            </tr>
-            <tr>
-                <td > 4) </td>
-                <td id="2subject_4" > </td>
-                <td id="2lv_4"> </td>
-                <td id="2title_4"> </td>
-
-            </tr>
-            <tr>
-                <td > 5) </td>
-                <td id="2subject_5"> </td>
-                <td id="2lv_5"> </td>
-                <td id="2title_5"> </td>
-            </tr>
-            <tr>
-                <td > 6) </td>
-                <td id="2subject_6"> </td>
-                <td id="2lv_6"> </td>
-                <td id="2title_6"> </td>
-            </tr>
-            <tr>
-                <td > 7) </td>
-                <td id="2subject_7" > </td>
-                <td id="2lv_7"> </td>
-                <td id="2title_7"> </td>
-            </tr>
-            <tr>
-                <td > 8) </td>
-                <td id="2subject_8"> </td>
-                <td id="2lv_8"> </td>
-                <td id="2title_8"> </td>
-            </tr>
-        </table>
+    <div class="table" style="display:none" id="mp2_table">
     </div>
 
 
     <!-- mp3 table -->
-    <div style="display:none" id="mp3_table">
-        <table>
-            <tr>
-                <th> # </th>
-                <th> Subject </th>
-                <th> Course Lv </th>
-                <th> Course Title </th>
-            </tr>
-            <tr>
-                <td> 1) </td>
-                <td id="3subject_1"></td>
-                <td id="3lv_1"> tres </td>
-                <td id="3title_1"></td>
-
-            </tr>
-            <tr>
-                <td> 2) </td>
-                <td id="3subject_2"></td>
-                <td id="3lv_2">  </td>
-                <td id="3title_2"></td>
-
-            </tr>
-            <tr>
-                <td > 3) </td>
-                <td id="3subject_3" > </td>
-                <td id="3lv_3"> </td>
-                <td id="3title_3"> </td>
-
-            </tr>
-            <tr>
-                <td > 4) </td>
-                <td id="3subject_4" > </td>
-                <td id="3lv_4"> </td>
-                <td id="3title_4"> </td>
-
-            </tr>
-            <tr>
-                <td > 5) </td>
-                <td id="3subject_5"> </td>
-                <td id="3lv_5"> </td>
-                <td id="3title_5"> </td>
-            </tr>
-            <tr>
-                <td > 6) </td>
-                <td id="3subject_6"> </td>
-                <td id="3lv_6"> </td>
-                <td id="3title_6"> </td>
-            </tr>
-            <tr>
-                <td > 7) </td>
-                <td id="3subject_7" > </td>
-                <td id="3lv_7"> </td>
-                <td id="3title_7"> </td>
-            </tr>
-            <tr>
-                <td > 8) </td>
-                <td id="3subject_8"> </td>
-                <td id="3lv_8"> </td>
-                <td id="3title_8"> </td>
-            </tr>
-        </table>
+    <div class="table" style="display:none" id="mp3_table">
     </div>
 
 
     <!-- mp4 table -->
-    <div style="display:none" id="mp4_table">
-        <table>
-            <tr>
-                <th> # </th>
-                <th> Subject </th>
-                <th> Course Lv </th>
-                <th> Course Title </th>
-            </tr>
-            <tr>
-                <td> 1) </td>
-                <td id="4subject_1"></td>
-                <td id="4lv_1"> quatro </td>
-                <td id="4title_1"></td>
-
-            </tr>
-            <tr>
-                <td> 2) </td>
-                <td id="4subject_2"></td>
-                <td id="4lv_2">  </td>
-                <td id="4title_2"></td>
-
-            </tr>
-            <tr>
-                <td > 3) </td>
-                <td id="4subject_3" > </td>
-                <td id="4lv_3"> </td>
-                <td id="4title_3"> </td>
-
-            </tr>
-            <tr>
-                <td > 4) </td>
-                <td id="4subject_4" > </td>
-                <td id="4lv_4"> </td>
-                <td id="4title_4"> </td>
-
-            </tr>
-            <tr>
-                <td > 5) </td>
-                <td id="4subject_5"> </td>
-                <td id="4lv_5"> </td>
-                <td id="4title_5"> </td>
-            </tr>
-            <tr>
-                <td > 6) </td>
-                <td id="4subject_6"> </td>
-                <td id="4lv_6"> </td>
-                <td id="4title_6"> </td>
-            </tr>
-            <tr>
-                <td > 7) </td>
-                <td id="4subject_7" > </td>
-                <td id="4lv_7"> </td>
-                <td id="4title_7"> </td>
-            </tr>
-            <tr>
-                <td > 8) </td>
-                <td id="4subject_8"> </td>
-                <td id="4lv_8"> </td>
-                <td id="4title_8"> </td>
-            </tr>
-        </table>
+    <div class="table" style="display:none" id="mp4_table">
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 </div>
 
