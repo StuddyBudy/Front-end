@@ -1,4 +1,5 @@
-Welcome to StuddyBuddy! (not official name yet lmao)
+Welcome to Lifelinee!
 
 **STOP** Before you start editing, look at me!
-before and after updating code, please make sure to check / update the corresponding trello board 
+
+before **and** after updating or changing any code, please **make sure** to check / update the corresponding trello board with what you have done / in progress 
