@@ -13,6 +13,11 @@
 
 */
 //--------------------------------------------------------------------------------------------------------
+var courseLengthDescriptions = {
+    "Full": "Full Year Course",
+    "1mp": "One Marking Period Course",
+    "Sem": "Semester Course"
+}
 var subjectTitles_v2 = {
   "Regular": {
     "English": {
@@ -447,12 +452,6 @@ var sciCnt = 0;
 var num = 0;
 var mpNum = 0;
 
-
-var mpNum1 = 0;
-var mpNum2 = 0;
-var mpNum3 = 0;
-var mpNum4 = 0;
-
 var len ='';
 
 //courses info list
@@ -492,11 +491,10 @@ renderTable()
             elective_id.style.display = 'none';
             language_id.style.display = 'none';
         }
-        //lv_change(document.getElementById("subject").value);
         unhide2();
         populateLevels();
         populateTitles();
-        //title_change();
+        populateCourseLen();
     });
 
     // when the subject is changed, the course lv gets populated
@@ -505,7 +503,7 @@ renderTable()
         dropBg(y);
         populateLevels();
         populateTitles();
-        //title_change();
+        populateCourseLen();
 
     });
 
@@ -521,6 +519,7 @@ renderTable()
         dropBg(y);
         populateLevels();
         populateTitles();
+        populateCourseLen();
     });
 
     // when course level is changed, the bg gets changed
@@ -565,6 +564,9 @@ function getStorage(){
 // Renders Table for the Stored Subjects
 function renderTable(){
     mpNum = currentMpNum;
+    if (mpNum === 0) {
+        return; // If no marking period is selected, do not render the table
+    }
     console.log("MP Number: " + mpNum);
     miniTable = document.getElementById("miniTable");
     miniTable.innerHTML = "";
@@ -574,10 +576,10 @@ function renderTable(){
     // Create the table header
     tHead.innerHTML = `
     <th> # </th>
-    <th> Marking Period </th>
     <th> Subject </th>
     <th> Course Lv </th>
     <th> Course Title </th>
+    <th> Course Length </th>
     <th> Action </th>`;
     table.appendChild(tHead);
     const tBody = document.createElement("tbody");
@@ -587,10 +589,10 @@ function renderTable(){
         if (course.markingPeriod !== mpNum) return; // Only render courses for the selected marking period
         const row = document.createElement('tr');
         row.innerHTML = `<td>${++counter}</td>
-        <td>${course.markingPeriod}</td>
         <td>${course.subject}</td>
         <td>${course.level}</td>
         <td>${course.title}</td>
+        <td>${courseLengthDescriptions[course.course_length]}</td>
         <td><button id='removeButton'onclick = removeCourse(this)>Delete</button></td>`;
         tBody.appendChild(row);
     });
@@ -671,179 +673,6 @@ function dropBg(y){
 
 }
 
-//------------------------------------------------------------------------------------------------
-
-//changes the course lv depending on the subject
-//gets run when subject catagorey is touched
-function lv_change(subVal) {
-    lv_id = document.getElementById("course_lv");
-    len = document.getElementById("course_length").options;
-
-        //if health / gym, only standard is able to be selected
-        
-        if (subVal === "Health" || subVal === "Gym") { 
-
-            //changes the selected lv option to standard
-            lv_id.selectedIndex=1;
-            dropBg(lv_id);
-
-            //hides all lvs exept standard
-            for(var i=1;i<=5;i++){
-                lv_id.options[i].disabled = true;
-            }
-            lv_id.options[1].disabled = false;
-
-            //disables full yr and enables 1mp + sem
-            len[1].disabled=true;
-            len[2].disabled=false;
-            len[3].disabled=false;
-
-            elective_id.style.display = "none";
-
-        }
-        else {
-            lv_id.selectedIndex=0;
-            dropBg(lv_id);
-
-            for(var i=2;i<=5;i++){
-                lv_id.options[i].disabled = false;
-            }
-            lv_id.options[1].disabled = true;
-
-            len[1].disabled=false;
-            len[2].disabled=true;
-            len[3].disabled=true;
-
-        }
-
-
-       //if its electiives, display the elective column, otherwise nuh uhhhh
-        if (subVal==="Electives") {
-            elective_id.style.display = "block";
-            lv_id.options[2].disabled = true;
-        
-        }
-        else{
-            elective_id.style.display = "none";
-            document.getElementById("language_id").style.display="none";
-
-        } 
-
-        //resets the course titles 
-        subTit.innerHTML = '<option value="" disabled selected> Select your class: </option>';
- 
-    }
- 
- //------------------------------------------------------------------------------------------------
- 
- //changes the course options
- //gets run when subject's changed
-    function title_change(){ 
-
-        var selectedLv= document.getElementById("course_lv").value;
-        subVal = document.getElementById("subject").value;
-        len = document.getElementById("course_length").options;
-
-
-        //resets the course titles 
-        subTit.innerHTML = '<option value="" disabled selected> Select your class: </option>';
-        
-       if(subVal === "Electives"){
-          subVal = document.getElementById("elective").value;
-          console.log("elective selected "+subVal);
-
-            //enables all length
-            len[1].disabled=false;
-            len[2].disabled=false;
-            len[3].disabled=false;
-            course_lv[2].disabled=true; 
-
-
-
-            //disables honors & AP for tech edu
-            if (subVal === "Tech_Edu"){
-                
-                for(var i=0;i>=5;i++){
-                    course_lv[i].disabled=true;
-                 }
-              
-            
-            }
-
-                 //disables standard and honors
-            else if (subVal === "Visual_Arts"){
-                for(let i=3;i<=5;i++){
-                    course_lv[i].disabled=false;
-                }
-                course_lv[2].disabled=true;
-                course_lv[4].disabled=true;  }
-
-                //enables everything and put it back
-            else if (subVal !== "Visual_Arts" || subVal!=="Tech_Edu"|| subVal!=="Comp_sci"){
-                for(let i=3;i<=5;i++){
-                    course_lv[i].disabled=false; }   }
-
-
-    // if / when language is selected under elective, the langauge catagorey will be displayed
-            if (subVal === "Language"){
-                for(let i=3;i<=5;i++){
-                    course_lv[i].disabled=false;
-                }
-
-                document.getElementById("language_id").style.display="block";
-                subVal=document.getElementById("language").value;
-
-                //disables all exept full
-                len[1].disabled=false;
-                len[2].disabled=true;
-                len[3].disabled=true;               
-            }
- 
-    //otherwise hide lang and reset lv options 
-            else if (subVal !== "Language"){
-                for(let i=3;i<=5;i++){
-                    course_lv[i].disabled=false;   }
-
-                subVal = document.getElementById("elective").value;
-                document.getElementById("language_id").style.display="none";
-            }
-    
-        }
- 
-        //Finds what level the subject is at and helps set the course titles accordingly
-        if (selectedLv === "AP"){
-          subVal = subVal+"_AP";
- 
-        } 
-        else if (selectedLv === "Academic"){
-          subVal = subVal+"_2"
- 
-        }
-        else if (selectedLv === "Accelerated"){
-          subVal = subVal+"_1"
- 
-        }
-        else if (selectedLv === "Honors"){
-          subVal = subVal+"_H"
-        }
-        else if (selectedLv === "Standard"){
-            subVal=subVal;
-        }
-    //console.log("subVal: "+subVal);
-    //console.log("lvVal: "+lvVal);
- 
-        var titles = subjectTitles[subVal];
-        //console.log("Titles:", titles);
-        
-            for (var key in titles) {
-                var option = document.createElement("option");
-                option.value = key;
-                option.textContent = titles[key];
-                subTit.appendChild(option);
-            }
- 
-
-        }
 //--------------------------------------------------------------------------------------------------------
 // Populates the subjects dropdown based on the subjectTitles_v2 object
 // Gets called on page load to populate the subjects dropdown 
@@ -970,10 +799,42 @@ function populateTitles() {
     });
 }
 //--------------------------------------------------------------------------------------------------------
+function populateCourseLen() {
+var courseLenSelect = document.getElementById("course_length");
+var subVal = document.getElementById("subject").value;
+    courseLenSelect.innerHTML = '<option value="" disabled selected> Select the course length: </option>';
+    var courseLength
+    
+    // Check if the subject is Electives
+    if (subVal === "Electives") {
+        elective = document.getElementById("elective").value;
+        console.log(subjectTitles_v2["Electives"][elective]);
+        courseLengths = subjectTitles_v2["Electives"][elective]["Lengths"];
+    }
+    // If Language is selected...
+    else if (subVal === "Language") {
+        var langVal = document.getElementById("language").value;
+        console.log("Language selected: " + langVal);
+        console.log(subjectTitles_v2["Regular"]["Language"][lengthVal]);
+        courseLengths = subjectTitles_v2["Regular"]["Language"]["Lengths"];
+    } 
+    else {
+        courseLengths = subjectTitles_v2["Regular"][subVal]["Lengths"];
+    }
+    // Populate the languages dropdown
+    courseLengths.forEach(courselen => {
+        var option = document.createElement("option");
+        option.value = courselen;
+        option.textContent = courseLengthDescriptions[courselen]; // Replace underscores with spaces for display
+        courseLenSelect.appendChild(option);
+    });
+}
+
+//--------------------------------------------------------------------------------------------------------
     //Checks if the course was already selected
     function duplicateCheck(subject_title){
         stored.courses.forEach(course=>{
-            if (course.title == subject_title){
+            if (course.title == subject_title && course.markingPeriod == currentMpNum) {
                 throw Error("Course was already selected!!")
             }
         });
@@ -1002,16 +863,7 @@ function populateTitles() {
             // Calls function for checking if the course was already selected
             // If it was, an error will be thrown and caught in the catch block
             duplicateCheck(subject_title);
-    
-            //sets the corresponding row to the value - Not needed coz the table is rendered from Storage
-            /*
-            document.getElementById("subject_" + num).textContent = sub;
-            document.getElementById("title_" + num).textContent = tit;
-            document.getElementById("lv_" + num).textContent = lv;
-            */
-            // _ out of _ classes
-    
-            
+
             storing(subject,course_lv,course_length,subject_title);
             renderTable();
         }
@@ -1019,96 +871,7 @@ function populateTitles() {
         catch(err){
             document.getElementById("errorMessage").textContent = err.message
         }
-/*
-        len = document.getElementById("course_length").value;
-
-
-        classCntMath(len);
-
-        if(len=="Full"){
-     
-            num++;
-    
-            for(var i=1;i<=4;i++){
-                mpNum=i;
-                document.getElementById(mpNum+"subject_" + num).textContent = subVal;
-                document.getElementById(mpNum+"title_" + num).textContent = titVal;
-                document.getElementById(mpNum+"lv_" + num).textContent = lvVal;
-                
-                document.getElementById(mpNum+"lv_" + num).parentElement.addEventListener("click", () => {
-                    console.log("lv click");
-                });
-
-            }
-         }
-
-
-     if (mpNum1 >=8 || mpNum2 >=8 || mpNum3 >=8 || mpNum4 >=8 ){
-        document.getElementById("add_class").style.display = "none";
-        document.getElementById("max_classes").style.display = "inline";
-        document.getElementById("class_num").textContent ="8 out of 8 classes used in MP"+mpNum;
-
-     }
-       
-
-  
-//hide / disbables the user's choice to not allow duplicacitcy  
-
-    // fix it so depending on what subject is selcted, changes length disabled or enabled !!!!!
-    var sub = document.getElementById("subject");
-    var subIndex = document.getElementById("subject").selectedIndex;
-
-    //IF english, his, health, gym were used, disable it
-    if (subIndex==1||subIndex==4||subIndex==5||subIndex==6){
-        sub.options[sub.selectedIndex].disabled = true;
     }
-    //math
-    else if(subIndex==2){
-        mathCnt++;
-        console.log("meth= " + mathCnt);
-        if(mathCnt>=2){
-            sub.options[sub.selectedIndex].disabled = true;
-        }
-    }
-    //science
-    else if(subIndex==3){
-        sciCnt++;
-        console.log("sci= " + sciCnt);
-        if(sciCnt>=2){
-            sub.options[sub.selectedIndex].disabled = true;
-        }
-
-
-    }
- */
-
-    //storing(subVal,lvVal,titVal);
-
-
- }
-
-
-
-//--------------------------------------------------------------------------------------------------------
- /*
-
-    // Un-Hiding the table AND input prompts
-        //gets called when mp button being pressed
-     function unhideTable(mpNum) {
-
-        document.getElementById("options").style.display = "block";
-
-        //hides all tables and _/_ classes then unhides the one selected
-        for(var i=1;i<=4;i++){
-            document.getElementById("mp"+i+"_table").style.display = "none";
-            document.getElementById("class_num"+i).style.display = "none";
-        }
-        document.getElementById("mp"+mpNum+"_table").style.display = "block";
-        
-        
-         
-     }
-*/
 //--------------------------------------------------------------------------------------------------------
      //when add class is pressed
      function unhide2(){
@@ -1237,74 +1000,6 @@ function storing(subject, course_lv, course_length, subject_title) {
     console.log(course);
 }
  
- 
-//--------------------------------------------------------------------------------------------------------
-//checks to see what mp has been selected based on the table thats showing
-    function mpCheck(){
-        for (var i = 1; i <= 4; i++) {
-            var table = document.getElementById("mp" + i + "_table");
-            var displayStyle = window.getComputedStyle(table).display;
-
-            if (displayStyle == "block") {
-                mpNum = i;
-            }
-            
-        }
-        return mpNum;
-
-
-    }
-
-//--------------------------------------------------------------------------------------------------------
-    function classCntShow(){
-        mp = mpCheck();
-        console.log("num:"+mp);
-
-        document.getElementById("class_num1").style.display="block";
-
-
-        //hides all then spits out the right mp class cnt
-        /*
-        for (let i=1; i >=4; i++){
-            document.getElementById("class_num"+i).style.display="none";
-        }
-*/
-    }
-
-//------------------------------------------------------------------------------
-
-//changes the class cnt and displays the corresponding one
-//gets called in input function
-    function classCntMath(len){
-
-        var n=mpCheck();
-/*
-        var cln="class_num"+n;
-        var test=mpNum+n;
-
-        console.log("cln: "+cln);
-        console.log("test: "+test);
-*/
-        if (len=="Full"){
-            mpNum1++;
-            mpNum2++;
-            mpNum3++;
-            mpNum4++;
-
-            document.getElementById("class_num1").textContent = mpNum1 + " out of 8 classes used";
-            document.getElementById("class_num2").textContent = mpNum2 + " out of 8 classes used";                   
-            document.getElementById("class_num3").textContent = mpNum3 + " out of 8 classes used";                   
-            document.getElementById("class_num4").textContent = mpNum4 + " out of 8 classes used";                   
-
-        }
-        
-        else if (len=="1mp"){
-            //document.getElementById(cln.textContent = mpNum+n )
-        }
-
-        
-
-    }
 //------------------------------------------------------------------------------
 
 
