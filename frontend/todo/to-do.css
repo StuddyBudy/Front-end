@@ -1,5 +1,4 @@
 body {
-      font-family: 'Inter';
       margin: 0;
       min-height: 100vh;
       justify-content: left;
@@ -194,3 +193,18 @@ body {
     .clear:hover{
       background-color: #ab3326;
     }
+    .tasks li {
+  position: relative;
+}
+.edit-task {
+  opacity: 0;
+  transition: opacity 0.2s;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+.tasks li:hover .edit-task,
+.tasks li:focus-within .edit-task {
+  opacity: 1;
+}

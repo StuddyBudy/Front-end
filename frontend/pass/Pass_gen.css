@@ -1,8 +1,7 @@
 /* sets the css / styling for the overall body of the document  */
 
 body {
-   font-family: Verdana;
-  /* background-color: #9b090b*/;
+  /* background-color: #9b090b*/
    margin: 0;
    padding: 0;
    text-align: center;
@@ -61,8 +60,10 @@ input[type="checkbox"] {
 button {
    width: 100%;
    padding: 10px;
+   /*
    background-color: #FFD700;
    color: white;
+   */
    border: none;
    border-radius: 4px;
    cursor: pointer;
@@ -70,11 +71,12 @@ button {
    font-family: Verdana;
 }
 /* when you hover over any button, this happens */
+/*
 button:hover {
    background-color: bisque;
    color: black
 }
-
+*/
 /* chanes the styling  */
 #password{
    margin-top: 5px;
@@ -87,13 +89,6 @@ button:hover {
    /*color:black !important;*/
    font-size: 18px !important;
 }
-
-
-
-
-
-
-
 
 
 
