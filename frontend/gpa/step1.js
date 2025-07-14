@@ -1,18 +1,3 @@
-/*
-
-    version (may 11) - robert
-
-    - fixed the alert system if input was left empty
-    - titleChange function gets called when subject dropdown menus is changed so if the user 
-        wants to be an incompitent asshole and fillout the inputs from reverse, it works
-    - fixed / condenced all the mp button mayehm (went from 90 lines of 4 buttons to 10 lines and 1 function)
-
-    - a
-
-
-
-*/
-
 //variables----------------------------------------------------------------------
 
 var subVal = document.getElementById("subject").value;
@@ -27,22 +12,16 @@ var subTit = document.getElementById("subject_title");
 var lang = document.getElementById("language");
 var len1 = document.getElementById("course_length");
 
-
-
-
 var lv_id = document.getElementById("course_lv_id");
 var sub_id = document.getElementById("subject_id");
 var tit_id = document.getElementById("title_id");
 var elective_id = document.getElementById("elective_id");
 
-
 var mathCnt = 0;
 var sciCnt = 0;
 
-
 var num = 0;
 var mpNum = 0;
-
 
 var mpNum1 = 0;
 var mpNum2 = 0;
@@ -92,7 +71,10 @@ var len ='';
     //when course/elective/lang is changes, the title dropdown function runs and options get changed
     document.getElementById('course_lv_id','elective_id','language_id').addEventListener('change', title_change);
 
-// Functions -------------------------------------------------------------------------------
+// ----------------------- Functions -------------------------------------------------------------------------------
+
+
+
 
 //changes the bg, unhides the corresponding table, unhides mp cnt
 //gets called when mp button is pressed
@@ -102,8 +84,6 @@ function mpButts(mpNum){
     document.getElementById("class_num"+mpNum).style.display="block";
     document.getElementById("mpSel").textContent=" You are now editing mp"+mpNum;
     document.getElementById("mpSel").style.display="block";
-
-
 }
 
 //------------------------------------------------------------------------------------------------
@@ -111,10 +91,17 @@ function mpButts(mpNum){
 // when the mp button is clicked, the corresponding button will change bg color
 // gets called in mpButts
 function bg(mpNum){
+
+//staying as a commenting section as of rn (7/13), used to hard code the bg
+//---of the mp buttons when clicked on, soft coding it by changing the individual
+//--- colors in #input.css
+
+    /*
     for (var i=1;i<=4;i++){
-        document.getElementById("mp"+i).style="background-color: #FEA1A1;"
+        document.getElementById("mp"+i).style="background-color: #ffd04f"
     }
-    document.getElementById("mp"+mpNum).style="background-color: #D18585;"
+    document.getElementById("mp"+mpNum).style="background-color: #d8ad36";
+    */
 
 }
 
@@ -1159,7 +1146,4 @@ var subjectTitles = {
 
     }
  
-
-
-
 

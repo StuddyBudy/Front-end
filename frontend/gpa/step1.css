@@ -1,30 +1,10 @@
-/*
-@import "tailwindcss";
-@theme {
-  --color-mint-500: oklch(0.72 0.11 178);
-  --color-ehs
-}
-*/
-
-
-    /*--color-ehs: #9b090b;*/
-  
 body{
   margin: 0;
 }
 
-/*.headerTitle - THIS IS THE SKELETON OF THE BACKGROUND WITH THE FORMAT*/
-
-.headerTitle{
- background: #FFD700;
- color: #FFD700;
-
-}
-
-
 /* title (ehs gpa calc) */
-  h1,h4 {
-    color: #FFD700;
+  h1,h5 {
+     
     font-family: Verdana;
     margin: 0;
     margin-left: 10px;
@@ -38,15 +18,15 @@ body{
     font-size: 26px; 
     margin: 5px; 
     font-family: Verdana; 
-    color: #FFD700; 
-    text-align: center
+      
+    text-align: center;
   }
 
 /* dropdown menus title (all) */
   label{
     font-size: 20px;
     font-family: Verdana;
-    color: #FFD700;
+     
     text-align: center;
   }
 
@@ -55,75 +35,43 @@ body{
     border:solid 1px gainsboro
   }
 
-
 #options{
   text-align: center; 
   display:none;
 }
 
- 
- 
- /* hr {
-  position: absolute;
-  top: 100px;
-  left: 50px;
-  }
- */
- 
 /*            ------            Buttons !                -----                      */
 
  /* all buttons */
  button{
   cursor: pointer;
   font-family: Verdana;
-  /*background-color: #9b090b;
-  height:30px;
-  width: 250px;
-  border-radius: 30px;
-  border: #fafafa;
-  */
 }
 
- #home,#help,#next_pg,#reset_data,#clear_table{
+ #home,#next_pg,#reset_data,#clear_table, #submit{
   height: 55px; 
   width:200px; 
   margin: 10px;
-  background-color: #FEA1A1;
   font-size: 20px;
   font-family: Verdana;
-  color: #000;
   border-radius: 30px;
  }
 
- #submit_butt{
-  padding-left: 1.25%;
-  width:200px;
+ #clear_table{
+  color: var(--color-button);
+ }
 
-  display: flex;
-  text-align: center;
-
-
-
-}
-  #home,#help{
-    height: 60px;
-    width: 105px;
-    font-size: 16px;
-
-    border-radius: 90% 50%;
-
-  }
- 
   
   #add_class{
     font-size: 20px;
-    width: 400px;
+    width: 350px;
     height: 80px;
-    background-color: bisque;
     font-family: 'Lucida Sans Unicode';
     display: inline;
     border-radius: 30px;
-
+    color: var(--color-button);
+    border-width: 3px;
+    border-style: solid;
   }
   
   
@@ -158,13 +106,11 @@ body{
   text-align: center;
   font-size: 16px;
   color: black ;
+  border: 30px;
+  border-radius: 30px;
   }
   
 
-
-
-
-  
 
   .container {
     display: flex;
@@ -181,10 +127,11 @@ body{
 
     flex: 1;
     margin-right: 20px;
-
+    border: 30px;
+    border-radius: 30px;
   }
   table {
-    color: #FFD700;
+     
     flex: 1;
     margin: 20px;
   }
@@ -234,8 +181,7 @@ body{
     border: var(--border-size) solid var(--white_outline);
     border-radius: 30px;
 
-
-    transition: top,left,right,bottom, 300ms ease-in-out;
+    transition: top,left,right,bottom, 300ms  ;
 
  }
  .butt.mp1:hover::before,
@@ -244,6 +190,7 @@ body{
     left: calc(var(--border-size)*-2);
     right: calc(var(--border-size)*-2);
     bottom: calc(var(--border-size)*-2);
+    background-color: var(--button-hover);
 
  }
 /* ----------------------------------------------------------------------------*/
@@ -260,8 +207,7 @@ body{
     border: var(--border-size) solid var(--white_outline);
     border-radius: 30px;
 
-
-    transition: top,left,right,bottom, 300ms ease-in-out;
+    transition: top,left,right,bottom, 300ms  ;
 
  }
  .butt.mp2:hover::before,
@@ -270,6 +216,7 @@ body{
     left: calc(var(--border-size)*-2);
     right: calc(var(--border-size)*-2);
     bottom: calc(var(--border-size)*-2);
+    background-color: var(--button-hover);
 
  }
 /* ----------------------------------------------------------------------------*/
@@ -286,8 +233,7 @@ body{
     border: var(--border-size) solid var(--white_outline);
     border-radius: 30px;
 
-
-    transition: top,left,right,bottom, 300ms ease-in-out;
+    transition: top,left,right,bottom, 300ms  ;
 
  }
  .butt.mp3:hover::before,
@@ -296,6 +242,7 @@ body{
     left: calc(var(--border-size)*-2);
     right: calc(var(--border-size)*-2);
     bottom: calc(var(--border-size)*-2);
+    background-color: var(--button-hover);
 
  }
 
@@ -313,8 +260,7 @@ body{
     border: var(--border-size) solid var(--white_outline);
     border-radius: 30px;
 
-
-    transition: top,left,right,bottom, 300ms ease-in-out;
+    transition: top,left,right,bottom, 300ms ;
 
  }
  .butt.mp4:hover::before,
@@ -323,16 +269,8 @@ body{
     left: calc(var(--border-size)*-2);
     right: calc(var(--border-size)*-2);
     bottom: calc(var(--border-size)*-2);
-    background-color: #9b090b;
+    background-color: var(--button-hover);
 
  }
- .butt.mp1:hover,
- .butt.mp2:hover,
- .butt.mp3:hover,
- .butt.mp4:hover{
-  /*background-color: #C5C6D0;*/
-  background-color: #D18585; 
 
-  
 
- }

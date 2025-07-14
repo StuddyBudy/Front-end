@@ -1,3 +1,5 @@
+cal\main.js
+
 const cal = document.getElementById("cal");
 const todos = document.getElementById("todos");
 const curr = document.getElementById("curr");
@@ -13,13 +15,13 @@ function renderCal(month, year) {
   cal.replaceChildren();
 
   [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
+    "Sun",
+    "Mon",
+    "Tue",
+    "Wed",
+    "Thu",
+    "Fri",
+    "Sat",
   ].forEach((element) => {
     const day = document.createElement("span");
     day.className = "p-2 font-bold text-center border-b";

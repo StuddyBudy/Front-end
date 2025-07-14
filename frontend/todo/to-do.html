@@ -1,3 +1,5 @@
+to-do.html
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,15 +64,19 @@
 
 
 <!-- to-do -->
+ <br>
+ <hr>
+ <br>
+
     <div class="grid place-content-center">
       <div class="rounded m-2 flex border">
-        <aside class="sidebar bg-zinc-200 dark:bg-zinc-600">
+        <aside class="sidebar bg-background-2 shadow">
           <h2>Lists</h2>
           <div class="lists" id="lists"></div>
           <button class="add-list-btn" id="add-list-btn">+ New List</button>
         </aside>
 
-        <main class="main">
+        <main class="main bg-background-2 shadow">
           <h1 id="list-title">To-Do</h1>
           <form class="add-task" id="add-task-form" autocomplete="off">
             <input
@@ -81,7 +87,7 @@
             />
             <button type="submit">Add</button>
           </form>
-          <ul class="tasks dark:bg-zinc-600 dark:hover:zinc-600 " id="tasks"></ul>
+          <ul class="tasks" id="tasks"></ul>
           <button class="clear" id="clear-all-btn">Clear all</button>
         </main>
       </div>

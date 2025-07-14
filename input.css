@@ -1,3 +1,7 @@
+input.css
+
+
+
 @import "tailwindcss";
 
 nav a,
@@ -10,9 +14,9 @@ nav select:hover {
   border: 2px solid #4f8cff;
   transition: border 0.15s;
 }
-
+/* theme / light mode / standard  */
 @theme {
-  --color-button: #fef08a;
+  --color-button: #d4d4d8;
   --color-text: #18181b;
   --color-background-1: #f4f4f5;
   --color-background-2: #d4d4d8;
@@ -22,26 +26,26 @@ nav select:hover {
 @layer theme {
   [data-theme="dark"],
   [data-theme="dark"] * {
-    --color-button: #854d0e;
-    --color-text: #f4f4f5;
-    --color-background-1: #3f3f46;
-    --color-background-2: #52525b;
+    --color-button: #92E4FE;
+    --color-text: #dadae8;
+    --color-background-1: #2a2a2e;
+    --color-background-2: #1a1a1c;
     --color-background-3: #71717a;
   }
 
   [data-theme="ehs"],
   [data-theme="ehs"] * {
-    --color-button: #b45309;
-    --color-text: #e0def4;
+    --color-button: #ffd04f;
+    --color-text: #FFD700;
     --color-background-1: #9b090b;
-    --color-background-2: #be123c;
+    --color-background-2: #80080a;
     --color-background-3: #f43f5e;
   }
 
   [data-theme="nord"],
   [data-theme="nord"] * {
-    --color-button: #5e81ac;
-    --color-text: #eceff4;
+    --color-button: #7292eb;
+    --color-text: #7cdfec;
     --color-background-1: #3b4252;
     --color-background-2: #434c5e;
     --color-background-3: #4c566a;
@@ -49,19 +53,43 @@ nav select:hover {
 
   [data-theme="rose-pine"],
   [data-theme="rose-pine"] * {
-    --color-button: #31748f;
-    --color-text: #e0def4;
-    --color-background-1: #232136;
-    --color-background-2: #2a273f;
+    --color-button: #ea9a97;
+    /* #9ccfd8
+    iris/light purple - c4a7e7
+    foam/light blue - #9ccfd8
+    pink - f38ca9
+    gold - f6c177
+    
+    */
+    --color-text: #eb6f92;
+    --color-background-1: #2a273f;
+    --color-background-2: #211e35;
     --color-background-3: #393552;
   }
 
   [data-theme="catpuccin"],
   [data-theme="catpuccin"] * {
-    --color-button: #1e66f5;
-    --color-text: #cad3f5;
+    --color-button: #1e89f5;
+    /* 1e89f5 */
+    --color-text: #1ea3f5;
     --color-background-1: #24273a;
     --color-background-2: #363a4f;
     --color-background-3: #494d64;
   }
-}
+
+
+  [data-theme="starry"],
+  [data-theme="starry"] * {
+    --color-button: #f38ca9;
+    --color-text: #f6c177;
+    --color-background-1: #262243;
+    --color-background-2: rgb(32, 29, 48);
+    --color-background-3: #393552;
+  }
+
+
+
+
+
+
+} 
