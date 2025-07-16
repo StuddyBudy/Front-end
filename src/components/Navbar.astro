@@ -6,7 +6,7 @@
     <a class="hover:bg-background-2 rounded p-2 transition" href="/">Home</a>
 
     <div class="flex justify-around gap-x-2">
-        <a class="hover:bg-background-2 rounded border p-2" href="/gpa">GPA</a>
+        <a class="hover:bg-background-2 rounded border p-2" href="/gpa/step1">GPA</a>
         <a class="hover:bg-background-2 rounded border p-2" href="/todo">Todo</a>
         <a class="hover:bg-background-2 rounded border p-2" href="/cal">Calendar</a>
         <a class="hover:bg-background-2 rounded border p-2" href="/pass">Passwords</a>
@@ -26,7 +26,7 @@
 
 <nav class="bg-background-1 absolute flex h-full flex-col gap-2 shadow sm:hidden">
     <a class="hover:bg-background-2 rounded border p-2" href="/">Home</a>
-    <a class="hover:bg-background-2 rounded border p-2" href="/gpa">GPA</a>
+    <a class="hover:bg-background-2 rounded border p-2" href="/gpa/step1">GPA</a>
     <a class="hover:bg-background-2 rounded border p-2" href="/todo">Todo</a>
     <a class="hover:bg-background-2 rounded border p-2" href="/cal">Calendar</a>
     <a class="hover:bg-background-2 rounded border p-2" href="/pass">Passwords</a>
@@ -44,17 +44,21 @@
 </nav>
 
 <script>
-    const web = document.getElementById("theme-toggle-web");
-    const mobile = document.getElementById("theme-toggle-mobile");
+    const web = document.getElementById("theme-toggle-web") as HTMLSelectElement;
+    const mobile = document.getElementById("theme-toggle-mobile") as HTMLSelectElement;
     const savedTheme = localStorage.theme || "system";
 
-    web.value = savedTheme;
-    mobile.value = savedTheme;
+    if (!web || !mobile) {
+        console.error("Theme toggle elements not found.");
+    } else {
+        web.value = savedTheme;
+        mobile.value = savedTheme;
+    }
 
-    function updateTheme(e) {
+    function updateTheme(e: Event) {
         let value = savedTheme;
         if (e && e.target) {
-            value = e.target.value;
+            value = (e.target as HTMLSelectElement).value;
         } else {
             value = web.value;
         }
@@ -77,5 +81,5 @@
     web.addEventListener("change", updateTheme);
     mobile.addEventListener("change", updateTheme);
 
-    updateTheme();
+    updateTheme(null as any);
 </script>

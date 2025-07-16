@@ -1,0 +1,374 @@
+---
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout title="Lifeline | GPA Calculator - Step 2">
+    <!-- Title -->
+    <div class="title">
+        <h1 style="font-size: 42.5px; font-family: Georgia;">EHS GPA Calculator</h1>
+        <h4 style="font-size: 25px;">Step 2/3</h4>
+        <h4 style="font-size: 18px;">Next, we need you to input your assignments:</h4>
+    </div>
+
+    <hr />
+
+    <!-- Top buttons -->
+    <div style="text-align: center;">
+        <a href="home.html">
+            <button id="home"> Home </button>
+        </a>
+        <button id="help"> Help/FAQ </button>
+    </div>
+
+    <!-- Add assignment button -->
+    <div style="text-align: center;">
+        <button id="add_class" onclick="unhidden()" style="display: inline;"> Add assignment </button>
+        <br /><br />
+
+        <!-- Clear data/storage buttons -->
+        <button onclick="clearLocalStorage()"> Reset Data </button>
+        <br />
+        <button onclick="clearTable()"> Clear Table </button>
+    </div>
+
+    <br /><br />
+    <hr />
+
+    <!-- Input Fields -->
+    <div class="container">
+        <div class="inputs" id="input_id" style="display:none;">
+            <!-- (#1) Subject input -->
+            <label for="subject"> Subject: </label>
+            <select name="subject" id="subject" onchange="showHide()">
+                <option value="" disabled selected>Select a subject</option>
+                <option value="english"> English </option>
+                <option value="math"> Math </option>
+                <option value="science"> Science </option>
+                <option value="history"> History </option>
+                <option value="health"> Health </option>
+                <option value="gym"> Gym </option>
+                <option value="elective"> Elective </option>
+                <option value="lang"> Language </option>
+            </select>
+            <br />
+
+            <!-- (#2) English Category input -->
+            <div id="english" style="display: none;">
+                <label for="english_Category"> Category: </label>
+                <select name="english_Category" id="english_Category">
+                    <option value="" disabled selected> Select an option </option>
+                    <option value="english_Tests">Essays, Tests, Projects - 45%</option>
+                    <option value="english_Quizzes">Quizzes, Short Writings - 10%</option>
+                    <option value="english_Cw/hw">CW/HW - 10%</option>
+                    <option value="english_Quarterly">Quarterly Exams - 10%</option>
+                </select>
+                <br />
+            </div>
+
+            <!-- (#3) Math Category input -->
+            <div id="math" style="display: none;">
+                <label for="math_Category"> Category: </label>
+                <select name="math_Category" id="math_Category">
+                    <option value="" disabled selected> Select an option </option>
+                    <option value="math_Tests"> Major assessments - 50% </option>
+                    <option value="math_Quizzes"> Minor assessments - 45% </option>
+                    <option value="math_Cw/hw"> Extended Learning Activities (HW) - 5% </option>
+                </select>
+                <br />
+            </div>
+
+            <!-- (#4) Science Category input -->
+            <div id="science" style="display: none;">
+                <label for="science_Category"> Category: </label>
+                <select name="science_Category" id="science_Category">
+                    <option value="" disabled selected> Select an option </option>
+                    <option value="science_Tests"> Test / Major assessment - 35% </option>
+                    <option value="science_Quizzes"> Quizzes - 25% </option>
+                    <option value="science_Cw/hw"> CW/HW - 10% </option>
+                    <option value="science_Labs"> Labs, Perf_Asses - 30% </option>
+                </select>
+                <br />
+            </div>
+
+            <!-- (#4) History Category input -->
+            <div id="history" style="display: none;">
+                <label for="history_Category"> Category: </label>
+                <select name="history_Category" id="history_Category">
+                    <option value="" disabled selected> Select an option </option>
+                    <option value="history_Cw/hw"> CW/HW - 20% </option>
+                    <option value="history_Quizzes"> Quizzes - 20% </option>
+                    <option value="history_Tests"> Tests - 30% </option>
+                    <option value="history_Research"> Research, Read, Write, Present - 30% </option>
+                </select>
+                <br />
+            </div>
+
+            <!-- (#5) Health Category input -->
+            <div id="health" style="display: none;">
+                <label for="health_Category"> Category: </label>
+                <select name="health_Category" id="health_Category">
+                    <option value="" disabled selected> Select an option </option>
+                    <option value="health_Major"> Major assessments - 40% </option>
+                    <option value="health_Minor"> Minor assessments - 30% </option>
+                    <option value="health_Cw"> Classwork - 20% </option>
+                    <option value="health_Hw"> Extended Learning Activities (HW) - 10% </option>
+                </select>
+                <br />
+            </div>
+
+            <!-- (#6) Gym Category input -->
+            <div id="gym" style="display: none;">
+                <label for="gym_Category"> Category: </label>
+                <select name="gym_Category" id="gym_Category">
+                    <option value="" disabled selected> Select an option </option>
+                    <option value="gym_Perf"> Participation Part Performance - 100% </option>
+                </select>
+                <br />
+            </div>
+
+            <!-- (#7) Elective Category Input -->
+            <div id="elective" style="display: none;">
+                <label for="elective_Category"> Category: </label>
+                <select name="elective_Category" id="elective_Category">
+                    <option value="" disabled selected> Select an option </option>
+                    <option value="elective_Interpretive"> Interpretive Tasks - 25% </option>
+                    <option value="elective_Presentational"> Presentational - 25% </option>
+                    <option value="elective_Classwork"> Classwork - 25% </option>
+                    <option value="elective_Mini_Assessments"> Mini Assessments - 25% </option>
+                </select>
+                <br />
+            </div>
+
+            <!-- (#8) Language Category input -->
+            <div id="lang" style="display: none;">
+                <label for="lang_Category"> Category: </label>
+                <select name="lang_Category" id="lang_Category">
+                    <option value="" disabled selected> Select an option </option>
+                    <option value="lang_Interpretive"> Interpretive Tasks - 25% </option>
+                    <option value="lang_Presentational"> Presentational - 25% </option>
+                    <option value="lang_Classwork"> Classwork - 25% </option>
+                    <option value="lang_Mini_Assessments"> Mini Assessments - 25% </option>
+                </select>
+                <br />
+            </div>
+
+            <!-- Assignment input -->
+            <label for="subject_title"> Assignment Name: </label>
+            <input id="subject_title" type="text" placeholder="Ex: Polynomials Test, Oedipus hunt " />
+            <br />
+
+            <!-- Grade decimal input -->
+            <div id="grade_cont" style="display:none">
+                <label for="ass_grade"> Grade recieved: (in decimal form) </label>
+                <input type="number" id="ass_grade" name="ass_grade" min="0" max="100" />
+            </div>
+
+            <!-- Submit button -->
+            <button id="submit" onclick="input(); hide(); newRow()"> Submit </button>
+
+            <!-- input closing div -->
+        </div>
+        <!-- container div -->
+    </div>
+
+    <!-- Table Central -->
+
+    <!-- English table-->
+    <br />
+    <div class="English" style="display:none;" id="english_table">
+        <table>
+            <tr>
+                <th> # </th>
+                <th> Subject </th>
+                <th> Category </th>
+                <th> Assignment Name </th>
+                <th> Grade </th>
+            </tr>
+            <tr>
+                <td> 1) </td>
+                <td id="subject_1"></td>
+                <td id="category_1"></td>
+                <td id="assignment_1"> </td>
+                <td id="grade_1"> </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Math table -->
+    <br />
+    <div class="Math" style="display:none;" id="math_table">
+        <table>
+            <tr>
+                <th> # </th>
+                <th> Subject </th>
+                <th> Category </th>
+                <th> Assignment Name </th>
+                <th> Grade </th>
+            </tr>
+            <tr>
+                <td> 1) </td>
+                <td id="subject_1"></td>
+                <td id="category_1"></td>
+                <td id="assignment_1"> </td>
+                <td id="grade_1"> </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Science Table -->
+    <br />
+    <div class="Science" style="display:none;" id="science_table">
+        <table>
+            <tr>
+                <th> # </th>
+                <th> Subject </th>
+                <th> Category </th>
+                <th> Assignment Name </th>
+                <th> Grade </th>
+            </tr>
+            <tr>
+                <td> 1) </td>
+                <td id="subject_1"></td>
+                <td id="category_1"></td>
+                <td id="assignment_1"> </td>
+                <td id="grade_1"> </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- History Table -->
+    <br />
+    <div class="History" style="display:none;" id="history_table">
+        <table>
+            <tr>
+                <th> # </th>
+                <th> Subject </th>
+                <th> Category </th>
+                <th> Assignment Name </th>
+                <th> Grade </th>
+            </tr>
+            <tr>
+                <td> 1) </td>
+                <td id="subject_1"></td>
+                <td id="category_1"></td>
+                <td id="assignment_1"> </td>
+                <td id="grade_1"> </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Health Table -->
+    <br />
+    <div class="Health" style="display:none;" id="health_table">
+        <table>
+            <tr>
+                <th> # </th>
+                <th> Subject </th>
+                <th> Category </th>
+                <th> Assignment Name </th>
+                <th> Grade </th>
+            </tr>
+
+            <tr>
+                <td> 1) </td>
+                <td id="subject_1"></td>
+                <td id="category_1"></td>
+                <td id="assignment_1"> </td>
+                <td id="grade_1"> </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Gym Table -->
+    <br />
+    <div class="Gym" style="display:none;" id="gym_table">
+        <table>
+            <tr>
+                <th> # </th>
+                <th> Subject </th>
+                <th> Category </th>
+                <th> Assignment Name </th>
+                <th> Grade </th>
+            </tr>
+            <tr>
+                <td> 1) </td>
+                <td id="subject_1"></td>
+                <td id="category_1"></td>
+                <td id="assignment_1"> </td>
+                <td id="grade_1"> </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Elective table -->
+    <br />
+    <div class="Elective" style="display:none;" id="elective_table">
+        <table>
+            <tr>
+                <th> # </th>
+                <th> Subject </th>
+                <th> Category </th>
+                <th> Assignment Name </th>
+                <th> Grade </th>
+            </tr>
+            <tr>
+                <td> 1) </td>
+                <td id="subject_1"></td>
+                <td id="category_1"></td>
+                <td id="assignment_1"> </td>
+                <td id="grade_1"> </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Language table -->
+    <br />
+    <div class="Elective" style="display:none;" id="lang_table">
+        <table>
+            <tr>
+                <th> # </th>
+                <th> Subject </th>
+                <th> Category </th>
+                <th> Assignment Name </th>
+                <th> Grade </th>
+            </tr>
+            <tr>
+                <td> 1) </td>
+                <td id="subject_1"></td>
+                <td id="category_1"></td>
+                <td id="assignment_1"> </td>
+                <td id="grade_1"> </td>
+            </tr>
+        </table>
+    </div>
+
+    <br /><br /><br /><br /><br /><br /><br /><br /><br />
+
+    <h2 style="text-align: center;">Dev Tools</h2>
+    <hr />
+
+    <button onclick="mere()"> Display all catagories </button>
+    <br />
+    <button onclick="tables()"> Display all tables </button>
+    <br />
+    <br />
+
+    <button onclick="hideCats()"> Hides all Catagories </button><br />
+    <button onclick="hideTables()"> Hide all Tables </button>
+    <br /><br /><br />
+
+    <button onclick="storage_into_array()"> storage pasting testing lol </button>
+    <br /><br /><br /><br />
+
+    <!-- JavaScript -->
+    <script>
+        import "../../scripts/gpa/step2.js";
+    </script>
+
+    <!-- Previous page -->
+    <hr />
+    <a href="step1.html">
+        <button> Previous Page </button>
+    </a>
+    <br /><br /><br /><br /><br /><br /><br /><br /><br />
+</Layout>
