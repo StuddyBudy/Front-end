@@ -1,6 +1,3 @@
-to-do.js
-
-
 
 // Multi-list To-Do App
 const listsEl = document.getElementById('lists');

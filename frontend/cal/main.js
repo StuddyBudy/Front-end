@@ -1,4 +1,3 @@
-cal\main.js
 
 const cal = document.getElementById("cal");
 const todos = document.getElementById("todos");
