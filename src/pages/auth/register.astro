@@ -1,0 +1,109 @@
+---
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout title="Lifeline | Register">
+    <div
+        class="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-200 to-indigo-300 px-4 py-12 sm:px-6 lg:px-8"
+    >
+        <div class="w-full max-w-md space-y-8">
+            <div class="text-center">
+                <h2 class="mt-6 text-3xl font-extrabold text-gray-900">Create your account</h2>
+                <p class="mt-1 text-sm text-gray-700">Join us and get started today</p>
+            </div>
+
+            <div class="rounded-lg bg-white p-8 shadow-xl">
+                <form action="/auth/register" method="POST" class="space-y-6">
+                    <div>
+                        <label for="fullName" class="mb-1 block text-sm font-medium text-gray-700"> Full Name </label>
+                        <input
+                            type="text"
+                            id="fullName"
+                            name="fullName"
+                            required
+                            class="w-full rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm transition duration-150 ease-in-out focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                            placeholder="Enter your full name"
+                        />
+                    </div>
+
+                    <div>
+                        <label for="email" class="mb-1 block text-sm font-medium text-gray-700"> Email address </label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            required
+                            class="w-full rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm transition duration-150 ease-in-out focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                            placeholder="Enter your email"
+                        />
+                    </div>
+
+                    <div>
+                        <label for="password" class="mb-1 block text-sm font-medium text-gray-700"> Password </label>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            required
+                            class="w-full rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm transition duration-150 ease-in-out focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                            placeholder="Enter your password"
+                        />
+                    </div>
+
+                    <div>
+                        <label for="confirmPassword" class="mb-1 block text-sm font-medium text-gray-700">
+                            Confirm Password
+                        </label>
+                        <input
+                            type="password"
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            required
+                            class="w-full rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm transition duration-150 ease-in-out focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                            placeholder="Confirm your password"
+                        />
+                    </div>
+
+                    <div class="flex items-center">
+                        <input
+                            id="terms"
+                            name="terms"
+                            type="checkbox"
+                            required
+                            class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                        />
+                        <label for="terms" class="ml-2 block text-sm text-gray-900">
+                            I agree to the
+                            <a href="/terms" class="font-medium text-indigo-600 hover:text-indigo-500"
+                                >Terms of Service</a
+                            >
+                            and
+                            <a href="/privacy" class="font-medium text-indigo-600 hover:text-indigo-500"
+                                >Privacy Policy</a
+                            >
+                        </label>
+                    </div>
+
+                    <div>
+                        <button
+                            type="submit"
+                            class="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition duration-150 ease-in-out hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none"
+                        >
+                            Create Account
+                        </button>
+                    </div>
+
+                    <div class="text-center">
+                        <span class="text-sm text-gray-600"> Already have an account? </span>
+                        <a
+                            href="/auth/login"
+                            class="ml-1 font-medium text-indigo-600 transition duration-150 ease-in-out hover:text-indigo-500"
+                        >
+                            Sign in
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</Layout>
