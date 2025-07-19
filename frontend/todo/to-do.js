@@ -1,3 +1,4 @@
+
 // Multi-list To-Do App
 const listsEl = document.getElementById('lists');
 const addListBtn = document.getElementById('add-list-btn');
@@ -80,7 +81,7 @@ function renderTasks() {
   (data[currentList] || []).forEach((task, i) => {
     const li = document.createElement('li');
     li.className = 'task' + (task.completed ? ' completed' : '');
-    li.className += "dark:bg-zinc-600 rounded p-2 flex justify-between ";
+    li.className += "bg-background-1 rounded p-2 flex justify-between hover:brightness-80";
 
     const text = document.createElement("span");
     text.innerText = task.text;

@@ -534,7 +534,10 @@ renderTable()
     //when course/elective/lang is changes, the title dropdown function runs and options get changed
    // document.getElementById('course_lv_id','elective_id','language_id').addEventListener('change', title_change);
 
-// Functions -------------------------------------------------------------------------------
+// ----------------------- Functions -------------------------------------------------------------------------------
+
+
+
 
 // Gets the stored subject data from the local storage
 function getStorage(){
@@ -646,10 +649,17 @@ function mpButts(mpNum){
 // when the mp button is clicked, the corresponding button will change bg color
 // gets called in mpButts
 function bg(mpNum){
+
+//staying as a commenting section as of rn (7/13), used to hard code the bg
+//---of the mp buttons when clicked on, soft coding it by changing the individual
+//--- colors in #input.css
+
+    /*
     for (var i=1;i<=4;i++){
-        document.getElementById("mp"+i).style="background-color: #FEA1A1;"
+        document.getElementById("mp"+i).style="background-color: #ffd04f"
     }
-    document.getElementById("mp"+mpNum).style="background-color: #D18585;"
+    document.getElementById("mp"+mpNum).style="background-color: #d8ad36";
+    */
 
 }
 
@@ -1095,7 +1105,4 @@ function storing(subject, course_lv, course_length, subject_title) {
 
     }
  
-
-
-
 

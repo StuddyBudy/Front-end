@@ -8,7 +8,10 @@
   <link href="to-do.css" rel="stylesheet">
   <script defer src="todo.js"></script>
 
-<!-- universal header * start to copy here * -->    
+<!---------------------------------------------------- ----------------->  
+<!----------------- universal header * start copy here * --------------->  
+<!---------------------------------------------------- ----------------->
+
     <link href="../style.css" rel="stylesheet" />
     <script defer src="../theme.js"></script>
     <link rel="shortcut icon" href="favicon.svg" type="image/x-icon" />
@@ -23,7 +26,7 @@
         <a class="hover:bg-background-2 p-2 rounded " href="../todo/to-do.html">Todo</a>
         <a class="hover:bg-background-2 p-2 rounded" href="../pass/index.html">Passwords</a>
 
-        <select id="theme-toggle-web" class="bg-background-1 border p-2 rounded hover:bg-background-2 ">
+        <select id="theme-toggle-web" class="bg-background-1 border p-2 rounded hover:bg-background-2 " aria-label="Theme selection">
           <option disabled selected>Theme:</option>
           <option value="system" >System</option>
           <option value="dark">Dark</option>
@@ -32,6 +35,8 @@
           <option value="nord">Nord</option>
           <option value="ehs">Eagles</option>
           <option value="catpuccin">Catpuccin</option>
+          <option value="starry">Starry</option>
+
         </select>
       </div>
     </nav>
@@ -42,7 +47,7 @@
       <a class="hover:bg-background-2 border p-2 rounded" href="../todo/to-do.html">Todo</a>
       <a class="hover:bg-background-2 border p-2 rounded" href="../pass/index.html">Passwords</a>
 
-      <select id="theme-toggle-mobile" class="bg-background-1 border p-2 rounded hover:bg-background-2 ">
+      <select id="theme-toggle-mobile" class="bg-background-1 border p-2 rounded hover:bg-background-2 " aria-label="Theme selection">
           <option disabled selected>Theme:</option>
           <option value="system" >System</option>
           <option value="dark">Dark</option>
@@ -51,26 +56,35 @@
           <option value="nord">Nord</option>
           <option value="ehs">Eagles</option>
           <option value="catpuccin">Catpuccin</option>
+          <option value="starry">Starry</option>
+
         </select>
       
     </nav>
     <br>
-    <h1 class="text-4xl font-bold text-center">Lifelinee</h1>  
+    <h1 class="text-4xl font-bold text-center">Lifelinee</h1>
+    <br>  
 </div>
 
-<!-- universal header * end copy here * -->  
+<!---------------------------------------------------- ----------------->  
+<!----------------- universal header * end copy here * ----------------->  
+<!---------------------------------------------------- -----------------> 
 
 
 <!-- to-do -->
+ <br>
+ <hr>
+ <br>
+
     <div class="grid place-content-center">
       <div class="rounded m-2 flex border">
-        <aside class="sidebar bg-zinc-200 dark:bg-zinc-600">
+        <aside class="sidebar bg-background-2 shadow">
           <h2>Lists</h2>
           <div class="lists" id="lists"></div>
           <button class="add-list-btn" id="add-list-btn">+ New List</button>
         </aside>
 
-        <main class="main">
+        <main class="main bg-background-2 shadow">
           <h1 id="list-title">To-Do</h1>
           <form class="add-task" id="add-task-form" autocomplete="off">
             <input
@@ -81,7 +95,7 @@
             />
             <button type="submit">Add</button>
           </form>
-          <ul class="tasks dark:bg-zinc-600 dark:hover:zinc-600 " id="tasks"></ul>
+          <ul class="tasks hover:bg-amber-50" id="tasks"></ul>
           <button class="clear" id="clear-all-btn">Clear all</button>
         </main>
       </div>
