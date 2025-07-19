@@ -873,10 +873,6 @@ var lengthVal = document.getElementById("course_lv").value;
                 alert("One or more inputs are empty!");
                 return;
             }
-            // Calls function for checking if the course was already selected
-            // If it was, an error will be thrown and caught in the catch block
-            duplicateCheck(subject_title);
-
             storing(subject,course_lv,course_length,subject_title);
             renderTable();
         }
