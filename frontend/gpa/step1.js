@@ -1,18 +1,4 @@
-/*
-
-    version (may 11) - robert
-
-    - fixed the alert system if input was left empty
-    - titleChange function gets called when subject dropdown menus is changed so if the user 
-        wants to be an incompitent asshole and fillout the inputs from reverse, it works
-    - fixed / condenced all the mp button mayehm (went from 90 lines of 4 buttons to 10 lines and 1 function)
-
-    - a
-
-
-
-*/
-//--------------------------------------------------------------------------------------------------------
+//All Course Titles--------------------------------------------------------------------------------------------------------
 var courseLengthDescriptions = {
     "Full": "Full Year Course",
     "1mp": "One Marking Period Course",
@@ -47,7 +33,7 @@ var subjectTitles_v2 = {
           "AP Seminar"
         ]
       },
-      "Lengths": ["Full", "1mp", "Sem"]
+      "Lengths": ["Full"]
     },
     "History": {
       "Levels": {
@@ -73,7 +59,7 @@ var subjectTitles_v2 = {
           "AP US GOV."
         ]
       },
-      "Lengths": ["Full", "1mp", "Sem"]
+      "Lengths": ["Full"]
     },
     "Math": {
       "Levels": {
@@ -102,31 +88,31 @@ var subjectTitles_v2 = {
           "Calculus 3-H"
         ],
         "AP": [
+          "AP Pre-Calculus",
           "AP Statistics",
           "AP Calculus AB",
           "AP Calculus BC"
         ]
       },
-      "Lengths": ["Full", "1mp", "Sem"]
+      "Lengths": ["Full"]
     },
     "Science": {
       "Levels": {
         "Academic": [
-          "Biology 1-2",
-          "Chemistry 1-2",
-          "Physics 1-2",
-          "Integrated Science 1-2"
+          "Biology",
+          "Chemistry",
+          "Physics",
+          "Integrated Science"
         ],
         "Accelerated": [
           "Biology 1-1",
-          "Chemistry 1-1",
-          "Physics 1-1"
+          "Chemistry 2-1",
+          "Physics 3-1"
         ],
         "Honors": [
-          "Biology 1-H",
-          "Chemistry 1-H",
-          "Physics 1-H",
-          "Calc 1-H"
+          "Biology H",
+          "Chemistry H",
+          "Physics H",
         ],
         "AP": [
           "AP Chemistry",
@@ -137,7 +123,7 @@ var subjectTitles_v2 = {
           "AP Physics C"
         ]
       },
-      "Lengths": ["Full", "1mp", "Sem"]
+      "Lengths": ["Full"]
     },
     "Health": {
       "Levels": {
@@ -245,21 +231,6 @@ var subjectTitles_v2 = {
         "Lengths": ["Full"]
       }
     },
-    "Comp_sci": {
-      "Levels": {
-        "Academic": [
-          "Python 1-1"
-        ],
-        "Honors": [
-          "Java 1-H"
-        ],
-        "AP": [
-          "AP Computer Science Principles (APCSP)",
-          "AP Computer Science A (APCSA)"
-        ]
-      },
-      "Lengths": ["Full"]
-    }
   },
   "Electives": {
     "English": {
@@ -317,8 +288,6 @@ var subjectTitles_v2 = {
     "Buisness": {
       "Levels": {
         "Academic": [
-          "Accounting 1-1",
-          "Accounting 2-1",
           "Introduction to Business 1-1",
           "Business Applications 1-1",
           "Business Law and Ethics 1-1",
@@ -328,7 +297,11 @@ var subjectTitles_v2 = {
           "Personal Finance 1-1",
           "Finance and Investing 1-1"
         ],
+        "Accelerated": [
+          "Acounting 1-1"
+        ],
         "Honors": [
+          "Accounting 2-H",
           "International Business 1-H"
         ],
         "AP": [
@@ -340,7 +313,8 @@ var subjectTitles_v2 = {
     "Tech_Edu": {
       "Levels": {
         "Academic": [
-          "ESports 1-2",
+          "Academic ESports",
+          "Academic ESports 2",
           "Architectural Drawing 1-1",
           "Architectural Drawing 2-1",
           "Electronics 1-1",
@@ -355,6 +329,15 @@ var subjectTitles_v2 = {
           "Digital Media and Photography 2-1",
           "Woodworking 1-1",
           "Woodworking 2-1"
+          /* For exclusively jps
+            "Construction Technology 1-1", 
+            "Study of Film History 1-1",
+            "Video Production 1-1",
+            "Video Production 2-1",
+          */
+        ],
+        "Honors": [
+            "Academic ESports 2"
         ]
       },
       "Lengths": ["1mp", "Sem", "Full"]
@@ -369,6 +352,10 @@ var subjectTitles_v2 = {
           "Three-Dimensional Design 1-1",
           "Painting/Drawing 1-1",
           "Printmaking and Design 1-1"
+          /*JPS EXCLUSIVE
+            "Concert Choir 1-1 (JPS)", 
+            "Concert Choir 2-1 (JPS)", 
+          */
         ],
         "AP": [
           "Visual Arts 3/AP Studio Art 2-D",
@@ -417,6 +404,21 @@ var subjectTitles_v2 = {
         ]
       },
       "Lengths": ["1mp", "Sem", "Full"]
+    },
+    "Comp_sci": {
+      "Levels": {
+        "Academic": [
+          "Python 1-1"
+        ],
+        "Honors": [
+          "Java 1-H"
+        ],
+        "AP": [
+          "AP Computer Science Principles (APCSP)",
+          "AP Computer Science A (APCSA)"
+        ]
+      },
+      "Lengths": ["Full"]
     }
   }
 };
@@ -434,25 +436,11 @@ var subTit = document.getElementById("subject_title");
 var lang = document.getElementById("language");
 var len1 = document.getElementById("course_length");
 
-
-
-
-var lv_id = document.getElementById("course_lv_id");
-var sub_id = document.getElementById("subject_id");
-var tit_id = document.getElementById("title_id");
 var elective_id = document.getElementById("elective_id");
-
 var language_id = document.getElementById("language_id");
-
-
-var mathCnt = 0;
-var sciCnt = 0;
-
 
 var num = 0;
 var mpNum = 0;
-
-var len ='';
 
 //courses info list
 let stored = { courses:[] }
@@ -621,10 +609,17 @@ function renderTable(){
 // This function is called when the delete button is clicked
 function removeCourse(element){
     selectedCourse = element.closest('tr');
-    index = parseInt(selectedCourse.cells[0].innerHTML) - 1;
-    console.log(index);
+    courseName = selectedCourse.cells[3].innerHTML;
+    console.log(courseName);
     console.log(selectedCourse);
-    stored.courses.splice(index,1);
+    stored.courses.forEach((course,index) => {
+        if (course.markingPeriod === mpNum && course.title === courseName) {
+            console.log("Found course to remove: " + course.title);
+            // Remove the course from the stored courses
+            stored.courses.splice(index, 1);
+            console.log("Course removed successfully");
+        }
+    });
     localStorage.setItem('stored', JSON.stringify(stored))
     //Render the table again after removing the course
     renderTable();
@@ -753,6 +748,9 @@ function populateLevels() {
         console.log(subjectTitles_v2["Regular"][subVal]);
         levels = subjectTitles_v2["Regular"][subVal]["Levels"];
     }
+    if (!levels) {
+        return;
+    }
     // Populate the course level dropdown
     for (var level in levels) {
         var option = document.createElement("option"); 
@@ -784,14 +782,23 @@ function populateTitles() {
         console.log(subjectTitles_v2["Regular"]["Language"][langVal]);
         titles = subjectTitles_v2["Regular"]["Language"][langVal]["Levels"][levelVal];
     } 
+    // Otherwise, get the titles for the selected subject and level
     else {
         console.log(subjectTitles_v2["Regular"][subVal]);
         titles = subjectTitles_v2["Regular"][subVal]["Levels"][levelVal];
     }
+    // If no titles are found, return early (just to keep console clean)
     if (!titles) {
         return;
     }
+    
+    // Populate the course titles dropdown
     titles.forEach(title => {
+        // Check if the course is already selected for the current marking period
+        const alreadySelected = stored.courses.some(course => course.title == title && course.markingPeriod == currentMpNum);
+        if (alreadySelected) {
+            return; // Skip adding this option
+        }
         var option = document.createElement("option"); 
         option.value = title;
         option.textContent = title.replace(/_/g, ' '); // Replace underscores with spaces for display;
@@ -802,8 +809,10 @@ function populateTitles() {
 function populateCourseLen() {
 var courseLenSelect = document.getElementById("course_length");
 var subVal = document.getElementById("subject").value;
+var lengthVal = document.getElementById("course_lv").value;
+
     courseLenSelect.innerHTML = '<option value="" disabled selected> Select the course length: </option>';
-    var courseLength
+    var courseLengths;
     
     // Check if the subject is Electives
     if (subVal === "Electives") {
@@ -816,8 +825,9 @@ var subVal = document.getElementById("subject").value;
         var langVal = document.getElementById("language").value;
         console.log("Language selected: " + langVal);
         console.log(subjectTitles_v2["Regular"]["Language"][lengthVal]);
-        courseLengths = subjectTitles_v2["Regular"]["Language"]["Lengths"];
+        courseLengths = subjectTitles_v2["Regular"]["Language"][langVal]["Lengths"];
     } 
+    // Otherwise, get the lengths for the selected subject
     else {
         courseLengths = subjectTitles_v2["Regular"][subVal]["Lengths"];
     }
@@ -825,24 +835,17 @@ var subVal = document.getElementById("subject").value;
     courseLengths.forEach(courselen => {
         var option = document.createElement("option");
         option.value = courselen;
+        console.log("Course Length: " + option.value);
         option.textContent = courseLengthDescriptions[courselen]; // Replace underscores with spaces for display
         courseLenSelect.appendChild(option);
     });
 }
 
 //--------------------------------------------------------------------------------------------------------
-    //Checks if the course was already selected
-    function duplicateCheck(subject_title){
-        stored.courses.forEach(course=>{
-            if (course.title == subject_title && course.markingPeriod == currentMpNum) {
-                throw Error("Course was already selected!!")
-            }
-        });
-    }
-//--------------------------------------------------------------------------------------------------------
     // getting the user input and pasting it to the corresponding table
     //gets called when submit is pressed
     function input() {
+        // Try block to catch any errors that may occur during input processing
         try{
             // getting the user input and pasting it to the table
             subject = document.getElementById("subject").value;
@@ -926,49 +929,15 @@ var subVal = document.getElementById("subject").value;
      function clearLocalStorage() {
 
          localStorage.clear();
-         alert("Storage has been reset!");
+         alert("Storage has been reset!");S
+         refreshPage();
      }
  
 //--------------------------------------------------------------------------------------------------------
-
-
-// Clears Table
-     function clearTable() {
-
-        for (var i = 1; i <= 8; i++) {
-            document.getElementById("subject_" + i).textContent = ' ';
-            document.getElementById("title_" + i).textContent = ' ';
-            document.getElementById("lv_" + i).textContent = ' ';
-
-            localStorage.removeItem('subject_' + i);
-            localStorage.removeItem('title_' + i);
-            localStorage.removeItem('lv_' + i);
-        }
-        document.getElementById("class_num").textContent = "0 out of 8 classes used";
-
-        // Ensure the "Add Class" button is visible again if it was hidden
-        document.getElementById("add_class").style.display = "inline";
-
-        // Hide the max classes message if it was displayed
-        document.getElementById("max_classes").style.display = "none";
-
-        // Re-enable the options in the "subject" and "course_lv" dropdowns
-        var subjectOptions = document.getElementById("subject").options;
-        var courseLvOptions = document.getElementById("course_lv").options;
-
-        for (var i = 0; i < subjectOptions.length; i++) {
-            subjectOptions[i].disabled = false;
-        }
-
-        for (var i = 0; i < courseLvOptions.length; i++) {
-            courseLvOptions[i].disabled = false;
-        }
-
-        document.getElementById("subject").value = "";
-        document.getElementById("course_lv").value = "";
-        document.getElementById("subject_title").value = "";
-
-    }
+// Refreshes the page
+function refreshPage() {
+    window.location.reload();
+}
 
  //--------------------------------------------------------------------------------------------------------
 
@@ -999,446 +968,6 @@ function storing(subject, course_lv, course_length, subject_title) {
     console.log(subject_title);
     console.log(course);
 }
- 
-//------------------------------------------------------------------------------
-
-
-
-//dictionary for all of the class options
-var subjectTitles = {
- 
-    //English Tables 
-               "English_2": {
-    
-                   "English 1-2": "English 1-2",
-                   "English 2-2": "English 2-2",
-                   "English 3-2": "English 3-2",
-                   "English 4-2": "English 4-2",
-    
-               },
-    
-               "English_1": {
-                   "English 1-1": "English 1-1",
-                   "English 2-1": "English 2-1",
-                   "English 3-1": "English 3-1",
-                   "English 4-1": "English 4-1",
-    
-               },
-    
-               "English_H":{
-                   "English 1-H": "English 1-H",
-                   "English 2-H": "English 2-H",
-                   "English 3-H": "English 3-H",
-                   "English 4-H": "English 4-H",
-    
-               },
-               "English_AP":{
-                   "AP Literature/Composition": "AP Literature/Composition",
-                   "AP Language/Composition": "AP Language/Composition",
-                   "AP Research": "AP Research",
-                   "AP Seminar": "AP Seminar",
-    
-    
-               },  
-               "English_Electives":{
-                   "Creative Writing 1-1": "Creative Writing 1-1",
-                   "Creative Writing 2-1": "Creative Writing 2-1",
-                   "Journalism and Media 1-1": "Journalism and Media 1-1",
-                   "Public Speaking 1-1": "Public Speaking 1-1",
-    
-                   "Theater Arts 1-1": "Theater Arts 1-1",
-                   "Theater Arts 2-1": "Theater Arts 2-1",
-                   "Theater Arts 3-H": "Theater Arts 3-H",
-                   "Theater Arts 4-H": "Theater Arts 4-H",
-    
-               },
-    
-    //History Tables
-    
-               "History_2":{
-    
-                   "US History 1-2": "US History 1-2",
-                   "US History 2-2": "US History 2-2",
-    
-                   "World History 1-2": "World History 1-2",
-    
-               },
-    
-               "History_1": {
-                   "US History 1-1": "US History 1-1",
-                   "US History 2-1": "US History 2-1",
-    
-                   "World History 1-1": "World History 1-1",
-       
-               },
-    
-               "History_H":{
-                   "US History 1-H": "US History 1-H",
-                   "US History 2-H": "US History 2-H",
-    
-                   "History 1-H": "History 1-H",
-    
-               },
-    
-               "History_AP":{
-                   "AP US History": "AP US History",
-                   "AP World History": "AP World History",
-                   "AP European History": "AP European History",
-                   "AP US GOV.": "AP US GOV.",
-    
-               },
-               "History_Electives":{
-                   "Diversity/Multiculturalism in U.S. Society": "Diversity/Multiculturalism in U.S. Society",
-                   "Introduction to African American Studies": "Introduction to African American Studies",
-                   "Psychology/Topics in Human Behavior": "Psychology/Topics in Human Behavior",
-                   "Sociology": "Sociology",
-    
-               },
-    
-    //Math Tables
-    
-               "Math_2": {
-                   "Algebra 1-2": "Algebra 1-2",
-                   "Geom 1-2": "Geom 1-2",
-                   "Algebra 2-2": "Algebra 2-2",
-                   "Pre-Calc 1-2": "Pre-Calc 1-2",
-                   "Integrated Math A 1-2": "Integrated Math A 1-2",
-                   "Integrated Math B 1-2": "Integrated Math B 1-2",
-                   "Statistics 1-2": "Statistics 1-2",
-    
-               },
-    
-               "Math_1": {
-                   "Algebra 1-1": "Algebra 1-1",
-                   "Geom 1-1": "Geom 1-1",
-                   "Algebra 2-1": "Algebra 2-1",
-                   "Pre-Calc 1-1": "Pre-Calc 1-1",
-                   "Calculus 1-1": "Calculus 1-1",
-                   "Statistics 1-1": "Statistics 1-1",
-    
-               },
-    
-               "Math_H":{
-                   "Geom 1-H": "Geom 1-H",
-                   "Algebra 2-H": "Algebra 2-H",
-                   "Pre-Calc 1-H": "Pre-Calc 1-H",
-                   "Calculus 1-H": "Calculus 1-H",
-                   "Calculus 3-H": "Calculus 3-H",
-                   
-               },
-    
-               "Math_AP": {
-                   "AP Statistics": "AP Statistics",
-                   "AP Calculus AB": "AP Calculus AB",
-                   "AP Calculus BC": "AP Calculus BC",
-               },
-    
-    //Science Tables
-    
-               "Science_2": {
-                   "Biology 1-2": "Biology 1-2",
-                   "Chemistry 1-2": "Chemistry 1-2",
-                   "Physics 1-2": "Physics 1-2",
-                   "Integrated Science 1-2": "Integrated Science 1-2",
-    
-    
-               },
-    
-               "Science_1": {
-                   "Biology 1-1": "Biology 1-1",
-                   "Chemistry 1-1": "Chemistry 1-1",
-                   "Physics 1-1": "Physics 1-1",
-    
-               },
-    
-               "Science_H":{
-                   "Biology 1-H": "Biology 1-H",
-                   "Chemistry 1-H": "Chemistry 1-H",
-                   "Physics 1-H": "Physics 1-H",
-                   "Calc 1-H": "Calc 1-H"
-                   
-               },
-    
-               "Science_AP": {
-                   "AP Chemistry": "AP Chemistry",
-                   "AP Biology": "AP Biology",
-                   "AP Enviromental": "AP Enviromental",
-                   "AP Physics A": "AP Physics A",
-                   "AP Physics B": "AP Physics B",
-                   "AP Physics C": "AP Physics C",
-    
-               },
-    
-               "Science Electives_1": {
-                   "Forensics": "Forensics",
-                   "Anatomy / Physiology": "Anatomy / Physiology",
-               },
-    
-    
-    //Health elective Table 
-    // FIXXX ME!!!!
-    /*
-               "Health_1": {
-                   "First Aid 1-1": "First Aid 1-1",
-                   "Contemporary Health Issues 1-1": "Contemporary Health Issues 1-1",
-    
-               },
-    */
-    //Gym Table 
-               "Gym": {
-                   "Gym": "Gym",
-               },
-    //Health Table 
-               "Health":{
-                "Health":"Health"
-               },
-    // -----------------------------ELECTIVES:---------------------------------------
-    
-   
-    
-    
-    //language tables
-       //Italian Tables
-    
-               "Italian_1": {
-                   "Italian 1-1": "Italian 1-1",
-                   "Italian 2-1": "Italian 2-1",
-    
-               },
-    
-               "Italian_H": {
-                   "Italian 2-H": "Italian 2-H",
-                   "Italian 3-H": "Italian 3-H",
-                   "Italian 4-H": "Italian 4-H",
-    
-               },
-       //Mandarin Tables
-               "Mandarin_1": {
-                   "Mandarin 1-1": "Mandarin 1-1",
-                   "Mandarin 2-1": "Mandarin 2-1",
-    
-               },
-    
-               "Mandarin_H": {
-                   "Mandarin 2-H": "Mandarin 2-H",
-                   "Mandarin 3-H": "Mandarin 3-H",
-                   "Mandarin 4-H": "Mandarin 4-H",  
-    
-               },
-       //latin tables
-               "Latin_1": {
-                   "Latin 1-1": "Latin 1-1",
-                   "Latin 2-1": "Latin 2-1",
-    
-               },
-    
-               "Latin_H": {
-                   "Latin 2-H": "Latin 2-H",
-                   "Latin 3-H": "Latin 3-H",
-                   "Latin 4-H": "Latin 4-H",
-    
-               },
-       //Spanish Tables
-               "Spanish_1": {
-                   "Spanish for Heritage Speakers 1-1": "Spanish for Heritage Speakers 1-1",
-                   "Spanish for Heritage Speakers 2-1": "Spanish for Heritage Speakers 2-1",
-                   "Spanish 1-1": "Spanish 1-1",
-                   "Spanish 2-1": "Spanish 2-1",
-                   "Spanish 3-1": "Spanish 3-1",
-                   "Spanish 4-1": "Spanish 4-1",
-                   "Spanish 5-1": "Spanish 5-1",
-                   "Spanish 6-1": "Spanish 6-1",
-    
-               },
-    
-               "Spanish_H": {
-                   "Spanish 2-H": "Spanish 2-H",
-                   "Spanish 3-H": "Spanish 3-H",
-                   "Spanish 4-H": "Spanish 4-H",
-    
-               },
-       //French Tables
-               "French_1": {
-                   "French 1-1": "French 1-1",
-                   "French 2-1": "French 2-1",
-                   "French 3-1": "French 3-1",
-                   "French 4-1": "French 4-1",
-                   "French 5-1": "French 5-1",
-    
-               },
-    
-               "French_H": {
-                   "French 2-H": "French 2-H",
-                   "French 3-H": "French 3-H",
-                   "French 4-H": "French 4-H",
-    
-               },
-    //AP lang tables
-                "French_AP":{
-                    "AP French": "AP French",
-               },
-                "Spanish_AP":{
-                    "AP Spanish": "AP Spanish",
-               },
-                "Mandarin_AP":{
-                    "AP Mandarin": "AP Mandarin",
-               },                              
-    
-    //Computer Science Tables
-               "Comp_sci_1":{
-                   "Python 1-1": "Python 1-1",
-               },
-    
-               "Comp_sci_H":{
-                   "Java 1-H": "Java 1-H",
-               },
-    
-               "Comp_sci_AP": {
-                   "AP Computer Science Principles (APCSP)": "AP Computer Science Principles (APCSP)",
-                   "AP Computer Science A (APCSA)": "AP Computer Science A (APCSA)",
-               },
-    
-    //Family / Consumer Science Tables
-    
-               "Family_Science_1": {
-                   "Child Growth 1-1": "Child Growth 1-1",
-                   "Interior Design 1-1": "Interior Design 1-1",
-                   "Fashion 1-1": "Fashion 1-1",
-                   "Fashion 2-1": "Fashion 2-1",
-                   "Culinary Arts 1-1": "Culinary Arts 1-1",
-                   "Culinary Arts 2-1": "Culinary Arts 2-1",
-    
-               },
-    
-               "Family_Science_H": {
-                   "Fashion Merchandising H": "Fashion Merchandising H",
-                   "Culinary Arts 3-H": "Culinary Arts 3-H",
-               },
-    
-    //Buisness Tables 
-    
-               "Buisness_1": {
-                   "Accounting 1-1": "Accounting 1-1",
-                   "Accounting 2-1": "Accounting 2-1",
-                   "Introduction to Business 1-1": "Introduction to Business 1-1",
-                   "Business Applications 1-1": "Business Applications 1-1",
-                   "Business Law and Ethics 1-1": "Business Law and Ethics 1-1",
-                   "Business Management 1-1": "Business Management 1-1",
-                   "Economics 1-1": "Economics 1-1", 
-                   "Marketing and Advertising 1-1": "Marketing and Advertising 1-1", 
-                   "Personal Finance 1-1": "Personal Finance 1-1",
-                   "Finance and Investing 1-1": "Finance and Investing 1-1",
-    
-               }, 
-    
-               "Buisness_H": {
-                   "International Business 1-H": "International Business 1-H", 
-               },
-    
-               "Buisness_AP": {
-                   "AP Economics": "AP Economics",
-               },
-    
-    //TECHNOLOGY EDUCATION Tables
-    
-               "Tech_Edu_2": {
-                   "ESports 1-2": "ESports 1-2",
-               },
-    
-               "Tech_Edu_1": {
-                   "Architectural Drawing 1-1": "Architectural Drawing 1-1", 
-                   "Architectural Drawing 2-1": "Architectural Drawing 2-1", 
-                   "Electronics 1-1": "Electronics 1-1", 
-                   "Electronics 2-1": "Electronics 2-1", 
-                   "Engineering Design 1-1": "Engineering Design 1-1", 
-                   "Engineering Design 2-1": "Engineering Design 2-1", 
-                   "Robotics 1-1": "Robotics 1-1", 
-                   "Robotics 2-1": "Robotics 2-1", 
-                   "Automotive Technology 1-1": "Automotive Technology 1-1",
-                   "Automotive Technology 2-1": "Automotive Technology 2-1", 
-                   "Digital Media and Photography 1-1": "Digital Media and Photography 1-1",
-                   "Digital Media and Photography 2-1": "Digital Media and Photography 2-1",
-                   "Woodworking 1-1": "Woodworking 1-1",
-                   "Woodworking 2-1": "Woodworking 2-1",
-    
-               /* For exclusively jps
-                   "Construction Technology 1-1": "Construction Technology 1-1", 
-                   "Study of Film History 1-1": "Study of Film History 1-1",
-                   "Video Production 1-1": "Video Production 1-1",
-                   "Video Production 2-1": "Video Production 2-1",
-    
-               */
-    
-    
-               },
-               
-    // Visual Arts classes
-    
-               "Visual_Arts_1": {
-                   "Art 1-1": "Art 1-1",
-                   "Art 2-1": "Art 2-1",
-                   "Visual Arts 1-1": "Visual Arts 1-1",
-                   "Ceramics 1-1": "Ceramics 1-1",
-                   "Three-Dimensional Design 1-1": "Three-Dimensional Design 1-1",
-                   "Painting/Drawing 1-1": "Painting/Drawing 1-1",
-                   "Printmaking and Design 1-1": "Printmaking and Design 1-1",
-    
-               },
-               "Visual_Arts_AP": {
-                   "Visual Arts 3/AP Studio Art 2-D": "Visual Arts 3/AP Studio Art 2-D",
-                   "AP Art History": "AP Art History", 
-                   "AP Studio Art 3-D": "AP Studio Art 3-D", 
-               },
-    
-    // Performing Arts Tables
-    
-               "Perf_Arts_1": {
-                   "Freshmen band 1-1": "Freshmen band 1-1",
-                   "Symphonic Band 1-1": "Symphonic Band 1-1",
-                   "Symphonic Band 2-1": "Symphonic Band 2-1",
-                   "Wind Ensemble 1-1": "Wind Ensemble 1-1", 
-                   "Concert Orchestra 1-1": "Concert Orchestra 1-1", 
-                   "Chamber Orchestra 1-1": "Chamber Orchestra 1-1",
-                   "Camerata Orchestra 1-1": "Camerata Orchestra 1-1",
-    
-                   /*JPS EXCLUSIVE
-                   "Concert Choir 1-1 (JPS)": "Concert Choir 1-1 (JPS)", 
-                   "Concert Choir 2-1 (JPS)": "Concert Choir 2-1 (JPS)", 
-                   */
-                  "A Capella Choir 1-1": "A Capella Choir 1-1", 
-                  "Chamber Singers 1-1": "Chamber Singers 1-1",
-                  "Music Theory 1-1": "Music Theory 1-1",
-                  "Music Theory 2-1": "Music Theory 2-1",
-                  "Introduction to Music Technology/Composition 1-1": "Introduction to Music Technology/Composition 1-1",
-                  "Music Technology II: Electronic Music & Audio Engineering 2-1": "Music Technology II: Electronic Music & Audio Engineering 2-1",
-                  "Dance 1-1": "Dance 1-1",
-                  "Dance 2-1": "Dance 2-1",
-                  "Dance Repertory 1-1": "Dance Repertory 1-1",
-                  "Guitar 1-1": "Guitar 1-1",
-                  "Guitar 2-1": "Guitar 2-1",
-    
-               },
-    
-               "Perf_Arts_H": {
-                   "Symphonic Band 3-H": "Symphonic Band 3-H", 
-                   "Wind Ensemble 2-H": "Wind Ensemble 2-H", 
-                   "Chamber Orchestra 2-H": "Chamber Orchestra 2-H", 
-                   "Camerata Orchestra 2-H": "Camerata Orchestra 2-H", 
-                   "A Capella Choir 2-H": "A Capella Choir 2-H", 
-                   "Chamber Singers 2-H": "Chamber Singers 2-H", 
-                   "Dance 3-H": "Dance 3-H", 
-                   "Dance 4-H": "Dance 4-H",
-                   "Guitar 3-H": "Guitar 3-H", 
-                   "Guitar 4-H": "Guitar 4-H", 
-    
-               }, 
-    
-               "Perf_Arts_AP": {
-                   "AP Music Theory 3": "AP Music Theory 3",
-               },
-    
-       };
-    
 
     
 //------------------------------------------------------------------------------
