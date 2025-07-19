@@ -1,23 +1,141 @@
 var num = 0;
+let assignmentCategories;
+let stored = { courses:[] };
+setCategories();
+getStorage();
+renderTable();
+populateCourses();
+populateCategories()
+
+function getStorage(){
+    stored = JSON.parse(localStorage['stored']);
+    console.log(JSON.stringify(stored));
+}
+
+function populateCourses(){
+    courseSelect = document.getElementById("courseSelect");
+    courseSelect.innerHTML = "";
+    stored.courses.forEach((course,index) =>{
+      courseOption = document.createElement("option");
+      courseOption.value = index;
+      courseOption['data-subject'] = course.subject;
+      courseOption.textContent = course.title;
+      courseSelect.appendChild(courseOption);
+    });
+}
+
+function populateCategories(){
+    var courseSelect = document.getElementById("courseSelect");
+    var customWeight = document.getElementById("customWeight");
+    var customCategory = document.getElementById("customCategory");
+    courseTitle = courseSelect.options[courseSelect.selectedIndex].textContent;
+    var courseSubject = courseSelect.options[courseSelect.selectedIndex]["data-subject"];
+    categorySelect = document.getElementById("categorySelect");
+    categorySelect.innerHTML = "";
+    var courseCategories = assignmentCategories[courseSubject];
+    if (courseCategories) {
+        courseCategories.forEach((category,index) =>{
+        categoryOption = document.createElement("option");
+        categoryOption.value = index;
+        categoryOption["data-weight"] = category.weight;
+        categoryOption["data-subject"] = courseSubject;
+        categoryOption["data-key"] = category.key;
+        categoryOption.textContent = category.desciption;
+        categorySelect.appendChild(categoryOption);
+        });
+        console.log(JSON.stringify(courseCategories))
+        
+        customWeight.style.display = "none";
+        customWeightLabel.style.display = "none";
+        customWeight.value = 0;
+
+        customCategory.style.display = "none";
+        customCategoryLabel.style.display = "none";
+        customCategory.placeholder = "Ex. Tests, Quizzes, e.t.c"
+        customCategory.value = "";
+
+        categorySelect.style.display = "block";
+        categorySelectLabel.style.display = "block";
+
+    }
+    else{
+        
+        customWeight.style.display = "block";
+        customWeightLabel.style.display = "block";
+
+        customCategory.style.display = "block";
+        customCategoryLabel.style.display = "block";
+
+        categorySelect.style.display = "none";
+        categorySelectLabel.style.display = "none";
+
+    }
+
+}
+
+function convertPercentToGrade(percent) {
+    if (percent >= 97){
+        return "A+";
+    } else if (percent >= 93){
+        return "A";
+    } else if (percent >= 90){
+        return "A-";
+    } else if (percent >= 87){
+        return "B+";
+    } else if (percent >= 83){
+        return "B";
+    } else if (percent >= 80){
+        return "B-";
+    } else if (percent >= 77){
+        return "C+";
+    } else if (percent >= 73){
+        return "C";
+    } else if (percent >= 70){
+        return "C-";
+    } else if (percent >= 65){
+        return "D";
+    } else {
+        return "F";
+    }
+}
 
 function input() {
-    // getting the user input and pasting it to the table
-    var subject_var = document.getElementById("subject").value;
-    var title_var = document.getElementById("subject_title").value;
-    var lv_var = document.getElementById("course_lv").value;
+    const courseSelect = document.getElementById("courseSelect");
+    const customCategory = document.getElementById("customCategory").value;
+    const customWeight = document.getElementById("customWeight").value;
+    const courseIndex = courseSelect.selectedIndex;
+    const categorySelect= document.getElementById("categorySelect");
+    const categorySelected = categorySelect.options[categorySelect.selectedIndex]
+    const assignmentTitle = document.getElementById("assignmentTitle").value;
+    const assignmentScore = parseFloat(document.getElementById("ass_score").value);
+    const category = customCategory=="" ? categorySelected.textContent : customCategory;
+    const weight = parseFloat(customCategory=="" ? categorySelected["data-weight"] : customWeight);
+    const assignment = {
+        title:assignmentTitle,
+        score:assignmentScore,
+        category: category,
+        weight: weight,
+    };
+    const emptyCategory = {
+        weight: weight,
+        count:0,
+        totalScore:0,
+        averageScore:0,
+        assignments: []
+    }
+    if (!(category in stored.courses[courseIndex].categories)){
+        stored.courses[courseIndex].categories[category]=emptyCategory; 
+    }
+    stored.courses[courseIndex].categories[category].assignments.push(assignment);
+    stored.courses[courseIndex].categories[category].count+=1;
+    stored.courses[courseIndex].categories[category].totalScore+=assignment.score;
+    stored.courses[courseIndex].categories[category].averageScore =
+                 stored.courses[courseIndex].categories[category].totalScore 
+                / stored.courses[courseIndex].categories[category].count;
 
-    num = num + 1;
-
-    document.getElementById("subject_" + num).textContent = subject_var;
-    document.getElementById("title_" + num).textContent = title_var;
-    document.getElementById("lv_" + num).textContent = lv_var;
-
-    /*
-    //Storing User Input
-    localStorage.setItem('subject_' + num, subject_var);
-    localStorage.setItem('title_' + num, title_var);
-    localStorage.setItem('lv_' + num, lv_var);
-    */
+    stored.courses[courseIndex].assignments.push(assignment);
+    localStorage.setItem('stored', JSON.stringify(stored))
+    renderTable();
 }
 
 
@@ -58,8 +176,40 @@ function newRow() {
     dropdown.selectedIndex = 0;
 }
 
-
-
+function renderTable(){
+    assignmentTables = document.getElementById("assignmentTables");
+    assignmentTables.innerHTML = "";
+   
+    stored.courses.forEach((course,index) => {
+      const table = document.createElement("table");
+      const tHead = document.createElement("thead");
+      tHead.innerHTML = `
+      <th> # </th>
+      <th> Course </th>
+      <th> Category </th>
+      <th> Weight </th>
+      <th> Assignment </th>
+      <th> Score </th> 
+      <th> Grade </th>`;
+      const tBody = document.createElement("tbody");
+      course.assignments.forEach((assignment,index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `<td>${index+1}
+        <td>${course.title}
+        <td>${assignment.category}
+        <td>${assignment.weight}
+        <td>${assignment.title}
+        <td>${assignment.score}
+        <td>${convertPercentToGrade(assignment.score)}`;
+        tBody.appendChild(row);
+      });
+    if (course.assignments.length > 0){
+      table.appendChild(tHead);
+      table.appendChild(tBody);
+    }
+    assignmentTables.appendChild(table);
+    });
+}
 
 
 // Hiding the input prompts
@@ -108,22 +258,12 @@ function clearTable() {
 
 
 
-
-
-// Clears the local storage
-function clearStorage() {
-    localStorage.clear();
-    alert("Storage has been reset!");
-}
-
-
-
-
-
 // Local storage values
 var names = [];
 var values = [];
 
+
+/*
 // Puts the storage into names and value arrays
 function storage_into_array() {
     var storage_num = localStorage.length;
@@ -173,7 +313,7 @@ function organizer1000() {
             names.splice(i, 1); // Remove the item from the names array
         }
     }
-*/
+
 
 
 
@@ -310,18 +450,7 @@ function organizer1000() {
     console.log("class name: " + class_organize_holder);
     console.log(localStorage.getItem("lv_1"))
 }
-
-
-
-
-
-
-
-
-
-
-
-
+*/
 
 
 
@@ -382,4 +511,164 @@ function skadoosh() {
     console.log(localStorage.getItem("title_" + 1));
 
     console.log("ello");
+}
+
+
+
+//----------------------------------------------------------
+
+function setCategories(){
+    assignmentCategories = {
+        "English" : [
+            {
+                "key" : "Test",
+                "weight" : .45,
+                "desciption": "Essays, Tests, Projects - 45%"
+            },
+            {
+                "key" : "Quiz",
+                "weight" : .1,
+                "desciption": "Quizzes, Short Writings - 10%"
+            },
+            {
+                "key" : "CW_HW",
+                "weight" : .1,
+                "desciption": "CW/HW - 10%"
+            },
+            {
+                "key" : "Quarterly",
+                "weight" : .1,
+                "desciption": "Quarterly Exams - 10%"
+            }
+        ],
+        "Math" : [
+            {
+                "key" : "Test",
+                "weight" : .5,
+                "desciption": "Major assessments - 50%"
+            },
+            {
+                "key" : "Quiz",
+                "weight" : .45,
+                "desciption": "Minor assessments - 45%"
+            },
+            {
+                "key" : "CW_HW",
+                "weight" : .05,
+                "desciption": "Extended Learning Activities (HW) - 5%"
+            }
+        ],
+        "Science" : [
+            {
+                "key" : "Test",
+                "weight" : .35,
+                "desciption": "Test / Major assessment - 35%"
+            },
+            {
+                "key" : "Quiz",
+                "weight" : .25,
+                "desciption": "Quizzes - 25%"
+            },
+            {
+                "key" : "CW_HW",
+                "weight" : .1,
+                "desciption": "CW/HW - 10%"
+            },
+            {
+                "key" : "Lab",
+                "weight" : .3,
+                "desciption": "Labs, Perf_Asses - 30%"
+            }
+        ],
+        "History" : [
+            {
+                "key" : "Test",
+                "weight" : .3,
+                "desciption": "Tests - 30%"
+            },
+            {
+                "key" : "Quiz",
+                "weight" : .2,
+                "desciption": "Quizzes - 20%"
+            },
+            {
+                "key" : "CW_HW",
+                "weight" : .2,
+                "desciption": "CW/HW - 20%"
+            },
+            {
+                "key" : "Research",
+                "weight" : .3,
+                "desciption": "Research, Read, Write, Present - 30%"
+            }
+        ],
+        "Health" : [
+            {
+                "key" : "Major",
+                "weight" : .4,
+                "desciption": "Major assessments - 40%"
+            },
+            {
+                "key" : "Minor",
+                "weight" : .3,
+                "desciption": "Minor assessments - 30%"
+            },
+            {
+                "key" : "CW",
+                "weight" : .2,
+                "desciption": "Classwork - 20%"
+            },
+            {
+                "key" : "HW",
+                "weight" : .1,
+                "desciption": "Extended Learning Activities (HW) - 10%"
+            }
+        ],
+        "Gym" : [
+            {
+                "key" : "Perf",
+                "weight" : 1,
+                "desciption": "Participation Part Performance - 100%"
+            }
+        ],
+        "Elective" : [
+            {
+                "key" : "Test",
+                "weight" : .45,
+                "desciption": "Tests & Quizzes - 45%"
+            },
+            {
+                "key" : "Quiz",
+                "weight" : .45,
+                "desciption": "Programs - 45%"
+            },
+            {
+                "key" : "CW_HW",
+                "weight" : .1,
+                "desciption": "CW/HW - 10%"
+            }
+        ],
+        "Language" : [
+            {
+                "key" : "Interpretive",
+                "weight" : 25,
+                "desciption": "Interpretive Tasks - 25%"
+            },
+            {
+                "key" : "Presentational",
+                "weight" : .25,
+                "desciption": "Presentational - 25%"
+            },
+            {
+                "key" : "CW_HW",
+                "weight" : .25,
+                "desciption": "Classwork - 25%"
+            },
+            {
+                "key" : "CW_HW",
+                "weight" : .3,
+                "desciption": "Mini Assessments - 25%"
+            }
+        ]
+    }
 }
