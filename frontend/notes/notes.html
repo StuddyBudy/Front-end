@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>NotesFlow - Professional Note Taking</title>
+        <link rel="stylesheet" href="notes.css" />
+        <script src="notes.js"></script>
+    </head>
+    <body>
+        <header class="header">
+            <div class="header-left">
+                <button class="hamburger" onclick="toggleSidebar()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <div class="logo">📝 NotesFlow</div>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-secondary" onclick="exportNotes()">Export</button>
+                <button class="btn" onclick="saveAll()">Save All</button>
+            </div>
+        </header>
+
+        <div class="main-container">
+            <aside class="sidebar" id="sidebar">
+                <div class="sidebar-header">
+                    <input
+                        type="text"
+                        class="search-box"
+                        placeholder="Search notes..."
+                        oninput="searchContent(this.value)"
+                    />
+                    <div class="sidebar-actions">
+                        <button class="sidebar-btn" onclick="showCreateModal('folder')">📁 Folder</button>
+                        <button class="sidebar-btn" onclick="showCreateModal('note')">📝 Note</button>
+                    </div>
+                </div>
+                <div class="content-area" id="contentArea">
+                    <!-- Content will be populated here -->
+                </div>
+            </aside>
+
+            <main class="editor-container" id="editorContainer">
+                <div id="welcomeScreen" class="welcome-screen">
+                    <div class="welcome-icon">📝</div>
+                    <h1 class="welcome-title">Welcome to NotesFlow</h1>
+                    <p class="welcome-subtitle">
+                        Your professional note-taking companion with folders and organization
+                    </p>
+                    <button class="btn" onclick="showCreateModal('note')">Create Your First Note</button>
+                </div>
+
+                <div id="editorPanel" style="display: none; height: 100%; flex-direction: column">
+                    <div class="breadcrumb" id="breadcrumb"></div>
+                    <div class="toolbar">
+                        <button class="toolbar-btn" onclick="formatText('bold')" title="Bold">B</button>
+                        <button class="toolbar-btn" onclick="formatText('italic')" title="Italic">I</button>
+                        <button class="toolbar-btn" onclick="formatText('underline')" title="Underline">U</button>
+                        <button class="toolbar-btn" onclick="formatText('strikeThrough')" title="Strikethrough">
+                            S
+                        </button>
+                        <button class="toolbar-btn" onclick="insertList('ul')" title="Bullet List">• List</button>
+                        <button class="toolbar-btn" onclick="insertList('ol')" title="Numbered List">1. List</button>
+                        <button class="toolbar-btn" onclick="formatText('insertHorizontalRule')" title="Divider">
+                            ——
+                        </button>
+                        <button class="toolbar-btn" onclick="changeFont('larger')" title="Increase Font">A+</button>
+                        <button class="toolbar-btn" onclick="changeFont('smaller')" title="Decrease Font">A-</button>
+                        <button
+                            class="toolbar-btn"
+                            onclick="deleteCurrentNote()"
+                            title="Delete Note"
+                            style="margin-left: auto; color: #e74c3c"
+                        >
+                            🗑️
+                        </button>
+                    </div>
+                    <input
+                        type="text"
+                        id="noteTitle"
+                        class="title-input"
+                        placeholder="Untitled Note"
+                        oninput="updateNoteTitle()"
+                    />
+                    <div
+                        id="noteEditor"
+                        class="editor"
+                        contenteditable="true"
+                        oninput="updateNoteContent()"
+                        onkeydown="handleEditorKeydown(event)"
+                    ></div>
+                </div>
+            </main>
+        </div>
+
+        <!-- Modal for creating folders/notes -->
+        <div class="modal" id="createModal">
+            <div class="modal-content">
+                <div class="modal-header" id="modalHeader">Create New Item</div>
+                <input type="text" class="modal-input" id="modalInput" placeholder="Enter name..." />
+                <div class="modal-actions">
+                    <button class="btn btn-secondary" onclick="hideCreateModal()">Cancel</button>
+                    <button class="btn" onclick="confirmCreate()">Create</button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
