@@ -13,7 +13,13 @@ import Layout from "../../layouts/Layout.astro";
             </div>
 
             <div class="rounded-lg bg-white p-8 shadow-xl">
-                <form class="space-y-6">
+                <form id="loginForm" class="space-y-6">
+                    <div id="errorMessage" class="hidden rounded-md bg-red-50 p-4">
+                        <div class="text-sm text-red-700" id="errorText"></div>
+                    </div>
+                    <div id="successMessage" class="hidden rounded-md bg-green-50 p-4">
+                        <div class="text-sm text-green-700" id="successText"></div>
+                    </div>
                     <div>
                         <label for="email" class="mb-1 block text-sm font-medium text-gray-700"> Email address </label>
                         <input
@@ -62,9 +68,24 @@ import Layout from "../../layouts/Layout.astro";
                     <div>
                         <button
                             type="submit"
-                            class="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition duration-150 ease-in-out hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none"
+                            id="submitButton"
+                            class="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition duration-150 ease-in-out hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                         >
-                            Sign in
+                            <span id="buttonText">Sign in</span>
+                            <svg
+                                id="loadingSpinner"
+                                class="ml-2 hidden h-4 w-4 animate-spin text-white"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                            >
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"
+                                ></circle>
+                                <path
+                                    class="opacity-75"
+                                    fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                                ></path>
+                            </svg>
                         </button>
                     </div>
 
@@ -82,3 +103,157 @@ import Layout from "../../layouts/Layout.astro";
         </div>
     </div>
 </Layout>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const loginForm = document.getElementById("loginForm") as HTMLFormElement;
+        const errorMessage = document.getElementById("errorMessage") as HTMLElement;
+        const successMessage = document.getElementById("successMessage") as HTMLElement;
+        const errorText = document.getElementById("errorText") as HTMLElement;
+        const successText = document.getElementById("successText") as HTMLElement;
+        const submitButton = document.getElementById("submitButton") as HTMLButtonElement;
+        const buttonText = document.getElementById("buttonText") as HTMLElement;
+        const loadingSpinner = document.getElementById("loadingSpinner") as HTMLElement;
+
+        function showError(message: string) {
+            if (errorText && errorMessage && successMessage) {
+                errorText.textContent = message;
+                errorMessage.classList.remove("hidden");
+                successMessage.classList.add("hidden");
+            }
+        }
+
+        function showSuccess(message: string) {
+            if (successText && successMessage && errorMessage) {
+                successText.textContent = message;
+                successMessage.classList.remove("hidden");
+                errorMessage.classList.add("hidden");
+            }
+        }
+
+        function hideMessages() {
+            if (errorMessage && successMessage) {
+                errorMessage.classList.add("hidden");
+                successMessage.classList.add("hidden");
+            }
+        }
+
+        function setLoading(isLoading: boolean) {
+            if (submitButton) {
+                submitButton.disabled = isLoading;
+            }
+            if (buttonText && loadingSpinner) {
+                if (isLoading) {
+                    buttonText.textContent = "Signing in...";
+                    loadingSpinner.classList.remove("hidden");
+                } else {
+                    buttonText.textContent = "Sign in";
+                    loadingSpinner.classList.add("hidden");
+                }
+            }
+        }
+
+        if (loginForm) {
+            loginForm.addEventListener("submit", async function (e) {
+                e.preventDefault();
+
+                hideMessages();
+                setLoading(true);
+
+                // Get form data
+                const formData = new FormData(loginForm);
+                const email = formData.get("email") as string;
+                const password = formData.get("password") as string;
+
+                // Basic validation
+                if (!email || !password) {
+                    showError("Please fill in all fields.");
+                    setLoading(false);
+                    return;
+                }
+
+                try {
+                    // Make API request to login endpoint
+                    const response = await fetch("http://localhost:3000/api/v1/auth/login", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        credentials: "include", // Important for cookies
+                        body: JSON.stringify({
+                            username: email, // API accepts email or username in the username field
+                            password: password,
+                        }),
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        // Login success (200 OK)
+                        showSuccess("Login successful! Redirecting...");
+
+                        // Store user data (JWT is automatically stored in HTTP-only cookie)
+                        if (data.id && data.username) {
+                            localStorage.setItem(
+                                "user",
+                                JSON.stringify({
+                                    id: data.id,
+                                    username: data.username,
+                                }),
+                            );
+                        }
+
+                        // Redirect to dashboard or home page after a short delay
+                        setTimeout(() => {
+                            window.location.href = "/"; // Change this to the future dashboard page
+                        }, 1500);
+                    } else if (response.status === 400) {
+                        // Bad Request - missing fields or invalid format
+                        showError(data.error || "Please check your input and try again.");
+                    } else if (response.status === 401) {
+                        // Unauthorized - invalid credentials
+                        showError(data.error || "Invalid email or password.");
+                    } else if (response.status === 429) {
+                        // Rate limit exceeded
+                        showError("Too many login attempts. Please try again later.");
+                    } else if (response.status === 500) {
+                        // Internal server error
+                        showError(data.error || "Server error. Please try again later.");
+                    } else {
+                        // Other errors
+                        showError(data.error || "Login failed. Please try again.");
+                    }
+                } catch (error) {
+                    console.error("Login error:", error);
+                    showError("Connection error. Please check your internet connection and try again.");
+                } finally {
+                    setLoading(false);
+                }
+            });
+        }
+
+        // Handle "Remember me" functionality
+        const rememberCheckbox = document.getElementById("remember-me") as HTMLInputElement;
+        const emailInput = document.getElementById("email") as HTMLInputElement;
+
+        if (rememberCheckbox && emailInput) {
+            // Load saved email if "remember me" was previously checked
+            const savedEmail = localStorage.getItem("rememberedEmail");
+            if (savedEmail) {
+                emailInput.value = savedEmail;
+                rememberCheckbox.checked = true;
+            }
+
+            // Save/remove email based on checkbox state on form submission
+            if (loginForm) {
+                loginForm.addEventListener("submit", function () {
+                    if (rememberCheckbox.checked) {
+                        localStorage.setItem("rememberedEmail", emailInput.value);
+                    } else {
+                        localStorage.removeItem("rememberedEmail");
+                    }
+                });
+            }
+        }
+    });
+</script>

@@ -13,17 +13,26 @@ import Layout from "../../layouts/Layout.astro";
             </div>
 
             <div class="rounded-lg bg-white p-8 shadow-xl">
-                <form action="/auth/register" method="POST" class="space-y-6">
+                <form id="registerForm" class="space-y-6">
+                    <div id="errorMessage" class="hidden rounded-md bg-red-50 p-4">
+                        <div class="text-sm text-red-700" id="errorText"></div>
+                    </div>
+                    <div id="successMessage" class="hidden rounded-md bg-green-50 p-4">
+                        <div class="text-sm text-green-700" id="successText"></div>
+                    </div>
                     <div>
-                        <label for="fullName" class="mb-1 block text-sm font-medium text-gray-700"> Full Name </label>
+                        <label for="username" class="mb-1 block text-sm font-medium text-gray-700"> Username </label>
                         <input
                             type="text"
-                            id="fullName"
-                            name="fullName"
+                            id="username"
+                            name="username"
                             required
                             class="w-full rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm transition duration-150 ease-in-out focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-                            placeholder="Enter your full name"
+                            placeholder="Enter your username"
                         />
+                        <p class="mt-1 text-xs text-gray-500">
+                            3-30 characters, letters, numbers, underscores, or hyphens only
+                        </p>
                     </div>
 
                     <div>
@@ -36,6 +45,7 @@ import Layout from "../../layouts/Layout.astro";
                             class="w-full rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm transition duration-150 ease-in-out focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
                             placeholder="Enter your email"
                         />
+                        <p class="mt-1 text-xs text-gray-500">Must be a valid email format</p>
                     </div>
 
                     <div>
@@ -48,6 +58,9 @@ import Layout from "../../layouts/Layout.astro";
                             class="w-full rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm transition duration-150 ease-in-out focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
                             placeholder="Enter your password"
                         />
+                        <p class="mt-1 text-xs text-gray-500">
+                            At least 8 characters with uppercase, lowercase, and number
+                        </p>
                     </div>
 
                     <div>
@@ -87,9 +100,24 @@ import Layout from "../../layouts/Layout.astro";
                     <div>
                         <button
                             type="submit"
-                            class="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition duration-150 ease-in-out hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none"
+                            id="submitButton"
+                            class="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition duration-150 ease-in-out hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                         >
-                            Create Account
+                            <span id="buttonText">Create Account</span>
+                            <svg
+                                id="loadingSpinner"
+                                class="ml-2 hidden h-4 w-4 animate-spin text-white"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                            >
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"
+                                ></circle>
+                                <path
+                                    class="opacity-75"
+                                    fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                                ></path>
+                            </svg>
                         </button>
                     </div>
 
@@ -107,3 +135,167 @@ import Layout from "../../layouts/Layout.astro";
         </div>
     </div>
 </Layout>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const registerForm = document.getElementById("registerForm") as HTMLFormElement;
+        const errorMessage = document.getElementById("errorMessage") as HTMLElement;
+        const successMessage = document.getElementById("successMessage") as HTMLElement;
+        const errorText = document.getElementById("errorText") as HTMLElement;
+        const successText = document.getElementById("successText") as HTMLElement;
+        const submitButton = document.getElementById("submitButton") as HTMLButtonElement;
+        const buttonText = document.getElementById("buttonText") as HTMLElement;
+        const loadingSpinner = document.getElementById("loadingSpinner") as HTMLElement;
+
+        function showError(message: string) {
+            if (errorText && errorMessage && successMessage) {
+                errorText.textContent = message;
+                errorMessage.classList.remove("hidden");
+                successMessage.classList.add("hidden");
+            }
+        }
+
+        function showSuccess(message: string) {
+            if (successText && successMessage && errorMessage) {
+                successText.textContent = message;
+                successMessage.classList.remove("hidden");
+                errorMessage.classList.add("hidden");
+            }
+        }
+
+        function hideMessages() {
+            if (errorMessage && successMessage) {
+                errorMessage.classList.add("hidden");
+                successMessage.classList.add("hidden");
+            }
+        }
+
+        function setLoading(isLoading: boolean) {
+            if (submitButton) {
+                submitButton.disabled = isLoading;
+            }
+            if (buttonText && loadingSpinner) {
+                if (isLoading) {
+                    buttonText.textContent = "Creating Account...";
+                    loadingSpinner.classList.remove("hidden");
+                } else {
+                    buttonText.textContent = "Create Account";
+                    loadingSpinner.classList.add("hidden");
+                }
+            }
+        }
+
+        // Minimal client-side validation - avoid unnecessary API calls
+        function hasBasicRequiredFields(
+            username: string,
+            email: string,
+            password: string,
+            confirmPassword: string,
+        ): string | null {
+            if (!username.trim() || !email.trim() || !password || !confirmPassword) {
+                return "Please fill in all fields.";
+            }
+            if (password !== confirmPassword) {
+                return "Passwords do not match.";
+            }
+            return null;
+        }
+
+        if (registerForm) {
+            registerForm.addEventListener("submit", async function (e) {
+                e.preventDefault();
+
+                hideMessages();
+                setLoading(true);
+
+                // Get form data
+                const formData = new FormData(registerForm);
+                const username = (formData.get("username") as string)?.trim();
+                const email = (formData.get("email") as string)?.trim();
+                const password = formData.get("password") as string;
+                const confirmPassword = formData.get("confirmPassword") as string;
+                const termsAccepted = formData.get("terms");
+
+                // Minimal client-side validation, just some basic checks
+                const basicError = hasBasicRequiredFields(username, email, password, confirmPassword);
+                if (basicError) {
+                    showError(basicError);
+                    setLoading(false);
+                    return;
+                }
+
+                if (!termsAccepted) {
+                    showError("You must agree to the Terms of Service and Privacy Policy.");
+                    setLoading(false);
+                    return;
+                }
+
+                try {
+                    // Make API request to register endpoint
+                    const response = await fetch("http://localhost:3000/api/v1/auth/register", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            username: username,
+                            email: email,
+                            password: password,
+                        }),
+                    });
+
+                    const data = await response.json();
+
+                    if (response.status === 201) {
+                        // Registration successful (201 Created)
+                        showSuccess("Account created successfully! Redirecting to login...");
+
+                        // Redirect to login page after short delay
+                        setTimeout(() => {
+                            window.location.href = "/auth/login";
+                        }, 2000);
+                    } else if (response.status === 400) {
+                        // Bad Request - validation errors
+                        showError(data.error || "Please check your input and try again.");
+                    } else if (response.status === 409) {
+                        // Conflict - username or email already exists
+                        showError(data.error || "Username or email already exists.");
+                    } else if (response.status === 429) {
+                        // Rate limit exceeded
+                        showError("Too many registration attempts. Please try again later.");
+                    } else if (response.status === 500) {
+                        // Internal server error
+                        showError(data.error || "Server error. Please try again later.");
+                    } else {
+                        // Other errors
+                        showError(data.error || "Registration failed. Please try again.");
+                    }
+                } catch (error) {
+                    console.error("Registration error:", error);
+                    showError("Connection error. Please check your internet connection and try again.");
+                } finally {
+                    setLoading(false);
+                }
+            });
+        }
+
+        // Minimal real-time validation for password confirmation
+        const passwordInput = document.getElementById("password") as HTMLInputElement;
+        const confirmPasswordInput = document.getElementById("confirmPassword") as HTMLInputElement;
+
+        if (passwordInput && confirmPasswordInput) {
+            function checkPasswordMatch() {
+                if (confirmPasswordInput.value && passwordInput.value !== confirmPasswordInput.value) {
+                    confirmPasswordInput.classList.add("border-red-500");
+                    confirmPasswordInput.classList.remove("border-gray-300");
+                } else {
+                    confirmPasswordInput.classList.remove("border-red-500");
+                    confirmPasswordInput.classList.add("border-gray-300");
+                }
+            }
+
+            passwordInput.addEventListener("input", checkPasswordMatch);
+            confirmPasswordInput.addEventListener("input", checkPasswordMatch);
+        }
+    });
+</script>
