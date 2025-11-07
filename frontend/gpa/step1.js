@@ -919,6 +919,18 @@ function titCheck() {
     }
 }
 
+//------------------------------------------------------------------------------
+function overlayOFF() {
+    document.body.style.filter = "none";
+    document.body.style.overflow = "";
+    document.querySelector(".inside-overlay").style.display = "none";
+}
+function overlayON() {
+    document.body.style.filter = "brightness(30%) blur(2px)";
+    document.body.style.overflow = "hidden";
+    document.querySelector(".inside-overlay").style.display = "block";
+}
+
 //--------------------------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------------------

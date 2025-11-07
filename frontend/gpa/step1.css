@@ -1,6 +1,37 @@
 body {
     margin: 0;
+    transition: filter 0.3s ease-in-out;
 }
+/* ----------------------------------------------------------------------------*/
+/* ----------------------------------------------------------------------------*/
+/* ----------------------------------------------------------------------------*/
+/*                                 Overylay CSS                                */
+/* ----------------------------------------------------------------------------*/
+/* ----------------------------------------------------------------------------*/
+/* ----------------------------------------------------------------------------*/
+
+.inside-overlay {
+    display: none;
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /*dont need the display here since we are controlling it via the parent id*/
+
+    background-color: rgb(0, 0, 0, 0.8);
+    z-index: 2;
+
+    border-radius: 25px;
+    /*allows for this to be in the middle of the page no matter the size */
+    transform: translate(50%, 65%);
+    text-align: center;
+    filter: blur(0%);
+}
+
+/* ----------------------------------------------------------------------------*/
 
 /* title (ehs gpa calc) */
 h1,
