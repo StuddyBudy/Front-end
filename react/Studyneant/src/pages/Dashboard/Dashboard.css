@@ -1,0 +1,58 @@
+.dashboard-container {
+    padding: 20px;
+    /* Add your custom background image here later */
+}
+
+/* Base style for all widgets */
+.widget {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+}
+
+/* The part of the widget you click to drag */
+.drag-handle {
+    background: #f4f4f4;
+    padding: 10px;
+    font-weight: bold;
+    cursor: grab;
+    border-bottom: 1px solid #ddd;
+}
+
+.drag-handle:active {
+    cursor: grabbing;
+}
+
+.widget-content {
+    padding: 15px;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+/* --- THE iOS JITTER ANIMATION --- */
+
+/* This class is automatically applied by the grid library when dragging */
+.react-draggable-dragging {
+    /* Make it pop out */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2) !important;
+    z-index: 100 !important;
+    opacity: 0.9;
+
+    /* Apply the jitter */
+    animation: jitter 0.25s infinite alternate !important;
+}
+
+/* The actual shaking keyframes */
+@keyframes jitter {
+    0% {
+        transform: rotate(-1.5deg) scale(1.02);
+    }
+    100% {
+        transform: rotate(1.5deg) scale(1.02);
+    }
+}

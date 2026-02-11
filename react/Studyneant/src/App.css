@@ -1,42 +1,83 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+@import "tailwindcss";
+
+nav select {
+    border: 2px solid transparent;
+    text-align: center;
+}
+nav a:hover,
+nav select:hover {
+    border: 2px solid #4f8cff;
+    transition: border 0.15s;
+}
+/* theme / light mode / standard  */
+@theme {
+    --color-button: #d4d4d8;
+    --color-text: #18181b;
+    --color-background-1: #f4f4f5;
+    --color-background-2: #d4d4d8;
+    --color-background-3: #a1a1aa;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
+@layer theme {
+    [data-theme="dark"],
+    [data-theme="dark"] * {
+        --color-button: #92e4fe;
+        --color-text: #dadae8;
+        --color-background-1: #2a2a2e;
+        --color-background-2: #25252b;
+        --color-background-3: #71717a;
+    }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+    [data-theme="ehs"],
+    [data-theme="ehs"] * {
+        --color-button: #ffd04f;
+        --color-text: #ffd700;
+        --color-background-1: #9b090b;
+        --color-background-2: #80080a;
+        --color-background-3: #f43f5e;
+    }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
+    [data-theme="nord"],
+    [data-theme="nord"] * {
+        --color-button: #7292eb;
+        --color-text: #7cdfec;
+        --color-background-1: #3b4252;
+        --color-background-2: #434c5e;
+        --color-background-3: #4c566a;
+    }
 
-.card {
-  padding: 2em;
-}
+    [data-theme="rose-pine"],
+    [data-theme="rose-pine"] * {
+        --color-button: #ea9a97;
+        /* #9ccfd8
+    iris/light purple - c4a7e7
+    foam/light blue - #9ccfd8
+    pink - f38ca9
+    gold - f6c177
+    
+    */
+        --color-text: #eb6f92;
+        --color-background-1: #2a273f;
+        --color-background-2: #211e35;
+        --color-background-3: #393552;
+    }
 
-.read-the-docs {
-  color: #888;
+    [data-theme="catpuccin"],
+    [data-theme="catpuccin"] * {
+        --color-button: #1e89f5;
+        /* 1e89f5 */
+        --color-text: #1ea3f5;
+        --color-background-1: #24273a;
+        --color-background-2: #363a4f;
+        --color-background-3: #494d64;
+    }
+
+    [data-theme="starry"],
+    [data-theme="starry"] * {
+        --color-button: #f38ca9;
+        --color-text: #f6c177;
+        --color-background-1: #262243;
+        --color-background-2: rgb(32, 29, 48);
+        --color-background-3: #393552;
+    }
 }
