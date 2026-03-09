@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
-import "../../../App.css";
+import "./Settings.css";
 
-export default function Header() {
+import { NavLink } from "react-router-dom";
+import { useEffect, useState } from "react";
+
+export default function Settings() {
     const [theme, setTheme] = useState(
         localStorage.getItem("theme") || "system",
     );
@@ -25,14 +27,15 @@ export default function Header() {
     }, [theme]);
 
     return (
-        <header className="bg-background-1 text-text">
-            <nav className="flex justify-between w-full shadow hidden sm:flex sticky mb-2">
-                <a
-                    className="p-2 rounded transition hover:bg-background-2"
-                    href="/"
-                >
-                    Home
-                </a>
+        <>
+            <h1> Settings</h1>
+
+            <nav className="flex justify-between w-full shadow sm:flex sticky mb-2">
+                <nav className="p-2 rounded transition hover:bg-background-2">
+                    <NavLink to="/">Dashboard</NavLink>
+                    <NavLink to="/GpaCalc">GpaCalc</NavLink>
+                    <NavLink to="/ToDo">ToDo</NavLink>
+                </nav>
 
                 <div className="flex justify-around gap-x-2">
                     <select
@@ -72,7 +75,6 @@ export default function Header() {
                     <option value="starry">Starry</option>
                 </select>
             </nav>
-            <h1 className="text-4xl font-bold text-center">StudyNeant</h1>
-        </header>
+        </>
     );
 }

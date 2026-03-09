@@ -1,22 +1,23 @@
+import { Routes, Route } from "react-router-dom";
+
 import "./App.css";
-import Header from "./components/Layout/Header/Header.tsx";
-import Dashboard from "./pages/Dashboard/Dashboard";
+
+import Dashboard from "./pages/Dashboard/Dashboard.tsx";
+import GpaCalc from "./pages/GpaCalc/GpaCalc.tsx";
+import ToDo from "./pages/To-Do/ToDo.tsx";
+import Notes from "./pages/Notes/Notes.tsx";
+
+// import Sidebar from "./components/Sidebar/Sidebar.tsx";
 
 export default function App() {
     return (
-        // I added Tailwind classes here so the whole background changes
-        // when you pick a new theme from the dropdown!
-        <div className="min-h-screen bg-background-2 text-text transition-colors duration-300">
-            {/* The Header sits at the very top */}
-            <Header />
-
-            {/* The Main Content area */}
-            <main className="container mx-auto p-4">
-                {/* Right now we just show the Dashboard. 
-                  Later, we will use React Router here to switch between pages! 
-                */}
-                <Dashboard />
-            </main>
-        </div>
+        <>
+            <Routes>
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/GpaCalc" element={<GpaCalc />} />
+                <Route path="/ToDo" element={<ToDo />} />
+                <Route path="/Notes" element={<Notes />} />
+            </Routes>
+        </>
     );
 }
