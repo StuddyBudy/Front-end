@@ -12,6 +12,7 @@ import Notes from "./pages/Notes/Notes.tsx";
 export default function App() {
     return (
         <>
+            {/* <Sidebar/> */}
             <Routes>
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/GpaCalc" element={<GpaCalc />} />
