@@ -7,7 +7,7 @@ export const LS = {
     customThemes: "studyos_custom_themes",
 } as const;
 
-// ── DEFAULT WIDGET LAYOUT ─────────────────────────────────────────────────────
+// ── DEFAULT LAYOUT ────────────────────────────────────────────────────────────
 export const DEFAULT_LAYOUT: LayoutItem[] = [
     { i: "grades", x: 0, y: 0, w: 3, h: 7, minW: 2, minH: 4 },
     { i: "todo", x: 3, y: 0, w: 4, h: 7, minW: 2, minH: 4 },
@@ -16,7 +16,10 @@ export const DEFAULT_LAYOUT: LayoutItem[] = [
 ];
 
 // ── HELPERS ───────────────────────────────────────────────────────────────────
+// Both functions are SSR-safe — they check for window before touching localStorage.
+
 export function lsGet<T>(key: string, fallback: T): T {
+    if (typeof window === "undefined") return fallback;
     try {
         const s = localStorage.getItem(key);
         return s ? (JSON.parse(s) as T) : fallback;
@@ -26,6 +29,7 @@ export function lsGet<T>(key: string, fallback: T): T {
 }
 
 export function lsSet(key: string, val: unknown): void {
+    if (typeof window === "undefined") return;
     try {
         localStorage.setItem(key, JSON.stringify(val));
     } catch {}

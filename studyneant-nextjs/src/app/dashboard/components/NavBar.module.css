@@ -1,0 +1,76 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    height: var(--nav-h);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    background: rgba(22, 18, 14, 0.85);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+}
+
+/* Logo */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.logoMark {
+    font-size: 1.4rem;
+    color: var(--accent-warm);
+    line-height: 1;
+}
+
+.logoText {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+/* Nav links */
+.links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+.navLink {
+    font-size: 0.86rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    transition: color 0.15s;
+}
+
+.navLink:hover {
+    color: var(--text-primary);
+    opacity: 1;
+}
+
+/* Auth buttons */
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* ── Responsive ────────────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+    .links {
+        display: none;
+    }
+    .navbar {
+        padding: 0 18px;
+    }
+}

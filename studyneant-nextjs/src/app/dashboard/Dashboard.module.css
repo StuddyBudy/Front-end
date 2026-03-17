@@ -1,0 +1,996 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   Dashboard.module.css
+   All styles scoped to the dashboard. Uses --dash-* CSS variables set by
+   themes.ts so the active theme controls every colour automatically.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* ── APP SHELL ───────────────────────────────────────────────────────────────*/
+.appShell {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+    background-color: var(--dash-bg-page);
+    background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"),
+        radial-gradient(
+            ellipse at center,
+            transparent 55%,
+            rgba(0, 0, 0, 0.45) 100%
+        );
+    font-family: var(--font-body);
+    color: var(--dash-text-primary);
+    transition: background-color 0.4s ease;
+}
+
+/* ── TOP BAR ─────────────────────────────────────────────────────────────────*/
+.topBar {
+    flex-shrink: 0;
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    border-bottom: 1px solid var(--dash-border);
+    background: rgba(0, 0, 0, 0.28);
+    backdrop-filter: blur(12px);
+    gap: 12px;
+    z-index: 20;
+}
+
+.topLeft {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.78rem;
+    color: var(--dash-text-muted);
+    white-space: nowrap;
+}
+.topDate {
+    font-weight: 500;
+    color: var(--dash-accent);
+}
+.topSep {
+    opacity: 0.3;
+}
+.topTime {
+    font-variant-numeric: tabular-nums;
+    color: var(--dash-text-primary);
+    font-weight: 500;
+}
+.topWeather {
+    font-size: 0.76rem;
+}
+
+.topCenter {
+    flex: 1;
+    text-align: center;
+}
+.topGreeting {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    color: var(--dash-accent);
+    letter-spacing: 0.01em;
+}
+.topGreeting strong {
+    color: var(--dash-accent-warm);
+    font-weight: 700;
+}
+
+.topRight {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.topBtn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid var(--dash-border);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--dash-text-primary);
+    transition:
+        background 0.15s,
+        border-color 0.15s,
+        transform 0.1s;
+    white-space: nowrap;
+}
+.topBtn:hover {
+    background: rgba(255, 255, 255, 0.09);
+    border-color: var(--dash-border-hover);
+    transform: translateY(-1px);
+}
+.topBtnAccent {
+    background: var(--dash-accent-warm);
+    color: #111;
+    border-color: transparent;
+    font-weight: 600;
+}
+.topBtnAccent:hover {
+    opacity: 0.88;
+    transform: translateY(-1px);
+}
+.topBtnGhost {
+    border-color: var(--dash-border);
+    color: var(--dash-text-muted);
+}
+.topBtnGhost:hover {
+    color: var(--dash-text-primary);
+}
+
+.profileAvatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--dash-bg-widget);
+    border: 1px solid var(--dash-border-hover);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--dash-accent);
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+.profileAvatar:hover {
+    border-color: var(--dash-accent-warm);
+}
+
+/* ── BODY ROW ────────────────────────────────────────────────────────────────*/
+.bodyRow {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+}
+
+/* ── HAMBURGER ───────────────────────────────────────────────────────────────*/
+.hamburgerBtn {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 30;
+    width: 36px;
+    height: 36px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--dash-border);
+    border-radius: 9px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    cursor: pointer;
+    transition:
+        background 0.2s,
+        border-color 0.2s;
+    padding: 0;
+}
+.hamburgerBtn:hover {
+    background: var(--dash-bg-widget);
+    border-color: var(--dash-border-hover);
+}
+.hamburgerBtn span {
+    display: block;
+    width: 16px;
+    height: 1.5px;
+    background: var(--dash-accent);
+    border-radius: 2px;
+    transform-origin: center;
+    transition:
+        transform 0.25s,
+        opacity 0.25s;
+}
+.hamburgerOpen span:nth-child(1) {
+    transform: translateY(6.5px) rotate(45deg);
+}
+.hamburgerOpen span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+.hamburgerOpen span:nth-child(3) {
+    transform: translateY(-6.5px) rotate(-45deg);
+}
+
+/* ── SIDEBAR ─────────────────────────────────────────────────────────────────*/
+.sidebar {
+    width: 210px;
+    flex-shrink: 0;
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(16px);
+    border-right: 1px solid var(--dash-border);
+    display: flex;
+    flex-direction: column;
+    padding: 60px 10px 16px;
+    overflow: hidden;
+    transition:
+        width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.3s,
+        padding 0.3s;
+}
+.sidebarClosed {
+    width: 0;
+    opacity: 0;
+    padding-left: 0;
+    padding-right: 0;
+    pointer-events: none;
+    border-right-color: transparent;
+}
+
+.sidebarBrand {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--dash-accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0 6px 14px;
+    border-bottom: 1px solid var(--dash-border);
+    margin-bottom: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.sidebarNav {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.sidebarLink {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 10px;
+    border-radius: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 0.86rem;
+    font-weight: 400;
+    color: var(--dash-text-muted);
+    white-space: nowrap;
+    text-align: left;
+    width: 100%;
+    transition:
+        background 0.15s,
+        color 0.15s,
+        transform 0.12s;
+}
+.sidebarLink:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--dash-text-primary);
+    transform: translateX(2px);
+}
+.sidebarLinkActive {
+    background: rgba(255, 255, 255, 0.07);
+    color: var(--dash-accent-warm);
+    box-shadow: inset 2px 0 0 var(--dash-accent-warm);
+}
+.slIcon {
+    font-size: 1rem;
+    width: 22px;
+    text-align: center;
+    flex-shrink: 0;
+}
+.slLabel {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ── MAIN CONTENT ────────────────────────────────────────────────────────────*/
+.mainContent {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 18px 16px 12px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--dash-border) transparent;
+}
+.mainContent::-webkit-scrollbar {
+    width: 4px;
+}
+.mainContent::-webkit-scrollbar-thumb {
+    background: var(--dash-border);
+    border-radius: 4px;
+}
+
+/* ── GRID / EDIT MODE ────────────────────────────────────────────────────────*/
+.gridWrap {
+    width: 100%;
+}
+.gridWrapEditing .widget {
+    outline: 1.5px dashed var(--dash-accent-warm);
+    outline-offset: 2px;
+}
+
+.editBanner {
+    background: linear-gradient(
+        90deg,
+        var(--dash-accent-warm) 0%,
+        rgba(222, 137, 0, 0.7) 100%
+    );
+    color: #111;
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 7px 14px;
+    border-radius: 9px;
+    margin-bottom: 12px;
+    letter-spacing: 0.03em;
+    animation: pulseBanner 2s ease infinite;
+}
+@keyframes pulseBanner {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.82;
+    }
+}
+
+/* ── WIDGETS ─────────────────────────────────────────────────────────────────*/
+.widget {
+    background: var(--dash-bg-widget);
+    border: 1px solid var(--dash-border);
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    backdrop-filter: blur(12px);
+    box-shadow:
+        0 4px 24px rgba(0, 0, 0, 0.4),
+        0 1px 0 rgba(255, 255, 255, 0.03) inset;
+    transition:
+        border-color 0.2s,
+        box-shadow 0.2s;
+}
+.widget:hover {
+    border-color: var(--dash-border-hover);
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.55),
+        0 0 0 1px var(--dash-accent-glow);
+}
+
+.dragHandle {
+    background: var(--dash-bg-handle);
+    padding: 9px 13px;
+    font-family: var(--font-display);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--dash-accent);
+    border-bottom: 1px solid var(--dash-border);
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    user-select: none;
+    cursor: default;
+    flex-shrink: 0;
+}
+.gridWrapEditing .dragHandle {
+    cursor: grab;
+}
+.gridWrapEditing .dragHandle:active {
+    cursor: grabbing;
+}
+
+.widgetBody {
+    padding: 12px;
+    flex: 1;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--dash-border) transparent;
+}
+.widgetBody::-webkit-scrollbar {
+    width: 3px;
+}
+.widgetBody::-webkit-scrollbar-thumb {
+    background: var(--dash-border);
+    border-radius: 3px;
+}
+
+/* Drag animation */
+:global(.react-draggable-dragging) {
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.7),
+        0 0 0 2px var(--dash-accent-warm) !important;
+    z-index: 200 !important;
+    animation: jitter 0.2s ease-in-out infinite alternate !important;
+}
+@keyframes jitter {
+    0% {
+        transform: rotate(-1.2deg) scale(1.015);
+    }
+    100% {
+        transform: rotate(1.2deg) scale(1.015);
+    }
+}
+:global(.react-resizable-handle) {
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+.widget:hover :global(.react-resizable-handle) {
+    opacity: 0.35;
+}
+
+/* ── GRADES WIDGET ───────────────────────────────────────────────────────────*/
+.gradeList {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+}
+.gradeItem {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.gradeRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+.gSub {
+    font-size: 0.82rem;
+    color: var(--dash-text-primary);
+    font-weight: 500;
+}
+.gBadge {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 700;
+}
+.gradeTrack {
+    height: 3px;
+    background: rgba(255, 255, 255, 0.07);
+    border-radius: 99px;
+    overflow: hidden;
+}
+.gradeFill {
+    height: 100%;
+    border-radius: 99px;
+    transition: width 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── TODO WIDGET ─────────────────────────────────────────────────────────────*/
+.todoWrap {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 8px;
+}
+.todoList {
+    list-style: none;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+.todoItem {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 7px 9px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.82rem;
+    color: var(--dash-text-primary);
+    transition: background 0.13s;
+}
+.todoItem:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+.todoItemDone .todoTxt {
+    text-decoration: line-through;
+    color: var(--dash-text-muted);
+}
+.todoChk {
+    color: var(--dash-accent-warm);
+    font-size: 1.05rem;
+    flex-shrink: 0;
+}
+.todoAdd {
+    display: flex;
+    gap: 7px;
+    margin-top: 4px;
+}
+.todoInput {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--dash-border);
+    border-radius: 8px;
+    padding: 6px 10px;
+    color: var(--dash-text-primary);
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+.todoInput::placeholder {
+    color: var(--dash-text-muted);
+}
+.todoInput:focus {
+    border-color: var(--dash-accent-warm);
+}
+.todoBtn {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: var(--dash-accent-warm);
+    color: #111;
+    border: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+        opacity 0.15s,
+        transform 0.1s;
+}
+.todoBtn:hover {
+    opacity: 0.85;
+    transform: scale(1.07);
+}
+
+/* ── REMINDERS WIDGET ────────────────────────────────────────────────────────*/
+.reminderList {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+.reminderItem {
+    font-size: 0.82rem;
+    padding: 8px 11px;
+    border-left: 2px solid var(--dash-accent-warm);
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 0 8px 8px 0;
+    color: var(--dash-text-primary);
+    transition: background 0.13s;
+}
+.reminderItem:hover {
+    background: rgba(255, 255, 255, 0.07);
+}
+
+/* ── SCHEDULE WIDGET ─────────────────────────────────────────────────────────*/
+.schOuter {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    height: 100%;
+}
+.schGrid {
+    display: grid;
+    border: 1px solid var(--dash-border);
+    border-radius: 10px;
+    overflow: hidden;
+    flex: 1;
+}
+.schCorner {
+    background: var(--dash-bg-handle);
+}
+.schDay {
+    background: var(--dash-bg-handle);
+    padding: 7px 4px;
+    text-align: center;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--dash-accent);
+    border-left: 1px solid var(--dash-border);
+}
+.schHour {
+    background: rgba(255, 255, 255, 0.02);
+    padding: 0 6px;
+    font-size: 0.68rem;
+    color: var(--dash-text-muted);
+    border-top: 1px solid var(--dash-border);
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
+.schCell {
+    border-top: 1px solid var(--dash-border);
+    border-left: 1px solid var(--dash-border);
+    min-height: 40px;
+    padding: 3px;
+    cursor: pointer;
+    position: relative;
+    transition: background 0.12s;
+}
+.schCell:hover:not(.schCellHasEv) {
+    background: rgba(255, 255, 255, 0.04);
+}
+.schEv {
+    padding: 3px 6px;
+    border-radius: 5px;
+    border-left: 2px solid;
+    font-size: 0.72rem;
+    font-weight: 500;
+    cursor: pointer;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    transition: opacity 0.15s;
+}
+.schEv:hover {
+    opacity: 0.7;
+}
+.schInput {
+    position: absolute;
+    inset: 2px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--dash-accent-warm);
+    border-radius: 5px;
+    color: var(--dash-text-primary);
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    padding: 2px 5px;
+    outline: none;
+    z-index: 10;
+}
+.schHint {
+    font-size: 0.68rem;
+    color: var(--dash-text-muted);
+    text-align: center;
+}
+
+/* ── BOTTOM NAV ──────────────────────────────────────────────────────────────*/
+.bottomNav {
+    flex-shrink: 0;
+    height: 62px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 0 16px;
+    border-top: 1px solid var(--dash-border);
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(14px);
+}
+.bnavItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 6px 14px;
+    border: none;
+    border-radius: 10px;
+    background: none;
+    cursor: pointer;
+    color: var(--dash-text-muted);
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    font-weight: 500;
+    transition:
+        color 0.15s,
+        background 0.15s;
+    min-width: 60px;
+}
+.bnavItem:hover {
+    color: var(--dash-text-primary);
+    background: rgba(255, 255, 255, 0.05);
+}
+.bnavItemActive {
+    color: var(--dash-accent-warm);
+}
+.bnavIcon {
+    font-size: 1.2rem;
+}
+.bnavPlus {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--dash-accent-warm);
+    color: #111;
+    border: none;
+    font-size: 1.4rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 8px;
+    transition:
+        opacity 0.15s,
+        transform 0.15s;
+    box-shadow: 0 0 18px var(--dash-accent-glow);
+}
+.bnavPlus:hover {
+    opacity: 0.85;
+    transform: scale(1.08) rotate(90deg);
+}
+
+/* ── PLACEHOLDER PAGE ────────────────────────────────────────────────────────*/
+.placeholderPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 60vh;
+    gap: 12px;
+    color: var(--dash-text-muted);
+}
+.placeholderEmoji {
+    font-size: 3rem;
+}
+.placeholderPage p {
+    font-size: 0.9rem;
+}
+
+/* ── SETTINGS PAGE ───────────────────────────────────────────────────────────*/
+.settingsPage {
+    max-width: 760px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    padding-bottom: 32px;
+}
+.settingsSec {
+}
+.settingsH2 {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--dash-accent);
+    margin-bottom: 4px;
+}
+.settingsP {
+    font-size: 0.82rem;
+    color: var(--dash-text-muted);
+    margin-bottom: 18px;
+    line-height: 1.5;
+}
+
+/* Theme grid */
+.themeGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 12px;
+}
+.themeCard {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    background: var(--dash-bg-widget);
+    border: 1px solid var(--dash-border);
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    transition:
+        border-color 0.2s,
+        transform 0.15s,
+        box-shadow 0.2s;
+    position: relative;
+    padding: 0;
+    text-align: left;
+}
+.themeCard:hover {
+    border-color: var(--dash-border-hover);
+    transform: translateY(-2px);
+}
+.themeCardActive {
+    border-color: var(--dash-accent-warm);
+    box-shadow:
+        0 0 0 1px var(--dash-accent-warm),
+        0 4px 18px var(--dash-accent-glow);
+}
+
+/* Theme preview canvas */
+.tpCanvas {
+    height: 72px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.tpWidget {
+    flex: 1;
+    border-radius: 6px;
+    border: 1px solid;
+    padding: 5px 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.tpWidgetSmall {
+    flex: 0 0 auto;
+    height: 22px;
+}
+.tpBar {
+    height: 4px;
+    border-radius: 3px;
+    width: 80%;
+}
+.tpLine {
+    height: 3px;
+    border-radius: 3px;
+    width: 90%;
+}
+
+.tcFooter {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 7px 9px;
+    border-top: 1px solid var(--dash-border);
+}
+.tcEmoji {
+    font-size: 0.9rem;
+}
+.tcName {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--dash-text-primary);
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.tcDel {
+    font-size: 0.65rem;
+    color: var(--dash-text-muted);
+    cursor: pointer;
+    padding: 2px 4px;
+    border-radius: 4px;
+    transition:
+        color 0.15s,
+        background 0.15s;
+}
+.tcDel:hover {
+    color: #e05555;
+    background: rgba(224, 85, 85, 0.12);
+}
+.tcCheck {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    background: var(--dash-accent-warm);
+    color: #111;
+    font-size: 0.65rem;
+    font-weight: 700;
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.themeAddCard {
+    border-style: dashed;
+    min-height: 112px;
+    justify-content: center;
+    align-items: center;
+}
+.tcAddIcon {
+    font-size: 2rem;
+    color: var(--dash-text-muted);
+    line-height: 1;
+    margin-bottom: 4px;
+}
+.themeAddCard .tcFooter {
+    border-top: none;
+    justify-content: center;
+}
+
+/* Theme builder */
+.themeBuilder {
+    margin-top: 20px;
+    background: var(--dash-bg-widget);
+    border: 1px solid var(--dash-border);
+    border-radius: 15px;
+    padding: 20px;
+    animation: slideIn 0.2s ease;
+}
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.builderH3 {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--dash-accent);
+    margin-bottom: 16px;
+}
+.builderFields {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+    margin-bottom: 16px;
+}
+.builderField {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 0.76rem;
+    color: var(--dash-text-muted);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+.builderInputRow {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+.colorSwatch {
+    width: 30px;
+    height: 30px;
+    border: 1px solid var(--dash-border);
+    border-radius: 6px;
+    padding: 1px;
+    background: none;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+.builderInput {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--dash-border);
+    border-radius: 7px;
+    padding: 6px 9px;
+    color: var(--dash-text-primary);
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+.builderInput:focus {
+    border-color: var(--dash-accent-warm);
+}
+.builderBtns {
+    display: flex;
+    gap: 10px;
+}
+.bldBtn {
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition:
+        opacity 0.15s,
+        transform 0.1s;
+    border: 1px solid var(--dash-border);
+}
+.bldBtnPrimary {
+    background: var(--dash-accent-warm);
+    color: #111;
+    border-color: transparent;
+    font-weight: 600;
+}
+.bldBtnPrimary:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+}
+.bldBtnGhost {
+    background: none;
+    color: var(--dash-text-muted);
+}
+.bldBtnGhost:hover {
+    color: var(--dash-text-primary);
+    background: rgba(255, 255, 255, 0.05);
+}
