@@ -1,0 +1,446 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   Weekly.module.css
+   Styles for WeeklyView.tsx and the view-toggle in ToDoTopBar.tsx.
+   Uses --dash-* CSS variables so the active dashboard theme applies.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* ── WRAPPER ─────────────────────────────────────────────────────────────────*/
+.weeklyWrap {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    font-family: var(--font-body, "Outfit", sans-serif);
+    color: var(--dash-text-primary, #f0e8d8);
+}
+
+/* ── WEEK NAV BANNER ─────────────────────────────────────────────────────────*/
+.weekNav {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px 20px 8px;
+    border-bottom: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+}
+
+.weekNavLabel {
+    font-family: var(--font-display, "Cormorant Garamond", serif);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--dash-accent, #dfd0b8);
+    white-space: nowrap;
+}
+
+.weekNavHint {
+    font-size: 0.7rem;
+    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+}
+
+/* ── GRID (horizontal scroll of columns) ────────────────────────────────────*/
+.weekGrid {
+    flex: 1;
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: var(--dash-border, rgba(223, 208, 184, 0.1)) transparent;
+}
+.weekGrid::-webkit-scrollbar {
+    height: 5px;
+}
+.weekGrid::-webkit-scrollbar-thumb {
+    background: var(--dash-border, rgba(223, 208, 184, 0.1));
+    border-radius: 3px;
+}
+
+/* ── COLUMN ──────────────────────────────────────────────────────────────────*/
+.weekCol {
+    min-width: 210px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--dash-border, rgba(223, 208, 184, 0.1)) transparent;
+    padding-bottom: 16px;
+}
+.weekCol:last-child {
+    border-right: none;
+}
+
+/* Today column — amber tint */
+.weekColToday {
+    background: rgba(222, 137, 0, 0.04);
+}
+
+/* Sticky column header */
+.weekColHeader {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    display: flex;
+    align-items: baseline;
+    gap: 7px;
+    padding: 12px 14px 8px;
+    border-bottom: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    background: var(--dash-bg-page, #16120e);
+    backdrop-filter: blur(8px);
+}
+
+.weekColDay {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--dash-text-primary, #f0e8d8);
+    white-space: nowrap;
+}
+/* Today column: amber day label */
+.weekColToday .weekColDay {
+    color: var(--dash-accent-warm, #de8900);
+}
+
+.weekColCount {
+    font-size: 0.68rem;
+    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    background: rgba(255, 255, 255, 0.07);
+    padding: 1px 6px;
+    border-radius: 99px;
+}
+
+/* ── ADD BUTTON ──────────────────────────────────────────────────────────────*/
+.weekAddBtn {
+    margin: 8px 10px 4px;
+    padding: 7px 10px;
+    border-radius: 8px;
+    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    font-family: var(--font-body, "Outfit", sans-serif);
+    font-size: 0.78rem;
+    cursor: pointer;
+    text-align: left;
+    transition:
+        background 0.13s,
+        border-color 0.13s,
+        color 0.13s;
+    flex-shrink: 0;
+    width: calc(100% - 20px);
+}
+.weekAddBtn:hover {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: var(--dash-border-hover, rgba(223, 208, 184, 0.26));
+    color: var(--dash-text-primary, #f0e8d8);
+}
+
+/* ── ADD FORM ────────────────────────────────────────────────────────────────*/
+.weekAddForm {
+    margin: 4px 10px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    animation: fadeIn 0.14s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.weekAddInput {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--dash-accent-warm, #de8900);
+    border-radius: 7px;
+    padding: 7px 9px;
+    color: var(--dash-text-primary, #f0e8d8);
+    font-family: var(--font-body, "Outfit", sans-serif);
+    font-size: 0.82rem;
+    outline: none;
+}
+.weekAddInput::placeholder {
+    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+}
+
+.weekAddSelect {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border-radius: 7px;
+    padding: 6px 8px;
+    color: var(--dash-text-primary, #f0e8d8);
+    font-family: var(--font-body, "Outfit", sans-serif);
+    font-size: 0.78rem;
+    outline: none;
+    cursor: pointer;
+}
+.weekAddSelect option {
+    background: var(--dash-bg-widget, rgba(36, 28, 18, 0.97));
+}
+
+.weekAddConfirm {
+    flex: 1;
+    padding: 6px 0;
+    background: var(--dash-accent-warm, #de8900);
+    color: #111;
+    border: none;
+    border-radius: 7px;
+    font-family: var(--font-body, "Outfit", sans-serif);
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.15s;
+}
+.weekAddConfirm:hover {
+    opacity: 0.85;
+}
+
+.weekAddCancel {
+    padding: 6px 10px;
+    background: transparent;
+    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border-radius: 7px;
+    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    font-family: var(--font-body, "Outfit", sans-serif);
+    font-size: 0.78rem;
+    cursor: pointer;
+    transition: color 0.13s;
+}
+.weekAddCancel:hover {
+    color: var(--dash-text-primary, #f0e8d8);
+}
+
+/* ── CARDS AREA ──────────────────────────────────────────────────────────────*/
+.weekColCards {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 6px 10px 4px;
+    flex: 1;
+}
+
+.weekColEmpty {
+    padding: 16px 4px;
+    font-size: 0.74rem;
+    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    opacity: 0.55;
+    text-align: center;
+}
+
+/* ── TASK CARD ───────────────────────────────────────────────────────────────*/
+.weekCard {
+    background: var(--dash-bg-widget, rgba(36, 28, 18, 0.93));
+    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border-radius: 10px;
+    padding: 10px 11px;
+    transition:
+        border-color 0.15s,
+        box-shadow 0.15s,
+        opacity 0.2s;
+}
+.weekCard:hover {
+    border-color: var(--dash-border-hover, rgba(223, 208, 184, 0.26));
+    box-shadow: 0 3px 14px rgba(0, 0, 0, 0.35);
+}
+
+/* Done cards are faded out */
+.weekCardDone {
+    opacity: 0.42;
+}
+
+/* Card header row: badge + circle button */
+.weekCardHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    gap: 6px;
+}
+
+.weekCardBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    border-radius: 99px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    max-width: 145px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex-shrink: 1;
+}
+
+/* Complete toggle — circle */
+.weekCardCheck {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 1.5px solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 0.55rem;
+    color: #111;
+    cursor: pointer;
+    background: transparent;
+    transition:
+        background 0.15s,
+        border-color 0.15s;
+}
+.weekCardCheck:hover {
+    opacity: 0.8;
+}
+
+/* Done state — filled circle */
+.weekCardCheckDone {
+    color: #111 !important;
+}
+
+/* Title — clamp to 2 lines */
+.weekCardTitle {
+    font-size: 0.84rem;
+    font-weight: 500;
+    color: var(--dash-text-primary, #f0e8d8);
+    line-height: 1.35;
+    margin-bottom: 4px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Note — clamp to 1 line */
+.weekCardNote {
+    font-size: 0.72rem;
+    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    line-height: 1.4;
+    margin-bottom: 5px;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Sub-task progress */
+.weekCardSubRow {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 5px;
+}
+.weekCardSubTrack {
+    flex: 1;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.07);
+    border-radius: 99px;
+    overflow: hidden;
+}
+.weekCardSubFill {
+    height: 100%;
+    border-radius: 99px;
+    transition: width 0.3s ease;
+}
+.weekCardSubLabel {
+    font-size: 0.62rem;
+    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    flex-shrink: 0;
+}
+
+/* Card footer: priority flag + due label */
+.weekCardFooter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    margin-top: 6px;
+    flex-wrap: wrap;
+}
+
+.weekCardPriority {
+    font-size: 0.66rem;
+    font-weight: 600;
+}
+
+.weekCardDue {
+    font-size: 0.65rem;
+    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    margin-left: auto;
+    white-space: nowrap;
+}
+
+/* Overdue — red */
+.weekCardDueOverdue {
+    color: #e05555 !important;
+    font-weight: 600;
+}
+
+/* ── COMPLETED SECTION ───────────────────────────────────────────────────────*/
+.weekDoneSection {
+    margin: 6px 10px 0;
+}
+
+/* Remove the default <details> triangle */
+.weekDoneSection > summary {
+    list-style: none;
+}
+.weekDoneSection > summary::-webkit-details-marker {
+    display: none;
+}
+
+.weekDoneSummary {
+    font-size: 0.7rem;
+    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    cursor: pointer;
+    padding: 5px 4px;
+    border-radius: 6px;
+    transition: background 0.13s;
+    user-select: none;
+}
+.weekDoneSummary:hover {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+/* ── VIEW TOGGLE (used by ToDoTopBar) ────────────────────────────────────────*/
+.viewToggle {
+    display: flex;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border-radius: 8px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.viewToggleBtn {
+    padding: 5px 14px;
+    background: transparent;
+    border: none;
+    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    font-family: var(--font-body, "Outfit", sans-serif);
+    font-size: 0.78rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition:
+        background 0.15s,
+        color 0.15s;
+    white-space: nowrap;
+}
+.viewToggleBtn:hover {
+    color: var(--dash-text-primary, #f0e8d8);
+}
+
+/* Active tab */
+.viewToggleBtnActive {
+    background: var(--dash-bg-handle, rgba(44, 35, 22, 0.97));
+    color: var(--dash-accent-warm, #de8900);
+}
