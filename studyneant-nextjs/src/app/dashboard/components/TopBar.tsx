@@ -1,8 +1,11 @@
 "use client";
 
+import { useState } from "react";
+
 import { useClock, getGreeting } from "../hooks/useClock";
 import type { Page } from "../types";
 import s from "../Dashboard.module.css";
+import AppDrawer, { HamburgerBtn } from "@/components/AppDrawer";
 
 function EditIcon() {
     return (
@@ -54,9 +57,26 @@ export default function TopBar({
         hour: "numeric",
         minute: "2-digit",
     });
+    const [drawerOpen, setDrawerOpen] = useState(false);
 
     return (
-        <header className={s.topBar}>
+        <header
+            className={s.topBar}
+            style={{ zIndex: 99, position: "relative" }}
+        >
+            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                <HamburgerBtn
+                    open={drawerOpen}
+                    onClick={() => setDrawerOpen((o) => !o)}
+                />
+                <span
+                    style={{
+                        fontSize: "0.78rem",
+                        color: "var(--dash-text-muted, rgba(240,232,216,0.45))",
+                    }}
+                ></span>
+            </div>
+
             <div className={s.topLeft}>
                 <span className={s.topDate}>{dateStr}</span>
                 <span className={s.topSep}>·</span>
@@ -104,6 +124,7 @@ export default function TopBar({
                     </svg>
                 </div>
             </div>
+            {drawerOpen && <AppDrawer onClose={() => setDrawerOpen(false)} />}
         </header>
     );
 }

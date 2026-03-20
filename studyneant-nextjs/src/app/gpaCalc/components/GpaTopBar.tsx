@@ -1,19 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter, usePathname } from "next/navigation";
+import AppDrawer, { HamburgerBtn } from "@/components/AppDrawer";
 import type { GpaState } from "../types";
 import { PARTNER_SCHOOLS } from "../types";
 import s from "../GpaCalc.module.css";
-
-const NAV = [
-    { href: "/dashboard", icon: "🏠", label: "Dashboard" },
-    { href: "/notes", icon: "📝", label: "Notes" },
-    { href: "/calendar", icon: "📅", label: "Calendar" },
-    { href: "/toDo", icon: "✅", label: "To-Do" },
-    { href: "/gpaCalc", icon: "📊", label: "GPA Calc" },
-    { href: "/settings", icon: "⚙️", label: "Settings" },
-] as const;
 
 type Props = {
     state: GpaState;
@@ -22,7 +13,7 @@ type Props = {
     onAddCourse: () => void;
     onImport: () => void;
     onRefresh: () => void;
-    onOpenSetup: () => void; // ← re-opens the setup wizard
+    onOpenSetup: () => void;
     lastUpdated: Date | null;
 };
 
@@ -36,8 +27,6 @@ export default function GpaTopBar({
     onOpenSetup,
     lastUpdated,
 }: Props) {
-    const router = useRouter();
-    const pathname = usePathname();
     const [drawerOpen, setDrawerOpen] = useState(false);
 
     const partnerSchool = state.config.partnerId
@@ -45,7 +34,6 @@ export default function GpaTopBar({
         : null;
     const schoolLabel =
         partnerSchool?.name ?? state.config.customSchoolName ?? "";
-
     const sortedPeriods = [...state.periods].sort((a, b) => a.order - b.order);
 
     const fmtTime = (d: Date) =>
@@ -55,24 +43,63 @@ export default function GpaTopBar({
             second: "2-digit",
         });
 
+    // Quick action: re-open setup wizard — passed as a slot to AppDrawer
+    const quickActions = (
+        <button
+            style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 12,
+                padding: "11px 12px",
+                borderRadius: 10,
+                background: "none",
+                border: "none",
+                width: "100%",
+                textAlign: "left",
+                color: "var(--dash-text-muted, rgba(240,232,216,0.50))",
+                fontFamily: "var(--font-body, 'Outfit', sans-serif)",
+                fontSize: "0.88rem",
+                cursor: "pointer",
+                transition: "background 0.13s, color 0.13s",
+            }}
+            onMouseOver={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.background =
+                    "rgba(255,255,255,0.06)";
+                (e.currentTarget as HTMLButtonElement).style.color =
+                    "var(--dash-text-primary, #f0e8d8)";
+            }}
+            onMouseOut={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.background =
+                    "none";
+                (e.currentTarget as HTMLButtonElement).style.color =
+                    "var(--dash-text-muted, rgba(240,232,216,0.50))";
+            }}
+            onClick={() => {
+                onOpenSetup();
+                setDrawerOpen(false);
+            }}
+        >
+            <span
+                style={{ fontSize: "1.1rem", width: 26, textAlign: "center" }}
+            >
+                ⚙
+            </span>
+            <span>GPA Setup / Settings</span>
+        </button>
+    );
+
     return (
         <>
             <header className={s.topBar}>
                 <div className={s.topBarLeft}>
-                    {/* Hamburger → app nav drawer */}
-                    <button
-                        className={`${s.hamburgerBtn} ${drawerOpen ? s.hamburgerOpen : ""}`}
+                    {/* Hamburger → shared app-wide nav drawer */}
+                    <HamburgerBtn
+                        open={drawerOpen}
                         onClick={() => setDrawerOpen((o) => !o)}
-                        aria-label="Open navigation"
-                    >
-                        <span />
-                        <span />
-                        <span />
-                    </button>
+                    />
 
                     <span className={s.topBarTitle}>📊 GPA Calc</span>
 
-                    {/* Partner / school badge */}
                     {schoolLabel && (
                         <span className={s.schoolBadge}>
                             {partnerSchool ? "✓ " : ""}
@@ -106,7 +133,6 @@ export default function GpaTopBar({
                 </div>
 
                 <div className={s.topBarRight}>
-                    {/* Last updated */}
                     {lastUpdated && (
                         <span
                             style={{
@@ -118,13 +144,7 @@ export default function GpaTopBar({
                             ⓘ Updated {fmtTime(lastUpdated)}
                         </span>
                     )}
-
-                    {/* ── Buttons ── */}
-                    <button
-                        className={s.tbBtn}
-                        onClick={onRefresh}
-                        title="Recalculate"
-                    >
+                    <button className={s.tbBtn} onClick={onRefresh}>
                         ↻ Refresh
                     </button>
                     <button className={s.tbBtn} onClick={onImport}>
@@ -136,17 +156,9 @@ export default function GpaTopBar({
                     >
                         + Add Course
                     </button>
-
-                    {/* ── Settings — re-opens the setup wizard ── */}
-                    <button
-                        className={s.tbBtn}
-                        onClick={onOpenSetup}
-                        title="Setup: school, GPA scale, marking periods"
-                        style={{ gap: 5 }}
-                    >
+                    <button className={s.tbBtn} onClick={onOpenSetup}>
                         ⚙ Setup
                     </button>
-
                     <div className={s.profileAvatar}>
                         <svg
                             width="15"
@@ -160,75 +172,12 @@ export default function GpaTopBar({
                 </div>
             </header>
 
-            {/* App nav drawer */}
+            {/* Shared nav drawer — with GPA Setup as a quick action */}
             {drawerOpen && (
-                <>
-                    <div
-                        className={s.drawerOverlay}
-                        onClick={() => setDrawerOpen(false)}
-                    />
-                    <div className={s.drawer}>
-                        <div className={s.drawerHeader}>
-                            <span className={s.drawerBrand}>◈ StudyOS</span>
-                            <button
-                                className={s.drawerClose}
-                                onClick={() => setDrawerOpen(false)}
-                            >
-                                ✕
-                            </button>
-                        </div>
-                        <div className={s.drawerSectionLabel}>Navigate</div>
-                        <nav className={s.drawerNav}>
-                            {NAV.map(({ href, icon, label }) => {
-                                const active =
-                                    pathname === href ||
-                                    pathname.startsWith(href + "/");
-                                return (
-                                    <button
-                                        key={href}
-                                        className={`${s.drawerLink} ${active ? s.drawerLinkActive : ""}`}
-                                        onClick={() => {
-                                            router.push(href);
-                                            setDrawerOpen(false);
-                                        }}
-                                    >
-                                        <span className={s.drawerLinkIcon}>
-                                            {icon}
-                                        </span>
-                                        <span className={s.drawerLinkText}>
-                                            {label}
-                                        </span>
-                                        {active && (
-                                            <span className={s.drawerLinkBadge}>
-                                                here
-                                            </span>
-                                        )}
-                                    </button>
-                                );
-                            })}
-                        </nav>
-                        <div className={s.drawerSectionLabel}>
-                            Quick Actions
-                        </div>
-                        <div style={{ padding: "4px 10px" }}>
-                            <button
-                                className={s.drawerLink}
-                                onClick={() => {
-                                    onOpenSetup();
-                                    setDrawerOpen(false);
-                                }}
-                            >
-                                <span className={s.drawerLinkIcon}>⚙</span>
-                                <span className={s.drawerLinkText}>
-                                    GPA Setup / Settings
-                                </span>
-                            </button>
-                        </div>
-                        <div className={s.drawerFooter}>
-                            StudyOS © {new Date().getFullYear()}
-                        </div>
-                    </div>
-                </>
+                <AppDrawer
+                    onClose={() => setDrawerOpen(false)}
+                    quickActions={quickActions}
+                />
             )}
         </>
     );

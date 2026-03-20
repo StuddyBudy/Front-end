@@ -7,7 +7,6 @@ import { BUILT_IN_THEMES, applyTheme } from "./themes";
 import { LS, DEFAULT_LAYOUT, lsGet, lsSet } from "./storage";
 
 import TopBar from "./components/TopBar";
-import Sidebar from "./components/Sidebar";
 import BottomNav from "./components/BottomNav";
 import DashboardView from "./components/DashboardView";
 import SettingsView from "./components/SettingsView";
@@ -123,13 +122,6 @@ export default function DashboardPage() {
             />
 
             <div className={s.bodyRow}>
-                <Sidebar
-                    open={sidebarOpen}
-                    page={page}
-                    onToggle={() => setSidebarOpen((o) => !o)}
-                    onNavigate={handleNavigate}
-                />
-
                 <main className={s.mainContent} ref={mainRef}>
                     {page === "dashboard" && (
                         <DashboardView
@@ -150,14 +142,6 @@ export default function DashboardPage() {
                             onAddTheme={handleAddCustomTheme}
                             onDeleteTheme={handleDeleteCustomTheme}
                         />
-                    )}
-                    {(page === "notes" ||
-                        page === "grades" ||
-                        page === "calendar") && (
-                        <div className={s.placeholderPage}>
-                            <span className={s.placeholderEmoji}>🚧</span>
-                            <p>This page is coming soon.</p>
-                        </div>
                     )}
                 </main>
             </div>

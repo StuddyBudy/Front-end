@@ -2,9 +2,8 @@
 
 import { useState, useRef, useEffect } from "react";
 import type { SortMode } from "../types";
-import AppDrawer from "./AppDrawer";
+import AppDrawer, { HamburgerBtn } from "@/components/AppDrawer";
 import s from "../ToDo.module.css";
-import tw from "./Weekly.module.css";
 
 const SORT_OPTIONS: { value: SortMode; label: string; icon: string }[] = [
     { value: "manual", label: "Manual order", icon: "⠿" },
@@ -53,20 +52,13 @@ export default function ToDoTopBar({
         <>
             <header className={s.topBar}>
                 <div className={s.topBarLeft}>
-                    {/* Hamburger → app nav drawer */}
-                    <button
-                        className={`${s.hamburgerBtn} ${drawerOpen ? s.hamburgerOpen : ""}`}
+                    {/* Hamburger → shared app-wide nav drawer */}
+                    <HamburgerBtn
+                        open={drawerOpen}
                         onClick={() => setDrawerOpen((o) => !o)}
-                        aria-label="Open navigation"
-                    >
-                        <span />
-                        <span />
-                        <span />
-                    </button>
-
+                    />
                     <span className={s.topBarTitle}>✅ To-Do</span>
-
-                    {view === "lists" && visibleCount > 0 && (
+                    {visibleCount > 0 && (
                         <span className={s.topBarMeta}>
                             {totalTasks} task{totalTasks !== 1 ? "s" : ""} ·{" "}
                             {visibleCount} list{visibleCount !== 1 ? "s" : ""}
@@ -75,23 +67,46 @@ export default function ToDoTopBar({
                 </div>
 
                 <div className={s.topBarRight}>
-                    {/* ── Lists / Weekly view toggle ── */}
-                    <div className={tw.viewToggle}>
-                        <button
-                            className={`${tw.viewToggleBtn} ${view === "lists" ? tw.viewToggleBtnActive : ""}`}
-                            onClick={() => onViewChange("lists")}
-                        >
-                            📋 Lists
-                        </button>
-                        <button
-                            className={`${tw.viewToggleBtn} ${view === "weekly" ? tw.viewToggleBtnActive : ""}`}
-                            onClick={() => onViewChange("weekly")}
-                        >
-                            📅 Weekly
-                        </button>
+                    {/* Lists / Weekly toggle */}
+                    <div
+                        style={{
+                            display: "flex",
+                            background: "rgba(255,255,255,0.04)",
+                            border: "1px solid var(--dash-border, rgba(223,208,184,0.10))",
+                            borderRadius: 8,
+                            overflow: "hidden",
+                            flexShrink: 0,
+                        }}
+                    >
+                        {(["lists", "weekly"] as ToDoView[]).map((v) => (
+                            <button
+                                key={v}
+                                style={{
+                                    padding: "5px 14px",
+                                    background:
+                                        view === v
+                                            ? "var(--dash-bg-handle, rgba(44,35,22,0.97))"
+                                            : "transparent",
+                                    border: "none",
+                                    color:
+                                        view === v
+                                            ? "var(--dash-accent-warm, #de8900)"
+                                            : "var(--dash-text-muted, rgba(240,232,216,0.45))",
+                                    fontFamily: "var(--font-body)",
+                                    fontSize: "0.78rem",
+                                    fontWeight: view === v ? 600 : 400,
+                                    cursor: "pointer",
+                                    transition: "background 0.15s, color 0.15s",
+                                    whiteSpace: "nowrap",
+                                }}
+                                onClick={() => onViewChange(v)}
+                            >
+                                {v === "lists" ? "📋 Lists" : "📅 Weekly"}
+                            </button>
+                        ))}
                     </div>
 
-                    {/* Sort dropdown (only relevant in lists view) */}
+                    {/* Sort — only in lists view */}
                     {view === "lists" && (
                         <div className={s.sortMenuWrap} ref={sortRef}>
                             <button
@@ -137,6 +152,7 @@ export default function ToDoTopBar({
                 </div>
             </header>
 
+            {/* Shared navigation drawer */}
             {drawerOpen && <AppDrawer onClose={() => setDrawerOpen(false)} />}
         </>
     );
