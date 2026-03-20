@@ -78,7 +78,7 @@ export default function NotesDashboard({
         const next = { ...state, notes: [...state.notes, note] };
         setState(next);
         saveNotes(next);
-        router.push(`/notes/${note.id}`);
+        router.push(`/notes/editor?id=${note.id}`);
     };
 
     const looseNotes = state.notes.filter((n) => n.folderId === null);

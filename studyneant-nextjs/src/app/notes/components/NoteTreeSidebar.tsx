@@ -37,14 +37,15 @@ export default function NoteTreeSidebar({
             return next;
         });
 
-    const openNote = (noteId: string) => router.push(`/notes/${noteId}`);
+    const openNote = (noteId: string) =>
+        router.push(`/notes/editor?id=${noteId}`);
 
     const handleNewNote = (folderId: string | null = null) => {
         const note = makeNote(folderId, "Untitled");
         const next = { ...state, notes: [...state.notes, note] };
         setState(next);
         saveNotes(next);
-        router.push(`/notes/${note.id}`);
+        router.push(`/notes/editor?id=${note.id}`);
     };
 
     const handleCreateFolder = () => {

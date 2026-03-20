@@ -2,7 +2,13 @@
 
 import { useState, useRef, useEffect } from "react";
 import type { TodoState, TodoList } from "../types";
-import { makeList, saveTodo, LIST_COLORS, pendingCount } from "../storage";
+import {
+    makeList,
+    saveTodo,
+    LIST_COLORS,
+    LIST_EMOJIS,
+    pendingCount,
+} from "../storage";
 import s from "../ToDo.module.css";
 
 type Props = {
@@ -35,7 +41,13 @@ export default function ListPanel({
             return;
         }
 
-        const list = makeList(name, newListColor);
+        const idx = state.lists.length;
+        const list = makeList(
+            name,
+            newListColor,
+            LIST_EMOJIS[idx % LIST_EMOJIS.length],
+            idx,
+        );
         const next = { ...state, lists: [...state.lists, list] };
         setState(next);
         saveTodo(next);
@@ -50,6 +62,7 @@ export default function ListPanel({
     const handleDeleteList = (id: string, e: React.MouseEvent) => {
         e.stopPropagation();
         const next: TodoState = {
+            sortMode: state.sortMode,
             lists: state.lists.filter((l) => l.id !== id),
             // Also remove all tasks belonging to this list
             items: state.items.filter((i) => i.listId !== id),

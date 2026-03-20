@@ -79,11 +79,11 @@ export default function GpaCalcPage() {
     const handleSetupComplete = (partial: Partial<GpaState>) => {
         const next: GpaState = {
             // Preserve any existing courses / grades when re-running setup
-            courses: state.courses,
-            categories: state.categories,
-            assignments: state.assignments,
-            periods: state.periods,
-            ...partial,
+            config: partial.config ?? state.config,
+            courses: partial.courses ?? state.courses,
+            categories: partial.categories ?? state.categories,
+            assignments: partial.assignments ?? state.assignments,
+            periods: partial.periods ?? state.periods,
         };
         setState(next);
         saveGpa(next);

@@ -20,7 +20,7 @@ export default function NoteCard({ note, folders }: Props) {
     return (
         <button
             className={s.noteCard}
-            onClick={() => router.push(`/notes/${note.id}`)}
+            onClick={() => router.push(`/notes/editor?id=${note.id}`)}
         >
             <div className={s.noteCardTitle}>{note.title || "Untitled"}</div>
 
