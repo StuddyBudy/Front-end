@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import type { CalendarState, CalEvent, ViewMode } from "../types";
 import { loadCalendar, saveCalendar } from "../storage";
 
@@ -20,9 +20,6 @@ export function useCalendar() {
         return d;
     });
 
-    useEffect(() => {
-        setState(loadCalendar());
-    }, []);
     useEffect(() => {
         saveCalendar(state);
     }, [state]);
@@ -65,32 +62,32 @@ export function useCalendar() {
         }
     };
 
-    const addEvent = useCallback((event: CalEvent) => {
+    const addEvent = (event: CalEvent) => {
         setState((prev) => ({ ...prev, events: [...prev.events, event] }));
-    }, []);
+    };
 
-    const updateEvent = useCallback((event: CalEvent) => {
+    const updateEvent = (event: CalEvent) => {
         setState((prev) => ({
             ...prev,
             events: prev.events.map((e) => (e.id === event.id ? event : e)),
         }));
-    }, []);
+    };
 
-    const deleteEvent = useCallback((id: string) => {
+    const deleteEvent = (id: string) => {
         setState((prev) => ({
             ...prev,
             events: prev.events.filter((e) => e.id !== id),
         }));
-    }, []);
+    };
 
-    const toggleCalendar = useCallback((id: string) => {
+    const toggleCalendar = (id: string) => {
         setState((prev) => ({
             ...prev,
             calendars: prev.calendars.map((c) =>
                 c.id === id ? { ...c, visible: !c.visible } : c,
             ),
         }));
-    }, []);
+    };
 
     return {
         state,

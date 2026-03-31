@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useMemo } from "react";
 import type { TodoState } from "./types";
 import { loadTodo, saveTodo, makeItem } from "./storage";
 
@@ -30,26 +30,12 @@ export default function ToDoPage() {
         return new Set(loadTodo().lists.map((l) => l.id));
     });
 
-    // ── Hydrate from localStorage on mount ──
-    useEffect(() => {
-        const loaded = loadTodo();
-        setState(loaded);
-        setVisibleListIds(new Set(loaded.lists.map((l) => l.id)));
-    }, []);
-
-    // Keep visible set valid when lists are added / deleted
-    useEffect(() => {
-        setVisibleListIds((prev) => {
-            const valid = new Set(state.lists.map((l) => l.id));
-            return new Set([...prev].filter((id) => valid.has(id)));
-        });
-    }, [state.lists]);
-
     // ── Visibility toggles ──
     const toggleList = (id: string) =>
         setVisibleListIds((prev) => {
             const n = new Set(prev);
-            n.has(id) ? n.delete(id) : n.add(id);
+            if (n.has(id)) n.delete(id);
+            else n.add(id);
             return n;
         });
     const selectAll = () =>
@@ -68,20 +54,26 @@ export default function ToDoPage() {
     const [globalListId, setGlobalListId] = useState<string>(
         () => loadTodo().lists[0]?.id ?? "",
     );
-    useEffect(() => {
-        if (!state.lists.find((l) => l.id === globalListId))
-            setGlobalListId(state.lists[0]?.id ?? "");
-    }, [state.lists, globalListId]);
+
+    const effectiveVisibleListIds = useMemo(() => {
+        const valid = new Set(state.lists.map((l) => l.id));
+        return new Set([...visibleListIds].filter((id) => valid.has(id)));
+    }, [state.lists, visibleListIds]);
+
+    const resolvedGlobalListId =
+        state.lists.find((l) => l.id === globalListId)?.id ??
+        state.lists[0]?.id ??
+        "";
 
     const handleGlobalAdd = () => {
         const text = globalText.trim();
-        if (!text || !globalListId) return;
-        const item = makeItem(globalListId, text);
+        if (!text || !resolvedGlobalListId) return;
+        const item = makeItem(resolvedGlobalListId, text);
         const next = { ...state, items: [...state.items, item] };
         setState(next);
         saveTodo(next);
         setGlobalText("");
-        setVisibleListIds((prev) => new Set([...prev, globalListId]));
+        setVisibleListIds((prev) => new Set([...prev, resolvedGlobalListId]));
     };
 
     // ── Derived ──
@@ -89,18 +81,20 @@ export default function ToDoPage() {
         () =>
             [...state.lists]
                 .sort((a, b) => a.order - b.order)
-                .filter((l) => visibleListIds.has(l.id)),
-        [state.lists, visibleListIds],
+                .filter((l) => effectiveVisibleListIds.has(l.id)),
+        [state.lists, effectiveVisibleListIds],
     );
     const totalVisibleTasks = useMemo(
-        () => state.items.filter((i) => visibleListIds.has(i.listId)).length,
-        [state.items, visibleListIds],
+        () =>
+            state.items.filter((i) => effectiveVisibleListIds.has(i.listId))
+                .length,
+        [state.items, effectiveVisibleListIds],
     );
 
     const headerTitle =
-        visibleListIds.size === 0
+        effectiveVisibleListIds.size === 0
             ? "No lists selected"
-            : visibleListIds.size === state.lists.length
+            : effectiveVisibleListIds.size === state.lists.length
               ? "All Lists"
               : visibleLists.map((l) => `${l.emoji} ${l.name}`).join(", ");
 
@@ -112,7 +106,7 @@ export default function ToDoPage() {
                 onSortChange={handleSortChange}
                 view={view}
                 onViewChange={setView}
-                visibleCount={visibleListIds.size}
+                visibleCount={effectiveVisibleListIds.size}
                 totalTasks={totalVisibleTasks}
             />
 
@@ -122,7 +116,7 @@ export default function ToDoPage() {
                     <ListSidebar
                         state={state}
                         setState={setState}
-                        visibleListIds={visibleListIds}
+                        visibleListIds={effectiveVisibleListIds}
                         onToggleList={toggleList}
                         onSelectAll={selectAll}
                         onDeselectAll={deselectAll}
@@ -157,7 +151,7 @@ export default function ToDoPage() {
                                 />
                                 <select
                                     className={s.globalListSelect}
-                                    value={globalListId}
+                                    value={resolvedGlobalListId}
                                     onChange={(e) =>
                                         setGlobalListId(e.target.value)
                                     }
@@ -178,7 +172,7 @@ export default function ToDoPage() {
                         )}
 
                         <div className={s.mainScroll}>
-                            {visibleListIds.size === 0 ? (
+                            {effectiveVisibleListIds.size === 0 ? (
                                 <div className={s.emptyState}>
                                     <span className={s.emptyEmoji}>☑️</span>
                                     <p className={s.emptyText}>

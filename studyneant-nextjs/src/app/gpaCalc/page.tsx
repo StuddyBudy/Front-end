@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 
-import type { GpaState, Page } from "./types";
+import type { GpaState } from "./types";
 // FIX: removed unused `clearGpa` import that was causing a TS error
 import { loadGpa, saveGpa } from "./storage";
 
@@ -19,14 +19,6 @@ import BottomNav from "../../components/bottomNav/BottomNav";
 import s from "./GpaCalc.module.css";
 
 export default function GpaCalcPage() {
-    // ── Navigation ──
-    const [page, setPage] = useState<Page>("grades");
-
-    // ── Navigation handler ────────────────────────────────────────────────────
-    const handleNavigate = (nextPage: Page) => {
-        setPage(nextPage);
-    };
-
     // ── State ─────────────────────────────────────────────────────────────────
     const [state, setState] = useState<GpaState>(() => {
         if (typeof window === "undefined") {
@@ -64,23 +56,18 @@ export default function GpaCalcPage() {
         null,
     );
     const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
-    const [activePeriodId, setActivePeriodId] = useState<string | null>(null);
-
-    // ── Hydrate from localStorage on mount ───────────────────────────────────
-    useEffect(() => {
+    const [activePeriodId, setActivePeriodId] = useState<string | null>(() => {
+        if (typeof window === "undefined") return null;
         const loaded = loadGpa();
-        setState(loaded);
-        setMode(loaded.config.setupComplete ? "app" : "setup");
         const cur =
             loaded.periods.find((p) => p.isCurrent) ?? loaded.periods[0];
-        setActivePeriodId(cur?.id ?? null);
-    }, []);
+        return cur?.id ?? null;
+    });
 
     // ── Persist whenever state changes (after setup complete) ─────────────────
     useEffect(() => {
         if (state.config.setupComplete) {
             saveGpa(state);
-            setLastUpdated(new Date());
         }
     }, [state]);
 
@@ -182,7 +169,7 @@ export default function GpaCalcPage() {
                     onClose={() => setShowImport(false)}
                 />
             )}
-            <BottomNav page={page} onNavigate={handleNavigate} />
+            <BottomNav />
         </div>
     );
 }

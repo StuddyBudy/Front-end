@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import type { CalEvent, CalCalendar } from "../types";
-import { toYMD, getEventsForDate } from "../storage";
+import { toYMD } from "../storage";
 import s from "../Calendar.module.css";
 
 // ── CONSTANTS ─────────────────────────────────────────────────────────────────
@@ -62,7 +62,7 @@ export default function WeekView({
     // Auto-scroll to current hour on mount
     useEffect(() => {
         if (!scrollRef.current) return;
-        const nowHour = today.getHours();
+        const nowHour = new Date().getHours();
         const offset = Math.max(0, (nowHour - 1) * HOUR_HEIGHT);
         scrollRef.current.scrollTop = offset;
     }, []);
@@ -73,7 +73,6 @@ export default function WeekView({
         const m = today.getMinutes();
         return ((h + m / 60) / 1) * HOUR_HEIGHT;
     })();
-    const todayColIndex = days.findIndex((d) => toYMD(d) === todayStr);
 
     return (
         <div className={s.weekView}>

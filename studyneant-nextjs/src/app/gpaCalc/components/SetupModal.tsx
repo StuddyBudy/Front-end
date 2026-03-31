@@ -3,7 +3,7 @@
 import { useState } from "react";
 import type { GpaConfig, GpaScale, PeriodType, SchoolType } from "../types";
 import { PARTNER_SCHOOLS } from "../types";
-import { DEFAULT_CONFIG, buildPeriods, newId } from "../storage";
+import { DEFAULT_CONFIG, buildPeriods } from "../storage";
 import type { GpaState } from "../types";
 import s from "../GpaCalc.module.css";
 

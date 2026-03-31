@@ -5,9 +5,7 @@ import type { TodoState, TodoItem } from "../types";
 import { makeItem, saveTodo, PRIORITY_CONFIG } from "../storage";
 
 // ── FIX 1: Import BOTH css modules ───────────────────────────────────────────
-// s  = shared ToDo styles (shell, topBar, emptyState, etc.)
 // tw = weekly-specific styles (weekGrid, weekCol, weekCard, etc.)
-import s from "../ToDo.module.css";
 import tw from "./Weekly.module.css";
 
 // ── HELPERS ───────────────────────────────────────────────────────────────────

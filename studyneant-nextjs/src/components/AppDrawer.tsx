@@ -1,10 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { createPortal } from "react-dom";
 import { useRouter, usePathname } from "next/navigation";
 import s from "./AppDrawer.module.css";
-import { Trocchi } from "next/font/google";
 
 // ── NAV STRUCTURE ─────────────────────────────────────────────────────────────
 // This is the single source of truth for all navigation in StudyOS.
@@ -32,7 +31,6 @@ type Props = {
 export default function AppDrawer({ onClose, quickActions }: Props) {
     const router = useRouter();
     const pathname = usePathname();
-    const [mounted, setMounted] = useState(false);
 
     // Close on Escape key
     useEffect(() => {
@@ -43,11 +41,6 @@ export default function AppDrawer({ onClose, quickActions }: Props) {
         return () => document.removeEventListener("keydown", handler);
     }, [onClose]);
 
-    useEffect(() => {
-        // Wait until client-side render to safely access document for portal
-        setMounted(true);
-    }, []);
-
     const navigate = (href: string) => {
         router.push(href);
         onClose();
@@ -57,7 +50,7 @@ export default function AppDrawer({ onClose, quickActions }: Props) {
     const isActive = (href: string) =>
         pathname === href || pathname.startsWith(href + "/");
 
-    if (!mounted || typeof document === "undefined") return null;
+    if (typeof document === "undefined") return null;
 
     return createPortal(
         <>

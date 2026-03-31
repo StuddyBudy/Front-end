@@ -1,11 +1,4 @@
-import type {
-    GpaState,
-    GpaConfig,
-    Period,
-    Course,
-    Category,
-    Assignment,
-} from "./types";
+import type { GpaState, GpaConfig, Period } from "./types";
 
 export const GPA_LS_KEY = "studyos_gpa_v1";
 

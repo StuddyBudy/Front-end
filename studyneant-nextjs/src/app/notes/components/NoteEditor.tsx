@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useRef, useCallback } from "react";
 import type { Note, NotesState } from "../types";
 import { saveNotes, fmtDate } from "../storage";
 import s from "../Notes.module.css";
@@ -16,12 +16,6 @@ export default function NoteEditor({ note, state, setState }: Props) {
     const [content, setContent] = useState(note.content);
     const [saved, setSaved] = useState(false);
     const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-    // Sync local state when the active note changes
-    useEffect(() => {
-        setTitle(note.title);
-        setContent(note.content);
-    }, [note.id]);
 
     // Auto-save with 800 ms debounce
     const persist = useCallback(

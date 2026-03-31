@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import type { NotesState, Folder } from "../types";
+import type { NotesState } from "../types";
 import { makeNote, makeFolder, saveNotes, FOLDER_COLORS } from "../storage";
 import s from "../Notes.module.css";
 
@@ -33,7 +33,8 @@ export default function NoteTreeSidebar({
     const toggleFolder = (id: string) =>
         setOpenFolders((prev) => {
             const next = new Set(prev);
-            next.has(id) ? next.delete(id) : next.add(id);
+            if (next.has(id)) next.delete(id);
+            else next.add(id);
             return next;
         });
 

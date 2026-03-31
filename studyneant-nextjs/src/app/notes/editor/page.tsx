@@ -27,10 +27,6 @@ function NoteEditorContent() {
         return loadNotes();
     });
 
-    useEffect(() => {
-        setState(loadNotes());
-    }, [noteId]);
-
     const activeNote = state.notes.find((n) => n.id === noteId);
 
     // If a note exists but no id is provided, fall back to first note to keep the editor usable
@@ -52,6 +48,7 @@ function NoteEditorContent() {
                     />
                     {activeNote ? (
                         <NoteEditor
+                            key={activeNote.id}
                             note={activeNote}
                             state={state}
                             setState={setState}

@@ -173,7 +173,7 @@ export default function LandingPage() {
                 <section className={styles.how} id="how">
                     <p className={styles.featuresLabel}>Get up and running</p>
                     <h2 className={styles.featuresTitle}>
-                        Three steps, then you're in
+                        Three steps, then you&apos;re in
                     </h2>
 
                     <div className={styles.steps}>
@@ -207,8 +207,8 @@ export default function LandingPage() {
                 <section className={styles.ctaBanner}>
                     <h2 className={styles.ctaTitle}>Ready to get organised?</h2>
                     <p className={styles.ctaBody}>
-                        Join students who've made StudyNeant their academic home
-                        base.
+                        Join students who&apos;ve made StudyNeant their academic
+                        home base.
                     </p>
                     <button className="btn-primary" onClick={openSignup}>
                         Start for free — no card needed

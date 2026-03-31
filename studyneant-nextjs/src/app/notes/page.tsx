@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import type { NotesState } from "./types";
 import { loadNotes, saveNotes, makeNote } from "./storage";
@@ -17,11 +17,6 @@ export default function NotesPage() {
         if (typeof window === "undefined") return { folders: [], notes: [] };
         return loadNotes(); // writes seed data to localStorage if first visit
     });
-
-    // Sync to localStorage whenever state changes from outside (e.g. first mount)
-    useEffect(() => {
-        setState(loadNotes());
-    }, []);
 
     // Folder modal open state — lifted here so the top-bar button can trigger it
     const [folderModalOpen, setFolderModalOpen] = useState(false);
