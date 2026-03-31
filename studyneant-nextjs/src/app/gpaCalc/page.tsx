@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import type { GpaState } from "./types";
+
+import type { GpaState, Page } from "./types";
 // FIX: removed unused `clearGpa` import that was causing a TS error
 import { loadGpa, saveGpa } from "./storage";
 
@@ -13,9 +14,19 @@ import CourseDetailModal from "./components/CourseDetailModal";
 import ImportModal from "./components/ImportModal";
 import AddCourseModal from "./components/AddCourseModal";
 
+import BottomNav from "../../components/bottomNav/BottomNav";
+
 import s from "./GpaCalc.module.css";
 
 export default function GpaCalcPage() {
+    // ── Navigation ──
+    const [page, setPage] = useState<Page>("grades");
+
+    // ── Navigation handler ────────────────────────────────────────────────────
+    const handleNavigate = (nextPage: Page) => {
+        setPage(nextPage);
+    };
+
     // ── State ─────────────────────────────────────────────────────────────────
     const [state, setState] = useState<GpaState>(() => {
         if (typeof window === "undefined") {
@@ -171,6 +182,7 @@ export default function GpaCalcPage() {
                     onClose={() => setShowImport(false)}
                 />
             )}
+            <BottomNav page={page} onNavigate={handleNavigate} />
         </div>
     );
 }

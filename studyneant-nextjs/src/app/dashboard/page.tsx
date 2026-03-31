@@ -7,7 +7,7 @@ import { BUILT_IN_THEMES, applyTheme } from "./themes";
 import { LS, DEFAULT_LAYOUT, lsGet, lsSet } from "./storage";
 
 import TopBar from "./components/TopBar";
-import BottomNav from "./components/BottomNav";
+import BottomNav from "../../components/bottomNav/BottomNav";
 import DashboardView from "./components/DashboardView";
 import SettingsView from "./components/SettingsView";
 

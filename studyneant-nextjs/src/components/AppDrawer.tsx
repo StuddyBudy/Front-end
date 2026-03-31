@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { useRouter, usePathname } from "next/navigation";
 import s from "./AppDrawer.module.css";
+import { Trocchi } from "next/font/google";
 
 // ── NAV STRUCTURE ─────────────────────────────────────────────────────────────
 // This is the single source of truth for all navigation in StudyOS.

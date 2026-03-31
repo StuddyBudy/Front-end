@@ -3,7 +3,7 @@
 import { useRouter, usePathname } from "next/navigation";
 
 import type { Page } from "../types";
-import s from "../Dashboard.module.css";
+import s from "./BottomNav.module.css";
 
 const MAIN_NAV = [
     { href: "/dashboard", icon: "🏠", label: "Dashboard" },

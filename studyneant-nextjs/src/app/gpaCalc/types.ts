@@ -1,3 +1,6 @@
+// ── Navigation
+export type Page = "dashboard" | "settings" | "notes" | "grades" | "calendar";
+
 // ── GPA CALCULATOR TYPES ──────────────────────────────────────────────────────
 
 export type SchoolType = "hs" | "college";
