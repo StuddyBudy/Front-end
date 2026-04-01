@@ -58,12 +58,16 @@ export default function ToDoTopBar({
                         onClick={() => setDrawerOpen((o) => !o)}
                     />
                     <span className={s.topBarTitle}>✅ To-Do</span>
-                    {visibleCount > 0 && (
-                        <span className={s.topBarMeta}>
-                            {totalTasks} task{totalTasks !== 1 ? "s" : ""} ·{" "}
-                            {visibleCount} list{visibleCount !== 1 ? "s" : ""}
-                        </span>
-                    )}
+                    <span
+                        className={s.topBarMeta}
+                        suppressHydrationWarning
+                        style={{
+                            visibility: visibleCount > 0 ? "visible" : "hidden",
+                        }}
+                    >
+                        {totalTasks} task{totalTasks !== 1 ? "s" : ""} ·{" "}
+                        {visibleCount} list{visibleCount !== 1 ? "s" : ""}
+                    </span>
                 </div>
 
                 <div className={s.topBarRight}>
