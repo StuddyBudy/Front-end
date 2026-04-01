@@ -5,6 +5,8 @@ export const LS = {
     layout: "studyos_layout",
     themeId: "studyos_themeId",
     customThemes: "studyos_custom_themes",
+    builtInThemeOverrides: "studyos_builtin_theme_overrides",
+    deletedBuiltInThemeIds: "studyos_deleted_builtin_theme_ids",
 } as const;
 
 // ── DEFAULT LAYOUT ────────────────────────────────────────────────────────────

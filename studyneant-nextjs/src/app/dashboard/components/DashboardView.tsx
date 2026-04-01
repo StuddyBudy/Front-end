@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import RGL from "react-grid-layout";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
@@ -48,6 +49,14 @@ export default function DashboardView({
     onLayoutChange,
     gridWidth,
 }: Props) {
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    if (!mounted) return null;
+
     return (
         <div className={`${s.gridWrap} ${editMode ? s.gridWrapEditing : ""}`}>
             {editMode && (
