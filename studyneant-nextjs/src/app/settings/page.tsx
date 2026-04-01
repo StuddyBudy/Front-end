@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 
 import type { ThemeDef } from "../dashboard/types";
-import { BUILT_IN_THEMES, applyTheme } from "../dashboard/themes";
+import { BUILT_IN_THEMES, applyTheme } from "./themes";
 import { LS, lsGet, lsSet } from "../dashboard/storage";
 
 import TopBar from "../dashboard/components/TopBar";

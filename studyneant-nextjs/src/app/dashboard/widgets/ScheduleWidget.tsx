@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import type { SchEvent } from "../types";
 import s from "../Dashboard.module.css";
 
@@ -69,10 +69,8 @@ export default function ScheduleWidget() {
                     </div>
                 ))}
                 {HOURS.map((h, hi) => (
-                    <>
-                        <div key={`h${hi}`} className={s.schHour}>
-                            {h}
-                        </div>
+                    <Fragment key={`row-${hi}`}>
+                        <div className={s.schHour}>{h}</div>
                         {DAYS.map((_, di) => {
                             const ev = evMap[`${di}-${hi}`];
                             const isAdding =
@@ -127,7 +125,7 @@ export default function ScheduleWidget() {
                                 </div>
                             );
                         })}
-                    </>
+                    </Fragment>
                 ))}
             </div>
             <p className={s.schHint}>

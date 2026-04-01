@@ -1,7 +1,41 @@
-import type { ThemeDef } from "./types";
+import type { ThemeDef } from "../dashboard/types";
 
 // ── BUILT-IN THEMES ───────────────────────────────────────────────────────────
 export const BUILT_IN_THEMES: Record<string, ThemeDef> = {
+    light: {
+        id: "light",
+        name: "Light",
+        label: "⚪",
+        vars: {
+            "--dash-bg-page": "#ffffff",
+            "--dash-bg-widget": "rgba(30,24,16,0.93)",
+            "--dash-bg-handle": "rgba(44,35,22,0.97)",
+            "--dash-accent": "#dfd0b8",
+            "--dash-accent-warm": "#de8900",
+            "--dash-accent-glow": "rgba(222,137,0,0.22)",
+            "--dash-text-primary": "#f0e8d8",
+            "--dash-text-muted": "rgba(240,232,216,0.45)",
+            "--dash-border": "rgba(223,208,184,0.10)",
+            "--dash-border-hover": "rgba(223,208,184,0.26)",
+        },
+    },
+    dark: {
+        id: "dark",
+        name: "Dark",
+        label: "⚫",
+        vars: {
+            "--dash-bg-page": "#000000",
+            "--dash-bg-widget": "rgba(30,24,16,0.93)",
+            "--dash-bg-handle": "rgba(44,35,22,0.97)",
+            "--dash-accent": "#dfd0b8",
+            "--dash-accent-warm": "#de8900",
+            "--dash-accent-glow": "rgba(222,137,0,0.22)",
+            "--dash-text-primary": "#f0e8d8",
+            "--dash-text-muted": "rgba(240,232,216,0.45)",
+            "--dash-border": "rgba(223,208,184,0.10)",
+            "--dash-border-hover": "rgba(223,208,184,0.26)",
+        },
+    },
     ember: {
         id: "ember",
         name: "Ember",
