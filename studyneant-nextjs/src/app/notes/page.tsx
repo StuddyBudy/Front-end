@@ -7,6 +7,7 @@ import { loadNotes, saveNotes, makeNote } from "./storage";
 
 import NotesTopBar from "./components/NotesTopBar";
 import NotesDashboard from "./components/NotesDashboard";
+import BottomNav from "../../components/bottomNav/BottomNav";
 
 export default function NotesPage() {
     const router = useRouter();
@@ -52,6 +53,7 @@ export default function NotesPage() {
                 folderModalOpen={folderModalOpen}
                 onFolderModalClose={() => setFolderModalOpen(false)}
             />
+            <BottomNav />
         </div>
     );
 }

@@ -4,15 +4,19 @@ import { Suspense, useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import type { NotesState } from "../types";
 import { loadNotes } from "../storage";
+
 import NotesTopBar from "../components/NotesTopBar";
 import NoteTreeSidebar from "../components/NoteTreeSidebar";
 import NoteEditor from "../components/NoteEditor";
+import BottomNav from "../../../components/bottomNav/BottomNav";
+
 import s from "../Notes.module.css";
 
 export default function NoteEditorPage() {
     return (
         <Suspense fallback={null}>
             <NoteEditorContent />
+            <BottomNav />
         </Suspense>
     );
 }

@@ -87,6 +87,7 @@ export default function DashboardPage() {
         setEditMode(false);
     };
 
+    // turns off edit mode if navigating
     const handleNavigate = () => {
         setEditMode(false);
     };

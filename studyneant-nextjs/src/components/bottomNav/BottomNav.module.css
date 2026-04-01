@@ -11,6 +11,8 @@
     background: rgba(0, 0, 0, 0.3);
     -webkit-backdrop-filter: blur(14px);
     backdrop-filter: blur(14px);
+    position: sticky;
+    bottom: 0;
 }
 .bnavItem {
     display: flex;

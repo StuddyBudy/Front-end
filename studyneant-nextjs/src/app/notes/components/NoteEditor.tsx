@@ -3,7 +3,9 @@
 import { useState, useRef, useCallback } from "react";
 import type { Note, NotesState } from "../types";
 import { saveNotes, fmtDate } from "../storage";
+
 import s from "../Notes.module.css";
+import BottomNav from "../../../components/bottomNav/BottomNav";
 
 type Props = {
     note: Note;

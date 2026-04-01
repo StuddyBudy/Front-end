@@ -8,6 +8,7 @@ import ToDoTopBar, { type ToDoView } from "./components/ToDoTopBar";
 import ListSidebar from "./components/ListSidebar";
 import TaskGroup from "./components/TaskGroup";
 import WeeklyView from "./components/WeeklyView";
+import BottomNav from "../../components/bottomNav/BottomNav";
 
 import s from "./ToDo.module.css";
 
@@ -208,6 +209,7 @@ export default function ToDoPage() {
                     <WeeklyView state={state} setState={setState} />
                 </div>
             )}
+            <BottomNav />
         </div>
     );
 }

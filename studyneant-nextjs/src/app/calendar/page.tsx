@@ -13,6 +13,7 @@ import MonthView from "./components/MonthView";
 import WeekView from "./components/WeekView";
 import EventDetailPopover from "./components/EventDetailPopover";
 import EventModal from "./components/EventModal";
+import BottomNav from "../../components/bottomNav/BottomNav";
 
 import s from "./Calendar.module.css";
 
@@ -153,6 +154,7 @@ export default function CalendarPage() {
                     onClose={() => setEditState(null)}
                 />
             )}
+            <BottomNav />
         </div>
     );
 }
