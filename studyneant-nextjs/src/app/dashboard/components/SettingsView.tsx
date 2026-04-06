@@ -13,6 +13,7 @@ type BuilderDraft = {
     label: string;
     bgPage: string;
     bgWidget: string;
+    navBarsBg: string;
     accent: string;
     accentWarm: string;
     accentGlow: string;
@@ -44,6 +45,7 @@ const DEFAULT_DRAFT: BuilderDraft = {
     label: "",
     bgPage: "#16120e",
     bgWidget: "#1e1810",
+    navBarsBg: "#000000",
     accent: "#dfd0b8",
     accentWarm: "#de8900",
     accentGlow: "#de8900",
@@ -58,6 +60,7 @@ const HELP_ITEMS = [
     ["Page Background", "Main page color behind all content."],
     ["Primary Text", "Main readable text color."],
     ["Widget Background", "Card and widget surface color."],
+    ["NavBars bg", "Shared top navigation background across app pages."],
     ["Accent", "Secondary text and decorative accents."],
     ["Highlight", "Important action and emphasis color."],
     ["Accent Glow", "Glow/shadow tint around active UI."],
@@ -185,6 +188,7 @@ function buildVars(
         "--dash-bg-page": draft.bgPage,
         "--dash-bg-widget": withAlpha(draft.bgWidget, "ee"),
         "--dash-bg-handle": draft.bgWidget,
+        "--dash-navbars-bg": withAlpha(draft.navBarsBg, "47"),
         "--dash-accent": draft.accent,
         "--dash-accent-warm": draft.accentWarm,
         "--dash-accent-glow": withAlpha(draft.accentGlow, "38"),
@@ -209,6 +213,10 @@ function initDraft(theme: ThemeDef): BuilderDraft {
         bgWidget: toHexFromToken(
             theme.vars["--dash-bg-widget"],
             DEFAULT_DRAFT.bgWidget,
+        ),
+        navBarsBg: toHexFromToken(
+            theme.vars["--dash-navbars-bg"],
+            DEFAULT_DRAFT.navBarsBg,
         ),
         accent: toHexFromToken(
             theme.vars["--dash-accent"],
@@ -303,10 +311,12 @@ function deriveSimpleDraft(draft: BuilderDraft): BuilderDraft {
     const glow = mixHex(warm, bg, 0.55);
     const border = mixHex(text, bg, 0.72);
     const borderHover = mixHex(text, bg, 0.58);
+    const navBarsBg = darkBase ? "#000000" : "#ffffff";
 
     return {
         ...draft,
         bgWidget: widget,
+        navBarsBg,
         accent,
         accentWarm: warm,
         accentGlow: glow,
@@ -727,6 +737,36 @@ export default function SettingsView({
                                                 onChange={(e) =>
                                                     setField(
                                                         "bgWidget",
+                                                        e.target.value,
+                                                    )
+                                                }
+                                            />
+                                        </div>
+                                    </label>
+
+                                    <label className={s.builderField}>
+                                        <span className={s.builderLabelTitle}>
+                                            NavBars bg
+                                        </span>
+                                        <div className={s.builderInputRow}>
+                                            <input
+                                                type="color"
+                                                className={s.colorSwatch}
+                                                value={draft.navBarsBg}
+                                                onChange={(e) =>
+                                                    setField(
+                                                        "navBarsBg",
+                                                        e.target.value,
+                                                    )
+                                                }
+                                            />
+                                            <input
+                                                className={s.builderInput}
+                                                type="text"
+                                                value={draft.navBarsBg}
+                                                onChange={(e) =>
+                                                    setField(
+                                                        "navBarsBg",
                                                         e.target.value,
                                                     )
                                                 }

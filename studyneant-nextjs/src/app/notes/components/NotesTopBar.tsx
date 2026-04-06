@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import AppDrawer, { HamburgerBtn } from "@/components/AppDrawer";
+import AppDrawer, { HamburgerBtn } from "@/components/sidebar/Sidebar";
 import s from "../Notes.module.css";
 
 type Props = {

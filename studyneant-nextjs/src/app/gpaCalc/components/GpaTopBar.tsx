@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import AppDrawer, { HamburgerBtn } from "@/components/AppDrawer";
+import AppDrawer, { HamburgerBtn } from "@/components/sidebar/Sidebar";
 import type { GpaState } from "../types";
 import { PARTNER_SCHOOLS } from "../types";
 import s from "../GpaCalc.module.css";

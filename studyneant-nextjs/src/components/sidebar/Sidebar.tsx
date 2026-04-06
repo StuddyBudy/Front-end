@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { createPortal } from "react-dom";
 import { useRouter, usePathname } from "next/navigation";
-import s from "./AppDrawer.module.css";
+import s from "./Sidebar.module.css";
 
 // ── NAV STRUCTURE ─────────────────────────────────────────────────────────────
 // This is the single source of truth for all navigation in StudyOS.

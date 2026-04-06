@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import type { SortMode } from "../types";
-import AppDrawer, { HamburgerBtn } from "@/components/AppDrawer";
+import AppDrawer, { HamburgerBtn } from "@/components/sidebar/Sidebar";
 import s from "../ToDo.module.css";
 
 const SORT_OPTIONS: { value: SortMode; label: string; icon: string }[] = [

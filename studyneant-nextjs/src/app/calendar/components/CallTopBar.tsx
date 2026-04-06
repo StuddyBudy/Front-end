@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import AppDrawer, { HamburgerBtn } from "@/components/AppDrawer";
+import { useRouter } from "next/navigation";
+import AppDrawer, { HamburgerBtn } from "@/components/sidebar/Sidebar";
 import type { ViewMode } from "../types";
 import { monthLabel } from "../storage";
 import s from "../Calendar.module.css";
@@ -29,6 +30,7 @@ export default function CalTopBar({
     onViewChange,
     onAddEvent,
 }: Props) {
+    const router = useRouter();
     const [drawerOpen, setDrawerOpen] = useState(false);
 
     const label =
@@ -55,7 +57,12 @@ export default function CalTopBar({
                         open={drawerOpen}
                         onClick={() => setDrawerOpen((o) => !o)}
                     />
-                    <span className={s.topBarBrand}>◈ StudyNeant</span>
+                    <button
+                        className={s.topBarBrandBtn}
+                        onClick={() => router.push("/dashboard")}
+                    >
+                        <span className={s.topBarBrand}>◈ StudyNeant</span>
+                    </button>
                     <button className={s.tbBtn} onClick={onToday}>
                         Today
                     </button>

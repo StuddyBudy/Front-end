@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useClock, getGreeting } from "../hooks/useClock";
 import type { Page } from "../types";
 import s from "../Dashboard.module.css";
-import AppDrawer, { HamburgerBtn } from "@/components/AppDrawer";
+import AppDrawer, { HamburgerBtn } from "@/components/sidebar/Sidebar";
 
 function EditIcon() {
     return (

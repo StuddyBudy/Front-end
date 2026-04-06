@@ -19,7 +19,7 @@ const outfit = Outfit({
 
 // ── METADATA ──────────────────────────────────────────────────────────────────
 export const metadata: Metadata = {
-    title: "StudyOS — Your academic command center",
+    title: "Studyneant",
     description:
         "Grades, notes, to-dos, and a full weekly schedule — all in one beautiful dashboard.",
 };
