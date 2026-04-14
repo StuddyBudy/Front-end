@@ -6,7 +6,7 @@ import type { ThemeDef, LayoutItem } from "./types";
 import { BUILT_IN_THEMES, applyTheme } from "../settings/themes";
 import { LS, DEFAULT_LAYOUT, lsGet, lsSet } from "./storage";
 
-import TopBar from "./components/TopBar";
+import TopBar from "../../components/top-bar/top-bar";
 import BottomNav from "../../components/bottomNav/BottomNav";
 import DashboardView from "./components/DashboardView";
 

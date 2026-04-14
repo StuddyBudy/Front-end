@@ -6,7 +6,7 @@ import type { ThemeDef } from "../dashboard/types";
 import { BUILT_IN_THEMES, applyTheme } from "./themes";
 import { LS, lsGet, lsSet } from "../dashboard/storage";
 
-import TopBar from "../dashboard/components/TopBar";
+import TopBar from "../../components/top-bar/top-bar";
 import SettingsView from "@/app/dashboard/components/SettingsView";
 import BottomNav from "../../components/bottomNav/BottomNav";
 

@@ -62,6 +62,26 @@ export const BUILT_IN_THEMES: Record<string, ThemeDef> = {
                 "radial-gradient(circle at 50% 50%, rgba(222,137,0,0.2), transparent 44%), radial-gradient(circle at 82% 8%, rgba(0,0,0,0.5), transparent 40%), radial-gradient(ellipse at center, transparent 58%, rgba(0,0,0,0.42) 100%)",
         },
     },
+    starry: {
+        id: "starry",
+        name: "Starry",
+        label: "⚪",
+        vars: {
+            "--dash-bg-page": "#1A0439",
+            "--dash-bg-widget": "rgba(255,255,255,0.92)",
+            "--dash-bg-handle": "#ff0000",
+            "--dash-navbars-bg": "rgba(255,255,255,0.68)",
+            "--dash-accent": "#B8528C",
+            "--dash-accent-warm": "#c46a00",
+            "--dash-accent-glow": "rgba(196,106,0,0.18)",
+            "--dash-text-primary": "#ff000d",
+            "--dash-text-muted": "#B8528C",
+            "--dash-border": "rgba(0,0,0,0.08)",
+            "--dash-border-hover": "rgba(0,0,0,0.14)",
+            "--dash-bg-image":
+                "radial-gradient(circle at 50% 50%, rgba(120,120,120,0.24), transparent 44%), radial-gradient(circle at 82% 8%, rgba(120,120,120,0.18), transparent 40%), radial-gradient(ellipse at center, transparent 58%, rgba(90,90,90,0.14) 100%)",
+        },
+    },
     midnight: {
         id: "midnight",
         name: "Midnight",
