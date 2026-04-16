@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import AppDrawer, { HamburgerBtn } from "@/components/sidebar/Sidebar";
-import s from "../Notes.module.css";
+import c from "@/components/top-bar/top-bar.module.css";
+import p from "../Notes.module.css";
 
 type Props = {
     mode: "dashboard" | "editor";
@@ -23,8 +24,8 @@ export default function NotesTopBar({
 
     return (
         <>
-            <header className={s.topBar}>
-                <div className={s.topBarLeft}>
+            <header className={c.topBar}>
+                <div className={c.topBarLeft}>
                     {/* Hamburger → shared app-wide nav drawer */}
                     <HamburgerBtn
                         open={drawerOpen}
@@ -33,28 +34,28 @@ export default function NotesTopBar({
 
                     {mode === "editor" ? (
                         <button
-                            className={s.backBtn}
+                            className={c.tbBtn}
                             onClick={() => router.push("/notes")}
                         >
                             ← Back
                         </button>
                     ) : (
-                        <span className={s.topBarTitle}>📝 Notes</span>
+                        <span className={c.topBarTitle}>📝 Notes</span>
                     )}
                 </div>
 
-                <div className={s.topBarCenter}>
+                <div className={c.topBarCenter}>
                     {mode === "editor" && noteTitle && (
-                        <span className={s.noteTitle}>{noteTitle}</span>
+                        <span className={p.noteTitle}>{noteTitle}</span>
                     )}
                 </div>
 
-                <div className={s.topBarRight}>
+                <div className={c.topBarRight}>
                     {mode === "dashboard" && (
                         <>
                             {onNewFolder && (
                                 <button
-                                    className={s.iconBtn}
+                                    className={c.tbBtn + " " + p.iconBtn}
                                     onClick={onNewFolder}
                                     title="New folder"
                                 >
@@ -63,7 +64,13 @@ export default function NotesTopBar({
                             )}
                             {onNewNote && (
                                 <button
-                                    className={s.newNoteBtn}
+                                    className={
+                                        c.tbBtn +
+                                        " " +
+                                        c.tbBtnAccent +
+                                        " " +
+                                        p.newNoteBtn
+                                    }
                                     onClick={onNewNote}
                                 >
                                     + New Note
@@ -71,7 +78,7 @@ export default function NotesTopBar({
                             )}
                         </>
                     )}
-                    <div className={s.profileAvatar}>
+                    <div className={c.profileAvatar}>
                         <svg
                             width="16"
                             height="16"

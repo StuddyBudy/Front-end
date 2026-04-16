@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import c from "@/components/sidebar/Sidebar.module.css";
 import type { GpaState, Course } from "../types";
 import {
     calculateGpa,
@@ -11,7 +12,7 @@ import {
     gradeColor,
     gradeEmoji,
 } from "../utils";
-import s from "../GpaCalc.module.css";
+import p from "../GpaCalc.module.css";
 
 type Props = {
     state: GpaState;
@@ -75,13 +76,13 @@ export default function GpaSidebar({
     const sortedPeriods = [...state.periods].sort((a, b) => a.order - b.order);
 
     return (
-        <aside className={s.sidebar}>
+        <aside className={c.sidePanel + " " + p.sidebar}>
             {/* GPA summary card */}
-            <div className={s.gpaCard}>
-                <div className={s.gpaCardTitle}>Current GPA</div>
-                <div className={s.gpaValueRow}>
+            <div className={p.gpaCard}>
+                <div className={p.gpaCardTitle}>Current GPA</div>
+                <div className={p.gpaValueRow}>
                     <span
-                        className={s.gpaValue}
+                        className={p.gpaValue}
                         style={{
                             color: gradeColor(
                                 gpa !== null ? (gpa / gpaMax) * 100 : null,
@@ -90,60 +91,51 @@ export default function GpaSidebar({
                     >
                         {fmtGpa(gpa)}
                     </span>
-                    <span className={s.gpaScale}>/ {gpaMax.toFixed(1)}</span>
-                    <span style={{ fontSize: "1.4rem", marginLeft: "auto" }}>
+                    <span className={p.gpaScale}>/ {gpaMax.toFixed(1)}</span>
+                    <span className={p.gpaEmoji}>
                         {gradeEmoji(gpa !== null ? (gpa / gpaMax) * 100 : null)}
                     </span>
                 </div>
-                <div className={s.gpaMeter}>
+                <div className={p.gpaMeter}>
                     <div
-                        className={s.gpaMeterFill}
+                        className={p.gpaMeterFill}
                         style={{
                             width: `${gpaPct}%`,
                             background: gradeColor(gpaPct),
                         }}
                     />
                 </div>
-                <div className={s.gpaMetaRow}>
-                    <span className={s.gpaMeta}>
+                <div className={p.gpaMetaRow}>
+                    <span className={p.gpaMeta}>
                         Courses:{" "}
-                        <span className={s.gpaMetaVal}>{gradedCourses}</span>
+                        <span className={p.gpaMetaVal}>{gradedCourses}</span>
                     </span>
-                    <span className={s.gpaMeta}>
+                    <span className={p.gpaMeta}>
                         Credits:{" "}
-                        <span className={s.gpaMetaVal}>
+                        <span className={p.gpaMetaVal}>
                             {creditHours.toFixed(1)}
                         </span>
                     </span>
                 </div>
                 {proj !== null && (
-                    <div className={s.projRow}>
-                        <span className={s.projLabel}>Projected GPA</span>
-                        <span className={s.projValue}>
+                    <div className={p.projRow}>
+                        <span className={p.projLabel}>Projected GPA</span>
+                        <span className={p.projValue}>
                             {fmtGpa(proj)} / {gpaMax.toFixed(1)}
                         </span>
                     </div>
                 )}
                 {state.config.useWeightedGpa && (
-                    <div
-                        style={{
-                            fontSize: "0.65rem",
-                            color: "var(--dash-text-muted)",
-                            marginTop: 6,
-                            textAlign: "center",
-                        }}
-                    >
-                        ⚖ Weighted GPA enabled
-                    </div>
+                    <div className={p.weightedHint}>⚖ Weighted GPA enabled</div>
                 )}
             </div>
 
             {/* FIX: Section title adapts to periodType */}
-            <div className={s.sidebarSectionTitle}>
+            <div className={c.sidePanelLabel + " " + p.sidebarSectionTitle}>
                 {periodSectionLabel(state.config.periodType)}
             </div>
 
-            <div className={s.sidebarScroll}>
+            <div className={c.sidePanelScroll + " " + p.sidebarScroll}>
                 {sortedPeriods.map((period) => {
                     const isExpanded = expandedPeriods.has(period.id);
                     const periodCourses = state.courses
@@ -153,36 +145,24 @@ export default function GpaSidebar({
                     return (
                         <div key={period.id}>
                             <button
-                                className={`${s.periodItem} ${activePeriodId === period.id ? s.periodItemActive : ""} ${period.isCurrent ? s.periodItemCurrent : ""}`}
+                                className={`${p.periodItem} ${activePeriodId === period.id ? p.periodItemActive : ""} ${period.isCurrent ? p.periodItemCurrent : ""}`}
                                 onClick={() => togglePeriod(period.id)}
                             >
                                 <span
-                                    className={`${s.periodChevron} ${isExpanded ? s.periodChevronOpen : ""}`}
+                                    className={`${p.periodChevron} ${isExpanded ? p.periodChevronOpen : ""}`}
                                 >
                                     ›
                                 </span>
                                 {period.name}
-                                <span
-                                    style={{
-                                        marginLeft: "auto",
-                                        fontSize: "0.70rem",
-                                        color: "var(--dash-text-muted)",
-                                    }}
-                                >
+                                <span className={p.periodItemCount}>
                                     {periodCourses.length}
                                 </span>
                             </button>
 
                             {isExpanded && (
-                                <div className={s.courseTree}>
+                                <div className={p.courseTree}>
                                     {periodCourses.length === 0 && (
-                                        <div
-                                            style={{
-                                                fontSize: "0.72rem",
-                                                color: "var(--dash-text-muted)",
-                                                padding: "4px 8px",
-                                            }}
-                                        >
+                                        <div className={p.courseTreeEmpty}>
                                             No courses yet
                                         </div>
                                     )}
@@ -195,32 +175,26 @@ export default function GpaSidebar({
                                         return (
                                             <button
                                                 key={course.id}
-                                                className={s.courseTreeItem}
+                                                className={p.courseTreeItem}
                                                 onClick={() =>
                                                     onSelectCourse(course.id)
                                                 }
                                             >
                                                 <div
-                                                    className={s.courseTreeDot}
+                                                    className={p.courseTreeDot}
                                                     style={{
                                                         background:
                                                             course.color,
                                                     }}
                                                 />
                                                 <span
-                                                    style={{
-                                                        flex: 1,
-                                                        overflow: "hidden",
-                                                        textOverflow:
-                                                            "ellipsis",
-                                                        whiteSpace: "nowrap",
-                                                    }}
+                                                    className={p.courseTreeName}
                                                 >
                                                     {course.name}
                                                 </span>
                                                 <span
                                                     className={
-                                                        s.courseTreeGrade
+                                                        p.courseTreeGrade
                                                     }
                                                     style={{
                                                         color: gradeColor(avg),
@@ -239,7 +213,7 @@ export default function GpaSidebar({
                     );
                 })}
 
-                <button className={s.addPeriodBtn}>+ Add Period</button>
+                <button className={p.addPeriodBtn}>+ Add Period</button>
             </div>
         </aside>
     );

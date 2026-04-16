@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 import AppDrawer, { HamburgerBtn } from "@/components/sidebar/Sidebar";
+import c from "@/components/top-bar/top-bar.module.css";
 import type { GpaState } from "../types";
 import { PARTNER_SCHOOLS } from "../types";
-import s from "../GpaCalc.module.css";
+import p from "../GpaCalc.module.css";
 
 type Props = {
     state: GpaState;
@@ -46,120 +47,75 @@ export default function GpaTopBar({
     // Quick action: re-open setup wizard — passed as a slot to AppDrawer
     const quickActions = (
         <button
-            style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 12,
-                padding: "11px 12px",
-                borderRadius: 10,
-                background: "none",
-                border: "none",
-                width: "100%",
-                textAlign: "left",
-                color: "var(--dash-text-muted, rgba(240,232,216,0.50))",
-                fontFamily: "var(--font-body, 'Outfit', sans-serif)",
-                fontSize: "0.88rem",
-                cursor: "pointer",
-                transition: "background 0.13s, color 0.13s",
-            }}
-            onMouseOver={(e) => {
-                (e.currentTarget as HTMLButtonElement).style.background =
-                    "rgba(255,255,255,0.06)";
-                (e.currentTarget as HTMLButtonElement).style.color =
-                    "var(--dash-text-primary, #f0e8d8)";
-            }}
-            onMouseOut={(e) => {
-                (e.currentTarget as HTMLButtonElement).style.background =
-                    "none";
-                (e.currentTarget as HTMLButtonElement).style.color =
-                    "var(--dash-text-muted, rgba(240,232,216,0.50))";
-            }}
+            className={p.quickActionBtn}
             onClick={() => {
                 onOpenSetup();
                 setDrawerOpen(false);
             }}
         >
-            <span
-                style={{ fontSize: "1.1rem", width: 26, textAlign: "center" }}
-            >
-                ⚙
-            </span>
+            <span className={p.quickActionIcon}>⚙</span>
             <span>GPA Setup / Settings</span>
         </button>
     );
 
     return (
         <>
-            <header className={s.topBar}>
-                <div className={s.topBarLeft}>
+            <header className={c.topBar}>
+                <div className={c.topBarLeft + " " + p.topBarLeft}>
                     {/* Hamburger → shared app-wide nav drawer */}
                     <HamburgerBtn
                         open={drawerOpen}
                         onClick={() => setDrawerOpen((o) => !o)}
                     />
 
-                    <span className={s.topBarTitle}>📊 GPA Calc</span>
+                    <span className={c.topBarTitle}>📊 GPA Calc</span>
 
                     {schoolLabel && (
-                        <span className={s.schoolBadge}>
+                        <span className={p.schoolBadge}>
                             {partnerSchool ? "✓ " : ""}
                             {schoolLabel}
                         </span>
                     )}
 
                     {/* Marking period tabs */}
-                    <div className={s.mpTabs}>
-                        {sortedPeriods.map((p) => (
+                    <div className={p.mpTabs}>
+                        {sortedPeriods.map((period) => (
                             <button
-                                key={p.id}
-                                className={`${s.mpTab} ${activePeriodId === p.id ? s.mpTabActive : ""}`}
-                                onClick={() => onPeriodChange(p.id)}
+                                key={period.id}
+                                className={`${p.mpTab} ${activePeriodId === period.id ? p.mpTabActive : ""}`}
+                                onClick={() => onPeriodChange(period.id)}
                             >
-                                {p.name}
-                                {p.isCurrent && (
-                                    <span
-                                        style={{
-                                            marginLeft: 4,
-                                            fontSize: "0.52rem",
-                                            opacity: 0.75,
-                                        }}
-                                    >
-                                        ●
-                                    </span>
+                                {period.name}
+                                {period.isCurrent && (
+                                    <span className={p.mpCurrentDot}>●</span>
                                 )}
                             </button>
                         ))}
                     </div>
                 </div>
 
-                <div className={s.topBarRight}>
+                <div className={c.topBarRight}>
                     {lastUpdated && (
-                        <span
-                            style={{
-                                fontSize: "0.70rem",
-                                color: "var(--dash-text-muted)",
-                                whiteSpace: "nowrap",
-                            }}
-                        >
+                        <span className={p.updatedMeta}>
                             ⓘ Updated {fmtTime(lastUpdated)}
                         </span>
                     )}
-                    <button className={s.tbBtn} onClick={onRefresh}>
+                    <button className={c.tbBtn} onClick={onRefresh}>
                         ↻ Refresh
                     </button>
-                    <button className={s.tbBtn} onClick={onImport}>
+                    <button className={c.tbBtn} onClick={onImport}>
                         ⬆ Import CSV
                     </button>
                     <button
-                        className={`${s.tbBtn} ${s.tbBtnAccent}`}
+                        className={c.tbBtn + " " + c.tbBtnAccent}
                         onClick={onAddCourse}
                     >
                         + Add Course
                     </button>
-                    <button className={s.tbBtn} onClick={onOpenSetup}>
+                    <button className={c.tbBtn} onClick={onOpenSetup}>
                         ⚙ Setup
                     </button>
-                    <div className={s.profileAvatar}>
+                    <div className={c.profileAvatar}>
                         <svg
                             width="15"
                             height="15"

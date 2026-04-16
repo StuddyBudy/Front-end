@@ -11,6 +11,7 @@ import AppDrawer, { HamburgerBtn } from "@/components/sidebar/Sidebar";
 function EditIcon() {
     return (
         <svg
+            className={t.editIcon}
             width="13"
             height="13"
             viewBox="0 0 24 24"
@@ -19,11 +20,6 @@ function EditIcon() {
             strokeWidth="2.2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            style={{
-                display: "inline",
-                verticalAlign: "middle",
-                marginRight: 4,
-            }}
         >
             <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
             <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
@@ -61,24 +57,12 @@ export default function TopBar({
     const [drawerOpen, setDrawerOpen] = useState(false);
 
     return (
-        <header
-            className={t.topBar}
-            style={{ zIndex: 99, position: "relative" }}
-        >
-            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+        <header className={t.topBar + " " + t.topBarDashboard}>
+            <div className={t.topLeft}>
                 <HamburgerBtn
                     open={drawerOpen}
                     onClick={() => setDrawerOpen((o) => !o)}
                 />
-                <span
-                    style={{
-                        fontSize: "0.78rem",
-                        color: "var(--dash-text-muted, rgba(240,232,216,0.45))",
-                    }}
-                ></span>
-            </div>
-
-            <div className={t.topLeft}>
                 <span className={t.topDate}>{dateStr}</span>
                 <span className={t.topSep}>·</span>
                 <span className={t.topTime}>{timeStr}</span>
@@ -94,20 +78,20 @@ export default function TopBar({
 
             <div className={t.topRight}>
                 {page === "dashboard" && !editMode && (
-                    <button className={`${t.topBtn}`} onClick={onStartEdit}>
+                    <button className={t.tbBtn} onClick={onStartEdit}>
                         <EditIcon /> Edit Dashboard
                     </button>
                 )}
                 {editMode && (
                     <>
                         <button
-                            className={`${t.topBtn} ${t.topBtnAccent}`}
+                            className={t.tbBtn + " " + t.tbBtnAccent}
                             onClick={onSaveEdit}
                         >
                             ✓ Save Layout
                         </button>
                         <button
-                            className={`${t.topBtn} ${t.topBtnGhost}`}
+                            className={t.tbBtn + " " + t.tbBtnGhost}
                             onClick={onCancelEdit}
                         >
                             ✕ Cancel

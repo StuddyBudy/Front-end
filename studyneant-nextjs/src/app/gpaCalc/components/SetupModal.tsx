@@ -61,8 +61,8 @@ export default function SetupModal({ onComplete }: Props) {
                                 Welcome to GPA Calc
                             </h2>
                             <p className={s.setupSubtitle}>
-                                Let's set up your grade tracker. First — what
-                                kind of school are you in?
+                                Let&apos;s set up your grade tracker. First —
+                                what kind of school are you in?
                             </p>
                             <div className={s.optionGrid}>
                                 {[
@@ -338,9 +338,11 @@ export default function SetupModal({ onComplete }: Props) {
                             <div className={s.setupStep}>
                                 Step 5 of {TOTAL_STEPS} — Ready!
                             </div>
-                            <h2 className={s.setupTitle}>You're all set 🎉</h2>
+                            <h2 className={s.setupTitle}>
+                                You&apos;re all set 🎉
+                            </h2>
                             <p className={s.setupSubtitle}>
-                                Here's what we've configured:
+                                Here&apos;s what we&apos;ve configured:
                             </p>
 
                             {[

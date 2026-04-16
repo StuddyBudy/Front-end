@@ -3,9 +3,10 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import AppDrawer, { HamburgerBtn } from "@/components/sidebar/Sidebar";
+import c from "@/components/top-bar/top-bar.module.css";
 import type { ViewMode } from "../types";
 import { monthLabel } from "../storage";
-import s from "../Calendar.module.css";
+import p from "../Calendar.module.css";
 
 type Props = {
     viewMode: ViewMode;
@@ -51,42 +52,45 @@ export default function CalTopBar({
 
     return (
         <>
-            <header className={s.topBar}>
-                <div className={s.topBarLeft}>
+            <header className={c.topBar + " " + p.topBar}>
+                <div className={c.topBarLeft + " " + p.topBarLeft}>
                     <HamburgerBtn
                         open={drawerOpen}
                         onClick={() => setDrawerOpen((o) => !o)}
                     />
                     <button
-                        className={s.topBarBrandBtn}
+                        className={p.topBarBrandBtn}
                         onClick={() => router.push("/dashboard")}
                     >
-                        <span className={s.topBarBrand}>◈ StudyNeant</span>
+                        <span className={p.topBarBrand}>◈ StudyNeant</span>
                     </button>
-                    <button className={s.tbBtn} onClick={onToday}>
+                    <button
+                        className={c.tbBtn + " " + p.tbTodayBtn}
+                        onClick={onToday}
+                    >
                         Today
                     </button>
-                    <div className={s.tbNavGroup}>
-                        <button className={s.tbNavArrow} onClick={onPrev}>
+                    <div className={p.tbNavGroup}>
+                        <button className={p.tbNavArrow} onClick={onPrev}>
                             ‹
                         </button>
-                        <button className={s.tbNavArrow} onClick={onNext}>
+                        <button className={p.tbNavArrow} onClick={onNext}>
                             ›
                         </button>
                     </div>
-                    <span className={s.tbMonthLabel}>{label}</span>
+                    <span className={p.tbMonthLabel}>{label}</span>
                 </div>
 
-                <div className={s.topBarCenter}>
-                    <div className={s.viewToggle}>
+                <div className={c.topBarCenter}>
+                    <div className={p.tbToggle}>
                         <button
-                            className={`${s.viewToggleBtn} ${viewMode === "month" ? s.viewToggleBtnActive : ""}`}
+                            className={`${p.tbToggleBtn} ${viewMode === "month" ? p.tbToggleBtnActive : ""}`}
                             onClick={() => onViewChange("month")}
                         >
                             Monthly
                         </button>
                         <button
-                            className={`${s.viewToggleBtn} ${viewMode === "week" ? s.viewToggleBtnActive : ""}`}
+                            className={`${p.tbToggleBtn} ${viewMode === "week" ? p.tbToggleBtnActive : ""}`}
                             onClick={() => onViewChange("week")}
                         >
                             Weekly
@@ -94,14 +98,19 @@ export default function CalTopBar({
                     </div>
                 </div>
 
-                <div className={s.topBarRight}>
-                    <button className={s.addEventBtn} onClick={onAddEvent}>
+                <div className={c.topBarRight + " " + p.topBarRight}>
+                    <button
+                        className={
+                            c.tbBtn + " " + c.tbBtnAccent + " " + p.tbCreateBtn
+                        }
+                        onClick={onAddEvent}
+                    >
                         + Create
                     </button>
-                    <button className={s.tbSearchBtn} title="Search">
+                    <button className={p.tbSearchBtn} title="Search">
                         🔍
                     </button>
-                    <div className={s.profileAvatar}>
+                    <div className={c.profileAvatar + " " + p.tbProfileBtn}>
                         <svg
                             width="15"
                             height="15"

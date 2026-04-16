@@ -3,7 +3,8 @@
 import { useState, useRef, useEffect } from "react";
 import type { SortMode } from "../types";
 import AppDrawer, { HamburgerBtn } from "@/components/sidebar/Sidebar";
-import s from "../ToDo.module.css";
+import c from "@/components/top-bar/top-bar.module.css";
+import p from "../ToDo.module.css";
 
 const SORT_OPTIONS: { value: SortMode; label: string; icon: string }[] = [
     { value: "manual", label: "Manual order", icon: "⠿" },
@@ -50,59 +51,38 @@ export default function ToDoTopBar({
 
     return (
         <>
-            <header className={s.topBar}>
-                <div className={s.topBarLeft}>
+            <header className={c.topBar}>
+                <div className={c.topBarLeft}>
                     {/* Hamburger → shared app-wide nav drawer */}
                     <HamburgerBtn
                         open={drawerOpen}
                         onClick={() => setDrawerOpen((o) => !o)}
                     />
-                    <span className={s.topBarTitle}>✅ To-Do</span>
+                    <span className={c.topBarTitle}>✅ To-Do</span>
                     <span
-                        className={s.topBarMeta}
+                        className={
+                            c.topBarMeta +
+                            (visibleCount > 0 ? "" : " " + p.topBarMetaHidden)
+                        }
                         suppressHydrationWarning
-                        style={{
-                            visibility: visibleCount > 0 ? "visible" : "hidden",
-                        }}
                     >
                         {totalTasks} task{totalTasks !== 1 ? "s" : ""} ·{" "}
                         {visibleCount} list{visibleCount !== 1 ? "s" : ""}
                     </span>
                 </div>
 
-                <div className={s.topBarRight}>
+                <div className={c.topBarRight}>
                     {/* Lists / Weekly toggle */}
-                    <div
-                        style={{
-                            display: "flex",
-                            background: "rgba(255,255,255,0.04)",
-                            border: "1px solid var(--dash-border, rgba(223,208,184,0.10))",
-                            borderRadius: 8,
-                            overflow: "hidden",
-                            flexShrink: 0,
-                        }}
-                    >
+                    <div className={p.viewToggle}>
                         {(["lists", "weekly"] as ToDoView[]).map((v) => (
                             <button
                                 key={v}
-                                style={{
-                                    padding: "5px 14px",
-                                    background:
-                                        view === v
-                                            ? "var(--dash-bg-handle, rgba(44,35,22,0.97))"
-                                            : "transparent",
-                                    border: "none",
-                                    color:
-                                        view === v
-                                            ? "var(--dash-accent-warm, #de8900)"
-                                            : "var(--dash-text-muted, rgba(240,232,216,0.45))",
-                                    fontFamily: "var(--font-body)",
-                                    fontSize: "0.78rem",
-                                    fontWeight: view === v ? 600 : 400,
-                                    cursor: "pointer",
-                                    transition: "background 0.15s, color 0.15s",
-                                    whiteSpace: "nowrap",
-                                }}
+                                className={
+                                    p.viewToggleBtn +
+                                    (view === v
+                                        ? " " + p.viewToggleBtnActive
+                                        : "")
+                                }
                                 onClick={() => onViewChange(v)}
                             >
                                 {v === "lists" ? "📋 Lists" : "📅 Weekly"}
@@ -112,25 +92,25 @@ export default function ToDoTopBar({
 
                     {/* Sort — only in lists view */}
                     {view === "lists" && (
-                        <div className={s.sortMenuWrap} ref={sortRef}>
+                        <div className={p.sortMenuWrap} ref={sortRef}>
                             <button
-                                className={s.tbBtn}
+                                className={c.tbBtn}
                                 onClick={() => setSortOpen((o) => !o)}
                             >
                                 {cur?.icon} Sort
                             </button>
                             {sortOpen && (
-                                <div className={s.sortMenu}>
+                                <div className={p.sortMenu}>
                                     {SORT_OPTIONS.map((opt) => (
                                         <button
                                             key={opt.value}
-                                            className={`${s.sortMenuItem} ${sortMode === opt.value ? s.sortMenuItemActive : ""}`}
+                                            className={`${p.sortMenuItem} ${sortMode === opt.value ? p.sortMenuItemActive : ""}`}
                                             onClick={() => {
                                                 onSortChange(opt.value);
                                                 setSortOpen(false);
                                             }}
                                         >
-                                            <span className={s.sortMenuCheck}>
+                                            <span className={p.sortMenuCheck}>
                                                 {sortMode === opt.value
                                                     ? "✓"
                                                     : ""}
@@ -143,7 +123,7 @@ export default function ToDoTopBar({
                         </div>
                     )}
 
-                    <div className={s.profileAvatar}>
+                    <div className={c.profileAvatar}>
                         <svg
                             width="15"
                             height="15"

@@ -12,23 +12,31 @@ import BottomNav from "../../components/bottomNav/BottomNav";
 
 import s from "./ToDo.module.css";
 
+const EMPTY_TODO_STATE: TodoState = {
+    lists: [],
+    items: [],
+    sortMode: "manual",
+};
+
+function getInitialTodoState(): TodoState {
+    if (typeof window === "undefined") return EMPTY_TODO_STATE;
+    return loadTodo();
+}
+
 // ── TO-DO PAGE ────────────────────────────────────────────────────────────────
 // Route: /toDo
 // Views:  "lists"  → checkbox sidebar + grouped task lists (original)
 //         "weekly" → 7-column kanban board grouped by due date
 export default function ToDoPage() {
+    const initialState = useMemo(() => getInitialTodoState(), []);
+
     // ── Core state ──
-    const [state, setState] = useState<TodoState>(() => {
-        if (typeof window === "undefined")
-            return { lists: [], items: [], sortMode: "manual" };
-        return loadTodo();
-    });
+    const [state, setState] = useState<TodoState>(initialState);
     const [view, setView] = useState<ToDoView>("lists");
 
     // ── Visible lists (for the lists view) ──
     const [visibleListIds, setVisibleListIds] = useState<Set<string>>(() => {
-        if (typeof window === "undefined") return new Set();
-        return new Set(loadTodo().lists.map((l) => l.id));
+        return new Set(initialState.lists.map((l) => l.id));
     });
 
     // ── Visibility toggles ──
@@ -53,7 +61,7 @@ export default function ToDoPage() {
     // ── Global quick-add (lists view) ──
     const [globalText, setGlobalText] = useState("");
     const [globalListId, setGlobalListId] = useState<string>(
-        () => loadTodo().lists[0]?.id ?? "",
+        () => initialState.lists[0]?.id ?? "",
     );
 
     const effectiveVisibleListIds = useMemo(() => {
@@ -198,14 +206,7 @@ export default function ToDoPage() {
 
             {/* ── WEEKLY VIEW ── */}
             {view === "weekly" && (
-                <div
-                    style={{
-                        flex: 1,
-                        overflow: "hidden",
-                        display: "flex",
-                        flexDirection: "column",
-                    }}
-                >
+                <div className={s.weeklyWrap}>
                     <WeeklyView state={state} setState={setState} />
                 </div>
             )}

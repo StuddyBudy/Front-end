@@ -17,121 +17,41 @@
     color: var(--dash-text-primary, #f0e8d8);
 }
 
-/* ── TOP BAR ─────────────────────────────────────────────────────────────────*/
-.topBar {
-    flex-shrink: 0;
-    height: 58px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
-    border-bottom: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
-    background: var(--dash-navbars-bg, rgba(0, 0, 0, 0.28));
-    backdrop-filter: blur(12px);
-    gap: 14px;
-    z-index: 40;
-}
-.topBarLeft {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-.topBarRight {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-.topBarTitle {
-    font-family: var(--font-display, "Cormorant Garamond", serif);
-    font-size: 1.15rem;
-    font-weight: 700;
-    color: var(--dash-accent, #dfd0b8);
-    letter-spacing: 0.02em;
-}
-.topBarMeta {
-    font-size: 0.72rem;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+.topBarMetaHidden {
+    visibility: hidden;
 }
 
-.tbBtn {
+.viewToggle {
     display: flex;
-    align-items: center;
-    gap: 5px;
-    padding: 5px 12px;
+    background: rgba(255, 255, 255, 0.04);
     border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
     border-radius: 8px;
-    background: rgba(255, 255, 255, 0.04);
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
-    font-family: var(--font-body);
-    font-size: 0.78rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition:
-        background 0.15s,
-        color 0.15s,
-        border-color 0.15s;
-}
-.tbBtn:hover {
-    background: rgba(255, 255, 255, 0.09);
-    color: var(--dash-text-primary, #f0e8d8);
-    border-color: var(--dash-border-hover, rgba(223, 208, 184, 0.26));
-}
-
-.hamburgerBtn {
-    width: 36px;
-    height: 36px;
-    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
-    border-radius: 9px;
-    background: rgba(255, 255, 255, 0.04);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 4.5px;
-    cursor: pointer;
-    padding: 0;
+    overflow: hidden;
     flex-shrink: 0;
-    transition:
-        background 0.15s,
-        border-color 0.15s;
-}
-.hamburgerBtn:hover {
-    background: rgba(255, 255, 255, 0.09);
-    border-color: var(--dash-border-hover, rgba(223, 208, 184, 0.26));
-}
-.hamburgerBtn span {
-    display: block;
-    width: 15px;
-    height: 1.5px;
-    background: var(--dash-accent, #dfd0b8);
-    border-radius: 2px;
-    transform-origin: center;
-    transition:
-        transform 0.22s,
-        opacity 0.22s;
-}
-.hamburgerOpen span:nth-child(1) {
-    transform: translateY(6px) rotate(45deg);
-}
-.hamburgerOpen span:nth-child(2) {
-    opacity: 0;
-    transform: scaleX(0);
-}
-.hamburgerOpen span:nth-child(3) {
-    transform: translateY(-6px) rotate(-45deg);
 }
 
-.profileAvatar {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: var(--dash-bg-widget, rgba(36, 28, 18, 0.93));
-    border: 1px solid var(--dash-border-hover, rgba(223, 208, 184, 0.26));
+.viewToggleBtn {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--dash-accent, #dfd0b8);
+    padding: 5px 14px;
+    border: none;
+    background: transparent;
+    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    font-family: var(--font-body, "Outfit", sans-serif);
+    font-size: 0.78rem;
+    font-weight: 400;
     cursor: pointer;
+    transition:
+        background 0.15s,
+        color 0.15s;
+    white-space: nowrap;
+}
+
+.viewToggleBtnActive {
+    background: var(--dash-bg-handle, rgba(44, 35, 22, 0.97));
+    color: var(--dash-accent-warm, #de8900);
+    font-weight: 600;
 }
 
 /* ── APP DRAWER ──────────────────────────────────────────────────────────────*/
@@ -335,56 +255,31 @@
     overflow: hidden;
 }
 
+.weeklyWrap {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
 /* ── LIST SIDEBAR ────────────────────────────────────────────────────────────*/
 .listSidebar {
     width: 252px;
-    flex-shrink: 0;
-    border-right: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
-    display: flex;
-    flex-direction: column;
     background: rgba(0, 0, 0, 0.12);
-    overflow: hidden;
 }
 .sidebarHeader {
     padding: 14px 14px 8px;
     flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
 }
 .sidebarTitle {
     font-size: 0.68rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
 }
 .selectAllBtn {
     font-size: 0.68rem;
     color: var(--dash-accent-warm, #de8900);
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-family: var(--font-body);
-    padding: 0;
-    transition: opacity 0.15s;
-}
-.selectAllBtn:hover {
-    opacity: 0.75;
 }
 .sidebarScroll {
-    flex: 1;
-    overflow-y: auto;
     padding: 2px 6px;
-    scrollbar-width: thin;
-    scrollbar-color: var(--dash-border, rgba(223, 208, 184, 0.1)) transparent;
-}
-.sidebarScroll::-webkit-scrollbar {
-    width: 3px;
-}
-.sidebarScroll::-webkit-scrollbar-thumb {
-    background: var(--dash-border, rgba(223, 208, 184, 0.1));
-    border-radius: 3px;
 }
 
 /* ── LIST ITEM ───────────────────────────────────────────────────────────────*/
@@ -400,6 +295,10 @@
     text-align: left;
     margin-bottom: 2px;
     transition: background 0.13s;
+    position: relative;
+}
+
+.listItemWrap {
     position: relative;
 }
 .listItem:hover {
