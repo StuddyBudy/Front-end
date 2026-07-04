@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import type { TodoState } from "./types";
 import { loadTodo, saveTodo, makeItem } from "./storage";
 
@@ -18,18 +18,29 @@ import s from "./ToDo.module.css";
 //         "weekly" → 7-column kanban board grouped by due date
 export default function ToDoPage() {
     // ── Core state ──
-    const [state, setState] = useState<TodoState>(() => {
-        if (typeof window === "undefined")
-            return { lists: [], items: [], sortMode: "manual" };
-        return loadTodo();
+    // Starts empty on the server prerender AND the client's first render;
+    // the persisted state loads in the mount effect below. Reading loadTodo()
+    // inside initializers made the two renders diverge (hydration errors) and
+    // wrote seed data to localStorage as a render side-effect.
+    const [state, setState] = useState<TodoState>({
+        lists: [],
+        items: [],
+        sortMode: "manual",
     });
     const [view, setView] = useState<ToDoView>("lists");
 
     // ── Visible lists (for the lists view) ──
-    const [visibleListIds, setVisibleListIds] = useState<Set<string>>(() => {
-        if (typeof window === "undefined") return new Set();
-        return new Set(loadTodo().lists.map((l) => l.id));
-    });
+    const [visibleListIds, setVisibleListIds] = useState<Set<string>>(
+        new Set(),
+    );
+
+    // ── Hydrate persisted state after mount ──
+    useEffect(() => {
+        const loaded = loadTodo();
+        setState(loaded);
+        setVisibleListIds(new Set(loaded.lists.map((l) => l.id)));
+        setGlobalListId(loaded.lists[0]?.id ?? "");
+    }, []);
 
     // ── Visibility toggles ──
     const toggleList = (id: string) =>
@@ -52,9 +63,7 @@ export default function ToDoPage() {
 
     // ── Global quick-add (lists view) ──
     const [globalText, setGlobalText] = useState("");
-    const [globalListId, setGlobalListId] = useState<string>(
-        () => loadTodo().lists[0]?.id ?? "",
-    );
+    const [globalListId, setGlobalListId] = useState<string>("");
 
     const effectiveVisibleListIds = useMemo(() => {
         const valid = new Set(state.lists.map((l) => l.id));
