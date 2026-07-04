@@ -34,6 +34,10 @@ export default function ToDoPage() {
         new Set(),
     );
 
+    // ── Global quick-add (lists view) ──
+    const [globalText, setGlobalText] = useState("");
+    const [globalListId, setGlobalListId] = useState<string>("");
+
     // ── Hydrate persisted state after mount ──
     useEffect(() => {
         const loaded = loadTodo();
@@ -60,10 +64,6 @@ export default function ToDoPage() {
         setState(next);
         saveTodo(next);
     };
-
-    // ── Global quick-add (lists view) ──
-    const [globalText, setGlobalText] = useState("");
-    const [globalListId, setGlobalListId] = useState<string>("");
 
     const effectiveVisibleListIds = useMemo(() => {
         const valid = new Set(state.lists.map((l) => l.id));
