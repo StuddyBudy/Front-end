@@ -209,11 +209,6 @@
     overflow: hidden;
 }
 
-/* wide widget spans full width */
-.widget-wide {
-    grid-column: 1 / -1;
-}
-
 .mockHandle {
     background: var(--bg-handle);
     border-bottom: 1px solid var(--border);

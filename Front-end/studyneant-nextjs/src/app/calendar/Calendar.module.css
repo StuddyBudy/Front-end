@@ -213,11 +213,6 @@
     transform: translateY(-1px);
     box-shadow: 0 2px 20px rgba(222, 137, 0, 0.38);
 }
-.tbCreatePlus {
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1;
-}
 
 /* ── SEARCH BUTTON ────────────────────────────────────────────────────────────*/
 .tbSearchBtn {
@@ -269,17 +264,11 @@
 .tbBtn {
     composes: tbTodayBtn;
 }
-.tbIconBtn {
-    composes: tbSearchBtn;
-}
 .addEventBtn {
     composes: tbCreateBtn;
 }
 .profileAvatar {
     composes: tbProfileBtn;
-}
-.monthLabel {
-    composes: tbMonthLabel;
 }
 .viewToggle {
     composes: tbToggle;
@@ -310,30 +299,6 @@
     scrollbar-width: thin;
     scrollbar-color: var(--dash-border, rgba(223, 208, 184, 0.1)) transparent;
 }
-.sidebarCreateBtn {
-    margin: 12px 12px 4px;
-    padding: 8px 14px;
-    border-radius: 99px;
-    border: 1px dashed var(--dash-border-hover, rgba(223, 208, 184, 0.22));
-    background: transparent;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
-    font-family: var(--font-body);
-    font-size: 0.78rem;
-    font-weight: 500;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    transition:
-        color 0.15s,
-        border-color 0.15s,
-        background 0.15s;
-}
-.sidebarCreateBtn:hover {
-    color: var(--dash-accent-warm, #de8900);
-    border-color: var(--dash-accent-warm, #de8900);
-    background: rgba(222, 137, 0, 0.05);
-}
 
 /* ── MINI CALENDAR ───────────────────────────────────────────────────────────*/
 .miniCal {
@@ -348,17 +313,14 @@
 }
 
 /* Month + year label — MiniCalendar uses .miniCalTitle */
-.miniCalTitle,
-.miniCalMonth {
+.miniCalTitle{
     font-family: var(--font-display, "Cormorant Garamond", serif);
     font-size: 0.84rem;
     font-weight: 600;
     color: var(--dash-accent, #dfd0b8);
 }
 
-/* Nav arrows — MiniCalendar uses .miniCalNav, old code used .miniCalNavBtn */
-.miniCalNav,
-.miniCalNavBtn {
+/* Nav arrows — MiniCalendar uses .miniCalNav{
     width: 24px;
     height: 24px;
     border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.12));
@@ -376,8 +338,7 @@
         border-color 0.12s;
     line-height: 1;
 }
-.miniCalNav:hover,
-.miniCalNavBtn:hover {
+.miniCalNav:hover{
     background: rgba(255, 255, 255, 0.09);
     color: var(--dash-accent-warm, #de8900);
     border-color: var(--dash-accent-warm, #de8900);
@@ -390,8 +351,7 @@
 }
 
 /* Day-of-week headers (S M T W T F S) — MiniCalendar uses .miniCalDayHdr */
-.miniCalDayHdr,
-.miniCalDayName {
+.miniCalDayHdr{
     font-size: 0.6rem;
     font-weight: 600;
     letter-spacing: 0.04em;
@@ -553,36 +513,6 @@
     background: rgba(222, 137, 0, 0.06);
 }
 
-/* Legacy aliases */
-.calsSection {
-    composes: calListSection;
-}
-.calsSectionHeader {
-    composes: calListHeader;
-}
-.calsSectionTitle {
-    composes: calListTitle;
-}
-.calsCollapseBtn {
-    composes: calListToggle;
-}
-.calRow {
-    composes: calItem;
-}
-.calsAddBtn {
-    composes: addCalBtn;
-}
-
-/* ── MAIN VIEW ───────────────────────────────────────────────────────────────*/
-/* Both .mainView and .mainArea work — page.tsx uses .mainArea */
-.mainView,
-.mainArea {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-}
-
 /* ── MONTH VIEW ──────────────────────────────────────────────────────────────*/
 .monthView {
     flex: 1;
@@ -675,20 +605,8 @@
     color: var(--dash-text-primary, #f0e8d8);
 }
 
-/* Aliases used by MonthView.tsx */
-.dayNum {
-    composes: dayCellNum;
-}
-.dayNumCurMonth {
-    composes: dayCellNumCurMonth;
-}
-.dayNumToday {
-    composes: dayCellNumToday;
-}
-
 /* Event chips */
-.eventPill,
-.eventChip {
+.eventPill{
     display: flex;
     align-items: center;
     gap: 3px;
@@ -703,8 +621,7 @@
     white-space: nowrap;
     text-overflow: ellipsis;
 }
-.eventPill:hover,
-.eventChip:hover {
+.eventPill:hover{
     opacity: 0.75;
 }
 .eventDot {
@@ -952,33 +869,6 @@
 .weekView {
     /* already defined above */
 }
-.weekDayHeaders {
-    composes: wkHeaders;
-}
-.weekDayHeader {
-    composes: wkDayHeader;
-}
-.weekBody {
-    composes: wkScroll;
-}
-.weekTimeCol {
-    composes: wkTimeCol;
-}
-.weekTimeSlot {
-    composes: wkTimeSlot;
-}
-.weekDayCol {
-    composes: wkDayCol;
-}
-.weekHourSlot {
-    composes: wkHourLine;
-}
-.weekDayHeaderDate {
-    composes: wkDayName;
-}
-.weekDayHeaderDateToday {
-    composes: wkDayHeaderToday;
-}
 
 /* ── SHARED FORM ELEMENTS ────────────────────────────────────────────────────*/
 .inputFull {
@@ -1045,46 +935,6 @@
 }
 .inputTime {
     width: 88px;
-}
-.numInput {
-    width: 50px;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
-    border-radius: 7px;
-    padding: 5px 8px;
-    color: var(--dash-text-primary, #f0e8d8);
-    font-family: var(--font-body);
-    font-size: 0.78rem;
-    text-align: center;
-    outline: none;
-}
-.numInput:focus {
-    border-color: var(--dash-accent-warm, #de8900);
-}
-.textareaInput {
-    width: 100%;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
-    border-radius: 8px;
-    padding: 8px 10px;
-    color: var(--dash-text-primary, #f0e8d8);
-    font-family: var(--font-body);
-    font-size: 0.78rem;
-    resize: vertical;
-    min-height: 64px;
-    outline: none;
-    transition: border-color 0.15s;
-}
-.textareaInput:focus {
-    border-color: var(--dash-accent-warm, #de8900);
-}
-.textareaInput::placeholder {
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
-}
-.charCount {
-    font-size: 0.66rem;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
-    text-align: right;
 }
 
 /* Toggle switch */
@@ -1326,13 +1176,6 @@
     display: flex;
     align-items: center;
     gap: 8px;
-}
-.todoExpanded {
-    margin-top: 3px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    padding-left: 26px;
 }
 .modalFooter {
     display: flex;
@@ -1580,50 +1423,6 @@
 }
 .btnSave:hover {
     opacity: 0.88;
-}
-
-/* Legacy aliases */
-.advOverlay {
-    composes: modalOverlay;
-}
-.advModal {
-    composes: repeatModal;
-}
-.advHeader {
-    composes: repeatTitle;
-}
-.advBody {
-    padding: 2px 0;
-}
-.advFooter {
-    composes: modalFooter;
-}
-.addCalModal {
-    background: var(--dash-bg-widget, rgba(36, 28, 18, 0.97));
-    border: 1px solid var(--dash-border-hover, rgba(223, 208, 184, 0.22));
-    border-radius: 14px;
-    width: 100%;
-    max-width: 290px;
-    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.7);
-    padding: 18px;
-    animation: slideUp 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.addCalTitle {
-    font-family: var(--font-display, "Cormorant Garamond", serif);
-    font-size: 1.05rem;
-    color: var(--dash-accent, #dfd0b8);
-    margin-bottom: 12px;
-}
-.colorRow2 {
-    display: flex;
-    gap: 7px;
-    flex-wrap: wrap;
-    margin-bottom: 14px;
-}
-.addCalBtns {
-    display: flex;
-    justify-content: flex-end;
-    gap: 8px;
 }
 
 /* ── EVENT DETAIL POPOVER ────────────────────────────────────────────────────*/

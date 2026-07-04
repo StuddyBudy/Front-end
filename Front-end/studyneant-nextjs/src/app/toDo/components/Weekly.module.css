@@ -410,37 +410,3 @@
 .weekDoneSummary:hover {
     background: rgba(255, 255, 255, 0.04);
 }
-
-/* ── VIEW TOGGLE (used by ToDoTopBar) ────────────────────────────────────────*/
-.viewToggle {
-    display: flex;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
-    border-radius: 8px;
-    overflow: hidden;
-    flex-shrink: 0;
-}
-
-.viewToggleBtn {
-    padding: 5px 14px;
-    background: transparent;
-    border: none;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
-    font-family: var(--font-body, "Outfit", sans-serif);
-    font-size: 0.78rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition:
-        background 0.15s,
-        color 0.15s;
-    white-space: nowrap;
-}
-.viewToggleBtn:hover {
-    color: var(--dash-text-primary, #f0e8d8);
-}
-
-/* Active tab */
-.viewToggleBtnActive {
-    background: var(--dash-bg-handle, rgba(44, 35, 22, 0.97));
-    color: var(--dash-accent-warm, #de8900);
-}

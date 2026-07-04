@@ -517,13 +517,6 @@
     font-size: 0.85rem;
 }
 
-/* ── NOTE EDITOR LAYOUT ──────────────────────────────────────────────────────*/
-.editorLayout {
-    display: flex;
-    flex: 1;
-    overflow: hidden;
-}
-
 /* ── TREE SIDEBAR ────────────────────────────────────────────────────────────*/
 .treeSidebar {
     width: 220px;

@@ -77,50 +77,6 @@
     border-color: var(--dash-border-hover, rgba(223, 208, 184, 0.26));
 }
 
-.hamburgerBtn {
-    width: 36px;
-    height: 36px;
-    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
-    border-radius: 9px;
-    background: rgba(255, 255, 255, 0.04);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 4.5px;
-    cursor: pointer;
-    padding: 0;
-    flex-shrink: 0;
-    transition:
-        background 0.15s,
-        border-color 0.15s;
-}
-.hamburgerBtn:hover {
-    background: rgba(255, 255, 255, 0.09);
-    border-color: var(--dash-border-hover, rgba(223, 208, 184, 0.26));
-}
-.hamburgerBtn span {
-    display: block;
-    width: 15px;
-    height: 1.5px;
-    background: var(--dash-accent, #dfd0b8);
-    border-radius: 2px;
-    transform-origin: center;
-    transition:
-        transform 0.22s,
-        opacity 0.22s;
-}
-.hamburgerOpen span:nth-child(1) {
-    transform: translateY(6px) rotate(45deg);
-}
-.hamburgerOpen span:nth-child(2) {
-    opacity: 0;
-    transform: scaleX(0);
-}
-.hamburgerOpen span:nth-child(3) {
-    transform: translateY(-6px) rotate(-45deg);
-}
-
 .profileAvatar {
     width: 32px;
     height: 32px;
@@ -133,16 +89,6 @@
     color: var(--dash-accent, #dfd0b8);
     cursor: pointer;
 }
-
-/* ── APP DRAWER ──────────────────────────────────────────────────────────────*/
-.drawerOverlay {
-    position: fixed;
-    inset: 0;
-    z-index: 50;
-    background: rgba(0, 0, 0, 0.55);
-    backdrop-filter: blur(4px);
-    animation: fadeIn 0.16s ease;
-}
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -151,20 +97,6 @@
         opacity: 1;
     }
 }
-.drawer {
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: 260px;
-    z-index: 60;
-    background: var(--dash-bg-widget, rgba(36, 28, 18, 0.97));
-    border-right: 1px solid var(--dash-border-hover, rgba(223, 208, 184, 0.26));
-    display: flex;
-    flex-direction: column;
-    box-shadow: 8px 0 32px rgba(0, 0, 0, 0.5);
-    animation: slideRight 0.22s cubic-bezier(0.4, 0, 0.2, 1);
-}
 @keyframes slideRight {
     from {
         transform: translateX(-100%);
@@ -172,112 +104,6 @@
     to {
         transform: translateX(0);
     }
-}
-.drawerHeader {
-    padding: 20px 20px 16px;
-    border-bottom: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-.drawerBrand {
-    font-family: var(--font-display, "Cormorant Garamond", serif);
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: var(--dash-accent, #dfd0b8);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-}
-.drawerClose {
-    width: 28px;
-    height: 28px;
-    border-radius: 7px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
-    font-size: 0.75rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition:
-        background 0.15s,
-        color 0.15s;
-}
-.drawerClose:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: var(--dash-text-primary, #f0e8d8);
-}
-.drawerSectionLabel {
-    font-size: 0.65rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
-    padding: 14px 20px 6px;
-}
-.drawerNav {
-    display: flex;
-    flex-direction: column;
-    padding: 4px 10px;
-    gap: 2px;
-    flex: 1;
-    overflow-y: auto;
-}
-.drawerLink {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 10px 12px;
-    border-radius: 10px;
-    background: none;
-    border: none;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
-    font-family: var(--font-body, "Outfit", sans-serif);
-    font-size: 0.88rem;
-    font-weight: 400;
-    cursor: pointer;
-    text-align: left;
-    width: 100%;
-    transition:
-        background 0.13s,
-        color 0.13s,
-        transform 0.12s;
-}
-.drawerLink:hover {
-    background: rgba(255, 255, 255, 0.06);
-    color: var(--dash-text-primary, #f0e8d8);
-    transform: translateX(2px);
-}
-.drawerLinkActive {
-    background: rgba(255, 255, 255, 0.08);
-    color: var(--dash-accent-warm, #de8900);
-    box-shadow: inset 2px 0 0 var(--dash-accent-warm, #de8900);
-}
-.drawerLinkIcon {
-    font-size: 1.1rem;
-    width: 24px;
-    text-align: center;
-    flex-shrink: 0;
-}
-.drawerLinkText {
-    flex: 1;
-}
-.drawerLinkBadge {
-    font-size: 0.65rem;
-    padding: 1px 6px;
-    border-radius: 99px;
-    background: var(--dash-accent-warm, #de8900);
-    color: #111;
-    font-weight: 600;
-    flex-shrink: 0;
-}
-.drawerFooter {
-    padding: 14px 20px;
-    border-top: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
-    font-size: 0.72rem;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
-    text-align: center;
 }
 
 /* ── SORT DROPDOWN ───────────────────────────────────────────────────────────*/
