@@ -40,26 +40,26 @@ function ensureUniqueThemeName(
 export default function SettingsPage() {
     const page = "settings" as const;
     const THEME_LIMIT = 15;
-    const [themeId, setThemeId] = useState(() =>
-        typeof window === "undefined"
-            ? "ember"
-            : localStorage.getItem(LS.themeId) || "ember",
-    );
-    const [customThemes, setCustomThemes] = useState<ThemeDef[]>(() =>
-        typeof window === "undefined" ? [] : lsGet(LS.customThemes, []),
-    );
+    // Defaults match the server prerender exactly; the persisted values load
+    // in the mount effect below. Reading localStorage inside the initializers
+    // made the first client render diverge from the static HTML (hydration
+    // errors for anyone with saved themes/overrides).
+    const [themeId, setThemeId] = useState("ember");
+    const [customThemes, setCustomThemes] = useState<ThemeDef[]>([]);
     const [builtInOverrides, setBuiltInOverrides] = useState<
         Record<string, ThemeDef>
-    >(() =>
-        typeof window === "undefined"
-            ? {}
-            : lsGet(LS.builtInThemeOverrides, {}),
-    );
-    const [deletedBuiltInIds, setDeletedBuiltInIds] = useState<string[]>(() =>
-        typeof window === "undefined"
-            ? []
-            : lsGet(LS.deletedBuiltInThemeIds, []),
-    );
+    >({});
+    const [deletedBuiltInIds, setDeletedBuiltInIds] = useState<string[]>([]);
+
+    // Hydrate persisted theme state after mount. Declared before the
+    // theme-apply effect below so the stored themeId is read before that
+    // effect's localStorage.setItem runs in the same flush.
+    useEffect(() => {
+        setThemeId(localStorage.getItem(LS.themeId) || "ember");
+        setCustomThemes(lsGet(LS.customThemes, []));
+        setBuiltInOverrides(lsGet(LS.builtInThemeOverrides, {}));
+        setDeletedBuiltInIds(lsGet(LS.deletedBuiltInThemeIds, []));
+    }, []);
 
     const mergedBuiltIns = useMemo(() => {
         const merged: Record<string, ThemeDef> = {};
