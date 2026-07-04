@@ -31,6 +31,14 @@ export default function CalendarPage() {
     const [detailEvent, setDetailEvent] = useState<CalEvent | null>(null);
     const [editState, setEditState] = useState<EditState>(null);
 
+    // Every part of this page (top-bar month label, mini calendar, grids) is
+    // derived from the current date, which only exists after useCalendar's
+    // mount effect runs — render nothing until then so the server prerender
+    // and the first client render are identical (hydration safety).
+    const today = cal.today;
+    const weekStart = cal.weekStart;
+    if (!today || !weekStart) return null;
+
     // ── Open handlers ──────────────────────────────────────────────────────────
 
     // Single-click on an existing chip → show detail popover
@@ -75,7 +83,7 @@ export default function CalendarPage() {
     // "+ Create" top-bar button
     const handleTopBarCreate = () => {
         setDetailEvent(null);
-        handleCellDblClick(toYMD(cal.today));
+        handleCellDblClick(toYMD(today));
     };
 
     // Mini calendar navigation
@@ -92,7 +100,7 @@ export default function CalendarPage() {
                 viewMode={cal.viewMode}
                 year={cal.year}
                 month={cal.month}
-                weekStart={cal.weekStart}
+                weekStart={weekStart}
                 onToday={cal.goToday}
                 onPrev={cal.goPrev}
                 onNext={cal.goNext}
@@ -103,7 +111,7 @@ export default function CalendarPage() {
             <div className={s.body}>
                 <CalSidebar
                     calendars={cal.state.calendars}
-                    today={cal.today}
+                    today={today}
                     onToggleCalendar={cal.toggleCalendar}
                     onSelectMonth={handleMiniSelect}
                 />
@@ -113,7 +121,7 @@ export default function CalendarPage() {
                         <MonthView
                             year={cal.year}
                             month={cal.month}
-                            today={cal.today}
+                            today={today}
                             events={cal.state.events}
                             calendars={cal.state.calendars}
                             onDblClick={handleCellDblClick}
@@ -121,8 +129,8 @@ export default function CalendarPage() {
                         />
                     ) : (
                         <WeekView
-                            weekStart={cal.weekStart}
-                            today={cal.today}
+                            weekStart={weekStart}
+                            today={today}
                             events={cal.state.events}
                             calendars={cal.state.calendars}
                             onDblClick={handleCellDblClick}
