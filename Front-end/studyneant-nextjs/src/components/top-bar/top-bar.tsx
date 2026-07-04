@@ -48,16 +48,22 @@ export default function TopBar({
 }: Props) {
     const now = useClock();
 
-    const dateStr = now.toLocaleDateString("en-US", {
-        weekday: "short",
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-    });
-    const timeStr = now.toLocaleTimeString("en-US", {
-        hour: "numeric",
-        minute: "2-digit",
-    });
+    // now is null until the clock's mount effect runs (see useClock) — render
+    // empty placeholders so server and first client render stay identical.
+    const dateStr = now
+        ? now.toLocaleDateString("en-US", {
+              weekday: "short",
+              month: "short",
+              day: "numeric",
+              year: "numeric",
+          })
+        : "";
+    const timeStr = now
+        ? now.toLocaleTimeString("en-US", {
+              hour: "numeric",
+              minute: "2-digit",
+          })
+        : "";
     const [drawerOpen, setDrawerOpen] = useState(false);
 
     return (
@@ -88,7 +94,11 @@ export default function TopBar({
 
             <div className={t.topCenter}>
                 <span className={t.topGreeting}>
-                    {getGreeting(now)}, <strong>Username</strong>
+                    {now ? (
+                        <>
+                            {getGreeting(now)}, <strong>Username</strong>
+                        </>
+                    ) : null}
                 </span>
             </div>
 

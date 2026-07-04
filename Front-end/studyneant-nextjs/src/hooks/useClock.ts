@@ -3,12 +3,16 @@
 import { useState, useEffect } from "react";
 
 // ── useClock ──────────────────────────────────────────────────────────────────
-// Returns a live Date that ticks every second.
-// Safe for Next.js — initialises from new Date() on the client only.
-export function useClock(): Date {
-    const [now, setNow] = useState<Date>(() => new Date());
+// Returns a live Date that ticks every second, or null before the first
+// client-side effect runs. The null initial value is deliberate: it is
+// identical on the server prerender and the client's hydration render, so
+// the clock can never cause a hydration mismatch. Callers render a
+// placeholder until it resolves.
+export function useClock(): Date | null {
+    const [now, setNow] = useState<Date | null>(null);
 
     useEffect(() => {
+        setNow(new Date());
         const t = setInterval(() => setNow(new Date()), 1000);
         return () => clearInterval(t);
     }, []);
