@@ -46,8 +46,8 @@ studyneant-nextjs/src/
 │       ├── storage.ts        ← localStorage read/write for this feature
 │       ├── types.ts          ← feature types
 │       └── utils.ts          ← pure helpers (gpaCalc only)
-├── components/               ← shared UI: authModal/, bottomNav/, sidebar/, top-bar/ (+ types.ts)
-└── hooks/useClock.ts         ← shared hook (⚠ duplicates dashboard/hooks/useClock.ts)
+├── components/               ← shared UI: authModal/, bottomNav/, sidebar/, top-bar/
+└── hooks/useClock.ts         ← shared clock hook (single copy; returns Date | null until mounted)
 ```
 
 The convention is aspirational — see the deviation table in [CLAUDE.md](./CLAUDE.md). `settings` is just `page.tsx` + `themes.ts`.
@@ -73,9 +73,12 @@ The convention is aspirational — see the deviation table in [CLAUDE.md](./CLAU
 
 ## Known issues / improvement backlog
 
-- Duplicate `useClock` hook (`src/hooks/` vs `src/app/dashboard/hooks/`).
 - No tests or test tooling.
-- `settings` feature doesn't follow the per-feature convention.
-- Mixed package managers (`bun.lock` at root vs npm in the apps).
+- `settings` feature doesn't follow the per-feature convention (its UI, types, and
+  storage helpers still live under `dashboard/` — restructure-task item), and its
+  persistence is broken (separate fix task).
 - Naming undecided (Studyneant vs Learneant).
 - Vanilla `pass/` generator: decide whether to port it into the Next.js app or retire it.
+- Resolved 2026-07-04 (cleanup/baseline): duplicate `useClock` and shared `types.ts`
+  collapsed; single npm lockfile; dead files/exports/CSS pruned; hydration mismatches
+  fixed app-wide (see CLAUDE.md "Hydration rule").
