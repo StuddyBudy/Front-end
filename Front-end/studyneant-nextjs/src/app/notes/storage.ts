@@ -107,12 +107,6 @@ export function saveNotes(state: NotesState): void {
     } catch {}
 }
 
-// ── CLEAR (useful for debugging / reset) ─────────────────────────────────────
-export function clearNotes(): void {
-    if (typeof window === "undefined") return;
-    localStorage.removeItem(NOTES_LS_KEY);
-}
-
 // ── ID GENERATOR ──────────────────────────────────────────────────────────────
 export function newId(): string {
     return `${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;

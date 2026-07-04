@@ -55,16 +55,6 @@ export const EVENT_COLORS = [
     "#22d3ee",
 ];
 
-/** Abbreviated day names, Sunday-first */
-export const DAY_ABBRS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-
-/** 24-hour labels for the week-view time column */
-export const HOURS_24 = Array.from({ length: 24 }, (_, i) => {
-    const ampm = i >= 12 ? "PM" : "AM";
-    const h = i % 12 || 12;
-    return `${h}:00 ${ampm}`;
-});
-
 // ── DEFAULT VALUES ────────────────────────────────────────────────────────────
 
 export const DEFAULT_REPEAT: RepeatConfig = {
