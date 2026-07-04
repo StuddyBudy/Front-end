@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
-import c from "@/components/sidebar/Sidebar.module.css";
 import type { TodoState, TodoList } from "../types";
 import {
     makeList,
@@ -12,7 +11,7 @@ import {
     pendingCount,
     totalCount,
 } from "../storage";
-import p from "../ToDo.module.css";
+import s from "../ToDo.module.css";
 
 // ── TYPES ─────────────────────────────────────────────────────────────────────
 type Props = {
@@ -174,14 +173,12 @@ export default function ListSidebar({
     const sorted = [...state.lists].sort((a, b) => a.order - b.order);
 
     return (
-        <aside className={c.sidePanel + " " + p.listSidebar} ref={sidebarRef}>
+        <aside className={s.listSidebar} ref={sidebarRef}>
             {/* Header */}
-            <div className={c.sidePanelHeader + " " + p.sidebarHeader}>
-                <span className={c.sidePanelLabel + " " + p.sidebarTitle}>
-                    Lists
-                </span>
+            <div className={s.sidebarHeader}>
+                <span className={s.sidebarTitle}>Lists</span>
                 <button
-                    className={c.sidePanelTextBtn + " " + p.selectAllBtn}
+                    className={s.selectAllBtn}
                     onClick={allVisible ? onDeselectAll : onSelectAll}
                 >
                     {allVisible ? "Deselect all" : "Select all"}
@@ -189,7 +186,7 @@ export default function ListSidebar({
             </div>
 
             {/* List items */}
-            <div className={c.sidePanelScroll + " " + p.sidebarScroll}>
+            <div className={s.sidebarScroll}>
                 {sorted.map((list: TodoList) => {
                     const isVisible = visibleListIds.has(list.id);
                     const isEditing = editingId === list.id;
@@ -197,9 +194,9 @@ export default function ListSidebar({
                     const total = totalCount(state, list.id);
 
                     return (
-                        <div key={list.id} className={p.listItemWrap}>
+                        <div key={list.id} style={{ position: "relative" }}>
                             <div
-                                className={`${p.listItem} ${isVisible ? p.listItemVisible : ""}`}
+                                className={`${s.listItem} ${isVisible ? s.listItemVisible : ""}`}
                                 onClick={() => {
                                     if (isEditing) return;
                                     if (
@@ -222,7 +219,7 @@ export default function ListSidebar({
                             >
                                 {/* Drag handle */}
                                 <span
-                                    className={p.dragHandle}
+                                    className={s.dragHandle}
                                     title="Drag to reorder"
                                 >
                                     ⠿
@@ -230,7 +227,7 @@ export default function ListSidebar({
 
                                 {/* Checkbox */}
                                 <div
-                                    className={p.listCheckbox}
+                                    className={s.listCheckbox}
                                     style={{
                                         borderColor: list.color,
                                         background: isVisible
@@ -247,7 +244,7 @@ export default function ListSidebar({
 
                                 {/* Emoji — click to open emoji picker */}
                                 <span
-                                    className={p.listEmoji}
+                                    className={s.listEmoji}
                                     title="Change emoji"
                                     onClick={(e) => {
                                         e.stopPropagation();
@@ -262,7 +259,7 @@ export default function ListSidebar({
 
                                 {/* Colour dot — click to open colour picker */}
                                 <div
-                                    className={p.listColorDot}
+                                    className={s.listColorDot}
                                     style={{ background: list.color }}
                                     title="Change colour"
                                     onClick={(e) => {
@@ -278,7 +275,7 @@ export default function ListSidebar({
                                 {isEditing ? (
                                     <input
                                         ref={editInputRef}
-                                        className={p.listItemNameEditing}
+                                        className={s.listItemNameEditing}
                                         value={editingName}
                                         onChange={(e) =>
                                             setEditingName(e.target.value)
@@ -296,7 +293,7 @@ export default function ListSidebar({
                                     />
                                 ) : (
                                     <span
-                                        className={p.listItemName}
+                                        className={s.listItemName}
                                         title="Double-click to rename · Right-click for options"
                                     >
                                         {list.name}
@@ -304,7 +301,7 @@ export default function ListSidebar({
                                 )}
 
                                 {/* Pending count */}
-                                <span className={p.listItemCount}>
+                                <span className={s.listItemCount}>
                                     {pending > 0
                                         ? pending
                                         : total > 0
@@ -314,7 +311,7 @@ export default function ListSidebar({
 
                                 {/* Quick delete */}
                                 <button
-                                    className={p.listDeleteBtn}
+                                    className={s.listDeleteBtn}
                                     onClick={(e) =>
                                         handleDeleteList(list.id, e)
                                     }
@@ -328,13 +325,13 @@ export default function ListSidebar({
                             {colorPickerId === list.id && (
                                 <div
                                     ref={colorPopRef}
-                                    className={p.colorPopover}
+                                    className={s.colorPopover}
                                     onClick={(e) => e.stopPropagation()}
                                 >
                                     {LIST_COLORS.map((c) => (
                                         <div
                                             key={c}
-                                            className={`${p.colorOption} ${list.color === c ? p.colorOptionActive : ""}`}
+                                            className={`${s.colorOption} ${list.color === c ? s.colorOptionActive : ""}`}
                                             style={{ background: c }}
                                             onClick={() =>
                                                 handleColorChange(list.id, c)
@@ -348,13 +345,13 @@ export default function ListSidebar({
                             {emojiPickerId === list.id && (
                                 <div
                                     ref={emojiPopRef}
-                                    className={p.emojiPopover}
+                                    className={s.emojiPopover}
                                     onClick={(e) => e.stopPropagation()}
                                 >
                                     {LIST_EMOJIS.map((em) => (
                                         <div
                                             key={em}
-                                            className={`${p.emojiOption} ${list.emoji === em ? p.emojiOptionActive : ""}`}
+                                            className={`${s.emojiOption} ${list.emoji === em ? s.emojiOptionActive : ""}`}
                                             onClick={() =>
                                                 handleEmojiChange(list.id, em)
                                             }
@@ -369,11 +366,11 @@ export default function ListSidebar({
                             {ctxMenuId === list.id && (
                                 <div
                                     ref={ctxMenuRef}
-                                    className={p.ctxMenu}
+                                    className={s.ctxMenu}
                                     onClick={(e) => e.stopPropagation()}
                                 >
                                     <button
-                                        className={p.ctxItem}
+                                        className={s.ctxItem}
                                         onClick={() => {
                                             setEditingId(list.id);
                                             setEditingName(list.name);
@@ -383,7 +380,7 @@ export default function ListSidebar({
                                         ✏️ Rename
                                     </button>
                                     <button
-                                        className={p.ctxItem}
+                                        className={s.ctxItem}
                                         onClick={() => {
                                             setColorPickerId(list.id);
                                             setCtxMenuId(null);
@@ -392,7 +389,7 @@ export default function ListSidebar({
                                         🎨 Change colour
                                     </button>
                                     <button
-                                        className={p.ctxItem}
+                                        className={s.ctxItem}
                                         onClick={() => {
                                             setEmojiPickerId(list.id);
                                             setCtxMenuId(null);
@@ -401,16 +398,16 @@ export default function ListSidebar({
                                         😀 Change emoji
                                     </button>
                                     <button
-                                        className={p.ctxItem}
+                                        className={s.ctxItem}
                                         onClick={() =>
                                             handleDuplicateList(list.id)
                                         }
                                     >
                                         📋 Duplicate list
                                     </button>
-                                    <div className={p.ctxDivider} />
+                                    <div className={s.ctxDivider} />
                                     <button
-                                        className={`${p.ctxItem} ${p.ctxItemDanger}`}
+                                        className={`${s.ctxItem} ${s.ctxItemDanger}`}
                                         onClick={(e) =>
                                             handleDeleteList(list.id, e)
                                         }
@@ -426,11 +423,11 @@ export default function ListSidebar({
 
             {/* ── NEW LIST FORM ─────────────────────────────────────────────────── */}
             {addingList ? (
-                <div className={p.newListForm}>
+                <div className={s.newListForm}>
                     {/* Name input */}
                     <input
                         ref={addInputRef}
-                        className={p.newListInput}
+                        className={s.newListInput}
                         placeholder="List name…"
                         value={newName}
                         onChange={(e) => setNewName(e.target.value)}
@@ -444,12 +441,12 @@ export default function ListSidebar({
                     />
 
                     {/* Colour picker */}
-                    <span className={p.newListFormLabel}>Colour</span>
-                    <div className={p.newListColorRow}>
+                    <span className={s.newListFormLabel}>Colour</span>
+                    <div className={s.newListColorRow}>
                         {LIST_COLORS.map((c) => (
                             <div
                                 key={c}
-                                className={`${p.colorOption} ${newColor === c ? p.colorOptionActive : ""}`}
+                                className={`${s.colorOption} ${newColor === c ? s.colorOptionActive : ""}`}
                                 style={{ background: c }}
                                 onClick={() => setNewColor(c)}
                             />
@@ -457,12 +454,12 @@ export default function ListSidebar({
                     </div>
 
                     {/* Emoji picker */}
-                    <span className={p.newListFormLabel}>Icon</span>
-                    <div className={p.newListEmojiRow}>
+                    <span className={s.newListFormLabel}>Icon</span>
+                    <div className={s.newListEmojiRow}>
                         {LIST_EMOJIS.map((em) => (
                             <div
                                 key={em}
-                                className={`${p.newListEmoji} ${newEmoji === em ? p.newListEmojiActive : ""}`}
+                                className={`${s.newListEmoji} ${newEmoji === em ? s.newListEmojiActive : ""}`}
                                 onClick={() => setNewEmoji(em)}
                             >
                                 {em}
@@ -471,9 +468,9 @@ export default function ListSidebar({
                     </div>
 
                     {/* Buttons */}
-                    <div className={p.newListFormRow}>
+                    <div className={s.newListFormRow}>
                         <button
-                            className={p.newListCancel}
+                            className={s.newListCancel}
                             onClick={() => {
                                 setAddingList(false);
                                 setNewName("");
@@ -482,7 +479,7 @@ export default function ListSidebar({
                             Cancel
                         </button>
                         <button
-                            className={p.newListConfirm}
+                            className={s.newListConfirm}
                             onClick={handleCreateList}
                         >
                             Create
@@ -491,7 +488,7 @@ export default function ListSidebar({
                 </div>
             ) : (
                 <button
-                    className={p.newListBtn}
+                    className={s.newListBtn}
                     onClick={() => {
                         setNewColor(
                             LIST_COLORS[

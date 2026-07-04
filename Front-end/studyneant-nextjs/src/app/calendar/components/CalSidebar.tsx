@@ -1,10 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import c from "@/components/sidebar/Sidebar.module.css";
 import type { CalCalendar } from "../types";
 import MiniCalendar from "./MiniCalendar";
-import p from "../Calendar.module.css";
+import s from "../Calendar.module.css";
 
 type Props = {
     calendars: CalCalendar[];
@@ -22,18 +21,16 @@ export default function CalSidebar({
     const [calListOpen, setCalListOpen] = useState(true);
 
     return (
-        <aside className={c.sidePanel + " " + p.sidebar}>
+        <aside className={s.sidebar}>
             {/* Mini month calendar */}
             <MiniCalendar today={today} onSelect={onSelectMonth} />
 
             {/* Calendars visibility list */}
-            <div className={p.calListSection}>
-                <div className={p.calListHeader}>
-                    <span className={c.sidePanelLabel + " " + p.calListTitle}>
-                        Calendars
-                    </span>
+            <div className={s.calListSection}>
+                <div className={s.calListHeader}>
+                    <span className={s.calListTitle}>Calendars</span>
                     <button
-                        className={p.calListToggle}
+                        className={s.calListToggle}
                         onClick={() => setCalListOpen((o) => !o)}
                     >
                         {calListOpen ? "∧" : "∨"}
@@ -45,11 +42,11 @@ export default function CalSidebar({
                         {calendars.map((cal) => (
                             <div
                                 key={cal.id}
-                                className={p.calItem}
+                                className={s.calItem}
                                 onClick={() => onToggleCalendar(cal.id)}
                             >
                                 <div
-                                    className={p.calCheckbox}
+                                    className={s.calCheckbox}
                                     style={{
                                         borderColor: cal.color,
                                         background: cal.visible
@@ -60,10 +57,10 @@ export default function CalSidebar({
                                 >
                                     {cal.visible && "✓"}
                                 </div>
-                                <span className={p.calName}>{cal.name}</span>
+                                <span className={s.calName}>{cal.name}</span>
                             </div>
                         ))}
-                        <button className={p.addCalBtn}>+ add</button>
+                        <button className={s.addCalBtn}>+ add</button>
                     </>
                 )}
             </div>

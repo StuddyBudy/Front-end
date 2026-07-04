@@ -116,8 +116,7 @@ export default function CourseGrid({
                 <div className={s.emptyState}>
                     <span className={s.emptyEmoji}>📚</span>
                     <p className={s.emptyText}>
-                        No courses yet — click &quot;+ Add Course&quot; to get
-                        started
+                        No courses yet — click "+ Add Course" to get started
                     </p>
                 </div>
             ) : (

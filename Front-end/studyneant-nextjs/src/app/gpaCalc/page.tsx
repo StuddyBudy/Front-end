@@ -18,28 +18,37 @@ import BottomNav from "../../components/bottomNav/BottomNav";
 
 import s from "./GpaCalc.module.css";
 
-const EMPTY_GPA_STATE: GpaState = {
-    config: {
-        schoolType: "hs",
-        gpaScale: 4.0,
-        useWeightedGpa: true,
-        periodType: "mp",
-        periodCount: 4,
-        partnerId: null,
-        customSchoolName: "",
-        setupComplete: false,
-    },
-    periods: [],
-    courses: [],
-    categories: [],
-    assignments: [],
-};
-
 export default function GpaCalcPage() {
-    // Keep the first render identical on server and client; hydrate localStorage in an effect.
-    const [state, setState] = useState<GpaState>(EMPTY_GPA_STATE);
-    const [mode, setMode] = useState<"setup" | "app">("setup");
-    const [isReady, setIsReady] = useState(false);
+    // ── State ─────────────────────────────────────────────────────────────────
+    const [state, setState] = useState<GpaState>(() => {
+        if (typeof window === "undefined") {
+            return {
+                config: {
+                    schoolType: "hs",
+                    gpaScale: 4.0,
+                    useWeightedGpa: true,
+                    periodType: "mp",
+                    periodCount: 4,
+                    partnerId: null,
+                    customSchoolName: "",
+                    setupComplete: false,
+                },
+                periods: [],
+                courses: [],
+                categories: [],
+                assignments: [],
+            };
+        }
+        return loadGpa();
+    });
+
+    // FIX: removed `showSetup` boolean — replaced with a single `mode` state
+    // to avoid the unused-variable errors from the old isFirstVisit / shouldShowSetup
+    const [mode, setMode] = useState<"setup" | "app">(() =>
+        typeof window !== "undefined" && loadGpa().config.setupComplete
+            ? "app"
+            : "setup",
+    );
 
     const [showImport, setShowImport] = useState(false);
     const [showAddCourse, setShowAddCourse] = useState(false);
@@ -47,31 +56,20 @@ export default function GpaCalcPage() {
         null,
     );
     const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
-    const [activePeriodId, setActivePeriodId] = useState<string | null>(null);
-
-    // Load persisted GPA state after mount to avoid hydration mismatches.
-    useEffect(() => {
+    const [activePeriodId, setActivePeriodId] = useState<string | null>(() => {
+        if (typeof window === "undefined") return null;
         const loaded = loadGpa();
         const cur =
             loaded.periods.find((p) => p.isCurrent) ?? loaded.periods[0];
-
-        const frame = window.requestAnimationFrame(() => {
-            setState(loaded);
-            setMode(loaded.config.setupComplete ? "app" : "setup");
-            setActivePeriodId(cur?.id ?? null);
-            setIsReady(true);
-        });
-
-        return () => window.cancelAnimationFrame(frame);
-    }, []);
+        return cur?.id ?? null;
+    });
 
     // ── Persist whenever state changes (after setup complete) ─────────────────
     useEffect(() => {
-        if (!isReady) return;
         if (state.config.setupComplete) {
             saveGpa(state);
         }
-    }, [isReady, state]);
+    }, [state]);
 
     // ── Handlers ──────────────────────────────────────────────────────────────
 
@@ -98,11 +96,6 @@ export default function GpaCalcPage() {
         ? (state.courses.find((c) => c.id === selectedCourseId) ?? null)
         : null;
 
-    // Render a stable shell until local state is hydrated from storage.
-    if (!isReady) {
-        return <div className={s.shell} />;
-    }
-
     // ── Show setup wizard ─────────────────────────────────────────────────────
     if (mode === "setup") {
         return <SetupModal onComplete={handleSetupComplete} />;
@@ -110,7 +103,7 @@ export default function GpaCalcPage() {
 
     // ── Main app ──────────────────────────────────────────────────────────────
     return (
-        <div className={s.shell}>
+        <div className={s.shell} suppressHydrationWarning>
             <GpaTopBar
                 state={state}
                 activePeriodId={activePeriodId}

@@ -1,4 +1,4 @@
-/* Shared top-bar primitives used by all page top bars */
+/* Main Css */
 .topBar {
     flex-shrink: 0;
     height: 58px;
@@ -6,150 +6,34 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 20px;
-    border-bottom: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border-bottom: 1px solid var(--dash-border);
     background: var(--dash-navbars-bg, rgba(0, 0, 0, 0.28));
     -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(12px);
     gap: 12px;
     z-index: 40;
 }
-
-.topBarDashboard {
-    position: relative;
-    z-index: 99;
-}
-
-.editIcon {
-    display: inline;
-    vertical-align: middle;
-    margin-right: 4px;
-}
-
-.topBarLeft {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.topBarCenter {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.topBarRight {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.topBarTitle {
-    font-family: var(--font-display, "Cormorant Garamond", serif);
-    font-size: 1.15rem;
-    font-weight: 700;
-    color: var(--dash-accent, #dfd0b8);
-    letter-spacing: 0.02em;
-    white-space: nowrap;
-}
-
-.topBarMeta {
-    font-size: 0.72rem;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
-}
-
-.tbBtn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    padding: 6px 12px;
-    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.04);
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
-    font-family: var(--font-body, "Outfit", sans-serif);
-    font-size: 0.78rem;
-    font-weight: 500;
-    cursor: pointer;
-    white-space: nowrap;
-    transition:
-        background 0.15s,
-        color 0.15s,
-        border-color 0.15s,
-        transform 0.1s;
-}
-
-.tbBtn:hover {
-    background: rgba(255, 255, 255, 0.09);
-    color: var(--dash-text-primary, #f0e8d8);
-    border-color: var(--dash-border-hover, rgba(223, 208, 184, 0.26));
-    transform: translateY(-1px);
-}
-
-.tbBtnAccent {
-    background: var(--dash-accent-warm, #de8900);
-    color: #111;
-    border-color: transparent;
-    font-weight: 600;
-    box-shadow: 0 0 12px var(--dash-accent-glow, rgba(222, 137, 0, 0.22));
-}
-
-.tbBtnAccent:hover {
-    opacity: 0.88;
-}
-
-.tbBtnGhost {
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
-}
-
-.tbBtnGhost:hover {
-    color: var(--dash-text-primary, #f0e8d8);
-}
-
-.profileAvatar {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: var(--dash-bg-widget, rgba(36, 28, 18, 0.93));
-    border: 1px solid var(--dash-border-hover, rgba(223, 208, 184, 0.26));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--dash-accent, #dfd0b8);
-    cursor: pointer;
-    transition: border-color 0.2s;
-}
-
-.profileAvatar:hover {
-    border-color: var(--dash-accent-warm, #de8900);
-}
-
-/* Dashboard/settings-specific top-bar classes */
+/* Calendar */
 .topLeft {
     display: flex;
     align-items: center;
     gap: 8px;
     font-size: 0.78rem;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
     white-space: nowrap;
 }
-
 .topDate {
     font-weight: 500;
-    color: var(--dash-accent, #dfd0b8);
+    color: var(--dash-accent);
 }
-
 .topSep {
     opacity: 0.3;
 }
-
 .topTime {
     font-variant-numeric: tabular-nums;
-    color: var(--dash-text-primary, #f0e8d8);
+    color: var(--dash-text-primary);
     font-weight: 500;
 }
-
 .topWeather {
     font-size: 0.76rem;
 }
@@ -158,16 +42,14 @@
     flex: 1;
     text-align: center;
 }
-
 .topGreeting {
-    font-family: var(--font-display, "Cormorant Garamond", serif);
+    font-family: var(--font-display);
     font-size: 1.15rem;
-    color: var(--dash-accent, #dfd0b8);
+    color: var(--dash-accent);
     letter-spacing: 0.01em;
 }
-
 .topGreeting strong {
-    color: var(--dash-accent-warm, #de8900);
+    color: var(--dash-accent-warm);
     font-weight: 700;
 }
 
@@ -178,7 +60,61 @@
     flex-shrink: 0;
 }
 
-.topRight .profileAvatar {
+.topBtn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid var(--dash-border);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--dash-text-primary);
+    transition:
+        background 0.15s,
+        border-color 0.15s,
+        transform 0.1s;
+    white-space: nowrap;
+}
+.topBtn:hover {
+    background: rgba(255, 255, 255, 0.09);
+    border-color: var(--dash-border-hover);
+    transform: translateY(-1px);
+}
+.topBtnAccent {
+    background: var(--dash-accent-warm);
+    color: #111;
+    border-color: transparent;
+    font-weight: 600;
+}
+.topBtnAccent:hover {
+    opacity: 0.88;
+    transform: translateY(-1px);
+}
+.topBtnGhost {
+    border-color: var(--dash-border);
+    color: var(--dash-text-muted);
+}
+.topBtnGhost:hover {
+    color: var(--dash-text-primary);
+}
+
+.profileAvatar {
     width: 34px;
     height: 34px;
+    border-radius: 50%;
+    background: var(--dash-bg-widget);
+    border: 1px solid var(--dash-border-hover);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--dash-accent);
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+.profileAvatar:hover {
+    border-color: var(--dash-accent-warm);
 }

@@ -2,10 +2,9 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import c from "@/components/sidebar/Sidebar.module.css";
 import type { NotesState } from "../types";
 import { makeNote, makeFolder, saveNotes, FOLDER_COLORS } from "../storage";
-import p from "../Notes.module.css";
+import s from "../Notes.module.css";
 
 type Props = {
     state: NotesState;
@@ -70,18 +69,18 @@ export default function NoteTreeSidebar({
     const looseNotes = state.notes.filter((n) => n.folderId === null);
 
     return (
-        <aside className={c.sidePanel + " " + p.treeSidebar}>
+        <aside className={s.treeSidebar}>
             {/* Action buttons */}
-            <div className={c.sideActionsRow + " " + p.treeActions}>
+            <div className={s.treeActions}>
                 <button
-                    className={c.sideIconBtn + " " + p.iconBtn}
+                    className={s.iconBtn}
                     onClick={() => setAddingFolder(true)}
                     title="New folder"
                 >
                     📁
                 </button>
                 <button
-                    className={c.sideIconBtn + " " + p.iconBtn}
+                    className={s.iconBtn}
                     onClick={() => handleNewNote(null)}
                     title="New quick note"
                 >
@@ -89,7 +88,7 @@ export default function NoteTreeSidebar({
                 </button>
             </div>
 
-            <div className={c.sidePanelScroll + " " + p.treeScroll}>
+            <div className={s.treeScroll}>
                 {/* ── FOLDERS ── */}
                 {state.folders.map((folder) => {
                     const isOpen = openFolders.has(folder.id);
@@ -100,16 +99,16 @@ export default function NoteTreeSidebar({
                         <div key={folder.id}>
                             {/* Folder row */}
                             <button
-                                className={`${p.folderRow} ${isOpen ? p.folderRowOpen : ""}`}
+                                className={`${s.folderRow} ${isOpen ? s.folderRowOpen : ""}`}
                                 onClick={() => toggleFolder(folder.id)}
                             >
                                 <span
-                                    className={`${p.folderChevron} ${isOpen ? p.folderChevronOpen : ""}`}
+                                    className={`${s.folderChevron} ${isOpen ? s.folderChevronOpen : ""}`}
                                 >
                                     ›
                                 </span>
                                 <span
-                                    className={p.folderDot}
+                                    className={s.folderDot}
                                     style={{ background: folder.color }}
                                 />
                                 {folder.name}
@@ -121,22 +120,21 @@ export default function NoteTreeSidebar({
                                     {children.map((note) => (
                                         <button
                                             key={note.id}
-                                            className={`${p.noteRow} ${note.id === activeNoteId ? p.noteRowActive : ""}`}
+                                            className={`${s.noteRow} ${note.id === activeNoteId ? s.noteRowActive : ""}`}
                                             onClick={() => openNote(note.id)}
                                         >
-                                            <span className={p.noteRowText}>
+                                            <span className={s.noteRowText}>
                                                 {note.title || "Untitled"}
                                             </span>
                                         </button>
                                     ))}
                                     {/* + note inside folder */}
                                     <button
-                                        className={
-                                            p.noteRow + " " + p.noteRowMuted
-                                        }
+                                        className={s.noteRow}
                                         onClick={() => handleNewNote(folder.id)}
+                                        style={{ opacity: 0.5 }}
                                     >
-                                        <span className={p.noteRowText}>
+                                        <span className={s.noteRowText}>
                                             + New note
                                         </span>
                                     </button>
@@ -150,7 +148,12 @@ export default function NoteTreeSidebar({
                 {addingFolder && (
                     <input
                         autoFocus
-                        className={p.modalInput + " " + p.treeInlineInput}
+                        className={s.modalInput}
+                        style={{
+                            margin: "8px 4px 4px",
+                            width: "calc(100% - 8px)",
+                            fontSize: "0.80rem",
+                        }}
                         placeholder="Folder name…"
                         value={newFolderName}
                         onChange={(e) => setNewFolderName(e.target.value)}
@@ -168,20 +171,15 @@ export default function NoteTreeSidebar({
                 {/* ── LOOSE NOTES ── */}
                 {looseNotes.length > 0 && (
                     <>
-                        <p
-                            className={
-                                c.sidePanelLabel + " " + p.treeLooseLabel
-                            }
-                        >
-                            Quick Notes
-                        </p>
+                        <p className={s.treeLooseLabel}>Quick Notes</p>
                         {looseNotes.map((note) => (
                             <button
                                 key={note.id}
-                                className={`${p.noteRow} ${p.noteRowLoose} ${note.id === activeNoteId ? p.noteRowActive : ""}`}
+                                className={`${s.noteRow} ${note.id === activeNoteId ? s.noteRowActive : ""}`}
+                                style={{ paddingLeft: 12 }}
                                 onClick={() => openNote(note.id)}
                             >
-                                <span className={p.noteRowText}>
+                                <span className={s.noteRowText}>
                                     {note.title || "Untitled"}
                                 </span>
                             </button>

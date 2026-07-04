@@ -95,13 +95,16 @@ export default function LandingPage() {
                                         </div>
                                         <div className={styles.mockLines}>
                                             <div
-                                                className={`${styles.mockLine} ${styles.mockLineW80}`}
+                                                className={styles.mockLine}
+                                                style={{ width: "80%" }}
                                             />
                                             <div
-                                                className={`${styles.mockLine} ${styles.mockLineW60}`}
+                                                className={styles.mockLine}
+                                                style={{ width: "60%" }}
                                             />
                                             <div
-                                                className={`${styles.mockLine} ${styles.mockLineW70}`}
+                                                className={styles.mockLine}
+                                                style={{ width: "70%" }}
                                             />
                                         </div>
                                     </div>

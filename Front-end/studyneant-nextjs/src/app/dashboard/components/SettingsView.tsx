@@ -339,13 +339,7 @@ export default function SettingsView({
 }: Props) {
     const [settingsDisplay, setSettingsDisplay] = useState<
         "left" | "center" | "right"
-    >(() => {
-        if (typeof window === "undefined") return "center";
-        const saved = window.localStorage.getItem(SETTINGS_DISPLAY_KEY);
-        return saved === "left" || saved === "center" || saved === "right"
-            ? saved
-            : "center";
-    });
+    >("center");
     const [editorOpen, setEditorOpen] = useState(false);
     const [editorMode, setEditorMode] = useState<"create" | "edit">("create");
     const [editingThemeId, setEditingThemeId] = useState<string | null>(null);
@@ -385,6 +379,13 @@ export default function SettingsView({
         setHelpOpen(false);
         setContextMenu(null);
     };
+
+    useEffect(() => {
+        const saved = window.localStorage.getItem(SETTINGS_DISPLAY_KEY);
+        if (saved === "left" || saved === "center" || saved === "right") {
+            setSettingsDisplay(saved);
+        }
+    }, []);
 
     useEffect(() => {
         window.localStorage.setItem(SETTINGS_DISPLAY_KEY, settingsDisplay);
