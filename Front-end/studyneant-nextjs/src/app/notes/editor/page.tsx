@@ -26,10 +26,13 @@ function NoteEditorContent() {
     const router = useRouter();
     const noteId = searchParams.get("id") ?? "";
 
-    const [state, setState] = useState<NotesState>(() => {
-        if (typeof window === "undefined") return { folders: [], notes: [] };
-        return loadNotes();
-    });
+    // Same-on-both-sides initial state; persisted notes hydrate after mount
+    // (see notes/page.tsx for the mechanism).
+    const [state, setState] = useState<NotesState>({ folders: [], notes: [] });
+
+    useEffect(() => {
+        setState(loadNotes());
+    }, []);
 
     const activeNote = state.notes.find((n) => n.id === noteId);
 

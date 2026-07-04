@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import type { NotesState } from "./types";
 import { loadNotes, saveNotes, makeNote } from "./storage";
@@ -12,12 +12,18 @@ import BottomNav from "../../components/bottomNav/BottomNav";
 export default function NotesPage() {
     const router = useRouter();
 
-    // FIX: Same pattern as [noteId]/page.tsx — load from localStorage immediately
-    // in the useState initializer so state is populated on the first client render.
-    const [state, setState] = useState<NotesState>(() => {
-        if (typeof window === "undefined") return { folders: [], notes: [] };
-        return loadNotes(); // writes seed data to localStorage if first visit
-    });
+    // Starts empty on the server prerender AND the client's first render so
+    // the two agree; the persisted notes load in the mount effect below.
+    // (The previous "load immediately in the initializer" approach populated
+    // the first client render but made it diverge from the static HTML —
+    // that divergence is exactly what a hydration error is.)
+    const [state, setState] = useState<NotesState>({ folders: [], notes: [] });
+
+    // Hydrate persisted notes after mount. loadNotes() seeds localStorage on
+    // first visit — doing that here keeps the write out of render.
+    useEffect(() => {
+        setState(loadNotes());
+    }, []);
 
     // Folder modal open state — lifted here so the top-bar button can trigger it
     const [folderModalOpen, setFolderModalOpen] = useState(false);
