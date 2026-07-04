@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Password Generator</title>
+    <link href="Pass_gen.css" rel="stylesheet" />
+    <script src="pass.js" defer></script>
+
+
+<!---------------------------------------------------- ----------------->  
+<!----------------- universal header * start copy here * --------------->  
+<!---------------------------------------------------- ----------------->
+
+    <link href="../style.css" rel="stylesheet" />
+    <script defer src="../theme.js"></script>
+    <link rel="shortcut icon" href="favicon.svg" type="image/x-icon" />
+  </head>
+  <body class="bg-background-1 text-text">
+    <nav class="flex justify-between w-full shadow hidden sm:flex sticky mb-2">
+      <a class="p-2 rounded transition hover:bg-background-2" href="../index.html">Home</a>
+
+      <div class="flex justify-around gap-x-2">
+
+        <a class="hover:bg-background-2 p-2 rounded" href="../gpa/step1.html">GPA</a>
+        <a class="hover:bg-background-2 p-2 rounded " href="../todo/to-do.html">Todo</a>
+        <a class="hover:bg-background-2 p-2 rounded" href="../pass/index.html">Passwords</a>
+
+        <select id="theme-toggle-web" class="bg-background-1 border p-2 rounded hover:bg-background-2 " aria-label="Theme selection">
+          <option disabled selected>Theme:</option>
+          <option value="system" >System</option>
+          <option value="dark">Dark</option>
+          <option value="light">Light</option>
+          <option value="rose-pine">Rosé Pine</option>
+          <option value="nord">Nord</option>
+          <option value="ehs">Eagles</option>
+          <option value="catpuccin">Catpuccin</option>
+          <option value="starry">Starry</option>
+
+        </select>
+      </div>
+    </nav>
+
+  <nav class="sm:hidden flex flex-col shadow gap-2 h-full absolute bg-background-1" >
+      <a class="hover:bg-background-2 border p-2 rounded" href="../index.html">Home</a>
+      <a class="hover:bg-background-2 border p-2 rounded" href="../gpa/step1.html">GPA</a>
+      <a class="hover:bg-background-2 border p-2 rounded" href="../todo/to-do.html">Todo</a>
+      <a class="hover:bg-background-2 border p-2 rounded" href="../pass/index.html">Passwords</a>
+
+      <select id="theme-toggle-mobile" class="bg-background-1 border p-2 rounded hover:bg-background-2 " aria-label="Theme selection">
+          <option disabled selected>Theme:</option>
+          <option value="system" >System</option>
+          <option value="dark">Dark</option>
+          <option value="light">Light</option>
+          <option value="rose-pine">Rosé Pine</option>
+          <option value="nord">Nord</option>
+          <option value="ehs">Eagles</option>
+          <option value="catpuccin">Catpuccin</option>
+          <option value="starry">Starry</option>
+
+        </select>
+      
+    </nav>
+    <br>
+    <h1 class="text-4xl font-bold text-center">Lifelinee</h1>
+    <br>  
+</div>
+
+<!---------------------------------------------------- ----------------->  
+<!----------------- universal header * end copy here * ----------------->  
+<!---------------------------------------------------- -----------------> 
+ 
+
+
+    <div class="container bg-background-2">
+      <h1 id="tit">Password Generator</h1>
+      <div class="input">
+        <label for="length">Password Length:</label>
+        <input type="number" id="length" min="1" max="50" value="15" />
+
+        <label for="includeUppercase">Include Uppercase Letters:</label>
+        <input type="checkbox" id="includeUppercase" checked />
+
+        <label for="includeNumbers">Include Numbers:</label>
+        <input type="checkbox" id="includeNumbers" checked />
+
+        <label for="includeSymbols">Include Symbols:</label>
+        <input type="checkbox" id="includeSymbols" checked />
+      </div>
+
+      <button id="generate" class="bg-primary">Generate Password</button>
+
+      Password: <span id="password"> </span>
+      <h1 id="text" class="hidden rounded p-2 m-2">Great Password</h1>
+    </div>
+
+    <img id="pass_pic" alt="Picture" src="./pass_pics/pass.jpg" />
+
+  </body>
+</html>
+
