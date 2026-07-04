@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 import { useClock, getGreeting } from "@/hooks/useClock";
-import type { Page } from "../types";
+import type { Page } from "@/app/dashboard/types";
 import t from "./top-bar.module.css";
 
 import AppDrawer, { HamburgerBtn } from "@/components/sidebar/Sidebar";
