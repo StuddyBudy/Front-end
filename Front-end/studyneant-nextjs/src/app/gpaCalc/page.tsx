@@ -18,37 +18,36 @@ import BottomNav from "../../components/bottomNav/BottomNav";
 
 import s from "./GpaCalc.module.css";
 
+// Deterministic pre-hydration state — identical on the server prerender and
+// the client's first render. The real persisted state loads in a mount effect.
+const EMPTY_GPA_STATE: GpaState = {
+    config: {
+        schoolType: "hs",
+        gpaScale: 4.0,
+        useWeightedGpa: true,
+        periodType: "mp",
+        periodCount: 4,
+        partnerId: null,
+        customSchoolName: "",
+        setupComplete: false,
+    },
+    periods: [],
+    courses: [],
+    categories: [],
+    assignments: [],
+};
+
 export default function GpaCalcPage() {
     // ── State ─────────────────────────────────────────────────────────────────
-    const [state, setState] = useState<GpaState>(() => {
-        if (typeof window === "undefined") {
-            return {
-                config: {
-                    schoolType: "hs",
-                    gpaScale: 4.0,
-                    useWeightedGpa: true,
-                    periodType: "mp",
-                    periodCount: 4,
-                    partnerId: null,
-                    customSchoolName: "",
-                    setupComplete: false,
-                },
-                periods: [],
-                courses: [],
-                categories: [],
-                assignments: [],
-            };
-        }
-        return loadGpa();
-    });
+    // Reading loadGpa() inside the initializers made the first client render
+    // diverge from the static HTML (the server always rendered the setup tree,
+    // a returning user's client rendered the full app) — guaranteed hydration
+    // error. State now starts empty on both sides and hydrates after mount.
+    const [state, setState] = useState<GpaState>(EMPTY_GPA_STATE);
 
     // FIX: removed `showSetup` boolean — replaced with a single `mode` state
     // to avoid the unused-variable errors from the old isFirstVisit / shouldShowSetup
-    const [mode, setMode] = useState<"setup" | "app">(() =>
-        typeof window !== "undefined" && loadGpa().config.setupComplete
-            ? "app"
-            : "setup",
-    );
+    const [mode, setMode] = useState<"setup" | "app">("setup");
 
     const [showImport, setShowImport] = useState(false);
     const [showAddCourse, setShowAddCourse] = useState(false);
@@ -56,13 +55,17 @@ export default function GpaCalcPage() {
         null,
     );
     const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
-    const [activePeriodId, setActivePeriodId] = useState<string | null>(() => {
-        if (typeof window === "undefined") return null;
+    const [activePeriodId, setActivePeriodId] = useState<string | null>(null);
+
+    // ── Hydrate persisted state after mount ───────────────────────────────────
+    useEffect(() => {
         const loaded = loadGpa();
+        setState(loaded);
+        if (loaded.config.setupComplete) setMode("app");
         const cur =
             loaded.periods.find((p) => p.isCurrent) ?? loaded.periods[0];
-        return cur?.id ?? null;
-    });
+        setActivePeriodId(cur?.id ?? null);
+    }, []);
 
     // ── Persist whenever state changes (after setup complete) ─────────────────
     useEffect(() => {
