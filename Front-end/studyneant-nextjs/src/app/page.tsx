@@ -218,7 +218,10 @@ export default function LandingPage() {
                 {/* ── FOOTER ── */}
                 <footer className={styles.footer}>
                     <span className={styles.footerLogo}>◈ StudyNeant</span>
-                    <p className={styles.footerCopy}>
+                    {/* suppressHydrationWarning: the year is baked at build
+                        time and can lag the viewer's clock across New Year —
+                        React keeps the server text instead of erroring. */}
+                    <p className={styles.footerCopy} suppressHydrationWarning>
                         © {new Date().getFullYear()} StudyNeant. Built for
                         students, by students.
                     </p>
