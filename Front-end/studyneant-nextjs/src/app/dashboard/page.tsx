@@ -19,27 +19,29 @@ export default function DashboardPage() {
     const page = "dashboard" as const;
 
     // ── Edit mode ──
+    // State starts from the same defaults the server prerender used, then a
+    // mount effect loads the persisted values. Reading localStorage inside the
+    // initializer made the first client render diverge from the static HTML
+    // and threw hydration errors for anyone with saved customizations.
     const [editMode, setEditMode] = useState(false);
-    const [savedLayout, setSavedLayout] = useState<LayoutItem[]>(() =>
-        typeof window === "undefined"
-            ? DEFAULT_LAYOUT
-            : lsGet(LS.layout, DEFAULT_LAYOUT),
-    );
-    const [workingLayout, setWorkingLayout] = useState<LayoutItem[]>(() =>
-        typeof window === "undefined"
-            ? DEFAULT_LAYOUT
-            : lsGet(LS.layout, DEFAULT_LAYOUT),
-    );
+    const [savedLayout, setSavedLayout] = useState<LayoutItem[]>(DEFAULT_LAYOUT);
+    const [workingLayout, setWorkingLayout] =
+        useState<LayoutItem[]>(DEFAULT_LAYOUT);
 
     // ── Themes ──
-    const [themeId] = useState(() =>
-        typeof window === "undefined"
-            ? "ember"
-            : localStorage.getItem(LS.themeId) || "ember",
-    );
-    const [customThemes] = useState<ThemeDef[]>(() =>
-        typeof window === "undefined" ? [] : lsGet(LS.customThemes, []),
-    );
+    const [themeId, setThemeId] = useState("ember");
+    const [customThemes, setCustomThemes] = useState<ThemeDef[]>([]);
+
+    // ── Hydrate persisted state after mount ──
+    // Declared before the theme-apply effect below so the stored themeId is
+    // read before that effect's setItem runs in the same flush.
+    useEffect(() => {
+        const layout = lsGet(LS.layout, DEFAULT_LAYOUT);
+        setSavedLayout(layout);
+        setWorkingLayout(layout);
+        setThemeId(localStorage.getItem(LS.themeId) || "ember");
+        setCustomThemes(lsGet(LS.customThemes, []));
+    }, []);
 
     // ── Grid measurement ──
     const mainRef = useRef<HTMLElement>(null);
