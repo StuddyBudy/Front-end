@@ -1,23 +1,47 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useSyncExternalStore } from "react";
 
 // ── useClock ──────────────────────────────────────────────────────────────────
-// Returns a live Date that ticks every second, or null before the first
-// client-side effect runs. The null initial value is deliberate: it is
-// identical on the server prerender and the client's hydration render, so
-// the clock can never cause a hydration mismatch. Callers render a
-// placeholder until it resolves.
-export function useClock(): Date | null {
-    const [now, setNow] = useState<Date | null>(null);
+// Returns a live Date that ticks every second, or null on the server prerender
+// and the client's hydration render (identical on both, so the clock can never
+// cause a hydration mismatch — callers render a placeholder until it resolves).
+// Implemented as a module-level external store: one shared interval drives all
+// subscribers, and useSyncExternalStore swaps null → real Date after hydration.
+const listeners = new Set<() => void>();
+let now: Date | null = null;
+let timer: ReturnType<typeof setInterval> | null = null;
 
-    useEffect(() => {
-        setNow(new Date());
-        const t = setInterval(() => setNow(new Date()), 1000);
-        return () => clearInterval(t);
-    }, []);
+function tick() {
+    now = new Date();
+    listeners.forEach((l) => l());
+}
 
+function subscribe(listener: () => void) {
+    listeners.add(listener);
+    if (!timer) {
+        now = new Date(); // refresh in case the cache went stale while idle
+        timer = setInterval(tick, 1000);
+    }
+    return () => {
+        listeners.delete(listener);
+        if (listeners.size === 0 && timer) {
+            clearInterval(timer);
+            timer = null;
+        }
+    };
+}
+
+// Cached between ticks — getSnapshot must return a stable reference.
+function getSnapshot(): Date | null {
+    if (!now) now = new Date();
     return now;
+}
+
+const getServerSnapshot = () => null;
+
+export function useClock(): Date | null {
+    return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 }
 
 // ── getGreeting ───────────────────────────────────────────────────────────────
