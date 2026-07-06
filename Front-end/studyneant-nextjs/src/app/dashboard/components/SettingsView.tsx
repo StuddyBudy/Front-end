@@ -2,9 +2,30 @@
 
 import { useEffect, useMemo, useState } from "react";
 import type { ThemeDef } from "../types";
+import { createStorageStore, useStorageStore } from "@/hooks/storageStore";
 import s from "../Dashboard.module.css";
 
 const SETTINGS_DISPLAY_KEY = "studyos_settings_display_mode";
+
+type SettingsDisplay = "left" | "center" | "right";
+
+// Panel-position preference, read via useSyncExternalStore: prerender and
+// hydration see "center", the saved value arrives right after hydration, and
+// the setter persists automatically.
+const settingsDisplayStore = createStorageStore<SettingsDisplay>({
+    load: () => {
+        const saved = window.localStorage.getItem(SETTINGS_DISPLAY_KEY);
+        return saved === "left" || saved === "center" || saved === "right"
+            ? saved
+            : "center";
+    },
+    persist: (v) => {
+        try {
+            window.localStorage.setItem(SETTINGS_DISPLAY_KEY, v);
+        } catch {}
+    },
+    server: "center",
+});
 
 type GradientPos = "center" | "left" | "right" | "bottom-left" | "top-right";
 
@@ -337,9 +358,9 @@ export default function SettingsView({
     onUpdateTheme,
     onResetSettings,
 }: Props) {
-    const [settingsDisplay, setSettingsDisplay] = useState<
-        "left" | "center" | "right"
-    >("center");
+    const [settingsDisplay, setSettingsDisplay] = useStorageStore(
+        settingsDisplayStore,
+    );
     const [editorOpen, setEditorOpen] = useState(false);
     const [editorMode, setEditorMode] = useState<"create" | "edit">("create");
     const [editingThemeId, setEditingThemeId] = useState<string | null>(null);
@@ -379,17 +400,6 @@ export default function SettingsView({
         setHelpOpen(false);
         setContextMenu(null);
     };
-
-    useEffect(() => {
-        const saved = window.localStorage.getItem(SETTINGS_DISPLAY_KEY);
-        if (saved === "left" || saved === "center" || saved === "right") {
-            setSettingsDisplay(saved);
-        }
-    }, []);
-
-    useEffect(() => {
-        window.localStorage.setItem(SETTINGS_DISPLAY_KEY, settingsDisplay);
-    }, [settingsDisplay]);
 
     useEffect(() => {
         const closeMenu = () => setContextMenu(null);
@@ -1188,8 +1198,7 @@ export default function SettingsView({
                 className={s.resetSettingsBtn}
                 onClick={() => {
                     handleCancelEditor();
-                    setSettingsDisplay("center");
-                    window.localStorage.setItem(SETTINGS_DISPLAY_KEY, "center");
+                    setSettingsDisplay("center"); // persists via the store
                     onResetSettings();
                 }}
             >
