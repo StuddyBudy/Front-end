@@ -1,10 +1,16 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 
 import type { ThemeDef } from "../dashboard/types";
 import { BUILT_IN_THEMES, applyTheme } from "./themes";
-import { LS, lsGet, lsSet } from "../dashboard/storage";
+import {
+    themeIdStore,
+    customThemesStore,
+    builtInOverridesStore,
+    deletedBuiltInIdsStore,
+} from "../dashboard/storage";
+import { useStorageStore } from "@/hooks/storageStore";
 
 import TopBar from "../../components/top-bar/top-bar";
 import SettingsView from "@/app/dashboard/components/SettingsView";
@@ -40,26 +46,18 @@ function ensureUniqueThemeName(
 export default function SettingsPage() {
     const page = "settings" as const;
     const THEME_LIMIT = 15;
-    // Defaults match the server prerender exactly; the persisted values load
-    // in the mount effect below. Reading localStorage inside the initializers
-    // made the first client render diverge from the static HTML (hydration
-    // errors for anyone with saved themes/overrides).
-    const [themeId, setThemeId] = useState("ember");
-    const [customThemes, setCustomThemes] = useState<ThemeDef[]>([]);
-    const [builtInOverrides, setBuiltInOverrides] = useState<
-        Record<string, ThemeDef>
-    >({});
-    const [deletedBuiltInIds, setDeletedBuiltInIds] = useState<string[]>([]);
-
-    // Hydrate persisted theme state after mount. Declared before the
-    // theme-apply effect below so the stored themeId is read before that
-    // effect's localStorage.setItem runs in the same flush.
-    useEffect(() => {
-        setThemeId(localStorage.getItem(LS.themeId) || "ember");
-        setCustomThemes(lsGet(LS.customThemes, []));
-        setBuiltInOverrides(lsGet(LS.builtInThemeOverrides, {}));
-        setDeletedBuiltInIds(lsGet(LS.deletedBuiltInThemeIds, []));
-    }, []);
+    // Theme state reads through the stores shared with the dashboard page
+    // (useSyncExternalStore, see ../dashboard/storage.ts): the prerender and
+    // hydration render see the defaults, persisted values arrive right after
+    // hydration, and every setter persists to localStorage automatically.
+    const [themeId, setThemeId] = useStorageStore(themeIdStore);
+    const [customThemes, setCustomThemes] = useStorageStore(customThemesStore);
+    const [builtInOverrides, setBuiltInOverrides] = useStorageStore(
+        builtInOverridesStore,
+    );
+    const [deletedBuiltInIds, setDeletedBuiltInIds] = useStorageStore(
+        deletedBuiltInIdsStore,
+    );
 
     const mergedBuiltIns = useMemo(() => {
         const merged: Record<string, ThemeDef> = {};
@@ -87,10 +85,10 @@ export default function SettingsPage() {
 
     const canCreateTheme = Object.keys(allThemes).length < THEME_LIMIT;
 
+    // Pure external-system sync — the store persists themeId, not this.
     useEffect(() => {
         const theme = allThemes[themeId] || BUILT_IN_THEMES.ember;
         applyTheme(theme);
-        localStorage.setItem(LS.themeId, themeId);
     }, [allThemes, themeId]);
 
     const handleThemeChange = (id: string) => setThemeId(id);
@@ -107,7 +105,6 @@ export default function SettingsPage() {
             nextTheme,
         ];
         setCustomThemes(updated);
-        lsSet(LS.customThemes, updated);
         setThemeId(nextTheme.id);
     };
 
@@ -133,7 +130,6 @@ export default function SettingsPage() {
 
             const nextOverrides = { ...builtInOverrides, [id]: nextTheme };
             setBuiltInOverrides(nextOverrides);
-            lsSet(LS.builtInThemeOverrides, nextOverrides);
             return;
         }
 
@@ -155,19 +151,16 @@ export default function SettingsPage() {
         });
 
         setCustomThemes(updated);
-        lsSet(LS.customThemes, updated);
     };
 
     const handleDeleteCustomTheme = (id: string) => {
         if (BUILT_IN_THEMES[id]) {
             const nextDeleted = Array.from(new Set([...deletedBuiltInIds, id]));
             setDeletedBuiltInIds(nextDeleted);
-            lsSet(LS.deletedBuiltInThemeIds, nextDeleted);
 
             const nextOverrides = { ...builtInOverrides };
             delete nextOverrides[id];
             setBuiltInOverrides(nextOverrides);
-            lsSet(LS.builtInThemeOverrides, nextOverrides);
 
             if (themeId === id) {
                 const fallback =
@@ -181,20 +174,16 @@ export default function SettingsPage() {
 
         const updated = customThemes.filter((t) => t.id !== id);
         setCustomThemes(updated);
-        lsSet(LS.customThemes, updated);
         if (themeId === id) setThemeId("ember");
     };
 
     const handleResetSettings = () => {
+        // Each setter persists via its store (keys are rewritten with the
+        // defaults rather than removed — identical on next load).
         setCustomThemes([]);
         setBuiltInOverrides({});
         setDeletedBuiltInIds([]);
         setThemeId("ember");
-
-        localStorage.removeItem(LS.customThemes);
-        localStorage.removeItem(LS.builtInThemeOverrides);
-        localStorage.removeItem(LS.deletedBuiltInThemeIds);
-        localStorage.setItem(LS.themeId, "ember");
     };
 
     return (
