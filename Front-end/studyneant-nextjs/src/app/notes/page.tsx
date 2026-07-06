@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-import type { NotesState } from "./types";
-import { loadNotes, saveNotes, makeNote } from "./storage";
+import { makeNote, notesStore } from "./storage";
+import { useStorageStore } from "@/hooks/storageStore";
 
 import NotesTopBar from "./components/NotesTopBar";
 import NotesDashboard from "./components/NotesDashboard";
@@ -12,18 +12,11 @@ import BottomNav from "../../components/bottomNav/BottomNav";
 export default function NotesPage() {
     const router = useRouter();
 
-    // Starts empty on the server prerender AND the client's first render so
-    // the two agree; the persisted notes load in the mount effect below.
-    // (The previous "load immediately in the initializer" approach populated
-    // the first client render but made it diverge from the static HTML —
-    // that divergence is exactly what a hydration error is.)
-    const [state, setState] = useState<NotesState>({ folders: [], notes: [] });
-
-    // Hydrate persisted notes after mount. loadNotes() seeds localStorage on
-    // first visit — doing that here keeps the write out of render.
-    useEffect(() => {
-        setState(loadNotes());
-    }, []);
+    // Read through notesStore (useSyncExternalStore): the server prerender
+    // and the client's hydration render both see the empty state, then the
+    // persisted/seeded notes arrive in the post-hydration render. setState is
+    // the store's set — every write persists to localStorage automatically.
+    const [state, setState] = useStorageStore(notesStore);
 
     // Folder modal open state — lifted here so the top-bar button can trigger it
     const [folderModalOpen, setFolderModalOpen] = useState(false);
@@ -32,7 +25,6 @@ export default function NotesPage() {
         const note = makeNote(null, "Untitled");
         const next = { ...state, notes: [...state.notes, note] };
         setState(next);
-        saveNotes(next);
         router.push(`/notes/editor?id=${note.id}`);
     };
 

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import type { NotesState, Folder } from "../types";
-import { makeFolder, makeNote, saveNotes, FOLDER_COLORS } from "../storage";
+import { makeFolder, makeNote, FOLDER_COLORS } from "../storage";
 import FolderCard from "./FolderCard";
 import NoteCard from "./NoteCard";
 import s from "../Notes.module.css";
@@ -69,7 +69,6 @@ export default function NotesDashboard({
         const folder = makeFolder(name, folderColor);
         const next = { ...state, folders: [...state.folders, folder] };
         setState(next);
-        saveNotes(next);
         setExpandedFolders((prev) => new Set([...prev, folder.id]));
         closeModal();
     };
@@ -78,7 +77,6 @@ export default function NotesDashboard({
         const note = makeNote(folderId, "Untitled");
         const next = { ...state, notes: [...state.notes, note] };
         setState(next);
-        saveNotes(next);
         router.push(`/notes/editor?id=${note.id}`);
     };
 

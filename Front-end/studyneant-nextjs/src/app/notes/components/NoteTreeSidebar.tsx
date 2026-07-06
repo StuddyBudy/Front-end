@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import type { NotesState } from "../types";
-import { makeNote, makeFolder, saveNotes, FOLDER_COLORS } from "../storage";
+import { makeNote, makeFolder, FOLDER_COLORS } from "../storage";
 import s from "../Notes.module.css";
 
 type Props = {
@@ -45,7 +45,6 @@ export default function NoteTreeSidebar({
         const note = makeNote(folderId, "Untitled");
         const next = { ...state, notes: [...state.notes, note] };
         setState(next);
-        saveNotes(next);
         router.push(`/notes/editor?id=${note.id}`);
     };
 
@@ -60,7 +59,6 @@ export default function NoteTreeSidebar({
         const folder = makeFolder(name, color);
         const next = { ...state, folders: [...state.folders, folder] };
         setState(next);
-        saveNotes(next);
         setOpenFolders((prev) => new Set([...prev, folder.id]));
         setAddingFolder(false);
         setNewFolderName("");

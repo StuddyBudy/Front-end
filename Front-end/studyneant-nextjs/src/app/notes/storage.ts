@@ -1,4 +1,5 @@
 import type { NotesState, Folder, Note } from "./types";
+import { createStorageStore } from "@/hooks/storageStore";
 
 // ── KEY ───────────────────────────────────────────────────────────────────────
 export const NOTES_LS_KEY = "studyos_notes";
@@ -80,10 +81,11 @@ export const SEED_STATE: NotesState = {
 };
 
 // ── LOAD ──────────────────────────────────────────────────────────────────────
-// ROOT FIX: On first visit localStorage is empty, so we return SEED_STATE AND
-// immediately write it to localStorage. This means every subsequent page
-// (including the note editor) will always find data in localStorage — no more
-// "note not found" on freshly-loaded notes.
+// First visit returns SEED_STATE without writing it: load() runs during render
+// via the store's getSnapshot, so it must stay read-only. Both notes routes
+// read the same notesStore below, so the editor finds freshly-seeded notes in
+// shared memory (the old "write the seed immediately" fix is unnecessary);
+// the seed persists on the first real mutation through notesStore.set.
 export function loadNotes(): NotesState {
     if (typeof window === "undefined") return SEED_STATE;
     try {
@@ -91,8 +93,6 @@ export function loadNotes(): NotesState {
         if (raw) {
             return JSON.parse(raw) as NotesState;
         }
-        // First visit — persist the seed data immediately so editor pages can find it
-        localStorage.setItem(NOTES_LS_KEY, JSON.stringify(SEED_STATE));
         return SEED_STATE;
     } catch {
         return SEED_STATE;
@@ -106,6 +106,18 @@ export function saveNotes(state: NotesState): void {
         localStorage.setItem(NOTES_LS_KEY, JSON.stringify(state));
     } catch {}
 }
+
+// ── STORE ─────────────────────────────────────────────────────────────────────
+// Shared by /notes and /notes/editor. The prerender/hydration snapshot is the
+// empty state (matches the baked HTML); persisted/seeded notes arrive right
+// after hydration.
+export const EMPTY_NOTES_STATE: NotesState = { folders: [], notes: [] };
+
+export const notesStore = createStorageStore<NotesState>({
+    load: loadNotes,
+    persist: saveNotes,
+    server: EMPTY_NOTES_STATE,
+});
 
 // ── ID GENERATOR ──────────────────────────────────────────────────────────────
 export function newId(): string {

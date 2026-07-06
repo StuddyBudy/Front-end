@@ -2,7 +2,7 @@
 
 import { useState, useRef, useCallback } from "react";
 import type { Note, NotesState } from "../types";
-import { saveNotes, fmtDate } from "../storage";
+import { fmtDate } from "../storage";
 
 import s from "../Notes.module.css";
 
@@ -36,7 +36,6 @@ export default function NoteEditor({ note, state, setState }: Props) {
                     ),
                 };
                 setState(nextState);
-                saveNotes(nextState);
                 setSaved(true);
                 setTimeout(() => setSaved(false), 1800);
             }, 800);

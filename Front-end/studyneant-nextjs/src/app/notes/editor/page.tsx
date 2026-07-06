@@ -1,9 +1,9 @@
 "use client";
 
-import { Suspense, useState, useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import type { NotesState } from "../types";
-import { loadNotes } from "../storage";
+import { notesStore } from "../storage";
+import { useStorageStore } from "@/hooks/storageStore";
 
 import NotesTopBar from "../components/NotesTopBar";
 import NoteTreeSidebar from "../components/NoteTreeSidebar";
@@ -26,13 +26,10 @@ function NoteEditorContent() {
     const router = useRouter();
     const noteId = searchParams.get("id") ?? "";
 
-    // Same-on-both-sides initial state; persisted notes hydrate after mount
-    // (see notes/page.tsx for the mechanism).
-    const [state, setState] = useState<NotesState>({ folders: [], notes: [] });
-
-    useEffect(() => {
-        setState(loadNotes());
-    }, []);
+    // Same notesStore as /notes — the hydration snapshot is empty on both
+    // sides, the persisted/seeded notes arrive right after hydration, and
+    // writes persist through the store (see notes/storage.ts).
+    const [state, setState] = useStorageStore(notesStore);
 
     const activeNote = state.notes.find((n) => n.id === noteId);
 
