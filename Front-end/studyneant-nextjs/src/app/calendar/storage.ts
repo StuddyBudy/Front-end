@@ -4,6 +4,7 @@ import type {
     CalCalendar,
     RepeatConfig,
 } from "./types";
+import { createStorageStore } from "@/hooks/storageStore";
 
 // ── LOCALSTORAGE KEY ──────────────────────────────────────────────────────────
 export const CAL_LS_KEY = "studyos_calendar";
@@ -252,7 +253,9 @@ function buildSeed(): CalendarState {
 
 /**
  * loadCalendar — reads state from localStorage.
- * On first visit writes seed data so every page finds real data immediately.
+ * First visit returns the seed WITHOUT writing it: load() runs during render
+ * via the store's getSnapshot, so it must stay read-only. The seed persists
+ * on the first real mutation through calendarStore.set.
  * SSR-safe: returns seed if window is undefined.
  */
 export function loadCalendar(): CalendarState {
@@ -260,10 +263,7 @@ export function loadCalendar(): CalendarState {
     try {
         const raw = localStorage.getItem(CAL_LS_KEY);
         if (raw) return JSON.parse(raw) as CalendarState;
-        // First visit — persist seed so editor pages can find events
-        const seed = buildSeed();
-        localStorage.setItem(CAL_LS_KEY, JSON.stringify(seed));
-        return seed;
+        return buildSeed();
     } catch {
         return buildSeed();
     }
@@ -275,3 +275,17 @@ export function saveCalendar(state: CalendarState): void {
         localStorage.setItem(CAL_LS_KEY, JSON.stringify(state));
     } catch {}
 }
+
+// ── STORE ─────────────────────────────────────────────────────────────────────
+// The prerender/hydration snapshot is the empty state (matches the baked
+// HTML); persisted/seeded events arrive right after hydration.
+export const EMPTY_CALENDAR_STATE: CalendarState = {
+    calendars: [],
+    events: [],
+};
+
+export const calendarStore = createStorageStore<CalendarState>({
+    load: loadCalendar,
+    persist: saveCalendar,
+    server: EMPTY_CALENDAR_STATE,
+});
