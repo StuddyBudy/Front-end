@@ -1,4 +1,5 @@
 import type { GpaState, GpaConfig, Period } from "./types";
+import { createStorageStore } from "@/hooks/storageStore";
 
 export const GPA_LS_KEY = "studyos_gpa_v1";
 
@@ -56,6 +57,18 @@ export function clearGpa(): void {
     if (typeof window === "undefined") return;
     localStorage.removeItem(GPA_LS_KEY);
 }
+
+// ── STORE ─────────────────────────────────────────────────────────────────────
+// The prerender/hydration snapshot is the empty state (the baked HTML always
+// shows the setup wizard); a returning user's persisted state arrives right
+// after hydration.
+export const EMPTY_GPA_STATE: GpaState = buildEmpty();
+
+export const gpaStore = createStorageStore<GpaState>({
+    load: loadGpa,
+    persist: saveGpa,
+    server: EMPTY_GPA_STATE,
+});
 
 // ── PERIOD BUILDER ────────────────────────────────────────────────────────────
 export function buildPeriods(type: string, count: number): Period[] {

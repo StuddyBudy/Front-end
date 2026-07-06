@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import type { GpaState, Course, Category, CourseWeight } from "../types";
-import { newId, saveGpa, COURSE_COLORS } from "../storage";
+import { newId, COURSE_COLORS } from "../storage";
 import s from "../GpaCalc.module.css";
 
 type Props = {
@@ -99,8 +99,7 @@ export default function AddCourseModal({
             courses: [...state.courses, course],
             categories: [...state.categories, ...newCats],
         };
-        saveGpa(next);
-        onSave(next);
+        onSave(next); // the page's setState persists via the store
         onClose();
     };
 

@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import type { GpaState } from "./types";
-// FIX: removed unused `clearGpa` import that was causing a TS error
-import { loadGpa, saveGpa } from "./storage";
+import { gpaStore } from "./storage";
+import { useStorageStore } from "@/hooks/storageStore";
 
 import SetupModal from "./components/SetupModal";
 import GpaTopBar from "./components/GpaTopBar";
@@ -18,36 +18,21 @@ import BottomNav from "../../components/bottomNav/BottomNav";
 
 import s from "./GpaCalc.module.css";
 
-// Deterministic pre-hydration state — identical on the server prerender and
-// the client's first render. The real persisted state loads in a mount effect.
-const EMPTY_GPA_STATE: GpaState = {
-    config: {
-        schoolType: "hs",
-        gpaScale: 4.0,
-        useWeightedGpa: true,
-        periodType: "mp",
-        periodCount: 4,
-        partnerId: null,
-        customSchoolName: "",
-        setupComplete: false,
-    },
-    periods: [],
-    courses: [],
-    categories: [],
-    assignments: [],
-};
-
 export default function GpaCalcPage() {
     // ── State ─────────────────────────────────────────────────────────────────
-    // Reading loadGpa() inside the initializers made the first client render
-    // diverge from the static HTML (the server always rendered the setup tree,
-    // a returning user's client rendered the full app) — guaranteed hydration
-    // error. State now starts empty on both sides and hydrates after mount.
-    const [state, setState] = useState<GpaState>(EMPTY_GPA_STATE);
+    // Read through gpaStore (useSyncExternalStore): the server prerender and
+    // the client's hydration render both see the empty state (so the baked
+    // setup tree always matches), then a returning user's persisted state
+    // arrives right after hydration and the derived `mode` below flips to
+    // "app". setState is the store's set — every write persists.
+    const [state, setState] = useStorageStore(gpaStore);
 
-    // FIX: removed `showSetup` boolean — replaced with a single `mode` state
-    // to avoid the unused-variable errors from the old isFirstVisit / shouldShowSetup
-    const [mode, setMode] = useState<"setup" | "app">("setup");
+    // Derived from persisted config; the override exists so the ⚙ button can
+    // re-open the wizard after setup is complete.
+    const [modeOverride, setModeOverride] = useState<"setup" | "app" | null>(
+        null,
+    );
+    const mode = modeOverride ?? (state.config.setupComplete ? "app" : "setup");
 
     const [showImport, setShowImport] = useState(false);
     const [showAddCourse, setShowAddCourse] = useState(false);
@@ -55,24 +40,20 @@ export default function GpaCalcPage() {
         null,
     );
     const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
-    const [activePeriodId, setActivePeriodId] = useState<string | null>(null);
 
-    // ── Hydrate persisted state after mount ───────────────────────────────────
-    useEffect(() => {
-        const loaded = loadGpa();
-        setState(loaded);
-        if (loaded.config.setupComplete) setMode("app");
-        const cur =
-            loaded.periods.find((p) => p.isCurrent) ?? loaded.periods[0];
-        setActivePeriodId(cur?.id ?? null);
-    }, []);
-
-    // ── Persist whenever state changes (after setup complete) ─────────────────
-    useEffect(() => {
-        if (state.config.setupComplete) {
-            saveGpa(state);
-        }
-    }, [state]);
+    // Active period follows the persisted "current" period unless the user
+    // picked another one this session (and that pick still exists).
+    const [activePeriodOverride, setActivePeriodOverride] = useState<
+        string | null
+    >(null);
+    const derivedPeriodId =
+        (state.periods.find((p) => p.isCurrent) ?? state.periods[0])?.id ??
+        null;
+    const activePeriodId =
+        activePeriodOverride &&
+        state.periods.some((p) => p.id === activePeriodOverride)
+            ? activePeriodOverride
+            : derivedPeriodId;
 
     // ── Handlers ──────────────────────────────────────────────────────────────
 
@@ -86,13 +67,9 @@ export default function GpaCalcPage() {
             assignments: partial.assignments ?? state.assignments,
             periods: partial.periods ?? state.periods,
         };
-        setState(next);
-        saveGpa(next);
-        setMode("app");
-
-        // Jump to the first (current) period
-        const firstPeriod = next.periods[0];
-        if (firstPeriod) setActivePeriodId(firstPeriod.id);
+        setState(next); // persists via the store
+        setModeOverride(null); // setupComplete is true → derived mode = "app"
+        setActivePeriodOverride(null); // follow the new current period
     };
 
     const selectedCourse = selectedCourseId
@@ -110,11 +87,11 @@ export default function GpaCalcPage() {
             <GpaTopBar
                 state={state}
                 activePeriodId={activePeriodId}
-                onPeriodChange={setActivePeriodId}
+                onPeriodChange={setActivePeriodOverride}
                 onAddCourse={() => setShowAddCourse(true)}
                 onImport={() => setShowImport(true)}
                 onRefresh={() => setLastUpdated(new Date())}
-                onOpenSetup={() => setMode("setup")}
+                onOpenSetup={() => setModeOverride("setup")}
                 lastUpdated={lastUpdated}
             />
 
@@ -125,7 +102,7 @@ export default function GpaCalcPage() {
                     onSelectCourse={(id) => {
                         setSelectedCourseId(id);
                         const course = state.courses.find((c) => c.id === id);
-                        if (course) setActivePeriodId(course.periodId);
+                        if (course) setActivePeriodOverride(course.periodId);
                     }}
                 />
 
@@ -158,7 +135,7 @@ export default function GpaCalcPage() {
                     onSave={(next) => {
                         setState(next);
                         const latest = next.courses[next.courses.length - 1];
-                        if (latest) setActivePeriodId(latest.periodId);
+                        if (latest) setActivePeriodOverride(latest.periodId);
                     }}
                     onClose={() => setShowAddCourse(false)}
                 />
