@@ -14,7 +14,7 @@ Two generations of the app coexist (a third, an abandoned Vite+React rewrite, wa
 
 2. **`studyneant-nextjs/` — the live app.** Next.js 16.1 (App Router), React 19.2, TypeScript 5, Tailwind CSS v4 + CSS Modules. All active development happens here.
 
-Support files at the `Front-end/` root: Tailwind CLI tooling (`package.json`, `input.css`, `bun.lock` — a leftover from earlier Tailwind experiments), `.prettierrc`, `LICENSE`, and the docs you're reading. Note `Front-end/` itself is a **git submodule** of the outer `StudyNeant` wrapper repo.
+Support files at the `Front-end/` root: Tailwind CLI tooling (`package.json`, `input.css`), `.prettierrc`, `LICENSE`, and the docs you're reading. `Front-end/` is **not** a git submodule — its files are tracked directly in the outer `StudyNeant` repo (verified 2026-07-04; the stray `bun.lock` was removed then too).
 
 ## Feature list (live app)
 
@@ -47,7 +47,9 @@ studyneant-nextjs/src/
 │       ├── types.ts          ← feature types
 │       └── utils.ts          ← pure helpers (gpaCalc only)
 ├── components/               ← shared UI: authModal/, bottomNav/, sidebar/, top-bar/
-└── hooks/useClock.ts         ← shared clock hook (single copy; returns Date | null until mounted)
+└── hooks/                    ← useClock.ts (clock; Date | null until hydrated),
+                                storageStore.ts + useHydrated.ts (useSyncExternalStore
+                                primitives every feature's storage.ts builds its store on)
 ```
 
 The convention is aspirational — see the deviation table in [CLAUDE.md](./CLAUDE.md). `settings` is just `page.tsx` + `themes.ts`.
@@ -56,7 +58,7 @@ The convention is aspirational — see the deviation table in [CLAUDE.md](./CLAU
 
 - **`layout.tsx`** renders the persistent shell — the shared `sidebar`, `top-bar`, and `bottomNav` components from `src/components/` — around whatever feature page the route resolves to. Navigation between features goes through these shared components.
 - **Feature isolation:** each feature owns its state, types, and persistence. `page.tsx` composes the feature's `components/` (or `widgets/`), calls its `hooks/`, and reads/writes through its `storage.ts`. Features don't import from each other; cross-feature UI lives only in `src/components/`.
-- **Persistence:** every `storage.ts` is a thin typed wrapper over `localStorage`. No shared storage layer — each feature defines its own keys and (de)serialization.
+- **Persistence:** every `storage.ts` is a thin typed wrapper over `localStorage`, exposed to components as a `useSyncExternalStore`-backed store (`createStorageStore` from `src/hooks/storageStore.ts`). Each feature defines its own keys and (de)serialization; the store's `set()` persists automatically and the server snapshot keeps hydration deterministic.
 - **Theming:** `settings/themes.ts` defines the themes; applied globally (CSS variables in `globals.css` / module styles).
 - **Auth:** an `authModal` shared component exists as UI, but there's no auth backend — placeholder for future work.
 - **Styling:** Tailwind v4 utilities and per-component `*.module.css` files are both in active use, sometimes in the same component.
@@ -82,3 +84,6 @@ The convention is aspirational — see the deviation table in [CLAUDE.md](./CLAU
 - Resolved 2026-07-04 (cleanup/baseline): duplicate `useClock` and shared `types.ts`
   collapsed; single npm lockfile; dead files/exports/CSS pruned; hydration mismatches
   fixed app-wide (see CLAUDE.md "Hydration rule").
+- Resolved 2026-07-06 (lint-zero): all 17 ESLint problems fixed — unescaped entities,
+  two unused vars, and the nine `react-hooks/set-state-in-effect` errors via a
+  `useSyncExternalStore` migration (per-feature stores in each `storage.ts`).
