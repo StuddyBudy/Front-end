@@ -5,7 +5,6 @@ import type { TodoState, TodoList, TodoItem, SubTask } from "../types";
 import {
     makeItem,
     makeSubTask,
-    saveTodo,
     itemsForList,
     PRIORITY_CONFIG,
     isOverdue,
@@ -59,7 +58,6 @@ export default function TaskGroup({ list, state, setState }: Props) {
                 i.id === id ? { ...i, ...partial } : i,
             ),
         };
-        saveTodo(next);
         setState(next);
     };
 
@@ -72,7 +70,6 @@ export default function TaskGroup({ list, state, setState }: Props) {
         }
         const item = makeItem(list.id, text);
         const next = { ...state, items: [...state.items, item] };
-        saveTodo(next);
         setState(next);
         setAddText("");
         addRef.current?.focus();
@@ -93,7 +90,6 @@ export default function TaskGroup({ list, state, setState }: Props) {
             ...state,
             items: state.items.filter((i) => i.id !== id),
         };
-        saveTodo(next);
         setState(next);
         if (expandedId === id) setExpandedId(null);
     };
@@ -115,7 +111,6 @@ export default function TaskGroup({ list, state, setState }: Props) {
             ...state,
             items: state.items.filter((i) => !(i.listId === list.id && i.done)),
         };
-        saveTodo(next);
         setState(next);
     };
 

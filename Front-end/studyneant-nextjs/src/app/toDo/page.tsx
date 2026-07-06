@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
-import type { TodoState } from "./types";
-import { loadTodo, saveTodo, makeItem } from "./storage";
+import { useState, useMemo } from "react";
+import { makeItem, todoStore } from "./storage";
+import { useStorageStore } from "@/hooks/storageStore";
 
 import ToDoTopBar, { type ToDoView } from "./components/ToDoTopBar";
 import ListSidebar from "./components/ListSidebar";
@@ -18,57 +18,48 @@ import s from "./ToDo.module.css";
 //         "weekly" → 7-column kanban board grouped by due date
 export default function ToDoPage() {
     // ── Core state ──
-    // Starts empty on the server prerender AND the client's first render;
-    // the persisted state loads in the mount effect below. Reading loadTodo()
-    // inside initializers made the two renders diverge (hydration errors) and
-    // wrote seed data to localStorage as a render side-effect.
-    const [state, setState] = useState<TodoState>({
-        lists: [],
-        items: [],
-        sortMode: "manual",
-    });
+    // Read through todoStore (useSyncExternalStore): the server prerender and
+    // the client's hydration render both see the empty default, then the
+    // persisted state arrives in the post-hydration render. setState is the
+    // store's set — every write persists to localStorage automatically.
+    const [state, setState] = useStorageStore(todoStore);
     const [view, setView] = useState<ToDoView>("lists");
 
-    // ── Visible lists (for the lists view) ──
-    const [visibleListIds, setVisibleListIds] = useState<Set<string>>(
-        new Set(),
-    );
+    // ── Hidden lists (for the lists view) ──
+    // Tracked inverted (hidden rather than visible) so "all lists visible"
+    // is the natural default and needs no post-load initialization.
+    const [hiddenListIds, setHiddenListIds] = useState<Set<string>>(new Set());
 
     // ── Global quick-add (lists view) ──
     const [globalText, setGlobalText] = useState("");
     const [globalListId, setGlobalListId] = useState<string>("");
 
-    // ── Hydrate persisted state after mount ──
-    useEffect(() => {
-        const loaded = loadTodo();
-        setState(loaded);
-        setVisibleListIds(new Set(loaded.lists.map((l) => l.id)));
-        setGlobalListId(loaded.lists[0]?.id ?? "");
-    }, []);
-
     // ── Visibility toggles ──
     const toggleList = (id: string) =>
-        setVisibleListIds((prev) => {
+        setHiddenListIds((prev) => {
             const n = new Set(prev);
             if (n.has(id)) n.delete(id);
             else n.add(id);
             return n;
         });
-    const selectAll = () =>
-        setVisibleListIds(new Set(state.lists.map((l) => l.id)));
-    const deselectAll = () => setVisibleListIds(new Set());
+    const selectAll = () => setHiddenListIds(new Set());
+    const deselectAll = () =>
+        setHiddenListIds(new Set(state.lists.map((l) => l.id)));
 
     // ── Sort ──
     const handleSortChange = (mode: typeof state.sortMode) => {
-        const next = { ...state, sortMode: mode };
-        setState(next);
-        saveTodo(next);
+        setState({ ...state, sortMode: mode });
     };
 
-    const effectiveVisibleListIds = useMemo(() => {
-        const valid = new Set(state.lists.map((l) => l.id));
-        return new Set([...visibleListIds].filter((id) => valid.has(id)));
-    }, [state.lists, visibleListIds]);
+    const effectiveVisibleListIds = useMemo(
+        () =>
+            new Set(
+                state.lists
+                    .filter((l) => !hiddenListIds.has(l.id))
+                    .map((l) => l.id),
+            ),
+        [state.lists, hiddenListIds],
+    );
 
     const resolvedGlobalListId =
         state.lists.find((l) => l.id === globalListId)?.id ??
@@ -79,11 +70,13 @@ export default function ToDoPage() {
         const text = globalText.trim();
         if (!text || !resolvedGlobalListId) return;
         const item = makeItem(resolvedGlobalListId, text);
-        const next = { ...state, items: [...state.items, item] };
-        setState(next);
-        saveTodo(next);
+        setState({ ...state, items: [...state.items, item] });
         setGlobalText("");
-        setVisibleListIds((prev) => new Set([...prev, resolvedGlobalListId]));
+        setHiddenListIds((prev) => {
+            const n = new Set(prev);
+            n.delete(resolvedGlobalListId);
+            return n;
+        });
     };
 
     // ── Derived ──

@@ -4,7 +4,6 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import type { TodoState, TodoList } from "../types";
 import {
     makeList,
-    saveTodo,
     duplicateList,
     LIST_COLORS,
     LIST_EMOJIS,
@@ -102,14 +101,12 @@ export default function ListSidebar({
         const list = makeList(name, newColor, newEmoji, state.lists.length);
         const next = { ...state, lists: [...state.lists, list] };
 
-        // 1. Persist first so the new list is in storage before any re-render
-        saveTodo(next);
-        // 2. Update state
+        // Persist + update through the store (setState is todoStore.set).
+        // New lists are visible by default (visibility tracks HIDDEN ids),
+        // so the old auto-check toggle is unnecessary — and would now hide it.
         setState(next);
-        // 3. Auto-check the new list — uses list.id directly, no stale closure
-        onToggleList(list.id);
 
-        // 4. Reset form
+        // Reset form
         setAddingList(false);
         setNewName("");
         setNewColor(LIST_COLORS[next.lists.length % LIST_COLORS.length]);
@@ -124,7 +121,6 @@ export default function ListSidebar({
             ...state,
             lists: state.lists.map((l) => (l.id === id ? { ...l, name } : l)),
         };
-        saveTodo(next);
         setState(next);
     };
 
@@ -133,7 +129,6 @@ export default function ListSidebar({
             ...state,
             lists: state.lists.map((l) => (l.id === id ? { ...l, color } : l)),
         };
-        saveTodo(next);
         setState(next);
         setColorPickerId(null);
     };
@@ -143,7 +138,6 @@ export default function ListSidebar({
             ...state,
             lists: state.lists.map((l) => (l.id === id ? { ...l, emoji } : l)),
         };
-        saveTodo(next);
         setState(next);
         setEmojiPickerId(null);
     };
@@ -155,14 +149,12 @@ export default function ListSidebar({
             lists: state.lists.filter((l) => l.id !== id),
             items: state.items.filter((i) => i.listId !== id),
         };
-        saveTodo(next);
         setState(next);
         setCtxMenuId(null);
     };
 
     const handleDuplicateList = (id: string) => {
         const next = duplicateList(state, id);
-        saveTodo(next);
         setState(next);
         setCtxMenuId(null);
     };

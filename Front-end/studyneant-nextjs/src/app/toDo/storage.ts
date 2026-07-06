@@ -1,4 +1,5 @@
 import type { TodoState, TodoList, TodoItem, SubTask, SortMode } from "./types";
+import { createStorageStore } from "@/hooks/storageStore";
 
 export const TODO_LS_KEY = "studyos_todo_v3";
 
@@ -215,7 +216,9 @@ export function loadTodo(): TodoState {
     try {
         const raw = localStorage.getItem(TODO_LS_KEY);
         if (raw) return JSON.parse(raw) as TodoState;
-        localStorage.setItem(TODO_LS_KEY, JSON.stringify(SEED_STATE));
+        // First visit: seed in memory only — load() runs during render via
+        // the store's getSnapshot, so it must not write. The seed persists
+        // on the first real mutation through todoStore.set.
         return SEED_STATE;
     } catch {
         return SEED_STATE;
@@ -228,6 +231,21 @@ export function saveTodo(state: TodoState): void {
         localStorage.setItem(TODO_LS_KEY, JSON.stringify(state));
     } catch {}
 }
+
+// ── STORE ─────────────────────────────────────────────────────────────────────
+// The prerender/hydration snapshot is the empty state (matches the baked
+// HTML); the seeded/persisted state arrives right after hydration.
+export const EMPTY_TODO_STATE: TodoState = {
+    sortMode: "manual",
+    lists: [],
+    items: [],
+};
+
+export const todoStore = createStorageStore<TodoState>({
+    load: loadTodo,
+    persist: saveTodo,
+    server: EMPTY_TODO_STATE,
+});
 
 // ── ID GENERATOR ──────────────────────────────────────────────────────────────
 export function newId(): string {

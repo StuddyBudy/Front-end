@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import type { TodoState, TodoItem } from "../types";
-import { makeItem, saveTodo, PRIORITY_CONFIG } from "../storage";
+import { makeItem, PRIORITY_CONFIG } from "../storage";
 
 // ── FIX 1: Import BOTH css modules ───────────────────────────────────────────
 // tw = weekly-specific styles (weekGrid, weekCol, weekCard, etc.)
@@ -103,7 +103,6 @@ export default function WeeklyView({ state, setState }: Props) {
                 i.id === id ? { ...i, done: !i.done } : i,
             ),
         };
-        saveTodo(next);
         setState(next);
     };
 
@@ -122,7 +121,6 @@ export default function WeeklyView({ state, setState }: Props) {
             ...state,
             items: [...state.items, { ...item, dueDate }],
         };
-        saveTodo(next);
         setState(next);
         setAddText("");
         // Keep form open so user can add another
