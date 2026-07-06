@@ -4,7 +4,13 @@ import { useState, useEffect, useMemo, useRef } from "react";
 
 import type { ThemeDef, LayoutItem } from "./types";
 import { BUILT_IN_THEMES, applyTheme } from "../settings/themes";
-import { LS, DEFAULT_LAYOUT, lsGet, lsSet } from "./storage";
+import {
+    DEFAULT_LAYOUT,
+    layoutStore,
+    themeIdStore,
+    customThemesStore,
+} from "./storage";
+import { useStorageStore } from "@/hooks/storageStore";
 
 import TopBar from "../../components/top-bar/top-bar";
 import BottomNav from "../../components/bottomNav/BottomNav";
@@ -19,29 +25,18 @@ export default function DashboardPage() {
     const page = "dashboard" as const;
 
     // ── Edit mode ──
-    // State starts from the same defaults the server prerender used, then a
-    // mount effect loads the persisted values. Reading localStorage inside the
-    // initializer made the first client render diverge from the static HTML
-    // and threw hydration errors for anyone with saved customizations.
     const [editMode, setEditMode] = useState(false);
-    const [savedLayout, setSavedLayout] = useState<LayoutItem[]>(DEFAULT_LAYOUT);
+
+    // ── Layout + themes ──
+    // Read through the shared stores (useSyncExternalStore, see ./storage.ts):
+    // the prerender/hydration snapshot is the default, persisted values arrive
+    // right after hydration, and writes persist automatically. workingLayout
+    // is a plain edit buffer — handleStartEdit copies savedLayout into it.
+    const [savedLayout, setSavedLayout] = useStorageStore(layoutStore);
     const [workingLayout, setWorkingLayout] =
         useState<LayoutItem[]>(DEFAULT_LAYOUT);
-
-    // ── Themes ──
-    const [themeId, setThemeId] = useState("ember");
-    const [customThemes, setCustomThemes] = useState<ThemeDef[]>([]);
-
-    // ── Hydrate persisted state after mount ──
-    // Declared before the theme-apply effect below so the stored themeId is
-    // read before that effect's setItem runs in the same flush.
-    useEffect(() => {
-        const layout = lsGet(LS.layout, DEFAULT_LAYOUT);
-        setSavedLayout(layout);
-        setWorkingLayout(layout);
-        setThemeId(localStorage.getItem(LS.themeId) || "ember");
-        setCustomThemes(lsGet(LS.customThemes, []));
-    }, []);
+    const [themeId] = useStorageStore(themeIdStore);
+    const [customThemes] = useStorageStore(customThemesStore);
 
     // ── Grid measurement ──
     const mainRef = useRef<HTMLElement>(null);
@@ -57,10 +52,10 @@ export default function DashboardPage() {
     );
 
     // ── Apply theme CSS variables whenever themeId or customThemes changes ──
+    // (Pure external-system sync — the store persists themeId, not this.)
     useEffect(() => {
         const theme = allThemes[themeId] || BUILT_IN_THEMES.ember;
         applyTheme(theme);
-        localStorage.setItem(LS.themeId, themeId);
     }, [allThemes, themeId]);
 
     // ── Measure main element width for GridLayout ──
@@ -80,8 +75,7 @@ export default function DashboardPage() {
         setEditMode(true);
     };
     const handleSaveEdit = () => {
-        setSavedLayout(workingLayout);
-        lsSet(LS.layout, workingLayout);
+        setSavedLayout(workingLayout); // persists via the store
         setEditMode(false);
     };
     const handleCancelEdit = () => {
