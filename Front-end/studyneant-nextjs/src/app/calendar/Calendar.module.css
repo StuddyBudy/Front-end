@@ -320,7 +320,8 @@
     color: var(--dash-accent, #dfd0b8);
 }
 
-/* Nav arrows — MiniCalendar uses .miniCalNav{
+/* Nav arrows — MiniCalendar uses .miniCalNav */
+.miniCalNav {
     width: 24px;
     height: 24px;
     border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.12));
@@ -511,6 +512,16 @@
 .addCalBtn:hover {
     color: var(--dash-accent-warm, #de8900);
     background: rgba(222, 137, 0, 0.06);
+}
+
+/* ── MAIN VIEW ───────────────────────────────────────────────────────────────*/
+/* page.tsx wraps the active month/week view in .mainView; flex:1 makes it fill
+   the .body row beside the fixed-width sidebar. */
+.mainView {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
 /* ── MONTH VIEW ──────────────────────────────────────────────────────────────*/
