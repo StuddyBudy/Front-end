@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 
 import type { ThemeDef } from "../dashboard/types";
-import { BUILT_IN_THEMES, applyTheme } from "./themes";
+import { BUILT_IN_THEMES } from "./themes";
 import {
     themeIdStore,
     customThemesStore,
@@ -85,11 +85,8 @@ export default function SettingsPage() {
 
     const canCreateTheme = Object.keys(allThemes).length < THEME_LIMIT;
 
-    // Pure external-system sync — the store persists themeId, not this.
-    useEffect(() => {
-        const theme = allThemes[themeId] || BUILT_IN_THEMES.ember;
-        applyTheme(theme);
-    }, [allThemes, themeId]);
+    // (Theme application moved to the global <ThemeApplier /> in the root
+    // layout — it subscribes to the same stores, so edits here apply live.)
 
     const handleThemeChange = (id: string) => setThemeId(id);
 

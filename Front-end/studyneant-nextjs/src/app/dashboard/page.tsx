@@ -1,15 +1,9 @@
 "use client";
 
-import { useState, useEffect, useMemo, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 
-import type { ThemeDef, LayoutItem } from "./types";
-import { BUILT_IN_THEMES, applyTheme } from "../settings/themes";
-import {
-    DEFAULT_LAYOUT,
-    layoutStore,
-    themeIdStore,
-    customThemesStore,
-} from "./storage";
+import type { LayoutItem } from "./types";
+import { DEFAULT_LAYOUT, layoutStore } from "./storage";
 import { useStorageStore } from "@/hooks/storageStore";
 
 import TopBar from "../../components/top-bar/top-bar";
@@ -19,7 +13,7 @@ import DashboardView from "./components/DashboardView";
 import s from "./Dashboard.module.css";
 
 // ── DASHBOARD PAGE ────────────────────────────────────────────────────────────
-// Owns dashboard state: theme, layout, edit mode.
+// Owns dashboard state: layout, edit mode.
 // Passes data + callbacks down — components stay stateless where possible.
 export default function DashboardPage() {
     const page = "dashboard" as const;
@@ -35,28 +29,13 @@ export default function DashboardPage() {
     const [savedLayout, setSavedLayout] = useStorageStore(layoutStore);
     const [workingLayout, setWorkingLayout] =
         useState<LayoutItem[]>(DEFAULT_LAYOUT);
-    const [themeId] = useStorageStore(themeIdStore);
-    const [customThemes] = useStorageStore(customThemesStore);
+
+    // (Theme application moved to the global <ThemeApplier /> in the root
+    // layout — it subscribes to the same stores, so it stays live here too.)
 
     // ── Grid measurement ──
     const mainRef = useRef<HTMLElement>(null);
     const [gridWidth, setGridWidth] = useState(900);
-
-    // ── Merge built-in + custom themes into one map ──
-    const allThemes: Record<string, ThemeDef> = useMemo(
-        () => ({
-            ...BUILT_IN_THEMES,
-            ...Object.fromEntries(customThemes.map((t) => [t.id, t])),
-        }),
-        [customThemes],
-    );
-
-    // ── Apply theme CSS variables whenever themeId or customThemes changes ──
-    // (Pure external-system sync — the store persists themeId, not this.)
-    useEffect(() => {
-        const theme = allThemes[themeId] || BUILT_IN_THEMES.ember;
-        applyTheme(theme);
-    }, [allThemes, themeId]);
 
     // ── Measure main element width for GridLayout ──
     useEffect(() => {
