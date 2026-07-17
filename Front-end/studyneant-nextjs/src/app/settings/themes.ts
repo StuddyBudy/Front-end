@@ -67,7 +67,7 @@ export const BUILT_IN_THEMES: Record<string, ThemeDef> = {
         name: "Starry",
         label: "⚪",
         vars: {
-            "--dash-bg-page": "#1A0439",
+            "--dash-bg-page": "#1b0932",
             "--dash-bg-widget": "rgba(255,255,255,0.92)",
             "--dash-bg-handle": "#ff0000",
             "--dash-navbars-bg": "rgba(255,255,255,0.68)",

@@ -2,6 +2,9 @@
 
 ## When there is a commit, allow me to edit it as needed and do not attempt to auto correct, you may provide suggestions but that is all
 
+- do NOT touch test.css ever unless said so in prompt
+- never include yourself as a Author nor Co-Author
+
 Quick orientation for a fresh Claude Code session. Deep architecture and
 feature detail is intentionally **not** duplicated here — see the references
 below so this file stays lean (it loads into context every session).
@@ -94,7 +97,7 @@ approach that tripped `react-hooks/set-state-in-effect`): client-only data is an
 - Project naming is unsettled: "Studyneant" vs "Learneant".
 - Per the README: check/update the Trello board before and after code changes.
 
-## .claude/CLAUDE-SES-NOTES/ — required for `/codebase-touchup`
+## .claude/CLAUDE-SES-NOTES/ — required for `/codebase-touchup`and large changes
 
 `CLAUDE-SES-NOTES/` holds one note file per `/codebase-touchup` session (and other audit/cleanup sessions), recording findings, suggestions, flags, and errors from that run.
 

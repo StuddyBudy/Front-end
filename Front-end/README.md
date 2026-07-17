@@ -1,6 +1,6 @@
 # Studyneant
 
-> Also known as **"Learneant"** — the name isn't official yet.
+> Also known as **"Learneant"** and **"StuddyBuddy"** — the name isn't official yet.
 
 Studyneant is a student study-tools web app: a **dashboard**, **calendar**, **GPA calculator**, **notes**, **to-do list**, and **theme settings**, all in one place.
 
