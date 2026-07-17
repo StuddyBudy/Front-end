@@ -10,13 +10,9 @@
     flex-direction: column;
     height: 100vh;
     overflow: hidden;
-    background-color: var(--dash-bg-page);
-    background-image: var(
-        --dash-bg-image,
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E")
-    );
-    font-family: var(--font-body);
-    color: var(--dash-text-primary);
+    background-color: var(--dash-bg-page, #16120e);
+    font-family: var(--font-body, "Outfit", sans-serif);
+    color: var(--dash-text-primary, #f0e8d8);
 }
 
 /* ── TOP BAR ─────────────────────────────────────────────────────────────────*/
@@ -187,6 +183,7 @@
     margin-bottom: 12px;
     margin-top: 28px;
 }
+
 .sectionLabel:first-child {
     margin-top: 0;
 }
@@ -197,66 +194,6 @@
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 14px;
     margin-bottom: 8px;
-}
-
-/* ── FOLDER CARD ─────────────────────────────────────────────────────────────*/
-.folderCard {
-    background: var(--dash-bg-widget);
-    border: 1px solid var(--dash-border);
-    border-radius: 14px;
-    overflow: hidden;
-    cursor: pointer;
-    transition:
-        border-color 0.2s,
-        transform 0.15s,
-        box-shadow 0.2s;
-    text-align: left;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-}
-.folderCard:hover {
-    border-color: var(--dash-border-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
-}
-
-.folderTab {
-    height: 8px;
-    width: 40%;
-    border-radius: 4px 4px 0 0;
-    margin: 0 0 0 14px;
-    position: relative;
-    top: 1px;
-}
-
-.folderBody {
-    padding: 14px 16px 16px;
-    flex: 1;
-    border-radius: 14px 14px 14px 14px;
-    background: var(--dash-bg-widget);
-}
-
-.folderIcon {
-    font-size: 1.6rem;
-    margin-bottom: 8px;
-    display: block;
-}
-
-.folderName {
-    font-family: var(--font-display);
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--dash-accent);
-    margin-bottom: 4px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.folderMeta {
-    font-size: 0.72rem;
-    color: var(--dash-text-muted);
 }
 
 /* ── NOTE CARD ───────────────────────────────────────────────────────────────*/
@@ -725,14 +662,6 @@
     caret-color: var(--dash-accent-warm);
     padding-top: 20px;
 
-    /* Lined paper effect via repeating gradient */
-    background-image: repeating-linear-gradient(
-        to bottom,
-        transparent,
-        transparent calc(2em - 1px),
-        rgba(223, 208, 184, 0.06) calc(2em - 1px),
-        rgba(223, 208, 184, 0.06) 2em
-    );
     background-attachment: local;
 }
 .editorContent::placeholder {
@@ -754,7 +683,6 @@
     opacity: 1;
 }
 
-/* ── NO NOTE SELECTED ────────────────────────────────────────────────────────*/
 .noNoteState {
     flex: 1;
     display: flex;
@@ -766,7 +694,4 @@
 }
 .noNoteEmoji {
     font-size: 3rem;
-}
-.noNoteText {
-    font-size: 0.88rem;
 }

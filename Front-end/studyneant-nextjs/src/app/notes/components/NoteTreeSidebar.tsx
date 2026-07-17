@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import type { NotesState } from "../types";
-import { makeNote, makeFolder, FOLDER_COLORS } from "../storage";
+import { makeNote, makeFolder } from "../storage";
 import s from "../Notes.module.css";
 
 type Props = {
@@ -38,14 +38,13 @@ export default function NoteTreeSidebar({
             return next;
         });
 
-    const openNote = (noteId: string) =>
-        router.push(`/notes/editor?id=${noteId}`);
+    const openNote = (noteId: string) => router.push(`/notes?id=${noteId}`);
 
     const handleNewNote = (folderId: string | null = null) => {
         const note = makeNote(folderId, "Untitled");
         const next = { ...state, notes: [...state.notes, note] };
         setState(next);
-        router.push(`/notes/editor?id=${note.id}`);
+        router.push(`/notes?id=${note.id}`);
     };
 
     const handleCreateFolder = () => {
@@ -54,9 +53,7 @@ export default function NoteTreeSidebar({
             setAddingFolder(false);
             return;
         }
-        const color =
-            FOLDER_COLORS[state.folders.length % FOLDER_COLORS.length];
-        const folder = makeFolder(name, color);
+        const folder = makeFolder(name);
         const next = { ...state, folders: [...state.folders, folder] };
         setState(next);
         setOpenFolders((prev) => new Set([...prev, folder.id]));
@@ -105,10 +102,7 @@ export default function NoteTreeSidebar({
                                 >
                                     ›
                                 </span>
-                                <span
-                                    className={s.folderDot}
-                                    style={{ background: folder.color }}
-                                />
+                                <span className={s.folderDot} />
                                 {folder.name}
                             </button>
 

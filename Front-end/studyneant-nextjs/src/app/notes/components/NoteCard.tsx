@@ -20,7 +20,7 @@ export default function NoteCard({ note, folders }: Props) {
     return (
         <button
             className={s.noteCard}
-            onClick={() => router.push(`/notes/editor?id=${note.id}`)}
+            onClick={() => router.push(`/notes?id=${note.id}`)}
         >
             <div className={s.noteCardTitle}>{note.title || "Untitled"}</div>
 
@@ -45,15 +45,7 @@ export default function NoteCard({ note, folders }: Props) {
                     {fmtDate(note.updatedAt)}
                 </span>
                 {folder && (
-                    <span
-                        className={s.noteCardFolder}
-                        style={{
-                            background: folder.color + "33",
-                            color: folder.color,
-                        }}
-                    >
-                        {folder.name}
-                    </span>
+                    <span className={s.noteCardFolder}>{folder.name}</span>
                 )}
             </div>
         </button>

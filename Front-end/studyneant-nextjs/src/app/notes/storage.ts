@@ -12,19 +12,16 @@ export const SEED_STATE: NotesState = {
         {
             id: "f1",
             name: "Calculus",
-            color: "#de8900",
             createdAt: NOW - 86400000 * 3,
         },
         {
             id: "f2",
             name: "Physics",
-            color: "#5b8dee",
             createdAt: NOW - 86400000 * 2,
         },
         {
             id: "f3",
             name: "Literature",
-            color: "#4caf78",
             createdAt: NOW - 86400000,
         },
     ],
@@ -40,7 +37,6 @@ export const SEED_STATE: NotesState = {
                 "• Power rule: d/dx(xⁿ) = nxⁿ⁻¹\n" +
                 "• Product rule: (uv)' = u'v + uv'\n" +
                 "• Chain rule: d/dx f(g(x)) = f'(g(x)) · g'(x)",
-            createdAt: NOW - 86400000 * 2,
             updatedAt: NOW - 3600000,
         },
         {
@@ -51,7 +47,6 @@ export const SEED_STATE: NotesState = {
                 "Integration is the reverse of differentiation.\n\n" +
                 "∫xⁿ dx = xⁿ⁺¹ / (n+1) + C\n\n" +
                 "Definite integral gives the area under a curve between two points.",
-            createdAt: NOW - 86400000,
             updatedAt: NOW - 7200000,
         },
         {
@@ -62,7 +57,6 @@ export const SEED_STATE: NotesState = {
                 "1st Law — An object at rest stays at rest unless acted on by a force.\n" +
                 "2nd Law — F = ma\n" +
                 "3rd Law — For every action there is an equal and opposite reaction.",
-            createdAt: NOW - 86400000,
             updatedAt: NOW - 1800000,
         },
         {
@@ -74,7 +68,6 @@ export const SEED_STATE: NotesState = {
                 "• Spaced repetition for memorisation\n" +
                 "• Teach the concept to someone else\n" +
                 "• Review notes within 24 hours",
-            createdAt: NOW - 3600000,
             updatedAt: NOW - 1800000,
         },
     ],
@@ -124,18 +117,6 @@ export function newId(): string {
     return `${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
 }
 
-// ── FOLDER COLOURS ────────────────────────────────────────────────────────────
-export const FOLDER_COLORS = [
-    "#de8900",
-    "#5b8dee",
-    "#4caf78",
-    "#a78bfa",
-    "#e05555",
-    "#e0a030",
-    "#f472b6",
-    "#22d3ee",
-];
-
 // ── DATE FORMATTER ────────────────────────────────────────────────────────────
 export function fmtDate(ts: number): string {
     const d = new Date(ts);
@@ -151,8 +132,8 @@ export function notePreview(content: string, chars = 80): string {
 }
 
 // ── FACTORY HELPERS ───────────────────────────────────────────────────────────
-export function makeFolder(name: string, color: string): Folder {
-    return { id: newId(), name, color, createdAt: Date.now() };
+export function makeFolder(name: string): Folder {
+    return { id: newId(), name, createdAt: Date.now() };
 }
 
 export function makeNote(folderId: string | null, title = "Untitled"): Note {
@@ -162,7 +143,6 @@ export function makeNote(folderId: string | null, title = "Untitled"): Note {
         folderId,
         title,
         content: "",
-        createdAt: now,
         updatedAt: now,
     };
 }
