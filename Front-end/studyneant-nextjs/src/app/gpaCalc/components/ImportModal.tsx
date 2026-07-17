@@ -156,8 +156,8 @@ export default function ImportModal({ state, setState, onClose }: Props) {
                         accept=".csv,text/csv"
                         style={{ display: "none" }}
                         onChange={(e) => {
-                            const f = e.target.files?.[0];
-                            if (f) handleFile(f);
+                            const file = e.target.files?.[0];
+                            if (file) handleFile(file);
                         }}
                     />
 

@@ -24,6 +24,12 @@ export default function WhatIfPanel({ course, state, onClose }: Props) {
     const [hypoAssigns, setHypoAssigns] = useState<WhatIfAssignment[]>([]);
 
     // ── Calculate what-if average ─────────────────────────────────────────────
+    // Same weighted-category math as courseAverage() in ../utils, but computed
+    // over a merged item list per category: real assignments (with any score
+    // overridden via `overrides`; a null override removes it from the calc)
+    // plus the user's hypothetical assignments. Each category contributes its
+    // points-percentage scaled by cat.weight; empty/zero-total categories are
+    // skipped and the result is normalized by the weight actually used.
     const whatIfAvg = useMemo(() => {
         let totalWeightedPct = 0;
         let totalWeight = 0;
@@ -53,10 +59,16 @@ export default function WhatIfPanel({ course, state, onClose }: Props) {
             }
 
             if (catItems.length === 0) continue;
-            const e = catItems.reduce((s, a) => s + a.earned * a.mult, 0);
-            const t = catItems.reduce((s, a) => s + a.total * a.mult, 0);
-            if (t === 0) continue;
-            totalWeightedPct += (e / t) * 100 * cat.weight;
+            const earnedSum = catItems.reduce(
+                (sum, item) => sum + item.earned * item.mult,
+                0,
+            );
+            const totalSum = catItems.reduce(
+                (sum, item) => sum + item.total * item.mult,
+                0,
+            );
+            if (totalSum === 0) continue;
+            totalWeightedPct += (earnedSum / totalSum) * 100 * cat.weight;
             totalWeight += cat.weight;
         }
         return totalWeight === 0 ? null : totalWeightedPct / totalWeight;
@@ -110,10 +122,10 @@ export default function WhatIfPanel({ course, state, onClose }: Props) {
         id in overrides ? overrides[id] : original;
 
     const setOverride = (id: string, val: string) => {
-        const n = val === "" ? null : parseFloat(val);
+        const parsed = val === "" ? null : parseFloat(val);
         setOverrides((prev) => ({
             ...prev,
-            [id]: isNaN(n as number) ? null : n,
+            [id]: isNaN(parsed as number) ? null : parsed,
         }));
     };
 

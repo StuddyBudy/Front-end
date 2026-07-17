@@ -24,8 +24,8 @@ export const DEFAULT_LAYOUT: LayoutItem[] = [
 export function lsGet<T>(key: string, fallback: T): T {
     if (typeof window === "undefined") return fallback;
     try {
-        const s = localStorage.getItem(key);
-        return s ? (JSON.parse(s) as T) : fallback;
+        const raw = localStorage.getItem(key);
+        return raw ? (JSON.parse(raw) as T) : fallback;
     } catch {
         return fallback;
     }

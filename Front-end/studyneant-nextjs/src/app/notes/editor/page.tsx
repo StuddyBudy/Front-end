@@ -8,7 +8,7 @@ import { useStorageStore } from "@/hooks/storageStore";
 import NotesTopBar from "../components/NotesTopBar";
 import NoteTreeSidebar from "../components/NoteTreeSidebar";
 import NoteEditor from "../components/NoteEditor";
-import BottomNav from "../../../components/bottomNav/BottomNav";
+import BottomNav from "@/components/bottomNav/BottomNav";
 
 import s from "../Notes.module.css";
 

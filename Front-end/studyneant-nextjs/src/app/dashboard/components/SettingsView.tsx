@@ -131,22 +131,22 @@ function ThemePreview({ theme }: { theme: ThemeDef }) {
 
 function asHex(value: string | undefined, fallback: string): string {
     if (!value) return fallback;
-    const v = value.trim();
-    return /^#([\da-f]{3}|[\da-f]{6}|[\da-f]{8})$/i.test(v)
-        ? v.slice(0, 7)
+    const trimmed = value.trim();
+    return /^#([\da-f]{3}|[\da-f]{6}|[\da-f]{8})$/i.test(trimmed)
+        ? trimmed.slice(0, 7)
         : fallback;
 }
 
 function parseRgbString(value: string): [number, number, number] | null {
-    const m = value
+    const match = value
         .trim()
         .match(
             /^rgba?\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})(?:\s*,\s*[\d.]+)?\s*\)$/i,
         );
-    if (!m) return null;
-    const r = Number.parseInt(m[1], 10);
-    const g = Number.parseInt(m[2], 10);
-    const b = Number.parseInt(m[3], 10);
+    if (!match) return null;
+    const r = Number.parseInt(match[1], 10);
+    const g = Number.parseInt(match[2], 10);
+    const b = Number.parseInt(match[3], 10);
     if ([r, g, b].some((n) => Number.isNaN(n) || n < 0 || n > 255)) {
         return null;
     }
@@ -189,7 +189,9 @@ function gradientImage(
         "top-right": { x: "82%", y: "18%", ox: "18%", oy: "82%" },
     };
 
-    const p = map[position];
+    const pos = map[position];
+    // 0.52 (vs the usual 0.5) biases mid-tone page backgrounds toward the
+    // light treatment, which looked better in practice for the glow colors.
     const isDark = luminance(bgPage) < 0.52;
     const glowColor = isDark
         ? rgbaFromHex(accentWarm, 0.2)
@@ -197,7 +199,7 @@ function gradientImage(
     const shadowColor = isDark ? "rgba(0,0,0,0.5)" : "rgba(120,120,120,0.16)";
     const edgeColor = isDark ? "rgba(0,0,0,0.42)" : "rgba(90,90,90,0.12)";
 
-    return `radial-gradient(circle at ${p.x} ${p.y}, ${glowColor}, transparent 44%), radial-gradient(circle at ${p.ox} ${p.oy}, ${shadowColor}, transparent 40%), radial-gradient(ellipse at center, transparent 58%, ${edgeColor} 100%)`;
+    return `radial-gradient(circle at ${pos.x} ${pos.y}, ${glowColor}, transparent 44%), radial-gradient(circle at ${pos.ox} ${pos.oy}, ${shadowColor}, transparent 40%), radial-gradient(ellipse at center, transparent 58%, ${edgeColor} 100%)`;
 }
 
 function buildVars(
@@ -205,6 +207,9 @@ function buildVars(
     radicalBg: boolean,
     gradientPos: GradientPos,
 ): Record<string, string> {
+    // The two-digit suffixes are hex alpha channels appended to the solid
+    // draft colors (ee≈93%, 70≈44%, 47≈28%, 40≈25%, 38≈22%, 1a≈10%) — they
+    // set each token's translucency without needing separate draft fields.
     return {
         "--dash-bg-page": draft.bgPage,
         "--dash-bg-widget": withAlpha(draft.bgWidget, "ee"),
@@ -266,6 +271,12 @@ function initDraft(theme: ThemeDef): BuilderDraft {
     };
 }
 
+/**
+ * Reverse of gradientImage(): recovers the GradientPos preset from a saved
+ * --dash-bg-image value by matching the "circle at X% Y%" coordinate pairs
+ * that gradientImage() (and older theme presets) bake into the string.
+ * Must stay in sync with the coordinate map in gradientImage().
+ */
 function inferGradientPos(bgImage: string | undefined): GradientPos {
     if (!bgImage || bgImage === "none") return "center";
     if (bgImage.includes("18% 82%") || bgImage.includes("14% 84%"))
@@ -302,18 +313,24 @@ function rgbToHex(r: number, g: number, b: number): string {
     return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
 }
 
+/** Linear RGB blend of two hex colors; weight 0 → all `a`, 1 → all `b`. */
 function mixHex(a: string, b: string, weight: number): string {
     const ar = hexToRgb(a);
     const br = hexToRgb(b);
     if (!ar || !br) return a;
-    const w = Math.max(0, Math.min(1, weight));
+    const mix = Math.max(0, Math.min(1, weight));
     return rgbToHex(
-        ar[0] * (1 - w) + br[0] * w,
-        ar[1] * (1 - w) + br[1] * w,
-        ar[2] * (1 - w) + br[2] * w,
+        ar[0] * (1 - mix) + br[0] * mix,
+        ar[1] * (1 - mix) + br[1] * mix,
+        ar[2] * (1 - mix) + br[2] * mix,
     );
 }
 
+/**
+ * Approximate perceived brightness (0–1) using Rec. 709 weights on raw
+ * 0–255 channels — deliberately skips sRGB linearization since it's only
+ * used for coarse dark-vs-light decisions, not contrast math.
+ */
 function luminance(hex: string): number {
     const rgb = hexToRgb(hex);
     if (!rgb) return 0.5;

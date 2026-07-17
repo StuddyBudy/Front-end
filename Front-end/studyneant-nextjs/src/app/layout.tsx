@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, Outfit } from "next/font/google";
 import "./globals.css";
 
-import ThemeApplier from "../components/themeApplier/ThemeApplier";
+import ThemeApplier from "@/components/themeApplier/ThemeApplier";
 
 // ── PRE-PAINT THEME REPLAY ────────────────────────────────────────────────────
 // Inlined into <head> so it runs before first paint on a hard refresh: replays

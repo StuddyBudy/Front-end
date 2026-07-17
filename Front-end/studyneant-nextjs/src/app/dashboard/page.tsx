@@ -6,8 +6,8 @@ import type { LayoutItem } from "./types";
 import { DEFAULT_LAYOUT, layoutStore } from "./storage";
 import { useStorageStore } from "@/hooks/storageStore";
 
-import TopBar from "../../components/top-bar/top-bar";
-import BottomNav from "../../components/bottomNav/BottomNav";
+import TopBar from "@/components/top-bar/top-bar";
+import BottomNav from "@/components/bottomNav/BottomNav";
 import DashboardView from "./components/DashboardView";
 
 import s from "./Dashboard.module.css";
@@ -41,8 +41,8 @@ export default function DashboardPage() {
     useEffect(() => {
         if (!mainRef.current) return;
         const ro = new ResizeObserver((entries) => {
-            const w = entries[0].contentRect.width;
-            if (w > 0) setGridWidth(w - 2);
+            const width = entries[0].contentRect.width;
+            if (width > 0) setGridWidth(width - 2);
         });
         ro.observe(mainRef.current);
         return () => ro.disconnect();

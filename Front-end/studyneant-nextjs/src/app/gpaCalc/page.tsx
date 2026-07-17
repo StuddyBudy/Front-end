@@ -14,7 +14,7 @@ import CourseDetailModal from "./components/CourseDetailModal";
 import ImportModal from "./components/ImportModal";
 import AddCourseModal from "./components/AddCourseModal";
 
-import BottomNav from "../../components/bottomNav/BottomNav";
+import BottomNav from "@/components/bottomNav/BottomNav";
 
 import s from "./GpaCalc.module.css";
 

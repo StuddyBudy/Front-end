@@ -17,6 +17,11 @@ type Props = {
     setState: (next: TodoState) => void;
 };
 
+// ── TASK GROUP ────────────────────────────────────────────────────────────────
+// One collapsible list section: header (color bar, progress %), active tasks,
+// inline add/edit rows, per-task detail panel (priority/due/move/note/subtasks),
+// and a collapsible "Completed" section. All mutations flow through setState on
+// the whole TodoState — this component owns only UI state (open/editing/etc.).
 export default function TaskGroup({ list, state, setState }: Props) {
     const [isOpen, setIsOpen] = useState(true);
     const [completedOpen, setCompletedOpen] = useState(false);
@@ -45,7 +50,7 @@ export default function TaskGroup({ list, state, setState }: Props) {
     const allTasks = itemsForList(state, list.id);
     const active = allTasks.filter((t) => !t.done);
     const completed = allTasks.filter((t) => t.done);
-    const pct =
+    const completedPct =
         allTasks.length > 0
             ? Math.round((completed.length / allTasks.length) * 100)
             : 0;
@@ -133,8 +138,8 @@ export default function TaskGroup({ list, state, setState }: Props) {
         const task = state.items.find((i) => i.id === taskId);
         if (!task) return;
         updateItem(taskId, {
-            subTasks: task.subTasks.map((s) =>
-                s.id === subId ? { ...s, done: !s.done } : s,
+            subTasks: task.subTasks.map((sub) =>
+                sub.id === subId ? { ...sub, done: !sub.done } : sub,
             ),
         });
     };
@@ -148,7 +153,7 @@ export default function TaskGroup({ list, state, setState }: Props) {
         const task = state.items.find((i) => i.id === taskId);
         if (!task) return;
         updateItem(taskId, {
-            subTasks: task.subTasks.filter((s) => s.id !== subId),
+            subTasks: task.subTasks.filter((sub) => sub.id !== subId),
         });
     };
 
@@ -156,9 +161,9 @@ export default function TaskGroup({ list, state, setState }: Props) {
     const renderTask = (task: TodoItem, idx: number) => {
         const isExpanded = expandedId === task.id;
         const isEditing = editingId === task.id;
-        const pCfg = PRIORITY_CONFIG[task.priority];
+        const priorityCfg = PRIORITY_CONFIG[task.priority];
         const overdue = isOverdue(task.dueDate);
-        const subDone = task.subTasks.filter((s) => s.done).length;
+        const subDone = task.subTasks.filter((sub) => sub.done).length;
         const subTotal = task.subTasks.length;
 
         return (
@@ -172,8 +177,8 @@ export default function TaskGroup({ list, state, setState }: Props) {
                     ].join(" ")}
                     onClick={() => {
                         if (!isEditing)
-                            setExpandedId((p) =>
-                                p === task.id ? null : task.id,
+                            setExpandedId((prev) =>
+                                prev === task.id ? null : task.id,
                             );
                     }}
                 >
@@ -211,10 +216,10 @@ export default function TaskGroup({ list, state, setState }: Props) {
                     {task.priority !== "none" && (
                         <span
                             className={s.priorityFlag}
-                            style={{ color: pCfg.color }}
-                            title={pCfg.label}
+                            style={{ color: priorityCfg.color }}
+                            title={priorityCfg.label}
                         >
-                            {pCfg.flag}
+                            {priorityCfg.flag}
                         </span>
                     )}
 
@@ -490,7 +495,9 @@ export default function TaskGroup({ list, state, setState }: Props) {
                 <span className={s.taskGroupName}>{list.name}</span>
                 <span className={s.taskGroupCount}>{active.length}</span>
                 {allTasks.length > 0 && (
-                    <span className={s.taskGroupProgress}>{pct}%</span>
+                    <span className={s.taskGroupProgress}>
+                        {completedPct}%
+                    </span>
                 )}
             </div>
 
@@ -503,7 +510,7 @@ export default function TaskGroup({ list, state, setState }: Props) {
                                 <div
                                     className={s.progressFill}
                                     style={{
-                                        width: `${pct}%`,
+                                        width: `${completedPct}%`,
                                         background: list.color,
                                     }}
                                 />

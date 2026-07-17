@@ -35,13 +35,13 @@ export default function MonthView({
 
     // Trailing days from previous month
     for (let i = firstWeekday - 1; i >= 0; i--) {
-        const d = daysInPrev - i;
-        const pm = month === 0 ? 12 : month;
-        const py = month === 0 ? year - 1 : year;
+        const dayNum = daysInPrev - i;
+        const prevMonth = month === 0 ? 12 : month; // 1-based for dateStr
+        const prevYear = month === 0 ? year - 1 : year;
         cells.push({
-            date: d,
+            date: dayNum,
             curMonth: false,
-            dateStr: `${py}-${String(pm).padStart(2, "0")}-${String(d).padStart(2, "0")}`,
+            dateStr: `${prevYear}-${String(prevMonth).padStart(2, "0")}-${String(dayNum).padStart(2, "0")}`,
         });
     }
 
@@ -56,13 +56,13 @@ export default function MonthView({
 
     // Leading days from next month (fill to 42)
     while (cells.length < 42) {
-        const d = cells.length - daysInMonth - firstWeekday + 1;
-        const nm = month === 11 ? 1 : month + 2;
-        const ny = month === 11 ? year + 1 : year;
+        const dayNum = cells.length - daysInMonth - firstWeekday + 1;
+        const nextMonth = month === 11 ? 1 : month + 2; // 1-based for dateStr
+        const nextYear = month === 11 ? year + 1 : year;
         cells.push({
-            date: d,
+            date: dayNum,
             curMonth: false,
-            dateStr: `${ny}-${String(nm).padStart(2, "0")}-${String(d).padStart(2, "0")}`,
+            dateStr: `${nextYear}-${String(nextMonth).padStart(2, "0")}-${String(dayNum).padStart(2, "0")}`,
         });
     }
 

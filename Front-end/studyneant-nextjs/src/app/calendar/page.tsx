@@ -1,19 +1,18 @@
 "use client";
 
 import { useState } from "react";
+
+import type { CalEvent } from "./types";
 import { useCalendar } from "./hooks/useCalendar";
 import { makeEvent, toYMD } from "./storage";
-// import { useTheme } from "@/lib/themes";
-import type { CalEvent } from "./types";
 
 import CalTopBar from "./components/CallTopBar";
-
 import CalSidebar from "./components/CalSidebar";
 import MonthView from "./components/MonthView";
 import WeekView from "./components/WeekView";
 import EventDetailPopover from "./components/EventDetailPopover";
 import EventModal from "./components/EventModal";
-import BottomNav from "../../components/bottomNav/BottomNav";
+import BottomNav from "@/components/bottomNav/BottomNav";
 
 import s from "./Calendar.module.css";
 

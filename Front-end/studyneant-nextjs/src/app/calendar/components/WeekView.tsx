@@ -9,16 +9,17 @@ import s from "../Calendar.module.css";
 const HOUR_HEIGHT = 56; // px per hour slot — matches CSS
 const HOURS_LABEL = Array.from({ length: 24 }, (_, i) => {
     if (i === 0) return ""; // midnight label hidden (matches TimeTree style)
-    const h = i % 12 || 12;
+    const hour12 = i % 12 || 12; // 0/12 map to 12 on a 12-hour clock
     const ampm = i < 12 ? " AM" : " PM";
-    return `${h}${ampm}`;
+    return `${hour12}${ampm}`;
 });
 const DAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 // ── HELPERS ───────────────────────────────────────────────────────────────────
-function timeToMinutes(t: string): number {
-    const [h, m] = t.split(":").map(Number);
-    return h * 60 + (m || 0);
+/** "HH:MM" → minutes past midnight. */
+function timeToMinutes(time: string): number {
+    const [hours, minutes] = time.split(":").map(Number);
+    return hours * 60 + (minutes || 0);
 }
 
 function eventTop(startTime: string): number {
@@ -69,9 +70,9 @@ export default function WeekView({
 
     // Current time line position
     const nowTop = (() => {
-        const h = today.getHours();
-        const m = today.getMinutes();
-        return ((h + m / 60) / 1) * HOUR_HEIGHT;
+        const hours = today.getHours();
+        const minutes = today.getMinutes();
+        return ((hours + minutes / 60) / 1) * HOUR_HEIGHT;
     })();
 
     return (

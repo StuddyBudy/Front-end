@@ -7,7 +7,7 @@ import { useStorageStore } from "@/hooks/storageStore";
 
 import NotesTopBar from "./components/NotesTopBar";
 import NotesDashboard from "./components/NotesDashboard";
-import BottomNav from "../../components/bottomNav/BottomNav";
+import BottomNav from "@/components/bottomNav/BottomNav";
 
 export default function NotesPage() {
     const router = useRouter();

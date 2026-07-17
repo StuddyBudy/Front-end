@@ -1,4 +1,4 @@
-import type { ThemeDef } from "../dashboard/types";
+import type { ThemeDef } from "@/app/dashboard/types";
 
 // ── BUILT-IN THEMES ───────────────────────────────────────────────────────────
 export const BUILT_IN_THEMES: Record<string, ThemeDef> = {

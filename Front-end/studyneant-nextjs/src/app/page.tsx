@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import Navbar from "./dashboard/components/NavBar";
-import AuthModal from "../components/authModal/AuthModal";
+import Navbar from "@/app/dashboard/components/NavBar";
+import AuthModal from "@/components/authModal/AuthModal";
 import styles from "./page.module.css";
 
 // ── LANDING PAGE ──────────────────────────────────────────────────────────────

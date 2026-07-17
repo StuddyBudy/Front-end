@@ -23,6 +23,10 @@ type Props = {
 };
 
 // ── COMPONENT ─────────────────────────────────────────────────────────────────
+// Sidebar of todo lists: visibility checkboxes (which lists show in the main
+// view), inline rename, per-list color/emoji popovers, a right-click context
+// menu, and the new-list form. List CRUD flows through setState (todoStore.set);
+// visibility is owned by the parent via visibleListIds + the onToggle callbacks.
 export default function ListSidebar({
     state,
     setState,
@@ -62,9 +66,8 @@ export default function ListSidebar({
         if (editingId) editInputRef.current?.focus();
     }, [editingId]);
 
-    // ── FIX (line 38 equivalent): Close any open popover when user clicks
-    //    OUTSIDE it. Uses the ref to check containment instead of blindly
-    //    closing on any click. Uses MouseEvent typing to satisfy TypeScript.
+    // Close any open popover when the user clicks OUTSIDE it — refs check
+    // containment so clicks inside a popover don't dismiss it.
     const handleOutsideClick = useCallback((e: MouseEvent) => {
         const target = e.target as Node;
         if (colorPopRef.current && !colorPopRef.current.contains(target)) {
@@ -89,8 +92,6 @@ export default function ListSidebar({
 
     // ── Handlers ──────────────────────────────────────────────────────────────
 
-    // FIX (line 52 equivalent): restructured so state updates are synchronous
-    // and the auto-toggle call uses the new list's id directly (no stale closure).
     const handleCreateList = () => {
         const name = newName.trim();
         if (!name) {
@@ -204,12 +205,14 @@ export default function ListSidebar({
                                 }}
                                 onContextMenu={(e) => {
                                     e.preventDefault();
-                                    setCtxMenuId((p) =>
-                                        p === list.id ? null : list.id,
+                                    setCtxMenuId((prev) =>
+                                        prev === list.id ? null : list.id,
                                     );
                                 }}
                             >
-                                {/* Drag handle */}
+                                {/* Drag handle — decorative only: reordering
+                                    is not implemented (lists[].order is set on
+                                    create/duplicate and never user-mutated) */}
                                 <span
                                     className={s.dragHandle}
                                     title="Drag to reorder"
@@ -240,8 +243,8 @@ export default function ListSidebar({
                                     title="Change emoji"
                                     onClick={(e) => {
                                         e.stopPropagation();
-                                        setEmojiPickerId((p) =>
-                                            p === list.id ? null : list.id,
+                                        setEmojiPickerId((prev) =>
+                                            prev === list.id ? null : list.id,
                                         );
                                         setColorPickerId(null);
                                     }}
@@ -256,8 +259,8 @@ export default function ListSidebar({
                                     title="Change colour"
                                     onClick={(e) => {
                                         e.stopPropagation();
-                                        setColorPickerId((p) =>
-                                            p === list.id ? null : list.id,
+                                        setColorPickerId((prev) =>
+                                            prev === list.id ? null : list.id,
                                         );
                                         setEmojiPickerId(null);
                                     }}

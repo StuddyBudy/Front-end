@@ -54,7 +54,7 @@ Each feature lives under `src/app/<feature>/` (App Router). The full convention 
 
 Shared (cross-feature) code:
 
-- `src/components/` — `authModal/`, `bottomNav/`, `sidebar/`, `top-bar/` (each `.tsx` + `.module.css`)
+- `src/components/` — `authModal/`, `bottomNav/`, `sidebar/`, `top-bar/` (each `.tsx` + `.module.css`), plus `themeApplier/` (`ThemeApplier.tsx`, no CSS module — added 2026-07-08: mounted globally in `app/layout.tsx`, whose inline `<head>` script replays the cached theme CSS vars before first paint so themes survive hard refreshes on subpages; reads the theme stores from `dashboard/storage.ts` and `applyTheme` from `settings/themes.ts`)
 - `src/hooks/` — `useClock.ts` (the only clock hook; returns `Date | null` — null until hydrated, by design), plus the store primitives `storageStore.ts` (`createStorageStore`/`useStorageStore`) and `useHydrated.ts` added 2026-07-06 (see Hydration rule below).
 - Shared types currently live in `src/app/dashboard/types.ts` (the duplicate `src/components/types.ts` was removed 2026-07-04; relocating is a restructure-task decision).
 
@@ -84,6 +84,22 @@ approach that tripped `react-hooks/set-state-in-effect`): client-only data is an
 - Expect a brief flash of default state — inherent to static export + client
   storage. The theme/layout stores live in `dashboard/storage.ts` and are shared
   by the dashboard and settings pages.
+
+## Code Standards
+
+- Use descriptive, human-readable variable/function names. No single letters
+  except conventional loop counters (`i`, `j`) and idiomatic throwaways in tiny
+  one-line callbacks (`(c) => c.id`, `d = new Date()`).
+- Prefer OOP (cohesive modules/classes, clear responsibilities) where it
+  genuinely fits — don't force it where a functional approach is cleaner; this
+  codebase is mostly functional React + plain helpers, and that's fine.
+- Document non-obvious functions and logic (date math, weighted-GPA math,
+  color math, hydration workarounds) with a short comment saying **why**, not
+  what. Well-commented exemplars: `gpaCalc/utils.ts`, `calendar/storage.ts`,
+  `hooks/storageStore.ts`.
+- Match the project's existing formatting: Prettier-style 4-space/double-quote,
+  `// ── SECTION ──…` banners, import groups ordered react/next → types +
+  stores/storage → components → CSS module (see `dashboard/page.tsx`).
 
 ## Gotchas (2026-07-01 audit, revised 2026-07-04)
 

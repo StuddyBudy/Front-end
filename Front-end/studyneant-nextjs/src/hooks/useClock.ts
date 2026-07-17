@@ -46,8 +46,8 @@ export function useClock(): Date | null {
 
 // ── getGreeting ───────────────────────────────────────────────────────────────
 export function getGreeting(d: Date): string {
-    const h = d.getHours();
-    if (h < 12) return "Good morning";
-    if (h < 17) return "Good afternoon";
+    const hour = d.getHours();
+    if (hour < 12) return "Good morning";
+    if (hour < 17) return "Good afternoon";
     return "Good evening";
 }

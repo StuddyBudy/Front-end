@@ -2,21 +2,21 @@
 
 import { useMemo } from "react";
 
-import type { ThemeDef } from "../dashboard/types";
+import type { ThemeDef } from "@/app/dashboard/types";
 import { BUILT_IN_THEMES } from "./themes";
 import {
     themeIdStore,
     customThemesStore,
     builtInOverridesStore,
     deletedBuiltInIdsStore,
-} from "../dashboard/storage";
+} from "@/app/dashboard/storage";
 import { useStorageStore } from "@/hooks/storageStore";
 
-import TopBar from "../../components/top-bar/top-bar";
+import TopBar from "@/components/top-bar/top-bar";
 import SettingsView from "@/app/dashboard/components/SettingsView";
-import BottomNav from "../../components/bottomNav/BottomNav";
+import BottomNav from "@/components/bottomNav/BottomNav";
 
-import s from "../dashboard/Dashboard.module.css";
+import s from "@/app/dashboard/Dashboard.module.css";
 
 function normalizeThemeName(name: string): string {
     return name.trim().toLowerCase();
@@ -38,9 +38,10 @@ function ensureUniqueThemeName(
 
     if (!normalizedUsed.has(normalizeThemeName(fallback))) return fallback;
 
-    let n = 2;
-    while (normalizedUsed.has(normalizeThemeName(`${fallback} (${n})`))) n++;
-    return `${fallback} (${n})`;
+    let suffix = 2;
+    while (normalizedUsed.has(normalizeThemeName(`${fallback} (${suffix})`)))
+        suffix++;
+    return `${fallback} (${suffix})`;
 }
 
 export default function SettingsPage() {
