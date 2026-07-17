@@ -73,8 +73,6 @@ export default function NoteEditor({ note, state, setState }: Props) {
                         <span
                             className={s.noteCardFolder}
                             style={{
-                                background: folder.color + "33",
-                                color: folder.color,
                                 padding: "2px 8px",
                                 borderRadius: 99,
                                 fontSize: "0.70rem",

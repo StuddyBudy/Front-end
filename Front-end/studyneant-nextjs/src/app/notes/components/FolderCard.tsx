@@ -24,7 +24,7 @@ export default function FolderCard({
             onClick={onClick}
         >
             {/* Coloured tab */}
-            <div className={s.folderTab} style={{ background: folder.color }} />
+            <div className={s.folderTab} />
             <div className={s.folderBody}>
                 <div
                     style={{

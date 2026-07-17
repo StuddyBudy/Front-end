@@ -3,9 +3,10 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import type { NotesState, Folder } from "../types";
-import { makeFolder, makeNote, FOLDER_COLORS } from "../storage";
+import { makeFolder, makeNote } from "../storage";
 import FolderCard from "./FolderCard";
 import NoteCard from "./NoteCard";
+import Sidebar from "./NoteTreeSidebar";
 import s from "../Notes.module.css";
 
 type Props = {
@@ -28,7 +29,6 @@ export default function NotesDashboard({
 
     // New-folder form values
     const [folderName, setFolderName] = useState("");
-    const [folderColor, setFolderColor] = useState(FOLDER_COLORS[0]);
 
     // Local trigger so the "New folder" card inside the grid also opens the modal
     const [localModalOpen, setLocalModalOpen] = useState(false);
@@ -51,7 +51,6 @@ export default function NotesDashboard({
     // ── Handlers ─────────────────────────────────────────────────────────────
     const openFolderModal = () => {
         setFolderName("");
-        setFolderColor(FOLDER_COLORS[0]);
         setLocalModalOpen(true);
     };
 
@@ -66,7 +65,7 @@ export default function NotesDashboard({
             closeModal();
             return;
         }
-        const folder = makeFolder(name, folderColor);
+        const folder = makeFolder(name);
         const next = { ...state, folders: [...state.folders, folder] };
         setState(next);
         setExpandedFolders((prev) => new Set([...prev, folder.id]));
@@ -77,14 +76,17 @@ export default function NotesDashboard({
         const note = makeNote(folderId, "Untitled");
         const next = { ...state, notes: [...state.notes, note] };
         setState(next);
-        router.push(`/notes/editor?id=${note.id}`);
+        router.push(`/notes?id=${note.id}`);
     };
 
     const looseNotes = state.notes.filter((n) => n.folderId === null);
     const showModal = folderModalOpen || localModalOpen;
 
     return (
-        <>
+        <div className="grid grid-template-columns grid-cols-[400px-1fr]">
+            <aside>
+                <Sidebar activeNoteId="0" state={state} setState={setState} />
+            </aside>
             <main className={s.dashMain}>
                 {/* ── FOLDERS ── */}
                 <p className={s.sectionLabel}>Folders</p>
@@ -201,17 +203,6 @@ export default function NotesDashboard({
                             }}
                         />
 
-                        <div className={s.colorRow}>
-                            {FOLDER_COLORS.map((c) => (
-                                <div
-                                    key={c}
-                                    className={`${s.colorSwatch} ${folderColor === c ? s.colorSwatchActive : ""}`}
-                                    style={{ background: c }}
-                                    onClick={() => setFolderColor(c)}
-                                />
-                            ))}
-                        </div>
-
                         <div className={s.modalBtns}>
                             <button
                                 className={s.modalBtnGhost}
@@ -229,6 +220,6 @@ export default function NotesDashboard({
                     </div>
                 </div>
             )}
-        </>
+        </div>
     );
 }
