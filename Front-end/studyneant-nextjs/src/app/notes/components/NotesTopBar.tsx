@@ -6,18 +6,10 @@ import AppDrawer, { HamburgerBtn } from "@/components/sidebar/Sidebar";
 import s from "../Notes.module.css";
 
 type Props = {
-    mode: "dashboard" | "editor";
-    noteTitle?: string;
-    onNewNote?: () => void;
-    onNewFolder?: () => void;
+    noteTitle: string;
 };
 
-export default function NotesTopBar({
-    mode,
-    noteTitle,
-    onNewNote,
-    onNewFolder,
-}: Props) {
+export default function NotesTopBar({ noteTitle }: Props) {
     const router = useRouter();
     const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -25,52 +17,26 @@ export default function NotesTopBar({
         <>
             <header className={s.topBar}>
                 <div className={s.topBarLeft}>
-                    {/* Hamburger → shared app-wide nav drawer */}
                     <HamburgerBtn
                         open={drawerOpen}
                         onClick={() => setDrawerOpen((o) => !o)}
                     />
 
-                    {mode === "editor" ? (
-                        <button
-                            className={s.backBtn}
-                            onClick={() => router.push("/notes")}
-                        >
-                            ← Back
-                        </button>
-                    ) : (
-                        <span className={s.topBarTitle}>📝 Notes</span>
-                    )}
+                    <button
+                        className={s.backBtn}
+                        onClick={() => router.push("/notes")}
+                    >
+                        ← Back
+                    </button>
                 </div>
 
                 <div className={s.topBarCenter}>
-                    {mode === "editor" && noteTitle && (
+                    {noteTitle && (
                         <span className={s.noteTitle}>{noteTitle}</span>
                     )}
                 </div>
 
                 <div className={s.topBarRight}>
-                    {mode === "dashboard" && (
-                        <>
-                            {onNewFolder && (
-                                <button
-                                    className={s.iconBtn}
-                                    onClick={onNewFolder}
-                                    title="New folder"
-                                >
-                                    📁
-                                </button>
-                            )}
-                            {onNewNote && (
-                                <button
-                                    className={s.newNoteBtn}
-                                    onClick={onNewNote}
-                                >
-                                    + New Note
-                                </button>
-                            )}
-                        </>
-                    )}
                     <div className={s.profileAvatar}>
                         <svg
                             width="16"
@@ -84,7 +50,6 @@ export default function NotesTopBar({
                 </div>
             </header>
 
-            {/* Shared navigation drawer */}
             {drawerOpen && <AppDrawer onClose={() => setDrawerOpen(false)} />}
         </>
     );

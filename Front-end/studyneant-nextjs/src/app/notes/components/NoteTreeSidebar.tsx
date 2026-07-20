@@ -19,14 +19,11 @@ export default function NoteTreeSidebar({
 }: Props) {
     const router = useRouter();
 
-    // Which folders are expanded
     const [openFolders, setOpenFolders] = useState<Set<string>>(() => {
-        // Auto-expand the folder containing the active note
         const note = state.notes.find((n) => n.id === activeNoteId);
         return note?.folderId ? new Set([note.folderId]) : new Set();
     });
 
-    // Inline new-folder creation
     const [addingFolder, setAddingFolder] = useState(false);
     const [newFolderName, setNewFolderName] = useState("");
 
@@ -160,7 +157,6 @@ export default function NoteTreeSidebar({
                     />
                 )}
 
-                {/* ── LOOSE NOTES ── */}
                 {looseNotes.length > 0 && (
                     <>
                         <p className={s.treeLooseLabel}>Quick Notes</p>
