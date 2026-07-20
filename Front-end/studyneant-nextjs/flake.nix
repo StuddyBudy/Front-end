@@ -16,6 +16,7 @@
         git
         nodejs
         pnpm
+        typescript-go
       ];
     };
   };
