@@ -1,14 +1,8 @@
-/* ─────────────────────────────────────────────────────────────────────────────
-   Notes.module.css
-   Scoped styles for the entire Notes section. Uses --dash-* CSS variables
-   so the active dashboard theme controls every colour automatically.
-   ───────────────────────────────────────────────────────────────────────────── */
-
 /* ── PAGE SHELL ──────────────────────────────────────────────────────────────*/
 .shell {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 100dvh;
     overflow: hidden;
     background-color: var(--dash-bg-page, #16120e);
     font-family: var(--font-body, "Outfit", sans-serif);

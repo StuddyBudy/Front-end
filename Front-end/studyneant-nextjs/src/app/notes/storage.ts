@@ -101,9 +101,6 @@ export function saveNotes(state: NotesState): void {
 }
 
 // ── STORE ─────────────────────────────────────────────────────────────────────
-// Shared by /notes and /notes/editor. The prerender/hydration snapshot is the
-// empty state (matches the baked HTML); persisted/seeded notes arrive right
-// after hydration.
 export const EMPTY_NOTES_STATE: NotesState = { folders: [], notes: [] };
 
 export const notesStore = createStorageStore<NotesState>({

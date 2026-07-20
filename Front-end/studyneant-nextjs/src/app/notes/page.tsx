@@ -12,12 +12,12 @@ import BottomNav from "@/components/bottomNav/BottomNav";
 
 import s from "./Notes.module.css";
 
-export default function NoteEditorPage() {
+export default function () {
     return (
-        <Suspense fallback={null}>
+        <>
             <NoteEditorContent />
             <BottomNav />
-        </Suspense>
+        </>
     );
 }
 
@@ -25,17 +25,14 @@ function NoteEditorContent() {
     const searchParams = useSearchParams();
     const noteId = searchParams.get("id") ?? "";
 
-    // Same notesStore as /notes — the hydration snapshot is empty on both
-    // sides, the persisted/seeded notes arrive right after hydration, and
-    // writes persist through the store (see notes/storage.ts).
     const [state, setState] = useStorageStore(notesStore);
 
     const activeNote = state.notes.find((n) => n.id === noteId);
 
     return (
-        <Suspense fallback={null}>
+        <Suspense fallback={"Note Loading"}>
             <div className={s.shell} suppressHydrationWarning>
-                <NotesTopBar mode="editor" noteTitle={activeNote?.title} />
+                <NotesTopBar noteTitle={activeNote?.title ?? ""} />
                 <div className={s.body}>
                     <NoteTreeSidebar
                         state={state}
