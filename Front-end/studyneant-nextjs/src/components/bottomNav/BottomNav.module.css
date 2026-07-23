@@ -35,7 +35,7 @@
 }
 .bnavItem:hover {
     color: var(--dash-text-primary);
-    background: var(--dash-nav-hover-bg, rgba(255, 255, 255, 0.05));
+    background: var(--dash-nav-hover-bg);
 }
 .bnavItemActive {
     color: var(--dash-accent-warm);
@@ -48,7 +48,7 @@
     height: 38px;
     border-radius: 50%;
     background: var(--dash-accent-warm);
-    color: var(--dash-btn-text, #111);
+    color: var(--dash-btn-text);
     border: none;
     font-size: 1.4rem;
     font-weight: bold;

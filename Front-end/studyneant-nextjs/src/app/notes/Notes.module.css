@@ -10,13 +10,13 @@
     flex-direction: column;
     height: 100vh;
     overflow: hidden;
-    background-color: var(--dash-bg-page, #16120e);
+    background-color: var(--dash-bg-page);
     background-image: var(
         --dash-bg-image,
         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E")
     );
-    font-family: var(--font-body, "Outfit", sans-serif);
-    color: var(--dash-text-primary, #f0e8d8);
+    font-family: var(--font-body);
+    color: var(--dash-text-primary);
 }
 
 /* ── TOP BAR ─────────────────────────────────────────────────────────────────*/
@@ -27,7 +27,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 20px;
-    border-bottom: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border-bottom: 1px solid var(--dash-border);
     background: var(--dash-topbar-bg, transparent);
     backdrop-filter: blur(12px);
     gap: 16px;
@@ -45,10 +45,10 @@
     align-items: center;
     gap: 6px;
     padding: 6px 12px;
-    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border: 1px solid var(--dash-border);
     border-radius: 8px;
     background: rgba(255, 255, 255, 0.04);
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
     font-family: var(--font-body);
     font-size: 0.8rem;
     font-weight: 500;
@@ -60,15 +60,15 @@
 }
 .backBtn:hover {
     background: rgba(255, 255, 255, 0.08);
-    color: var(--dash-text-primary, #f0e8d8);
-    border-color: var(--dash-border-hover, rgba(223, 208, 184, 0.26));
+    color: var(--dash-text-primary);
+    border-color: var(--dash-border-hover);
 }
 
 .topBarTitle {
-    font-family: var(--font-display, "Cormorant Garamond", serif);
+    font-family: var(--font-display);
     font-size: 1.15rem;
     font-weight: 700;
-    color: var(--dash-accent, #dfd0b8);
+    color: var(--dash-accent);
     letter-spacing: 0.02em;
 }
 
@@ -79,9 +79,9 @@
 }
 
 .noteTitle {
-    font-family: var(--font-display, "Cormorant Garamond", serif);
+    font-family: var(--font-display);
     font-size: 1rem;
-    color: var(--dash-accent, #dfd0b8);
+    color: var(--dash-accent);
     max-width: 320px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -99,7 +99,7 @@
     align-items: center;
     gap: 6px;
     padding: 7px 16px;
-    background: var(--dash-accent-warm, #de8900);
+    background: var(--dash-accent-warm);
     color: #111;
     border: none;
     border-radius: 8px;
@@ -111,7 +111,7 @@
         opacity 0.15s,
         transform 0.12s;
     white-space: nowrap;
-    box-shadow: 0 0 16px var(--dash-accent-glow, rgba(222, 137, 0, 0.22));
+    box-shadow: 0 0 16px var(--dash-accent-glow);
 }
 .newNoteBtn:hover {
     opacity: 0.88;
@@ -122,9 +122,9 @@
     width: 32px;
     height: 32px;
     border-radius: 8px;
-    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border: 1px solid var(--dash-border);
     background: rgba(255, 255, 255, 0.04);
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -137,20 +137,20 @@
 }
 .iconBtn:hover {
     background: rgba(255, 255, 255, 0.08);
-    color: var(--dash-text-primary, #f0e8d8);
-    border-color: var(--dash-border-hover, rgba(223, 208, 184, 0.26));
+    color: var(--dash-text-primary);
+    border-color: var(--dash-border-hover);
 }
 
 .profileAvatar {
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    background: var(--dash-bg-widget, rgba(36, 28, 18, 0.93));
-    border: 1px solid var(--dash-border-hover, rgba(223, 208, 184, 0.26));
+    background: var(--dash-bg-widget);
+    border: 1px solid var(--dash-border-hover);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--dash-accent, #dfd0b8);
+    color: var(--dash-accent);
     cursor: pointer;
 }
 
@@ -167,13 +167,13 @@
     overflow-y: auto;
     padding: 28px 28px 40px;
     scrollbar-width: thin;
-    scrollbar-color: var(--dash-border, rgba(223, 208, 184, 0.1)) transparent;
+    scrollbar-color: var(--dash-border) transparent;
 }
 .dashMain::-webkit-scrollbar {
     width: 4px;
 }
 .dashMain::-webkit-scrollbar-thumb {
-    background: var(--dash-border, rgba(223, 208, 184, 0.1));
+    background: var(--dash-border);
     border-radius: 4px;
 }
 
@@ -183,7 +183,7 @@
     font-weight: 600;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
     margin-bottom: 12px;
     margin-top: 28px;
 }
@@ -201,8 +201,8 @@
 
 /* ── FOLDER CARD ─────────────────────────────────────────────────────────────*/
 .folderCard {
-    background: var(--dash-bg-widget, rgba(36, 28, 18, 0.93));
-    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    background: var(--dash-bg-widget);
+    border: 1px solid var(--dash-border);
     border-radius: 14px;
     overflow: hidden;
     cursor: pointer;
@@ -216,7 +216,7 @@
     flex-direction: column;
 }
 .folderCard:hover {
-    border-color: var(--dash-border-hover, rgba(223, 208, 184, 0.26));
+    border-color: var(--dash-border-hover);
     transform: translateY(-2px);
     box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
 }
@@ -234,7 +234,7 @@
     padding: 14px 16px 16px;
     flex: 1;
     border-radius: 14px 14px 14px 14px;
-    background: var(--dash-bg-widget, rgba(36, 28, 18, 0.93));
+    background: var(--dash-bg-widget);
 }
 
 .folderIcon {
@@ -244,10 +244,10 @@
 }
 
 .folderName {
-    font-family: var(--font-display, "Cormorant Garamond", serif);
+    font-family: var(--font-display);
     font-size: 1rem;
     font-weight: 600;
-    color: var(--dash-accent, #dfd0b8);
+    color: var(--dash-accent);
     margin-bottom: 4px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -256,13 +256,13 @@
 
 .folderMeta {
     font-size: 0.72rem;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
 }
 
 /* ── NOTE CARD ───────────────────────────────────────────────────────────────*/
 .noteCard {
-    background: var(--dash-bg-widget, rgba(36, 28, 18, 0.93));
-    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    background: var(--dash-bg-widget);
+    border: 1px solid var(--dash-border);
     border-radius: 14px;
     padding: 16px;
     cursor: pointer;
@@ -277,16 +277,16 @@
     min-height: 120px;
 }
 .noteCard:hover {
-    border-color: var(--dash-border-hover, rgba(223, 208, 184, 0.26));
+    border-color: var(--dash-border-hover);
     transform: translateY(-2px);
     box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
 }
 
 .noteCardTitle {
-    font-family: var(--font-display, "Cormorant Garamond", serif);
+    font-family: var(--font-display);
     font-size: 0.95rem;
     font-weight: 600;
-    color: var(--dash-accent, #dfd0b8);
+    color: var(--dash-accent);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -294,7 +294,7 @@
 
 .noteCardPreview {
     font-size: 0.76rem;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
     line-height: 1.5;
     flex: 1;
     overflow: hidden;
@@ -326,7 +326,7 @@
 
 .noteCardDate {
     font-size: 0.68rem;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
     opacity: 0.7;
 }
 
@@ -341,7 +341,7 @@
 /* ── ADD CARD (dashed) ───────────────────────────────────────────────────────*/
 .addCard {
     background: transparent;
-    border: 1.5px dashed var(--dash-border, rgba(223, 208, 184, 0.1));
+    border: 1.5px dashed var(--dash-border);
     border-radius: 14px;
     padding: 16px;
     cursor: pointer;
@@ -354,12 +354,12 @@
     justify-content: center;
     gap: 6px;
     min-height: 120px;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
     font-size: 0.8rem;
 }
 .addCard:hover {
-    border-color: var(--dash-accent-warm, #de8900);
-    color: var(--dash-accent-warm, #de8900);
+    border-color: var(--dash-accent-warm);
+    color: var(--dash-accent-warm);
     background: rgba(222, 137, 0, 0.04);
 }
 .addCardPlus {
@@ -390,8 +390,8 @@
 }
 
 .modal {
-    background: var(--dash-bg-widget, rgba(36, 28, 18, 0.93));
-    border: 1px solid var(--dash-border-hover, rgba(223, 208, 184, 0.26));
+    background: var(--dash-bg-widget);
+    border: 1px solid var(--dash-border-hover);
     border-radius: 16px;
     padding: 28px;
     width: 100%;
@@ -411,19 +411,19 @@
 }
 
 .modalTitle {
-    font-family: var(--font-display, "Cormorant Garamond", serif);
+    font-family: var(--font-display);
     font-size: 1.2rem;
-    color: var(--dash-accent, #dfd0b8);
+    color: var(--dash-accent);
     margin-bottom: 18px;
 }
 
 .modalInput {
     width: 100%;
     background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border: 1px solid var(--dash-border);
     border-radius: 8px;
     padding: 10px 12px;
-    color: var(--dash-text-primary, #f0e8d8);
+    color: var(--dash-text-primary);
     font-family: var(--font-body);
     font-size: 0.88rem;
     outline: none;
@@ -431,10 +431,10 @@
     transition: border-color 0.2s;
 }
 .modalInput:focus {
-    border-color: var(--dash-accent-warm, #de8900);
+    border-color: var(--dash-accent-warm);
 }
 .modalInput::placeholder {
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
 }
 
 .colorRow {
@@ -469,7 +469,7 @@
 }
 .modalBtnPrimary {
     padding: 8px 18px;
-    background: var(--dash-accent-warm, #de8900);
+    background: var(--dash-accent-warm);
     color: #111;
     border: none;
     border-radius: 8px;
@@ -485,8 +485,8 @@
 .modalBtnGhost {
     padding: 8px 18px;
     background: transparent;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
-    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    color: var(--dash-text-muted);
+    border: 1px solid var(--dash-border);
     border-radius: 8px;
     font-family: var(--font-body);
     font-size: 0.82rem;
@@ -496,8 +496,8 @@
         border-color 0.15s;
 }
 .modalBtnGhost:hover {
-    color: var(--dash-text-primary, #f0e8d8);
-    border-color: var(--dash-border-hover, rgba(223, 208, 184, 0.26));
+    color: var(--dash-text-primary);
+    border-color: var(--dash-border-hover);
 }
 
 /* ── EMPTY STATE ─────────────────────────────────────────────────────────────*/
@@ -508,7 +508,7 @@
     justify-content: center;
     gap: 10px;
     padding: 48px 24px;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
 }
 .emptyEmoji {
     font-size: 2.4rem;
@@ -521,7 +521,7 @@
 .treeSidebar {
     width: 220px;
     flex-shrink: 0;
-    border-right: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border-right: 1px solid var(--dash-border);
     background: rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
@@ -532,7 +532,7 @@
     display: flex;
     gap: 6px;
     padding: 12px 12px 8px;
-    border-bottom: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border-bottom: 1px solid var(--dash-border);
     flex-shrink: 0;
 }
 
@@ -541,13 +541,13 @@
     overflow-y: auto;
     padding: 8px 8px 16px;
     scrollbar-width: thin;
-    scrollbar-color: var(--dash-border, rgba(223, 208, 184, 0.1)) transparent;
+    scrollbar-color: var(--dash-border) transparent;
 }
 .treeScroll::-webkit-scrollbar {
     width: 3px;
 }
 .treeScroll::-webkit-scrollbar-thumb {
-    background: var(--dash-border, rgba(223, 208, 184, 0.1));
+    background: var(--dash-border);
     border-radius: 3px;
 }
 
@@ -557,7 +557,7 @@
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
     padding: 10px 8px 4px;
 }
 
@@ -573,7 +573,7 @@
     background: none;
     border: none;
     text-align: left;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
     font-family: var(--font-body);
     font-size: 0.82rem;
     font-weight: 500;
@@ -583,10 +583,10 @@
 }
 .folderRow:hover {
     background: rgba(255, 255, 255, 0.05);
-    color: var(--dash-text-primary, #f0e8d8);
+    color: var(--dash-text-primary);
 }
 .folderRowOpen {
-    color: var(--dash-text-primary, #f0e8d8);
+    color: var(--dash-text-primary);
 }
 
 .folderChevron {
@@ -618,7 +618,7 @@
     background: none;
     border: none;
     text-align: left;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
     font-family: var(--font-body);
     font-size: 0.78rem;
     position: relative;
@@ -633,18 +633,18 @@
     top: 0;
     bottom: 0;
     width: 1px;
-    background: var(--dash-border, rgba(223, 208, 184, 0.1));
+    background: var(--dash-border);
 }
 .noteRow:hover {
     background: rgba(255, 255, 255, 0.05);
-    color: var(--dash-text-primary, #f0e8d8);
+    color: var(--dash-text-primary);
 }
 .noteRowActive {
     background: rgba(255, 255, 255, 0.07);
-    color: var(--dash-accent-warm, #de8900);
+    color: var(--dash-accent-warm);
 }
 .noteRowActive::before {
-    background: var(--dash-accent-warm, #de8900);
+    background: var(--dash-accent-warm);
 }
 
 .noteRowText {
@@ -664,7 +664,7 @@
 
 .editorTitleWrap {
     padding: 20px 32px 12px;
-    border-bottom: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border-bottom: 1px solid var(--dash-border);
     flex-shrink: 0;
 }
 
@@ -673,14 +673,14 @@
     background: transparent;
     border: none;
     outline: none;
-    font-family: var(--font-display, "Cormorant Garamond", serif);
+    font-family: var(--font-display);
     font-size: 1.8rem;
     font-weight: 700;
-    color: var(--dash-accent, #dfd0b8);
-    caret-color: var(--dash-accent-warm, #de8900);
+    color: var(--dash-accent);
+    caret-color: var(--dash-accent-warm);
 }
 .editorTitleInput::placeholder {
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
 }
 
 .editorMeta {
@@ -691,7 +691,7 @@
 }
 .editorMetaText {
     font-size: 0.72rem;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
 }
 
 /* The lined paper editor */
@@ -700,14 +700,14 @@
     overflow-y: auto;
     padding: 0 32px 32px;
     scrollbar-width: thin;
-    scrollbar-color: var(--dash-border, rgba(223, 208, 184, 0.1)) transparent;
+    scrollbar-color: var(--dash-border) transparent;
     position: relative;
 }
 .editorScroll::-webkit-scrollbar {
     width: 4px;
 }
 .editorScroll::-webkit-scrollbar-thumb {
-    background: var(--dash-border, rgba(223, 208, 184, 0.1));
+    background: var(--dash-border);
     border-radius: 4px;
 }
 
@@ -718,11 +718,11 @@
     border: none;
     outline: none;
     resize: none;
-    font-family: var(--font-body, "Outfit", sans-serif);
+    font-family: var(--font-body);
     font-size: 0.92rem;
     line-height: 2;
-    color: var(--dash-text-primary, #f0e8d8);
-    caret-color: var(--dash-accent-warm, #de8900);
+    color: var(--dash-text-primary);
+    caret-color: var(--dash-accent-warm);
     padding-top: 20px;
 
     /* Lined paper effect via repeating gradient */
@@ -736,7 +736,7 @@
     background-attachment: local;
 }
 .editorContent::placeholder {
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
 }
 
 /* Auto-save indicator */
@@ -745,7 +745,7 @@
     bottom: 12px;
     right: 20px;
     font-size: 0.68rem;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
     opacity: 0;
     transition: opacity 0.3s;
     pointer-events: none;
@@ -762,7 +762,7 @@
     align-items: center;
     justify-content: center;
     gap: 12px;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
 }
 .noNoteEmoji {
     font-size: 3rem;

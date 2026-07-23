@@ -10,8 +10,8 @@
     flex-direction: column;
     height: 100%;
     overflow: hidden;
-    font-family: var(--font-body, "Outfit", sans-serif);
-    color: var(--dash-text-primary, #f0e8d8);
+    font-family: var(--font-body);
+    color: var(--dash-text-primary);
 }
 
 /* ── WEEK NAV BANNER ─────────────────────────────────────────────────────────*/
@@ -23,20 +23,20 @@
     flex-wrap: wrap;
     gap: 8px;
     padding: 10px 20px 8px;
-    border-bottom: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border-bottom: 1px solid var(--dash-border);
 }
 
 .weekNavLabel {
-    font-family: var(--font-display, "Cormorant Garamond", serif);
+    font-family: var(--font-display);
     font-size: 0.95rem;
     font-weight: 600;
-    color: var(--dash-accent, #dfd0b8);
+    color: var(--dash-accent);
     white-space: nowrap;
 }
 
 .weekNavHint {
     font-size: 0.7rem;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
 }
 
 /* ── GRID (horizontal scroll of columns) ────────────────────────────────────*/
@@ -46,13 +46,13 @@
     overflow-x: auto;
     overflow-y: hidden;
     scrollbar-width: thin;
-    scrollbar-color: var(--dash-border, rgba(223, 208, 184, 0.1)) transparent;
+    scrollbar-color: var(--dash-border) transparent;
 }
 .weekGrid::-webkit-scrollbar {
     height: 5px;
 }
 .weekGrid::-webkit-scrollbar-thumb {
-    background: var(--dash-border, rgba(223, 208, 184, 0.1));
+    background: var(--dash-border);
     border-radius: 3px;
 }
 
@@ -62,10 +62,10 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    border-right: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border-right: 1px solid var(--dash-border);
     overflow-y: auto;
     scrollbar-width: thin;
-    scrollbar-color: var(--dash-border, rgba(223, 208, 184, 0.1)) transparent;
+    scrollbar-color: var(--dash-border) transparent;
     padding-bottom: 16px;
 }
 .weekCol:last-child {
@@ -86,25 +86,25 @@
     align-items: baseline;
     gap: 7px;
     padding: 12px 14px 8px;
-    border-bottom: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
-    background: var(--dash-bg-page, #16120e);
+    border-bottom: 1px solid var(--dash-border);
+    background: var(--dash-bg-page);
     backdrop-filter: blur(8px);
 }
 
 .weekColDay {
     font-size: 0.82rem;
     font-weight: 600;
-    color: var(--dash-text-primary, #f0e8d8);
+    color: var(--dash-text-primary);
     white-space: nowrap;
 }
 /* Today column: amber day label */
 .weekColToday .weekColDay {
-    color: var(--dash-accent-warm, #de8900);
+    color: var(--dash-accent-warm);
 }
 
 .weekColCount {
     font-size: 0.68rem;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
     background: rgba(255, 255, 255, 0.07);
     padding: 1px 6px;
     border-radius: 99px;
@@ -115,10 +115,10 @@
     margin: 8px 10px 4px;
     padding: 7px 10px;
     border-radius: 8px;
-    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border: 1px solid var(--dash-border);
     background: rgba(255, 255, 255, 0.03);
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
-    font-family: var(--font-body, "Outfit", sans-serif);
+    color: var(--dash-text-muted);
+    font-family: var(--font-body);
     font-size: 0.78rem;
     cursor: pointer;
     text-align: left;
@@ -131,8 +131,8 @@
 }
 .weekAddBtn:hover {
     background: rgba(255, 255, 255, 0.07);
-    border-color: var(--dash-border-hover, rgba(223, 208, 184, 0.26));
-    color: var(--dash-text-primary, #f0e8d8);
+    border-color: var(--dash-border-hover);
+    color: var(--dash-text-primary);
 }
 
 /* ── ADD FORM ────────────────────────────────────────────────────────────────*/
@@ -158,42 +158,42 @@
 .weekAddInput {
     width: 100%;
     background: rgba(255, 255, 255, 0.06);
-    border: 1px solid var(--dash-accent-warm, #de8900);
+    border: 1px solid var(--dash-accent-warm);
     border-radius: 7px;
     padding: 7px 9px;
-    color: var(--dash-text-primary, #f0e8d8);
-    font-family: var(--font-body, "Outfit", sans-serif);
+    color: var(--dash-text-primary);
+    font-family: var(--font-body);
     font-size: 0.82rem;
     outline: none;
 }
 .weekAddInput::placeholder {
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
 }
 
 .weekAddSelect {
     width: 100%;
     background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border: 1px solid var(--dash-border);
     border-radius: 7px;
     padding: 6px 8px;
-    color: var(--dash-text-primary, #f0e8d8);
-    font-family: var(--font-body, "Outfit", sans-serif);
+    color: var(--dash-text-primary);
+    font-family: var(--font-body);
     font-size: 0.78rem;
     outline: none;
     cursor: pointer;
 }
 .weekAddSelect option {
-    background: var(--dash-bg-widget, rgba(36, 28, 18, 0.97));
+    background: var(--dash-bg-widget);
 }
 
 .weekAddConfirm {
     flex: 1;
     padding: 6px 0;
-    background: var(--dash-accent-warm, #de8900);
+    background: var(--dash-accent-warm);
     color: #111;
     border: none;
     border-radius: 7px;
-    font-family: var(--font-body, "Outfit", sans-serif);
+    font-family: var(--font-body);
     font-size: 0.78rem;
     font-weight: 600;
     cursor: pointer;
@@ -206,16 +206,16 @@
 .weekAddCancel {
     padding: 6px 10px;
     background: transparent;
-    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border: 1px solid var(--dash-border);
     border-radius: 7px;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
-    font-family: var(--font-body, "Outfit", sans-serif);
+    color: var(--dash-text-muted);
+    font-family: var(--font-body);
     font-size: 0.78rem;
     cursor: pointer;
     transition: color 0.13s;
 }
 .weekAddCancel:hover {
-    color: var(--dash-text-primary, #f0e8d8);
+    color: var(--dash-text-primary);
 }
 
 /* ── CARDS AREA ──────────────────────────────────────────────────────────────*/
@@ -230,15 +230,15 @@
 .weekColEmpty {
     padding: 16px 4px;
     font-size: 0.74rem;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
     opacity: 0.55;
     text-align: center;
 }
 
 /* ── TASK CARD ───────────────────────────────────────────────────────────────*/
 .weekCard {
-    background: var(--dash-bg-widget, rgba(36, 28, 18, 0.93));
-    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    background: var(--dash-bg-widget);
+    border: 1px solid var(--dash-border);
     border-radius: 10px;
     padding: 10px 11px;
     transition:
@@ -247,7 +247,7 @@
         opacity 0.2s;
 }
 .weekCard:hover {
-    border-color: var(--dash-border-hover, rgba(223, 208, 184, 0.26));
+    border-color: var(--dash-border-hover);
     box-shadow: 0 3px 14px rgba(0, 0, 0, 0.35);
 }
 
@@ -311,7 +311,7 @@
 .weekCardTitle {
     font-size: 0.84rem;
     font-weight: 500;
-    color: var(--dash-text-primary, #f0e8d8);
+    color: var(--dash-text-primary);
     line-height: 1.35;
     margin-bottom: 4px;
     display: -webkit-box;
@@ -323,7 +323,7 @@
 /* Note — clamp to 1 line */
 .weekCardNote {
     font-size: 0.72rem;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
     line-height: 1.4;
     margin-bottom: 5px;
     display: -webkit-box;
@@ -353,7 +353,7 @@
 }
 .weekCardSubLabel {
     font-size: 0.62rem;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
     flex-shrink: 0;
 }
 
@@ -374,7 +374,7 @@
 
 .weekCardDue {
     font-size: 0.65rem;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
     margin-left: auto;
     white-space: nowrap;
 }
@@ -400,7 +400,7 @@
 
 .weekDoneSummary {
     font-size: 0.7rem;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
     cursor: pointer;
     padding: 5px 4px;
     border-radius: 6px;

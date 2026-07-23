@@ -151,7 +151,7 @@ export const BUILT_IN_THEMES: Record<string, ThemeDef> = {
             "--dash-accent-warm": "#d3b300d8",
             "--dash-accent-glow": "rgba(255,215,0,0.22)",
             "--dash-btn-text": "#111111",
-            "--dash-text-primary": "#f2f0fc",
+            "--dash-text-primary": "#ff0000",
             "--dash-text-muted": "rgba(242,240,252,0.52)",
             "--dash-border": "rgba(212,208,245,0.12)",
             "--dash-border-hover": "rgba(212,208,245,0.28)",

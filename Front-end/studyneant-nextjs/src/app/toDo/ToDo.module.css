@@ -8,13 +8,13 @@
     flex-direction: column;
     height: 100vh;
     overflow: hidden;
-    background-color: var(--dash-bg-page, #16120e);
+    background-color: var(--dash-bg-page);
     background-image: var(
         --dash-bg-image,
         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E")
     );
-    font-family: var(--font-body, "Outfit", sans-serif);
-    color: var(--dash-text-primary, #f0e8d8);
+    font-family: var(--font-body);
+    color: var(--dash-text-primary);
 }
 
 /* ── TOP BAR ─────────────────────────────────────────────────────────────────*/
@@ -25,7 +25,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 20px;
-    border-bottom: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border-bottom: 1px solid var(--dash-border);
     background: var(--dash-topbar-bg, transparent);
     backdrop-filter: blur(12px);
     gap: 14px;
@@ -42,15 +42,15 @@
     gap: 10px;
 }
 .topBarTitle {
-    font-family: var(--font-display, "Cormorant Garamond", serif);
+    font-family: var(--font-display);
     font-size: 1.15rem;
     font-weight: 700;
-    color: var(--dash-accent, #dfd0b8);
+    color: var(--dash-accent);
     letter-spacing: 0.02em;
 }
 .topBarMeta {
     font-size: 0.72rem;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
 }
 
 .tbBtn {
@@ -58,10 +58,10 @@
     align-items: center;
     gap: 5px;
     padding: 5px 12px;
-    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border: 1px solid var(--dash-border);
     border-radius: 8px;
     background: rgba(255, 255, 255, 0.04);
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
     font-family: var(--font-body);
     font-size: 0.78rem;
     font-weight: 500;
@@ -73,20 +73,20 @@
 }
 .tbBtn:hover {
     background: rgba(255, 255, 255, 0.09);
-    color: var(--dash-text-primary, #f0e8d8);
-    border-color: var(--dash-border-hover, rgba(223, 208, 184, 0.26));
+    color: var(--dash-text-primary);
+    border-color: var(--dash-border-hover);
 }
 
 .profileAvatar {
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    background: var(--dash-bg-widget, rgba(36, 28, 18, 0.93));
-    border: 1px solid var(--dash-border-hover, rgba(223, 208, 184, 0.26));
+    background: var(--dash-bg-widget);
+    border: 1px solid var(--dash-border-hover);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--dash-accent, #dfd0b8);
+    color: var(--dash-accent);
     cursor: pointer;
 }
 @keyframes fadeIn {
@@ -114,8 +114,8 @@
     position: absolute;
     top: calc(100% + 6px);
     right: 0;
-    background: var(--dash-bg-widget, rgba(36, 28, 18, 0.97));
-    border: 1px solid var(--dash-border-hover, rgba(223, 208, 184, 0.26));
+    background: var(--dash-bg-widget);
+    border: 1px solid var(--dash-border-hover);
     border-radius: 10px;
     box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
     padding: 6px;
@@ -133,7 +133,7 @@
     border: none;
     width: 100%;
     text-align: left;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
     font-family: var(--font-body);
     font-size: 0.82rem;
     cursor: pointer;
@@ -143,10 +143,10 @@
 }
 .sortMenuItem:hover {
     background: rgba(255, 255, 255, 0.06);
-    color: var(--dash-text-primary, #f0e8d8);
+    color: var(--dash-text-primary);
 }
 .sortMenuItemActive {
-    color: var(--dash-accent-warm, #de8900);
+    color: var(--dash-accent-warm);
 }
 .sortMenuCheck {
     width: 14px;
@@ -165,7 +165,7 @@
 .listSidebar {
     width: 252px;
     flex-shrink: 0;
-    border-right: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border-right: 1px solid var(--dash-border);
     display: flex;
     flex-direction: column;
     background: rgba(0, 0, 0, 0.12);
@@ -183,11 +183,11 @@
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
 }
 .selectAllBtn {
     font-size: 0.68rem;
-    color: var(--dash-accent-warm, #de8900);
+    color: var(--dash-accent-warm);
     background: none;
     border: none;
     cursor: pointer;
@@ -203,13 +203,13 @@
     overflow-y: auto;
     padding: 2px 6px;
     scrollbar-width: thin;
-    scrollbar-color: var(--dash-border, rgba(223, 208, 184, 0.1)) transparent;
+    scrollbar-color: var(--dash-border) transparent;
 }
 .sidebarScroll::-webkit-scrollbar {
     width: 3px;
 }
 .sidebarScroll::-webkit-scrollbar-thumb {
-    background: var(--dash-border, rgba(223, 208, 184, 0.1));
+    background: var(--dash-border);
     border-radius: 3px;
 }
 
@@ -235,7 +235,7 @@
     background: rgba(255, 255, 255, 0.07);
 }
 .dragHandle {
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
     font-size: 0.7rem;
     cursor: grab;
     margin-right: 4px;
@@ -294,7 +294,7 @@
     flex: 1;
     font-size: 0.85rem;
     font-weight: 500;
-    color: var(--dash-text-primary, #f0e8d8);
+    color: var(--dash-text-primary);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -303,10 +303,10 @@
 .listItemNameEditing {
     flex: 1;
     background: rgba(255, 255, 255, 0.08);
-    border: 1px solid var(--dash-accent-warm, #de8900);
+    border: 1px solid var(--dash-accent-warm);
     border-radius: 5px;
     padding: 1px 6px;
-    color: var(--dash-text-primary, #f0e8d8);
+    color: var(--dash-text-primary);
     font-family: var(--font-body);
     font-size: 0.85rem;
     font-weight: 500;
@@ -315,7 +315,7 @@
 }
 .listItemCount {
     font-size: 0.68rem;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
     margin-left: 4px;
     flex-shrink: 0;
 }
@@ -325,7 +325,7 @@
     border-radius: 4px;
     border: none;
     background: transparent;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
     font-size: 0.65rem;
     cursor: pointer;
     display: flex;
@@ -352,8 +352,8 @@
     position: absolute;
     right: 0;
     top: calc(100% + 2px);
-    background: var(--dash-bg-widget, rgba(36, 28, 18, 0.97));
-    border: 1px solid var(--dash-border-hover, rgba(223, 208, 184, 0.26));
+    background: var(--dash-bg-widget);
+    border: 1px solid var(--dash-border-hover);
     border-radius: 10px;
     box-shadow: 0 8px 28px rgba(0, 0, 0, 0.55);
     padding: 5px;
@@ -371,7 +371,7 @@
     border: none;
     width: 100%;
     text-align: left;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
     font-family: var(--font-body);
     font-size: 0.8rem;
     cursor: pointer;
@@ -381,7 +381,7 @@
 }
 .ctxItem:hover {
     background: rgba(255, 255, 255, 0.06);
-    color: var(--dash-text-primary, #f0e8d8);
+    color: var(--dash-text-primary);
 }
 .ctxItemDanger:hover {
     background: rgba(224, 85, 85, 0.1);
@@ -389,7 +389,7 @@
 }
 .ctxDivider {
     height: 1px;
-    background: var(--dash-border, rgba(223, 208, 184, 0.1));
+    background: var(--dash-border);
     margin: 3px 0;
 }
 
@@ -398,9 +398,9 @@
     margin: 5px 6px 10px;
     padding: 9px 10px;
     border-radius: 10px;
-    border: 1.5px dashed var(--dash-border, rgba(223, 208, 184, 0.1));
+    border: 1.5px dashed var(--dash-border);
     background: transparent;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
     font-family: var(--font-body);
     font-size: 0.82rem;
     cursor: pointer;
@@ -415,16 +415,16 @@
     flex-shrink: 0;
 }
 .newListBtn:hover {
-    border-color: var(--dash-accent-warm, #de8900);
-    color: var(--dash-accent-warm, #de8900);
+    border-color: var(--dash-accent-warm);
+    color: var(--dash-accent-warm);
     background: rgba(222, 137, 0, 0.05);
 }
 
 /* Inline new-list creation form */
 .newListForm {
     margin: 4px 6px 10px;
-    background: var(--dash-bg-widget, rgba(36, 28, 18, 0.93));
-    border: 1px solid var(--dash-border-hover, rgba(223, 208, 184, 0.26));
+    background: var(--dash-bg-widget);
+    border: 1px solid var(--dash-border-hover);
     border-radius: 10px;
     padding: 10px;
     display: flex;
@@ -440,20 +440,20 @@
 .newListInput {
     flex: 1;
     background: rgba(255, 255, 255, 0.06);
-    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border: 1px solid var(--dash-border);
     border-radius: 7px;
     padding: 7px 9px;
-    color: var(--dash-text-primary, #f0e8d8);
+    color: var(--dash-text-primary);
     font-family: var(--font-body);
     font-size: 0.82rem;
     outline: none;
     transition: border-color 0.2s;
 }
 .newListInput:focus {
-    border-color: var(--dash-accent-warm, #de8900);
+    border-color: var(--dash-accent-warm);
 }
 .newListInput::placeholder {
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
 }
 .newListColorRow {
     display: flex;
@@ -484,18 +484,18 @@
     background: rgba(255, 255, 255, 0.1);
 }
 .newListEmojiActive {
-    border-color: var(--dash-accent-warm, #de8900);
+    border-color: var(--dash-accent-warm);
     background: rgba(222, 137, 0, 0.12);
 }
 .newListFormLabel {
     font-size: 0.65rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
 }
 .newListConfirm {
     padding: 7px 12px;
-    background: var(--dash-accent-warm, #de8900);
+    background: var(--dash-accent-warm);
     color: #111;
     border: none;
     border-radius: 7px;
@@ -512,16 +512,16 @@
 .newListCancel {
     padding: 7px 10px;
     background: transparent;
-    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border: 1px solid var(--dash-border);
     border-radius: 7px;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
     font-family: var(--font-body);
     font-size: 0.78rem;
     cursor: pointer;
     flex-shrink: 0;
 }
 .newListCancel:hover {
-    color: var(--dash-text-primary, #f0e8d8);
+    color: var(--dash-text-primary);
 }
 
 /* ── COLOR / EMOJI PICKER POPOVER ────────────────────────────────────────────*/
@@ -529,8 +529,8 @@
     position: absolute;
     left: 26px;
     top: 2px;
-    background: var(--dash-bg-widget, rgba(36, 28, 18, 0.97));
-    border: 1px solid var(--dash-border-hover, rgba(223, 208, 184, 0.26));
+    background: var(--dash-bg-widget);
+    border: 1px solid var(--dash-border-hover);
     border-radius: 10px;
     padding: 8px;
     display: flex;
@@ -563,8 +563,8 @@
     position: absolute;
     left: 26px;
     top: 2px;
-    background: var(--dash-bg-widget, rgba(36, 28, 18, 0.97));
-    border: 1px solid var(--dash-border-hover, rgba(223, 208, 184, 0.26));
+    background: var(--dash-bg-widget);
+    border: 1px solid var(--dash-border-hover);
     border-radius: 10px;
     padding: 8px;
     display: flex;
@@ -591,7 +591,7 @@
     background: rgba(255, 255, 255, 0.1);
 }
 .emojiOptionActive {
-    border-color: var(--dash-accent-warm, #de8900);
+    border-color: var(--dash-accent-warm);
     background: rgba(222, 137, 0, 0.12);
 }
 
@@ -605,21 +605,21 @@
 .mainHeader {
     padding: 14px 26px 10px;
     flex-shrink: 0;
-    border-bottom: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border-bottom: 1px solid var(--dash-border);
     display: flex;
     align-items: center;
     gap: 10px;
 }
 .mainHeaderTitle {
-    font-family: var(--font-display, "Cormorant Garamond", serif);
+    font-family: var(--font-display);
     font-size: 1.45rem;
     font-weight: 700;
-    color: var(--dash-accent, #dfd0b8);
+    color: var(--dash-accent);
     flex: 1;
 }
 .mainHeaderMeta {
     font-size: 0.72rem;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
 }
 
 .globalAddRow {
@@ -631,10 +631,10 @@
 .globalAddInput {
     flex: 1;
     background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border: 1px solid var(--dash-border);
     border-radius: 10px;
     padding: 9px 14px;
-    color: var(--dash-text-primary, #f0e8d8);
+    color: var(--dash-text-primary);
     font-family: var(--font-body);
     font-size: 0.86rem;
     outline: none;
@@ -643,29 +643,29 @@
         box-shadow 0.2s;
 }
 .globalAddInput:focus {
-    border-color: var(--dash-accent-warm, #de8900);
+    border-color: var(--dash-accent-warm);
     box-shadow: 0 0 0 3px rgba(222, 137, 0, 0.08);
 }
 .globalAddInput::placeholder {
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
 }
 .globalListSelect {
     background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border: 1px solid var(--dash-border);
     border-radius: 10px;
     padding: 9px 10px;
-    color: var(--dash-text-primary, #f0e8d8);
+    color: var(--dash-text-primary);
     font-family: var(--font-body);
     font-size: 0.82rem;
     outline: none;
     cursor: pointer;
 }
 .globalListSelect option {
-    background: var(--dash-bg-widget, rgba(36, 28, 18, 0.97));
+    background: var(--dash-bg-widget);
 }
 .globalAddBtn {
     padding: 9px 18px;
-    background: var(--dash-accent-warm, #de8900);
+    background: var(--dash-accent-warm);
     color: #111;
     border: none;
     border-radius: 10px;
@@ -688,13 +688,13 @@
     overflow-y: auto;
     padding: 6px 18px 20px;
     scrollbar-width: thin;
-    scrollbar-color: var(--dash-border, rgba(223, 208, 184, 0.1)) transparent;
+    scrollbar-color: var(--dash-border) transparent;
 }
 .mainScroll::-webkit-scrollbar {
     width: 4px;
 }
 .mainScroll::-webkit-scrollbar-thumb {
-    background: var(--dash-border, rgba(223, 208, 184, 0.1));
+    background: var(--dash-border);
     border-radius: 4px;
 }
 
@@ -717,7 +717,7 @@
 }
 .taskGroupChevron {
     font-size: 0.6rem;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
     transition: transform 0.2s;
     width: 10px;
     flex-shrink: 0;
@@ -736,14 +736,14 @@
     flex-shrink: 0;
 }
 .taskGroupName {
-    font-family: var(--font-display, "Cormorant Garamond", serif);
+    font-family: var(--font-display);
     font-size: 1rem;
     font-weight: 700;
-    color: var(--dash-text-primary, #f0e8d8);
+    color: var(--dash-text-primary);
 }
 .taskGroupCount {
     font-size: 0.7rem;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
     background: rgba(255, 255, 255, 0.07);
     padding: 1px 7px;
     border-radius: 99px;
@@ -751,7 +751,7 @@
 .taskGroupProgress {
     margin-left: auto;
     font-size: 0.68rem;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
 }
 
 .taskGroupItems {
@@ -778,7 +778,7 @@
 }
 .taskRow:hover {
     background: rgba(255, 255, 255, 0.04);
-    border-color: var(--dash-border, rgba(223, 208, 184, 0.1));
+    border-color: var(--dash-border);
 }
 .taskRowDone {
     opacity: 0.5;
@@ -788,9 +788,9 @@
 }
 
 .taskNum {
-    font-family: var(--font-display, "Cormorant Garamond", serif);
+    font-family: var(--font-display);
     font-size: 0.78rem;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
     min-width: 18px;
     flex-shrink: 0;
     font-weight: 600;
@@ -800,7 +800,7 @@
     width: 15px;
     height: 15px;
     border-radius: 4px;
-    border: 1.5px solid var(--dash-border-hover, rgba(223, 208, 184, 0.26));
+    border: 1.5px solid var(--dash-border-hover);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -812,8 +812,8 @@
         border-color 0.15s;
 }
 .taskCheckDone {
-    background: var(--dash-accent-warm, #de8900);
-    border-color: var(--dash-accent-warm, #de8900);
+    background: var(--dash-accent-warm);
+    border-color: var(--dash-accent-warm);
 }
 
 .pinBtn {
@@ -849,17 +849,17 @@
 .taskText {
     flex: 1;
     font-size: 0.86rem;
-    color: var(--dash-text-primary, #f0e8d8);
+    color: var(--dash-text-primary);
     line-height: 1.4;
 }
 .taskTextDone {
     text-decoration: line-through;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
 }
 
 .taskDueDate {
     font-size: 0.65rem;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
     flex-shrink: 0;
     white-space: nowrap;
 }
@@ -873,7 +873,7 @@
     border-radius: 4px;
     border: none;
     background: transparent;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
     font-size: 0.65rem;
     cursor: pointer;
     display: flex;
@@ -897,10 +897,10 @@
 .taskEditInput {
     flex: 1;
     background: rgba(255, 255, 255, 0.07);
-    border: 1px solid var(--dash-accent-warm, #de8900);
+    border: 1px solid var(--dash-accent-warm);
     border-radius: 6px;
     padding: 2px 8px;
-    color: var(--dash-text-primary, #f0e8d8);
+    color: var(--dash-text-primary);
     font-family: var(--font-body);
     font-size: 0.86rem;
     outline: none;
@@ -922,10 +922,10 @@
 }
 .taskDetailInput {
     background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border: 1px solid var(--dash-border);
     border-radius: 6px;
     padding: 5px 8px;
-    color: var(--dash-text-primary, #f0e8d8);
+    color: var(--dash-text-primary);
     font-family: var(--font-body);
     font-size: 0.76rem;
     outline: none;
@@ -933,45 +933,45 @@
     cursor: pointer;
 }
 .taskDetailInput:focus {
-    border-color: var(--dash-accent-warm, #de8900);
+    border-color: var(--dash-accent-warm);
 }
 .prioritySelect {
     background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border: 1px solid var(--dash-border);
     border-radius: 6px;
     padding: 5px 8px;
-    color: var(--dash-text-primary, #f0e8d8);
+    color: var(--dash-text-primary);
     font-family: var(--font-body);
     font-size: 0.76rem;
     outline: none;
     cursor: pointer;
 }
 .prioritySelect option {
-    background: var(--dash-bg-widget, rgba(36, 28, 18, 0.97));
+    background: var(--dash-bg-widget);
 }
 .moveSelect {
     background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border: 1px solid var(--dash-border);
     border-radius: 6px;
     padding: 5px 8px;
-    color: var(--dash-text-primary, #f0e8d8);
+    color: var(--dash-text-primary);
     font-family: var(--font-body);
     font-size: 0.76rem;
     outline: none;
     cursor: pointer;
 }
 .moveSelect option {
-    background: var(--dash-bg-widget, rgba(36, 28, 18, 0.97));
+    background: var(--dash-bg-widget);
 }
 
 /* Task note */
 .taskNoteInput {
     width: 100%;
     background: rgba(255, 255, 255, 0.04);
-    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border: 1px solid var(--dash-border);
     border-radius: 7px;
     padding: 6px 10px;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
     font-family: var(--font-body);
     font-size: 0.78rem;
     outline: none;
@@ -982,11 +982,11 @@
     min-height: 42px;
 }
 .taskNoteInput:focus {
-    border-color: var(--dash-accent-warm, #de8900);
-    color: var(--dash-text-primary, #f0e8d8);
+    border-color: var(--dash-accent-warm);
+    color: var(--dash-text-primary);
 }
 .taskNoteInput::placeholder {
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
 }
 
 /* Subtasks */
@@ -1011,7 +1011,7 @@
     width: 13px;
     height: 13px;
     border-radius: 3px;
-    border: 1.5px solid var(--dash-border-hover, rgba(223, 208, 184, 0.26));
+    border: 1.5px solid var(--dash-border-hover);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1021,13 +1021,13 @@
     transition: background 0.15s;
 }
 .subTaskCheckDone {
-    background: var(--dash-accent-warm, #de8900);
-    border-color: var(--dash-accent-warm, #de8900);
+    background: var(--dash-accent-warm);
+    border-color: var(--dash-accent-warm);
 }
 .subTaskText {
     flex: 1;
     font-size: 0.78rem;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
 }
 .subTaskTextDone {
     text-decoration: line-through;
@@ -1037,7 +1037,7 @@
     font-size: 0.6rem;
     background: none;
     border: none;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
     cursor: pointer;
     transition:
         opacity 0.13s,
@@ -1053,15 +1053,15 @@
     flex: 1;
     background: transparent;
     border: none;
-    border-bottom: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border-bottom: 1px solid var(--dash-border);
     padding: 3px 4px;
-    color: var(--dash-text-primary, #f0e8d8);
+    color: var(--dash-text-primary);
     font-family: var(--font-body);
     font-size: 0.76rem;
     outline: none;
 }
 .subTaskAddInput::placeholder {
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
 }
 
 /* ── GROUP FOOTER ────────────────────────────────────────────────────────────*/
@@ -1080,7 +1080,7 @@
     border-radius: 8px;
     background: none;
     border: none;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
     font-family: var(--font-body);
     font-size: 0.76rem;
     cursor: pointer;
@@ -1089,7 +1089,7 @@
         background 0.15s;
 }
 .groupAddBtn:hover {
-    color: var(--dash-accent-warm, #de8900);
+    color: var(--dash-accent-warm);
     background: rgba(222, 137, 0, 0.06);
 }
 .groupClearBtn {
@@ -1132,11 +1132,11 @@
     font-weight: 600;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
 }
 .completedChevron {
     font-size: 0.55rem;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
     transition: transform 0.2s;
 }
 .completedChevronOpen {
@@ -1151,7 +1151,7 @@
     justify-content: center;
     padding: 40px 16px;
     gap: 8px;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
 }
 .emptyEmoji {
     font-size: 2.4rem;
@@ -1168,7 +1168,7 @@
 .progressFill {
     height: 100%;
     border-radius: 99px;
-    background: var(--dash-accent-warm, #de8900);
+    background: var(--dash-accent-warm);
     transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .detailLabel {
@@ -1176,13 +1176,13 @@
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
 }
 .xBtn {
     background: none;
     border: none;
     cursor: pointer;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
     font-size: 0.68rem;
     padding: 3px;
     border-radius: 4px;

@@ -4,13 +4,13 @@
     flex-direction: column;
     height: 100vh;
     overflow: hidden;
-    background-color: var(--dash-bg-page, #16120e);
+    background-color: var(--dash-bg-page);
     background-image: var(
         --dash-bg-image,
         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E")
     );
-    font-family: var(--font-body, "Outfit", sans-serif);
-    color: var(--dash-text-primary, #f0e8d8);
+    font-family: var(--font-body);
+    color: var(--dash-text-primary);
 }
 
 /* ── TOP BAR ─────────────────────────────────────────────────────────────────*/
@@ -22,7 +22,7 @@
     align-items: center;
     padding: 0 16px;
     gap: 12px;
-    border-bottom: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border-bottom: 1px solid var(--dash-border);
     background: var(--dash-topbar-bg, transparent);
     backdrop-filter: blur(14px);
     z-index: 20;
@@ -69,14 +69,14 @@
     opacity: 0.9;
 }
 .topBarBrandBtn:focus-visible {
-    outline: 2px solid var(--dash-accent-warm, #de8900);
+    outline: 2px solid var(--dash-accent-warm);
     outline-offset: 2px;
 }
 .topBarBrand {
-    font-family: var(--font-display, "Cormorant Garamond", serif);
+    font-family: var(--font-display);
     font-size: 1.05rem;
     font-weight: 700;
-    color: var(--dash-accent, #dfd0b8);
+    color: var(--dash-accent);
     letter-spacing: 0.06em;
     text-transform: uppercase;
     white-space: nowrap;
@@ -87,9 +87,9 @@
 .tbTodayBtn {
     padding: 5px 13px;
     border-radius: 20px;
-    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.18));
+    border: 1px solid var(--dash-border);
     background: rgba(255, 255, 255, 0.05);
-    color: var(--dash-text-primary, #f0e8d8);
+    color: var(--dash-text-primary);
     font-family: var(--font-body);
     font-size: 0.78rem;
     font-weight: 500;
@@ -102,14 +102,14 @@
 }
 .tbTodayBtn:hover {
     background: rgba(255, 255, 255, 0.1);
-    border-color: var(--dash-border-hover, rgba(223, 208, 184, 0.3));
+    border-color: var(--dash-border-hover);
     transform: translateY(-1px);
 }
 
 /* Prev/Next group */
 .tbNavGroup {
     display: flex;
-    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.12));
+    border: 1px solid var(--dash-border);
     border-radius: 8px;
     overflow: hidden;
 }
@@ -117,9 +117,9 @@
     width: 28px;
     height: 28px;
     border: none;
-    border-right: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border-right: 1px solid var(--dash-border);
     background: rgba(255, 255, 255, 0.04);
-    color: var(--dash-text-primary, #f0e8d8);
+    color: var(--dash-text-primary);
     font-size: 1rem;
     display: flex;
     align-items: center;
@@ -134,15 +134,15 @@
 }
 .tbNavArrow:hover {
     background: rgba(255, 255, 255, 0.1);
-    color: var(--dash-accent-warm, #de8900);
+    color: var(--dash-accent-warm);
 }
 
 /* Month / date-range label */
 .tbMonthLabel {
-    font-family: var(--font-display, "Cormorant Garamond", serif);
+    font-family: var(--font-display);
     font-size: 0.95rem;
     font-weight: 600;
-    color: var(--dash-accent, #dfd0b8);
+    color: var(--dash-accent);
     white-space: nowrap;
     min-width: 148px;
 }
@@ -152,7 +152,7 @@
 .tbToggle {
     display: flex;
     background: rgba(255, 255, 255, 0.04);
-    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.14));
+    border: 1px solid var(--dash-border);
     border-radius: 10px;
     padding: 3px;
     gap: 2px;
@@ -162,7 +162,7 @@
     border: none;
     border-radius: 7px;
     background: transparent;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.5));
+    color: var(--dash-text-muted);
     font-family: var(--font-body);
     font-size: 0.78rem;
     font-weight: 500;
@@ -174,13 +174,13 @@
     white-space: nowrap;
 }
 .tbToggleBtn:hover {
-    color: var(--dash-text-primary, #f0e8d8);
+    color: var(--dash-text-primary);
 }
 
 /* Active: dark fill + accent text + subtle glow — clearly indicates selected view */
 .tbToggleBtnActive {
-    background: var(--dash-bg-handle, rgba(44, 35, 22, 0.97));
-    color: var(--dash-accent-warm, #de8900) !important;
+    background: var(--dash-bg-handle);
+    color: var(--dash-accent-warm) !important;
     box-shadow:
         0 0 10px rgba(0, 0, 0, 0.35),
         0 1px 0 rgba(255, 255, 255, 0.04) inset;
@@ -195,7 +195,7 @@
     padding: 6px 15px;
     border-radius: 20px;
     border: none;
-    background: var(--dash-accent-warm, #de8900);
+    background: var(--dash-accent-warm);
     color: #111;
     font-family: var(--font-body);
     font-size: 0.8rem;
@@ -205,7 +205,7 @@
         opacity 0.15s,
         transform 0.12s,
         box-shadow 0.15s;
-    box-shadow: 0 0 14px var(--dash-accent-glow, rgba(222, 137, 0, 0.28));
+    box-shadow: 0 0 14px var(--dash-accent-glow);
     white-space: nowrap;
 }
 .tbCreateBtn:hover {
@@ -219,9 +219,9 @@
     width: 34px;
     height: 34px;
     border-radius: 50%;
-    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.14));
+    border: 1px solid var(--dash-border);
     background: rgba(255, 255, 255, 0.04);
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.55));
+    color: var(--dash-text-muted);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -234,8 +234,8 @@
 }
 .tbSearchBtn:hover {
     background: rgba(255, 255, 255, 0.09);
-    color: var(--dash-text-primary, #f0e8d8);
-    border-color: var(--dash-border-hover, rgba(223, 208, 184, 0.28));
+    color: var(--dash-text-primary);
+    border-color: var(--dash-border-hover);
     transform: scale(1.06);
 }
 
@@ -244,9 +244,9 @@
     width: 34px;
     height: 34px;
     border-radius: 50%;
-    border: 1.5px solid var(--dash-border-hover, rgba(223, 208, 184, 0.24));
-    background: var(--dash-bg-widget, rgba(36, 28, 18, 0.93));
-    color: var(--dash-accent, #dfd0b8);
+    border: 1.5px solid var(--dash-border-hover);
+    background: var(--dash-bg-widget);
+    color: var(--dash-accent);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -256,7 +256,7 @@
         transform 0.1s;
 }
 .tbProfileBtn:hover {
-    border-color: var(--dash-accent-warm, #de8900);
+    border-color: var(--dash-accent-warm);
     transform: scale(1.06);
 }
 
@@ -291,13 +291,13 @@
 .sidebar {
     width: 226px;
     flex-shrink: 0;
-    border-right: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border-right: 1px solid var(--dash-border);
     background: rgba(0, 0, 0, 0.18);
     display: flex;
     flex-direction: column;
     overflow-y: auto;
     scrollbar-width: thin;
-    scrollbar-color: var(--dash-border, rgba(223, 208, 184, 0.1)) transparent;
+    scrollbar-color: var(--dash-border) transparent;
 }
 
 /* ── MINI CALENDAR ───────────────────────────────────────────────────────────*/
@@ -314,19 +314,19 @@
 
 /* Month + year label — MiniCalendar uses .miniCalTitle */
 .miniCalTitle {
-    font-family: var(--font-display, "Cormorant Garamond", serif);
+    font-family: var(--font-display);
     font-size: 0.84rem;
     font-weight: 600;
-    color: var(--dash-accent, #dfd0b8);
+    color: var(--dash-accent);
 }
 
 /* Nav arrows — MiniCalendar uses .miniCalNav */
 .miniCalNav {
     width: 24px;
     height: 24px;
-    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.12));
+    border: 1px solid var(--dash-border);
     background: rgba(255, 255, 255, 0.04);
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.5));
+    color: var(--dash-text-muted);
     font-size: 0.8rem;
     border-radius: 6px;
     cursor: pointer;
@@ -341,8 +341,8 @@
 }
 .miniCalNav:hover {
     background: rgba(255, 255, 255, 0.09);
-    color: var(--dash-accent-warm, #de8900);
-    border-color: var(--dash-accent-warm, #de8900);
+    color: var(--dash-accent-warm);
+    border-color: var(--dash-accent-warm);
 }
 
 .miniCalGrid {
@@ -356,7 +356,7 @@
     font-size: 0.6rem;
     font-weight: 600;
     letter-spacing: 0.04em;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.4));
+    color: var(--dash-text-muted);
     text-align: center;
     padding: 3px 0;
 }
@@ -369,7 +369,7 @@
     border-radius: 50%;
     border: none;
     background: none;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.35));
+    color: var(--dash-text-muted);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -381,12 +381,12 @@
 }
 .miniCalDay:hover {
     background: rgba(255, 255, 255, 0.08);
-    color: var(--dash-text-primary, #f0e8d8);
+    color: var(--dash-text-primary);
 }
 
 /* Days that belong to the current displayed month */
 .miniCalDayCurMonth {
-    color: var(--dash-text-primary, #f0e8d8);
+    color: var(--dash-text-primary);
     font-weight: 500;
 }
 
@@ -397,7 +397,7 @@
 
 /* Today circle */
 .miniCalDayToday {
-    background: var(--dash-accent-warm, #de8900) !important;
+    background: var(--dash-accent-warm) !important;
     color: #111 !important;
     font-weight: 700;
 }
@@ -408,7 +408,7 @@
 
 .calListSection {
     padding: 4px 12px 16px;
-    border-top: 1px solid var(--dash-border, rgba(223, 208, 184, 0.08));
+    border-top: 1px solid var(--dash-border);
 }
 
 .calListHeader {
@@ -424,16 +424,16 @@
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.5));
+    color: var(--dash-text-muted);
 }
 
 /* The ∧ / ∨ collapse button */
 .calListToggle {
     width: 22px;
     height: 22px;
-    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.12));
+    border: 1px solid var(--dash-border);
     background: rgba(255, 255, 255, 0.03);
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
     font-size: 0.7rem;
     border-radius: 5px;
     cursor: pointer;
@@ -448,8 +448,8 @@
 }
 .calListToggle:hover {
     background: rgba(255, 255, 255, 0.08);
-    color: var(--dash-accent-warm, #de8900);
-    border-color: var(--dash-accent-warm, #de8900);
+    color: var(--dash-accent-warm);
+    border-color: var(--dash-accent-warm);
 }
 
 /* One calendar row */
@@ -484,7 +484,7 @@
 
 .calName {
     font-size: 0.8rem;
-    color: var(--dash-text-primary, #f0e8d8);
+    color: var(--dash-text-primary);
     flex: 1;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -499,7 +499,7 @@
     padding: 5px 4px;
     border: none;
     background: none;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.4));
+    color: var(--dash-text-muted);
     font-family: var(--font-body);
     font-size: 0.76rem;
     cursor: pointer;
@@ -510,7 +510,7 @@
         background 0.13s;
 }
 .addCalBtn:hover {
-    color: var(--dash-accent-warm, #de8900);
+    color: var(--dash-accent-warm);
     background: rgba(222, 137, 0, 0.06);
 }
 
@@ -534,7 +534,7 @@
 .dayHeaders {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    border-bottom: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border-bottom: 1px solid var(--dash-border);
     flex-shrink: 0;
 }
 .dayHeader {
@@ -544,8 +544,8 @@
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
-    border-right: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    color: var(--dash-text-muted);
+    border-right: 1px solid var(--dash-border);
 }
 .dayHeader:last-child {
     border-right: none;
@@ -561,8 +561,8 @@
     align-items: stretch;
 }
 .dayCell {
-    border-right: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
-    border-bottom: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border-right: 1px solid var(--dash-border);
+    border-bottom: 1px solid var(--dash-border);
     padding: 5px;
     display: flex;
     flex-direction: column;
@@ -590,14 +590,14 @@
     left: 0;
     right: 0;
     height: 2px;
-    background: var(--dash-accent-warm, #de8900);
+    background: var(--dash-accent-warm);
 }
 
 /* Day number — CSS names that the CSS originally used */
 .dayCellNum {
     font-size: 0.73rem;
     font-weight: 500;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
     width: 21px;
     height: 21px;
     display: flex;
@@ -608,12 +608,12 @@
     align-self: flex-start;
 }
 .dayCellNumToday {
-    background: var(--dash-accent-warm, #de8900);
+    background: var(--dash-accent-warm);
     color: #111;
     font-weight: 700;
 }
 .dayCellNumCurMonth {
-    color: var(--dash-text-primary, #f0e8d8);
+    color: var(--dash-text-primary);
 }
 
 /* Event chips */
@@ -648,12 +648,12 @@
 }
 .moreEvents {
     font-size: 0.6rem;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
     padding: 0 4px;
     cursor: pointer;
 }
 .moreEvents:hover {
-    color: var(--dash-accent-warm, #de8900);
+    color: var(--dash-accent-warm);
 }
 
 /* ── WEEK VIEW ───────────────────────────────────────────────────────────────*/
@@ -668,20 +668,20 @@
 .wkHeaders {
     display: grid;
     grid-template-columns: 56px repeat(7, 1fr);
-    border-bottom: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border-bottom: 1px solid var(--dash-border);
     flex-shrink: 0;
     background: rgba(0, 0, 0, 0.12);
 }
 .wkTimeCorner {
-    border-right: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border-right: 1px solid var(--dash-border);
 }
 .wkDayHeader {
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 8px 4px;
-    border-right: 1px solid var(--dash-border, rgba(223, 208, 184, 0.08));
-    border-left: 1px solid var(--dash-border, rgba(223, 208, 184, 0.04));
+    border-right: 1px solid var(--dash-border);
+    border-left: 1px solid var(--dash-border);
     cursor: pointer;
     transition: background 0.12s;
 }
@@ -696,32 +696,32 @@
 .wkDayName {
     font-size: 0.78rem;
     font-weight: 600;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.55));
+    color: var(--dash-text-muted);
     letter-spacing: 0.02em;
 }
 .wkDayHeaderToday .wkDayName {
-    color: var(--dash-accent-warm, #de8900);
+    color: var(--dash-accent-warm);
 }
 
 /* All-day row */
 .wkAllDayRow {
     display: grid;
     grid-template-columns: 56px repeat(7, 1fr);
-    border-bottom: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border-bottom: 1px solid var(--dash-border);
     min-height: 28px;
     flex-shrink: 0;
     background: rgba(0, 0, 0, 0.06);
 }
 .wkAllDayLabel {
     font-size: 0.6rem;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.4));
+    color: var(--dash-text-muted);
     text-align: right;
     padding: 4px 6px 0 0;
-    border-right: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border-right: 1px solid var(--dash-border);
     white-space: nowrap;
 }
 .wkAllDayCell {
-    border-right: 1px solid var(--dash-border, rgba(223, 208, 184, 0.06));
+    border-right: 1px solid var(--dash-border);
     padding: 2px 3px;
     display: flex;
     flex-direction: column;
@@ -748,13 +748,13 @@
     overflow-y: auto;
     overflow-x: hidden;
     scrollbar-width: thin;
-    scrollbar-color: var(--dash-border, rgba(223, 208, 184, 0.1)) transparent;
+    scrollbar-color: var(--dash-border) transparent;
 }
 .wkScroll::-webkit-scrollbar {
     width: 4px;
 }
 .wkScroll::-webkit-scrollbar-thumb {
-    background: var(--dash-border, rgba(223, 208, 184, 0.1));
+    background: var(--dash-border);
     border-radius: 4px;
 }
 
@@ -767,7 +767,7 @@
 
 /* Time label column */
 .wkTimeCol {
-    border-right: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border-right: 1px solid var(--dash-border);
 }
 .wkTimeSlot {
     height: 56px; /* HOUR_HEIGHT — must match constant in WeekView.tsx */
@@ -780,7 +780,7 @@
 }
 .wkTimeLabel {
     font-size: 0.6rem;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.4));
+    color: var(--dash-text-muted);
     white-space: nowrap;
     /* Offset upward so label sits above the hour line */
     transform: translateY(-50%);
@@ -792,7 +792,7 @@
 /* Day column */
 .wkDayCol {
     position: relative;
-    border-right: 1px solid var(--dash-border, rgba(223, 208, 184, 0.06));
+    border-right: 1px solid var(--dash-border);
 }
 .wkDayCol:last-child {
     border-right: none;
@@ -808,7 +808,7 @@
     position: absolute;
     left: 0;
     right: 0;
-    border-bottom: 1px solid var(--dash-border, rgba(223, 208, 184, 0.04));
+    border-bottom: 1px solid var(--dash-border);
     cursor: pointer;
     transition: background 0.12s;
 }
@@ -860,7 +860,7 @@
     left: -2px;
     right: 0;
     height: 2px;
-    background: var(--dash-accent-warm, #de8900);
+    background: var(--dash-accent-warm);
     z-index: 5;
     pointer-events: none;
     border-radius: 2px;
@@ -873,7 +873,7 @@
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background: var(--dash-accent-warm, #de8900);
+    background: var(--dash-accent-warm);
 }
 
 /* ── Legacy week aliases kept for backward compat ──────────────────────────── */
@@ -885,10 +885,10 @@
 .inputFull {
     flex: 1;
     background: rgba(255, 255, 255, 0.06);
-    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border: 1px solid var(--dash-border);
     border-radius: 8px;
     padding: 6px 10px;
-    color: var(--dash-text-primary, #f0e8d8);
+    color: var(--dash-text-primary);
     font-family: var(--font-body);
     font-size: 0.8rem;
     outline: none;
@@ -896,18 +896,18 @@
     width: 100%;
 }
 .inputFull:focus {
-    border-color: var(--dash-accent-warm, #de8900);
+    border-color: var(--dash-accent-warm);
 }
 .inputFull::placeholder {
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
 }
 .selectInput {
     flex: 1;
     background: rgba(255, 255, 255, 0.06);
-    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border: 1px solid var(--dash-border);
     border-radius: 8px;
     padding: 6px 10px;
-    color: var(--dash-text-primary, #f0e8d8);
+    color: var(--dash-text-primary);
     font-family: var(--font-body);
     font-size: 0.8rem;
     outline: none;
@@ -915,17 +915,17 @@
     transition: border-color 0.15s;
 }
 .selectInput:focus {
-    border-color: var(--dash-accent-warm, #de8900);
+    border-color: var(--dash-accent-warm);
 }
 .selectInput option {
     background: #1a1612;
 }
 .inputPill {
     background: rgba(255, 255, 255, 0.06);
-    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border: 1px solid var(--dash-border);
     border-radius: 8px;
     padding: 5px 9px;
-    color: var(--dash-text-primary, #f0e8d8);
+    color: var(--dash-text-primary);
     font-family: var(--font-body);
     font-size: 0.78rem;
     outline: none;
@@ -934,7 +934,7 @@
     min-width: 0;
 }
 .inputPill:focus {
-    border-color: var(--dash-accent-warm, #de8900);
+    border-color: var(--dash-accent-warm);
 }
 .inputPill::-webkit-calendar-picker-indicator {
     filter: invert(0.7);
@@ -965,11 +965,11 @@
     position: absolute;
     inset: 0;
     border-radius: 18px;
-    background: var(--dash-border-hover, rgba(223, 208, 184, 0.26));
+    background: var(--dash-border-hover);
     transition: background 0.2s;
 }
 .toggleSwitch input:checked + .toggleTrack {
-    background: var(--dash-accent-warm, #de8900);
+    background: var(--dash-accent-warm);
 }
 .toggleThumb {
     position: absolute;
@@ -987,7 +987,7 @@
 }
 .toggleLabel {
     font-size: 0.8rem;
-    color: var(--dash-text-primary, #f0e8d8);
+    color: var(--dash-text-primary);
 }
 
 /* Color picker */
@@ -1020,40 +1020,40 @@
 /* Buttons */
 .cancelBtn {
     padding: 7px 16px;
-    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border: 1px solid var(--dash-border);
     border-radius: 8px;
     background: transparent;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
     font-family: var(--font-body);
     font-size: 0.8rem;
     cursor: pointer;
     transition: color 0.15s;
 }
 .cancelBtn:hover {
-    color: var(--dash-text-primary, #f0e8d8);
+    color: var(--dash-text-primary);
 }
 .saveBtn {
     padding: 7px 20px;
     border: none;
     border-radius: 8px;
-    background: var(--dash-accent-warm, #de8900);
+    background: var(--dash-accent-warm);
     color: #111;
     font-family: var(--font-body);
     font-size: 0.8rem;
     font-weight: 600;
     cursor: pointer;
     transition: opacity 0.15s;
-    box-shadow: 0 0 12px var(--dash-accent-glow, rgba(222, 137, 0, 0.22));
+    box-shadow: 0 0 12px var(--dash-accent-glow);
 }
 .saveBtn:hover {
     opacity: 0.88;
 }
 .advancedBtn {
     padding: 6px 13px;
-    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border: 1px solid var(--dash-border);
     border-radius: 8px;
     background: transparent;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
     font-family: var(--font-body);
     font-size: 0.76rem;
     cursor: pointer;
@@ -1063,12 +1063,12 @@
     white-space: nowrap;
 }
 .advancedBtn:hover {
-    color: var(--dash-accent-warm, #de8900);
-    border-color: var(--dash-accent-warm, #de8900);
+    color: var(--dash-accent-warm);
+    border-color: var(--dash-accent-warm);
 }
 .advancedBtnActive {
-    color: var(--dash-accent-warm, #de8900);
-    border-color: var(--dash-accent-warm, #de8900);
+    color: var(--dash-accent-warm);
+    border-color: var(--dash-accent-warm);
     background: rgba(222, 137, 0, 0.06);
 }
 
@@ -1094,8 +1094,8 @@
     }
 }
 .eventModal {
-    background: var(--dash-bg-widget, rgba(36, 28, 18, 0.97));
-    border: 1px solid var(--dash-border-hover, rgba(223, 208, 184, 0.22));
+    background: var(--dash-bg-widget);
+    border: 1px solid var(--dash-border-hover);
     border-radius: 18px;
     width: 100%;
     max-width: 440px;
@@ -1104,7 +1104,7 @@
     box-shadow: 0 24px 64px rgba(0, 0, 0, 0.72);
     animation: slideUp 0.18s cubic-bezier(0.4, 0, 0.2, 1);
     scrollbar-width: thin;
-    scrollbar-color: var(--dash-border, rgba(223, 208, 184, 0.1)) transparent;
+    scrollbar-color: var(--dash-border) transparent;
 }
 @keyframes slideUp {
     from {
@@ -1120,21 +1120,21 @@
     width: 100%;
     background: transparent;
     border: none;
-    border-bottom: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border-bottom: 1px solid var(--dash-border);
     padding: 18px 20px 11px;
-    font-family: var(--font-display, "Cormorant Garamond", serif);
+    font-family: var(--font-display);
     font-size: 1.3rem;
     font-weight: 600;
-    color: var(--dash-accent, #dfd0b8);
+    color: var(--dash-accent);
     outline: none;
     display: block;
     transition: border-color 0.2s;
 }
 .modalTitleInput:focus {
-    border-bottom-color: var(--dash-accent-warm, #de8900);
+    border-bottom-color: var(--dash-accent-warm);
 }
 .modalTitleInput::placeholder {
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
 }
 .modalBody {
     padding: 12px 20px 18px;
@@ -1152,11 +1152,11 @@
     text-align: center;
     font-size: 0.88rem;
     flex-shrink: 0;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
 }
 .fieldLabel {
     font-size: 0.74rem;
-    color: var(--dash-text-muted, rgba(240, 232, 184, 0.45));
+    color: var(--dash-text-muted);
     min-width: 42px;
     flex-shrink: 0;
 }
@@ -1175,7 +1175,7 @@
 }
 .divider {
     height: 1px;
-    background: var(--dash-border, rgba(223, 208, 184, 0.1));
+    background: var(--dash-border);
     margin: 3px 0;
 }
 .todoSection {
@@ -1203,8 +1203,8 @@
    and the classes below for the modal card itself */
 
 .repeatModal {
-    background: var(--dash-bg-widget, rgba(36, 28, 18, 0.97));
-    border: 1px solid var(--dash-border-hover, rgba(223, 208, 184, 0.22));
+    background: var(--dash-bg-widget);
+    border: 1px solid var(--dash-border-hover);
     border-radius: 16px;
     width: 100%;
     max-width: 370px;
@@ -1215,12 +1215,12 @@
 }
 
 .repeatTitle {
-    font-family: var(--font-display, "Cormorant Garamond", serif);
+    font-family: var(--font-display);
     font-size: 1.05rem;
     font-weight: 600;
-    color: var(--dash-accent, #dfd0b8);
+    color: var(--dash-accent);
     padding: 16px 20px 12px;
-    border-bottom: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border-bottom: 1px solid var(--dash-border);
     display: flex;
     align-items: center;
     gap: 8px;
@@ -1237,16 +1237,16 @@
 }
 .repeatEveryLabel {
     font-size: 0.78rem;
-    color: var(--dash-text-primary, #f0e8d8);
+    color: var(--dash-text-primary);
     white-space: nowrap;
 }
 .repeatNumInput {
     width: 52px;
     background: rgba(255, 255, 255, 0.06);
-    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.14));
+    border: 1px solid var(--dash-border);
     border-radius: 7px;
     padding: 5px 8px;
-    color: var(--dash-text-primary, #f0e8d8);
+    color: var(--dash-text-primary);
     font-family: var(--font-body);
     font-size: 0.82rem;
     text-align: center;
@@ -1254,16 +1254,16 @@
     transition: border-color 0.15s;
 }
 .repeatNumInput:focus {
-    border-color: var(--dash-accent-warm, #de8900);
+    border-color: var(--dash-accent-warm);
 }
 .repeatUnitSelect {
     flex: 1;
     min-width: 80px;
     background: rgba(255, 255, 255, 0.06);
-    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.14));
+    border: 1px solid var(--dash-border);
     border-radius: 7px;
     padding: 5px 8px;
-    color: var(--dash-text-primary, #f0e8d8);
+    color: var(--dash-text-primary);
     font-family: var(--font-body);
     font-size: 0.82rem;
     outline: none;
@@ -1271,10 +1271,10 @@
     transition: border-color 0.15s;
 }
 .repeatUnitSelect:focus {
-    border-color: var(--dash-accent-warm, #de8900);
+    border-color: var(--dash-accent-warm);
 }
 .repeatUnitSelect option {
-    background: var(--dash-bg-widget, #1a1612);
+    background: var(--dash-bg-widget);
 }
 
 /* "Ends" section label */
@@ -1283,7 +1283,7 @@
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
     padding: 12px 20px 6px;
 }
 
@@ -1312,7 +1312,7 @@
     width: 15px;
     height: 15px;
     border-radius: 50%;
-    border: 1.5px solid var(--dash-border-hover, rgba(223, 208, 184, 0.3));
+    border: 1.5px solid var(--dash-border-hover);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1320,18 +1320,18 @@
     transition: border-color 0.15s;
 }
 .radioCircleFilled {
-    border-color: var(--dash-accent-warm, #de8900);
+    border-color: var(--dash-accent-warm);
 }
 .radioCircleFilled::after {
     content: "";
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background: var(--dash-accent-warm, #de8900);
+    background: var(--dash-accent-warm);
 }
 .radioLabel {
     font-size: 0.8rem;
-    color: var(--dash-text-primary, #f0e8d8);
+    color: var(--dash-text-primary);
     display: flex;
     align-items: center;
     gap: 6px;
@@ -1341,10 +1341,10 @@
 /* formInput alias used by RepeatModal date input */
 .formInput {
     background: rgba(255, 255, 255, 0.06);
-    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.12));
+    border: 1px solid var(--dash-border);
     border-radius: 8px;
     padding: 5px 9px;
-    color: var(--dash-text-primary, #f0e8d8);
+    color: var(--dash-text-primary);
     font-family: var(--font-body);
     font-size: 0.78rem;
     outline: none;
@@ -1352,7 +1352,7 @@
     min-width: 0;
 }
 .formInput:focus {
-    border-color: var(--dash-accent-warm, #de8900);
+    border-color: var(--dash-accent-warm);
 }
 .formInput::-webkit-calendar-picker-indicator {
     filter: invert(0.65);
@@ -1371,15 +1371,15 @@
     font-weight: 600;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.45));
+    color: var(--dash-text-muted);
 }
 .repeatTextarea {
     width: 100%;
     background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.12));
+    border: 1px solid var(--dash-border);
     border-radius: 8px;
     padding: 7px 10px;
-    color: var(--dash-text-primary, #f0e8d8);
+    color: var(--dash-text-primary);
     font-family: var(--font-body);
     font-size: 0.78rem;
     resize: vertical;
@@ -1388,26 +1388,26 @@
     transition: border-color 0.15s;
 }
 .repeatTextarea:focus {
-    border-color: var(--dash-accent-warm, #de8900);
+    border-color: var(--dash-accent-warm);
 }
 .repeatTextarea::placeholder {
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.4));
+    color: var(--dash-text-muted);
 }
 
 /* Character count hint */
 .hintText {
     font-size: 0.66rem;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.4));
+    color: var(--dash-text-muted);
     text-align: right;
 }
 
 /* Cancel / Save buttons used by RepeatModal (btnCancel / btnSave) */
 .btnCancel {
     padding: 7px 16px;
-    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.14));
+    border: 1px solid var(--dash-border);
     border-radius: 8px;
     background: transparent;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.5));
+    color: var(--dash-text-muted);
     font-family: var(--font-body);
     font-size: 0.8rem;
     cursor: pointer;
@@ -1416,21 +1416,21 @@
         border-color 0.15s;
 }
 .btnCancel:hover {
-    color: var(--dash-text-primary, #f0e8d8);
-    border-color: var(--dash-border-hover, rgba(223, 208, 184, 0.26));
+    color: var(--dash-text-primary);
+    border-color: var(--dash-border-hover);
 }
 .btnSave {
     padding: 7px 20px;
     border: none;
     border-radius: 8px;
-    background: var(--dash-accent-warm, #de8900);
+    background: var(--dash-accent-warm);
     color: #111;
     font-family: var(--font-body);
     font-size: 0.8rem;
     font-weight: 600;
     cursor: pointer;
     transition: opacity 0.15s;
-    box-shadow: 0 0 12px var(--dash-accent-glow, rgba(222, 137, 0, 0.22));
+    box-shadow: 0 0 12px var(--dash-accent-glow);
 }
 .btnSave:hover {
     opacity: 0.88;
@@ -1441,8 +1441,8 @@
    Read-only view with Edit / Delete buttons. ESC or overlay click to close. */
 
 .detailPopover {
-    background: var(--dash-bg-widget, rgba(30, 24, 16, 0.98));
-    border: 1px solid var(--dash-border-hover, rgba(223, 208, 184, 0.22));
+    background: var(--dash-bg-widget);
+    border: 1px solid var(--dash-border-hover);
     border-radius: 18px;
     width: 100%;
     max-width: 520px; /* wider so description never squishes */
@@ -1450,7 +1450,7 @@
     overflow-y: auto;
     overflow-x: hidden;
     scrollbar-width: thin;
-    scrollbar-color: var(--dash-border, rgba(223, 208, 184, 0.1)) transparent;
+    scrollbar-color: var(--dash-border) transparent;
     box-shadow:
         0 24px 64px rgba(0, 0, 0, 0.72),
         0 0 0 1px rgba(255, 255, 255, 0.03) inset;
@@ -1488,10 +1488,10 @@
 }
 
 .detailTitle {
-    font-family: var(--font-display, "Cormorant Garamond", serif);
+    font-family: var(--font-display);
     font-size: 1.25rem;
     font-weight: 700;
-    color: var(--dash-accent, #dfd0b8);
+    color: var(--dash-accent);
     line-height: 1.2;
     margin: 0;
     /* Allow long titles to wrap */
@@ -1510,9 +1510,9 @@
     width: 30px;
     height: 30px;
     border-radius: 8px;
-    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.12));
+    border: 1px solid var(--dash-border);
     background: rgba(255, 255, 255, 0.04);
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.55));
+    color: var(--dash-text-muted);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1525,8 +1525,8 @@
 }
 .detailActionBtn:hover {
     background: rgba(255, 255, 255, 0.09);
-    color: var(--dash-text-primary, #f0e8d8);
-    border-color: var(--dash-border-hover, rgba(223, 208, 184, 0.26));
+    color: var(--dash-text-primary);
+    border-color: var(--dash-border-hover);
     transform: scale(1.06);
 }
 
@@ -1563,7 +1563,7 @@
 
 .detailRowText {
     font-size: 0.84rem;
-    color: var(--dash-text-primary, #f0e8d8);
+    color: var(--dash-text-primary);
     line-height: 1.5;
     flex: 1;
     /* Allow wrapping — don't force single line */
@@ -1578,11 +1578,11 @@
 .detailDescBlock {
     flex: 1;
     background: rgba(255, 255, 255, 0.04);
-    border: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
+    border: 1px solid var(--dash-border);
     border-radius: 10px;
     padding: 10px 14px;
     font-size: 0.84rem;
-    color: var(--dash-text-primary, #f0e8d8);
+    color: var(--dash-text-primary);
     line-height: 1.7;
     white-space: pre-wrap; /* preserves newlines from the textarea */
     word-break: break-word;
@@ -1599,7 +1599,7 @@
 /* Clickable URL */
 .detailLink {
     font-size: 0.82rem;
-    color: var(--dash-accent-warm, #de8900);
+    color: var(--dash-accent-warm);
     text-decoration: underline;
     text-underline-offset: 3px;
     word-break: break-all;
@@ -1612,7 +1612,7 @@
 /* Empty state message */
 .detailEmpty {
     font-size: 0.8rem;
-    color: var(--dash-text-muted, rgba(240, 232, 216, 0.4));
+    color: var(--dash-text-muted);
     font-style: italic;
     padding: 4px 0;
 }
@@ -1620,7 +1620,7 @@
 /* Footer: Edit event button */
 .detailFooter {
     padding: 12px 20px 18px;
-    border-top: 1px solid var(--dash-border, rgba(223, 208, 184, 0.08));
+    border-top: 1px solid var(--dash-border);
     display: flex;
     justify-content: flex-end;
 }
@@ -1632,7 +1632,7 @@
     padding: 7px 18px;
     border-radius: 9px;
     border: none;
-    background: var(--dash-accent-warm, #de8900);
+    background: var(--dash-accent-warm);
     color: #111;
     font-family: var(--font-body);
     font-size: 0.82rem;
@@ -1641,7 +1641,7 @@
     transition:
         opacity 0.15s,
         transform 0.12s;
-    box-shadow: 0 0 14px var(--dash-accent-glow, rgba(222, 137, 0, 0.22));
+    box-shadow: 0 0 14px var(--dash-accent-glow);
 }
 .detailEditBtn:hover {
     opacity: 0.88;
