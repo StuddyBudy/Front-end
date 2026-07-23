@@ -34,7 +34,11 @@ type BuilderDraft = {
     label: string;
     bgPage: string;
     bgWidget: string;
-    navBarsBg: string;
+    topbarBg: string;
+    bottomnavBg: string;
+    sidebarBg: string;
+    btnText: string;
+    navHoverBg: string;
     accent: string;
     accentWarm: string;
     accentGlow: string;
@@ -66,7 +70,11 @@ const DEFAULT_DRAFT: BuilderDraft = {
     label: "",
     bgPage: "#16120e",
     bgWidget: "#1e1810",
-    navBarsBg: "#000000",
+    topbarBg: "#000000",
+    bottomnavBg: "#000000",
+    sidebarBg: "#1e1810",
+    btnText: "#111111",
+    navHoverBg: "#ffffff",
     accent: "#dfd0b8",
     accentWarm: "#de8900",
     accentGlow: "#de8900",
@@ -81,7 +89,20 @@ const HELP_ITEMS = [
     ["Page Background", "Main page color behind all content."],
     ["Primary Text", "Main readable text color."],
     ["Widget Background", "Card and widget surface color."],
-    ["NavBars bg", "Shared top navigation background across app pages."],
+    [
+        "Top Bar bg",
+        "Top navigation bar background. Transparent lets the page gradient show through.",
+    ],
+    [
+        "Bottom Nav bg",
+        "Bottom navigation bar background. Transparent lets the page gradient show through.",
+    ],
+    ["Sidebar bg", "Slide-out navigation drawer background."],
+    [
+        "Button Text",
+        "Text/icon color on filled accent buttons (Save, +, badges).",
+    ],
+    ["Nav Hover", "Highlight shown when hovering nav items and ghost buttons."],
     ["Accent", "Secondary text and decorative accents."],
     ["Highlight", "Important action and emphasis color."],
     ["Accent Glow", "Glow/shadow tint around active UI."],
@@ -167,6 +188,12 @@ function withAlpha(hex: string, suffix: string): string {
     return /^#([\da-f]{3}|[\da-f]{6})$/i.test(hex) ? `${hex}${suffix}` : hex;
 }
 
+// A navbar token counts as "transparent" when it's unset or the literal
+// keyword — used to restore the transparent-checkbox state when editing.
+function isTransparentToken(value: string | undefined): boolean {
+    return !value || value.trim().toLowerCase() === "transparent";
+}
+
 function rgbaFromHex(hex: string, alpha: number): string {
     const rgb = hexToRgb(hex);
     if (!rgb) return `rgba(255,255,255,${alpha})`;
@@ -206,15 +233,27 @@ function buildVars(
     draft: BuilderDraft,
     radicalBg: boolean,
     gradientPos: GradientPos,
+    topbarTransparent: boolean,
+    bottomnavTransparent: boolean,
 ): Record<string, string> {
     // The two-digit suffixes are hex alpha channels appended to the solid
-    // draft colors (ee≈93%, 70≈44%, 47≈28%, 40≈25%, 38≈22%, 1a≈10%) — they
-    // set each token's translucency without needing separate draft fields.
+    // draft colors (ee≈93%, 70≈44%, 47≈28%, 40≈25%, 38≈22%, 17≈9%, 1a≈10%) —
+    // they set each token's translucency without needing separate draft fields.
     return {
         "--dash-bg-page": draft.bgPage,
         "--dash-bg-widget": withAlpha(draft.bgWidget, "ee"),
         "--dash-bg-handle": draft.bgWidget,
-        "--dash-navbars-bg": withAlpha(draft.navBarsBg, "47"),
+        // Navbars default to transparent so the page gradient bleeds through;
+        // a chosen color is applied at ~28% alpha to keep the blur legible.
+        "--dash-topbar-bg": topbarTransparent
+            ? "transparent"
+            : withAlpha(draft.topbarBg, "47"),
+        "--dash-bottomnav-bg": bottomnavTransparent
+            ? "transparent"
+            : withAlpha(draft.bottomnavBg, "47"),
+        "--dash-bg-sidebar": draft.sidebarBg,
+        "--dash-btn-text": draft.btnText,
+        "--dash-nav-hover-bg": withAlpha(draft.navHoverBg, "17"),
         "--dash-accent": draft.accent,
         "--dash-accent-warm": draft.accentWarm,
         "--dash-accent-glow": withAlpha(draft.accentGlow, "38"),
@@ -240,9 +279,27 @@ function initDraft(theme: ThemeDef): BuilderDraft {
             theme.vars["--dash-bg-widget"],
             DEFAULT_DRAFT.bgWidget,
         ),
-        navBarsBg: toHexFromToken(
-            theme.vars["--dash-navbars-bg"],
-            DEFAULT_DRAFT.navBarsBg,
+        // ?? --dash-navbars-bg migrates themes saved before the nav split.
+        topbarBg: toHexFromToken(
+            theme.vars["--dash-topbar-bg"] ?? theme.vars["--dash-navbars-bg"],
+            DEFAULT_DRAFT.topbarBg,
+        ),
+        bottomnavBg: toHexFromToken(
+            theme.vars["--dash-bottomnav-bg"] ??
+                theme.vars["--dash-navbars-bg"],
+            DEFAULT_DRAFT.bottomnavBg,
+        ),
+        sidebarBg: toHexFromToken(
+            theme.vars["--dash-bg-sidebar"] ?? theme.vars["--dash-bg-widget"],
+            DEFAULT_DRAFT.sidebarBg,
+        ),
+        btnText: toHexFromToken(
+            theme.vars["--dash-btn-text"],
+            DEFAULT_DRAFT.btnText,
+        ),
+        navHoverBg: toHexFromToken(
+            theme.vars["--dash-nav-hover-bg"],
+            DEFAULT_DRAFT.navHoverBg,
         ),
         accent: toHexFromToken(
             theme.vars["--dash-accent"],
@@ -350,11 +407,17 @@ function deriveSimpleDraft(draft: BuilderDraft): BuilderDraft {
     const border = mixHex(text, bg, 0.72);
     const borderHover = mixHex(text, bg, 0.58);
     const navBarsBg = darkBase ? "#000000" : "#ffffff";
+    // Accent buttons need dark text on light accents and light text on dark.
+    const btnText = luminance(warm) > 0.6 ? "#111111" : "#ffffff";
 
     return {
         ...draft,
         bgWidget: widget,
-        navBarsBg,
+        topbarBg: navBarsBg,
+        bottomnavBg: navBarsBg,
+        sidebarBg: widget,
+        btnText,
+        navHoverBg: text,
         accent,
         accentWarm: warm,
         accentGlow: glow,
@@ -384,6 +447,8 @@ export default function SettingsView({
     const [helpOpen, setHelpOpen] = useState(false);
     const [advancedOpen, setAdvancedOpen] = useState(false);
     const [radicalBg, setRadicalBg] = useState(true);
+    const [topbarTransparent, setTopbarTransparent] = useState(true);
+    const [bottomnavTransparent, setBottomnavTransparent] = useState(true);
     const [gradientPos, setGradientPos] = useState<GradientPos>("center");
     const [draft, setDraft] = useState<BuilderDraft>(DEFAULT_DRAFT);
     const [customEmojis, setCustomEmojis] = useState<string[]>([]);
@@ -464,6 +529,8 @@ export default function SettingsView({
         setDraft(DEFAULT_DRAFT);
         setAdvancedOpen(false);
         setRadicalBg(true);
+        setTopbarTransparent(true);
+        setBottomnavTransparent(true);
         setGradientPos("center");
         setEditorOpen(true);
     };
@@ -478,6 +545,18 @@ export default function SettingsView({
         setDraft(initDraft(theme));
         setAdvancedOpen(false);
         setRadicalBg(theme.vars["--dash-bg-image"] !== "none");
+        setTopbarTransparent(
+            isTransparentToken(
+                theme.vars["--dash-topbar-bg"] ??
+                    theme.vars["--dash-navbars-bg"],
+            ),
+        );
+        setBottomnavTransparent(
+            isTransparentToken(
+                theme.vars["--dash-bottomnav-bg"] ??
+                    theme.vars["--dash-navbars-bg"],
+            ),
+        );
         setGradientPos(inferGradientPos(theme.vars["--dash-bg-image"]));
         setEditorOpen(true);
         setContextMenu(null);
@@ -502,7 +581,18 @@ export default function SettingsView({
     const handleSubmit = () => {
         const nextDraft = advancedOpen ? draft : deriveSimpleDraft(draft);
         const useRadical = advancedOpen ? radicalBg : true;
-        const vars = buildVars(nextDraft, useRadical, gradientPos);
+        // Simple mode always keeps both navbars transparent (gradient shows).
+        const useTopbarTransparent = advancedOpen ? topbarTransparent : true;
+        const useBottomnavTransparent = advancedOpen
+            ? bottomnavTransparent
+            : true;
+        const vars = buildVars(
+            nextDraft,
+            useRadical,
+            gradientPos,
+            useTopbarTransparent,
+            useBottomnavTransparent,
+        );
 
         if (editorMode === "create") {
             onAddTheme({
@@ -773,16 +863,17 @@ export default function SettingsView({
 
                                     <label className={s.builderField}>
                                         <span className={s.builderLabelTitle}>
-                                            NavBars bg
+                                            Top Bar bg
                                         </span>
                                         <div className={s.builderInputRow}>
                                             <input
                                                 type="color"
                                                 className={s.colorSwatch}
-                                                value={draft.navBarsBg}
+                                                value={draft.topbarBg}
+                                                disabled={topbarTransparent}
                                                 onChange={(e) =>
                                                     setField(
-                                                        "navBarsBg",
+                                                        "topbarBg",
                                                         e.target.value,
                                                     )
                                                 }
@@ -790,10 +881,167 @@ export default function SettingsView({
                                             <input
                                                 className={s.builderInput}
                                                 type="text"
-                                                value={draft.navBarsBg}
+                                                value={
+                                                    topbarTransparent
+                                                        ? "transparent"
+                                                        : draft.topbarBg
+                                                }
+                                                disabled={topbarTransparent}
                                                 onChange={(e) =>
                                                     setField(
-                                                        "navBarsBg",
+                                                        "topbarBg",
+                                                        e.target.value,
+                                                    )
+                                                }
+                                            />
+                                        </div>
+                                    </label>
+
+                                    <label className={s.builderCheck}>
+                                        <input
+                                            type="checkbox"
+                                            checked={topbarTransparent}
+                                            onChange={(e) =>
+                                                setTopbarTransparent(
+                                                    e.target.checked,
+                                                )
+                                            }
+                                        />
+                                        <span>Top bar transparent</span>
+                                    </label>
+
+                                    <label className={s.builderField}>
+                                        <span className={s.builderLabelTitle}>
+                                            Bottom Nav bg
+                                        </span>
+                                        <div className={s.builderInputRow}>
+                                            <input
+                                                type="color"
+                                                className={s.colorSwatch}
+                                                value={draft.bottomnavBg}
+                                                disabled={bottomnavTransparent}
+                                                onChange={(e) =>
+                                                    setField(
+                                                        "bottomnavBg",
+                                                        e.target.value,
+                                                    )
+                                                }
+                                            />
+                                            <input
+                                                className={s.builderInput}
+                                                type="text"
+                                                value={
+                                                    bottomnavTransparent
+                                                        ? "transparent"
+                                                        : draft.bottomnavBg
+                                                }
+                                                disabled={bottomnavTransparent}
+                                                onChange={(e) =>
+                                                    setField(
+                                                        "bottomnavBg",
+                                                        e.target.value,
+                                                    )
+                                                }
+                                            />
+                                        </div>
+                                    </label>
+
+                                    <label className={s.builderCheck}>
+                                        <input
+                                            type="checkbox"
+                                            checked={bottomnavTransparent}
+                                            onChange={(e) =>
+                                                setBottomnavTransparent(
+                                                    e.target.checked,
+                                                )
+                                            }
+                                        />
+                                        <span>Bottom nav transparent</span>
+                                    </label>
+
+                                    <label className={s.builderField}>
+                                        <span className={s.builderLabelTitle}>
+                                            Sidebar bg
+                                        </span>
+                                        <div className={s.builderInputRow}>
+                                            <input
+                                                type="color"
+                                                className={s.colorSwatch}
+                                                value={draft.sidebarBg}
+                                                onChange={(e) =>
+                                                    setField(
+                                                        "sidebarBg",
+                                                        e.target.value,
+                                                    )
+                                                }
+                                            />
+                                            <input
+                                                className={s.builderInput}
+                                                type="text"
+                                                value={draft.sidebarBg}
+                                                onChange={(e) =>
+                                                    setField(
+                                                        "sidebarBg",
+                                                        e.target.value,
+                                                    )
+                                                }
+                                            />
+                                        </div>
+                                    </label>
+
+                                    <label className={s.builderField}>
+                                        <span className={s.builderLabelTitle}>
+                                            Button Text
+                                        </span>
+                                        <div className={s.builderInputRow}>
+                                            <input
+                                                type="color"
+                                                className={s.colorSwatch}
+                                                value={draft.btnText}
+                                                onChange={(e) =>
+                                                    setField(
+                                                        "btnText",
+                                                        e.target.value,
+                                                    )
+                                                }
+                                            />
+                                            <input
+                                                className={s.builderInput}
+                                                type="text"
+                                                value={draft.btnText}
+                                                onChange={(e) =>
+                                                    setField(
+                                                        "btnText",
+                                                        e.target.value,
+                                                    )
+                                                }
+                                            />
+                                        </div>
+                                    </label>
+
+                                    <label className={s.builderField}>
+                                        <span className={s.builderLabelTitle}>
+                                            Nav Hover
+                                        </span>
+                                        <div className={s.builderInputRow}>
+                                            <input
+                                                type="color"
+                                                className={s.colorSwatch}
+                                                value={draft.navHoverBg}
+                                                onChange={(e) =>
+                                                    setField(
+                                                        "navHoverBg",
+                                                        e.target.value,
+                                                    )
+                                                }
+                                            />
+                                            <input
+                                                className={s.builderInput}
+                                                type="text"
+                                                value={draft.navHoverBg}
+                                                onChange={(e) =>
+                                                    setField(
+                                                        "navHoverBg",
                                                         e.target.value,
                                                     )
                                                 }

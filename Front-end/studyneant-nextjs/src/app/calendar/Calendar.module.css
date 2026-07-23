@@ -23,7 +23,7 @@
     padding: 0 16px;
     gap: 12px;
     border-bottom: 1px solid var(--dash-border, rgba(223, 208, 184, 0.1));
-    background: var(--dash-navbars-bg, rgba(0, 0, 0, 0.3));
+    background: var(--dash-topbar-bg, transparent);
     backdrop-filter: blur(14px);
     z-index: 20;
 }
@@ -313,7 +313,7 @@
 }
 
 /* Month + year label — MiniCalendar uses .miniCalTitle */
-.miniCalTitle{
+.miniCalTitle {
     font-family: var(--font-display, "Cormorant Garamond", serif);
     font-size: 0.84rem;
     font-weight: 600;
@@ -339,7 +339,7 @@
         border-color 0.12s;
     line-height: 1;
 }
-.miniCalNav:hover{
+.miniCalNav:hover {
     background: rgba(255, 255, 255, 0.09);
     color: var(--dash-accent-warm, #de8900);
     border-color: var(--dash-accent-warm, #de8900);
@@ -352,7 +352,7 @@
 }
 
 /* Day-of-week headers (S M T W T F S) — MiniCalendar uses .miniCalDayHdr */
-.miniCalDayHdr{
+.miniCalDayHdr {
     font-size: 0.6rem;
     font-weight: 600;
     letter-spacing: 0.04em;
@@ -617,7 +617,7 @@
 }
 
 /* Event chips */
-.eventPill{
+.eventPill {
     display: flex;
     align-items: center;
     gap: 3px;
@@ -632,7 +632,7 @@
     white-space: nowrap;
     text-overflow: ellipsis;
 }
-.eventPill:hover{
+.eventPill:hover {
     opacity: 0.75;
 }
 .eventDot {

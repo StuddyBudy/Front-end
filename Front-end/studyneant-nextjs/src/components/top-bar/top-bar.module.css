@@ -7,11 +7,12 @@
     justify-content: space-between;
     padding: 0 20px;
     border-bottom: 1px solid var(--dash-border);
-    background: var(--dash-navbars-bg, rgba(0, 0, 0, 0.28));
+    background: var(--dash-topbar-bg, transparent);
     -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(12px);
     gap: 12px;
     z-index: 40;
+    color: aliceblue;
 }
 /* Calendar */
 .topLeft {
@@ -80,13 +81,13 @@
     white-space: nowrap;
 }
 .topBtn:hover {
-    background: rgba(255, 255, 255, 0.09);
+    background: var(--dash-nav-hover-bg, rgba(255, 255, 255, 0.09));
     border-color: var(--dash-border-hover);
     transform: translateY(-1px);
 }
 .topBtnAccent {
     background: var(--dash-accent-warm);
-    color: #111;
+    color: var(--dash-btn-text, #111);
     border-color: transparent;
     font-weight: 600;
 }

@@ -2,21 +2,21 @@ body{
    background-color: #8B0000;
    color: #FFD700;
    /* name: "Light", label: "⚪", */
-color: #130623;
+color: #9d9ba0;
 color: rgba(255,255,255,0.92);
 color: #ff0000;
 color: rgba(255,255,255,0.68);
 color: #e1e1e1;
 color: #c46a00;
 color: rgba(196,106,0,0.18);
-color: #ff000d;
+color: #ffe600;
 color: #B8528C;
 color: rgba(0,0,0,0.08);
 color: rgba(0,0,0,0.14);
   } 
     starry: {
-            "--dash-bg-page": "#1A0439",
-            "--dash-bg-widget": "rgba(255,255,255,0.92)",
+            "--dash-bg-page": "#ffe600",
+            "--dash-bg-widget": "#ffe600",
             "--dash-bg-handle": "#ff0000",
             "--dash-navbars-bg": "rgba(255,255,255,0.68)",
             "--dash-accent": "#B8528C",

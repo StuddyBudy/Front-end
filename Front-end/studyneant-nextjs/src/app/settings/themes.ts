@@ -1,5 +1,61 @@
 import type { ThemeDef } from "@/app/dashboard/types";
 
+// variable documentation:
+
+/*
+
+// main background color
+            "--dash-bg-page": 
+
+            //background for widgets, pfp, content containers
+            "--dash-bg-widget": 
+
+            //selected btns, widget header
+            "--dash-bg-handle": 
+
+            //slide-out side drawer background
+            "--dash-bg-sidebar":
+
+            //top navigation bar background
+            "--dash-topbar-bg": 
+
+            //bottom navigation bar background
+            "--dash-bottomnav-bg":
+
+            //hover highlight on nav items + ghost btns
+            "--dash-nav-hover-bg":
+
+            //secondary text + decorative accents
+            "--dash-accent": 
+
+            //main highlight / action color
+            "--dash-accent-warm": 
+
+            //glow/shadow tint around active ui
+            "--dash-accent-glow": 
+
+            //text on filled accent btns (save, +, badges)
+            "--dash-btn-text":
+
+            //main readable text color
+            "--dash-text-primary": 
+
+            //dimmed secondary text, labels
+            "--dash-text-muted": 
+
+            //default border on cards/inputs
+            "--dash-border": 
+
+            //border color on hover/focus
+            "--dash-border-hover": 
+
+            //radient circle bg glow
+            "--dash-bg-image":
+                "radial-gradient(circle at 50% 50%, rgba(255,215,0,0.15), transparent 44%), radial-gradient(circle at 82% 8%, rgba(0,0,0,0.5), transparent 40%), radial-gradient(ellipse at center, transparent 58%, rgba(0,0,0,0.42) 100%)",
+       
+
+*/
+
 // ── BUILT-IN THEMES ───────────────────────────────────────────────────────────
 export const BUILT_IN_THEMES: Record<string, ThemeDef> = {
     light: {
@@ -10,10 +66,14 @@ export const BUILT_IN_THEMES: Record<string, ThemeDef> = {
             "--dash-bg-page": "#f8f7f4",
             "--dash-bg-widget": "rgba(255,255,255,0.92)",
             "--dash-bg-handle": "rgba(240,236,228,0.98)",
-            "--dash-navbars-bg": "rgba(255,255,255,0.68)",
+            "--dash-bg-sidebar": "rgba(255,255,255,0.92)",
+            "--dash-topbar-bg": "rgba(255,255,255,0.68)",
+            "--dash-bottomnav-bg": "rgba(255,255,255,0.68)",
+            "--dash-nav-hover-bg": "rgba(0,0,0,0.06)",
             "--dash-accent": "#2f2619",
             "--dash-accent-warm": "#c46a00",
             "--dash-accent-glow": "rgba(196,106,0,0.18)",
+            "--dash-btn-text": "#111111",
             "--dash-text-primary": "#2b241a",
             "--dash-text-muted": "rgba(43,36,26,0.6)",
             "--dash-border": "rgba(0,0,0,0.08)",
@@ -30,10 +90,14 @@ export const BUILT_IN_THEMES: Record<string, ThemeDef> = {
             "--dash-bg-page": "#0f0c0a",
             "--dash-bg-widget": "rgba(24,18,14,0.94)",
             "--dash-bg-handle": "rgba(36,26,18,0.98)",
-            "--dash-navbars-bg": "rgba(0,0,0,0.28)",
+            "--dash-bg-sidebar": "rgba(24,18,14,0.94)",
+            "--dash-topbar-bg": "rgba(0,0,0,0.28)",
+            "--dash-bottomnav-bg": "rgba(0,0,0,0.28)",
+            "--dash-nav-hover-bg": "rgba(255,255,255,0.09)",
             "--dash-accent": "#dfd0b8",
             "--dash-accent-warm": "#de8900",
             "--dash-accent-glow": "rgba(126, 122, 116, 0.22)",
+            "--dash-btn-text": "#111111",
             "--dash-text-primary": "#f2eadc",
             "--dash-text-muted": "rgba(242,234,220,0.52)",
             "--dash-border": "rgba(223,208,184,0.12)",
@@ -50,10 +114,14 @@ export const BUILT_IN_THEMES: Record<string, ThemeDef> = {
             "--dash-bg-page": "#16120e",
             "--dash-bg-widget": "rgba(24,18,14,0.94)",
             "--dash-bg-handle": "rgba(36,26,18,0.98)",
-            "--dash-navbars-bg": "rgba(0,0,0,0.28)",
+            "--dash-bg-sidebar": "rgba(24,18,14,0.94)",
+            "--dash-topbar-bg": "rgba(0,0,0,0.28)",
+            "--dash-bottomnav-bg": "rgba(0,0,0,0.28)",
+            "--dash-nav-hover-bg": "rgba(255,255,255,0.09)",
             "--dash-accent": "#dfd0b8",
             "--dash-accent-warm": "#de8900",
             "--dash-accent-glow": "rgba(126,122,116,0.22)",
+            "--dash-btn-text": "#111111",
             "--dash-text-primary": "#f2eadc",
             "--dash-text-muted": "rgba(242,234,220,0.52)",
             "--dash-border": "rgba(223,208,184,0.12)",
@@ -63,23 +131,32 @@ export const BUILT_IN_THEMES: Record<string, ThemeDef> = {
         },
     },
     starry: {
-        id: "starry",
+        id: "Starry",
         name: "Starry",
-        label: "⚪",
+        label: "✨",
         vars: {
-            "--dash-bg-page": "#1b0932",
-            "--dash-bg-widget": "rgba(255,255,255,0.92)",
-            "--dash-bg-handle": "#ff0000",
-            "--dash-navbars-bg": "rgba(255,255,255,0.68)",
-            "--dash-accent": "#B8528C",
-            "--dash-accent-warm": "#c46a00",
-            "--dash-accent-glow": "rgba(196,106,0,0.18)",
-            "--dash-text-primary": "#ff000d",
-            "--dash-text-muted": "#B8528C",
-            "--dash-border": "rgba(0,0,0,0.08)",
-            "--dash-border-hover": "rgba(0,0,0,0.14)",
+            "--dash-bg-page": "#130623",
+            "--dash-bg-widget": "rgba(16,13,28,0.94)",
+            "--dash-bg-handle": "rgba(24,19,40,0.98)",
+            "--dash-bg-sidebar": "rgba(16,13,28,0.94)",
+            //-------------
+
+            //slightly transparent for now
+            "--dash-topbar-bg": "ffe600, rgba(0, 0, 0, 0.28)",
+            "--dash-bottomnav-bg": "ffe600, rgba(0, 0, 0, 0.28)",
+
+            //---------------
+            "--dash-nav-hover-bg": "rgba(255,255,255,0.09)",
+            "--dash-accent": "#d4d0f5",
+            "--dash-accent-warm": "#d3b300d8",
+            "--dash-accent-glow": "rgba(255,215,0,0.22)",
+            "--dash-btn-text": "#111111",
+            "--dash-text-primary": "#f2f0fc",
+            "--dash-text-muted": "rgba(242,240,252,0.52)",
+            "--dash-border": "rgba(212,208,245,0.12)",
+            "--dash-border-hover": "rgba(212,208,245,0.28)",
             "--dash-bg-image":
-                "radial-gradient(circle at 50% 50%, rgba(120,120,120,0.24), transparent 44%), radial-gradient(circle at 82% 8%, rgba(120,120,120,0.18), transparent 40%), radial-gradient(ellipse at center, transparent 58%, rgba(90,90,90,0.14) 100%)",
+                "radial-gradient(circle at 50% 50%, rgba(255,215,0,0.15), transparent 44%), radial-gradient(circle at 82% 8%, rgba(0,0,0,0.5), transparent 40%), radial-gradient(ellipse at center, transparent 58%, rgba(0,0,0,0.42) 100%)",
         },
     },
     midnight: {
@@ -90,10 +167,14 @@ export const BUILT_IN_THEMES: Record<string, ThemeDef> = {
             "--dash-bg-page": "#0a0f1a",
             "--dash-bg-widget": "rgba(13,19,34,0.95)",
             "--dash-bg-handle": "rgba(19,27,45,0.98)",
-            "--dash-navbars-bg": "rgba(2,6,18,0.34)",
+            "--dash-bg-sidebar": "rgba(13,19,34,0.95)",
+            "--dash-topbar-bg": "rgba(2,6,18,0.34)",
+            "--dash-bottomnav-bg": "rgba(2,6,18,0.34)",
+            "--dash-nav-hover-bg": "rgba(255,255,255,0.09)",
             "--dash-accent": "#a8b8d8",
             "--dash-accent-warm": "#6d9dff",
             "--dash-accent-glow": "rgba(109,157,255,0.24)",
+            "--dash-btn-text": "#111111",
             "--dash-text-primary": "#dce6f5",
             "--dash-text-muted": "rgba(220,230,245,0.45)",
             "--dash-border": "rgba(168,184,216,0.10)",
@@ -110,10 +191,14 @@ export const BUILT_IN_THEMES: Record<string, ThemeDef> = {
             "--dash-bg-page": "#0c120e",
             "--dash-bg-widget": "rgba(14,22,16,0.93)",
             "--dash-bg-handle": "rgba(18,30,20,0.97)",
-            "--dash-navbars-bg": "rgba(2,12,6,0.32)",
+            "--dash-bg-sidebar": "rgba(14,22,16,0.93)",
+            "--dash-topbar-bg": "rgba(2,12,6,0.32)",
+            "--dash-bottomnav-bg": "rgba(2,12,6,0.32)",
+            "--dash-nav-hover-bg": "rgba(255,255,255,0.09)",
             "--dash-accent": "#a8cbb0",
             "--dash-accent-warm": "#4caf78",
             "--dash-accent-glow": "rgba(76,175,120,0.22)",
+            "--dash-btn-text": "#111111",
             "--dash-text-primary": "#d8edd8",
             "--dash-text-muted": "rgba(216,237,216,0.45)",
             "--dash-border": "rgba(168,203,176,0.10)",
@@ -130,10 +215,14 @@ export const BUILT_IN_THEMES: Record<string, ThemeDef> = {
             "--dash-bg-page": "#140a0a",
             "--dash-bg-widget": "rgba(26,12,12,0.93)",
             "--dash-bg-handle": "rgba(38,16,16,0.97)",
-            "--dash-navbars-bg": "rgba(20,0,0,0.32)",
+            "--dash-bg-sidebar": "rgba(26,12,12,0.93)",
+            "--dash-topbar-bg": "rgba(20,0,0,0.32)",
+            "--dash-bottomnav-bg": "rgba(20,0,0,0.32)",
+            "--dash-nav-hover-bg": "rgba(255,255,255,0.09)",
             "--dash-accent": "#d4a0a0",
             "--dash-accent-warm": "#e05555",
             "--dash-accent-glow": "rgba(224,85,85,0.22)",
+            "--dash-btn-text": "#111111",
             "--dash-text-primary": "#f5dada",
             "--dash-text-muted": "rgba(245,218,218,0.45)",
             "--dash-border": "rgba(212,160,160,0.10)",
