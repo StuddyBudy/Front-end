@@ -87,23 +87,23 @@ export const BUILT_IN_THEMES: Record<string, ThemeDef> = {
         name: "Dark",
         label: "⚫",
         vars: {
-            "--dash-bg-page": "#0f0c0a",
-            "--dash-bg-widget": "rgba(24,18,14,0.94)",
-            "--dash-bg-handle": "rgba(36,26,18,0.98)",
-            "--dash-bg-sidebar": "rgba(24,18,14,0.94)",
+            "--dash-bg-page": "#000000",
+            "--dash-bg-widget": "rgba(16,18,24,0.94)",
+            "--dash-bg-handle": "rgba(22,26,34,0.98)",
+            "--dash-bg-sidebar": "rgba(16,18,24,0.94)",
             "--dash-topbar-bg": "rgba(0,0,0,0.28)",
             "--dash-bottomnav-bg": "rgba(0,0,0,0.28)",
             "--dash-nav-hover-bg": "rgba(255,255,255,0.09)",
-            "--dash-accent": "#dfd0b8",
-            "--dash-accent-warm": "#de8900",
-            "--dash-accent-glow": "rgba(126, 122, 116, 0.22)",
+            "--dash-accent": "#b8c5df",
+            "--dash-accent-warm": "#93BAF3",
+            "--dash-accent-glow": "rgba(147,186,243,0.22)",
             "--dash-btn-text": "#111111",
-            "--dash-text-primary": "#f2eadc",
-            "--dash-text-muted": "rgba(242,234,220,0.52)",
-            "--dash-border": "rgba(223,208,184,0.12)",
-            "--dash-border-hover": "rgba(223,208,184,0.28)",
+            "--dash-text-primary": "#e2e8f0",
+            "--dash-text-muted": "rgba(226,232,240,0.52)",
+            "--dash-border": "rgba(226,232,240,0.12)",
+            "--dash-border-hover": "rgba(226,232,240,0.28)",
             "--dash-bg-image":
-                "radial-gradient(circle at 50% 50%, rgba(222,137,0,0.2), transparent 44%), radial-gradient(circle at 82% 8%, rgba(0,0,0,0.5), transparent 40%), radial-gradient(ellipse at center, transparent 58%, rgba(0,0,0,0.42) 100%)",
+                "radial-gradient(circle at 50% 50%, rgba(109,157,255,0.20), transparent 44%), radial-gradient(circle at 82% 8%, rgba(0,0,0,0.50), transparent 40%), radial-gradient(ellipse at center, transparent 58%, rgba(0,0,0,0.42) 100%)",
         },
     },
     ember: {
@@ -131,7 +131,7 @@ export const BUILT_IN_THEMES: Record<string, ThemeDef> = {
         },
     },
     starry: {
-        id: "Starry",
+        id: "starry",
         name: "Starry",
         label: "✨",
         vars: {
@@ -148,10 +148,10 @@ export const BUILT_IN_THEMES: Record<string, ThemeDef> = {
             //---------------
             "--dash-nav-hover-bg": "rgba(255,255,255,0.09)",
             "--dash-accent": "#d4d0f5",
-            "--dash-accent-warm": "#d3b300d8",
+            "--dash-accent-warm": "#d9c782",
             "--dash-accent-glow": "rgba(255,215,0,0.22)",
             "--dash-btn-text": "#111111",
-            "--dash-text-primary": "#ff0000",
+            "--dash-text-primary": "#eae7f5",
             "--dash-text-muted": "rgba(242,240,252,0.52)",
             "--dash-border": "rgba(212,208,245,0.12)",
             "--dash-border-hover": "rgba(212,208,245,0.28)",
@@ -159,15 +159,16 @@ export const BUILT_IN_THEMES: Record<string, ThemeDef> = {
                 "radial-gradient(circle at 50% 50%, rgba(255,215,0,0.15), transparent 44%), radial-gradient(circle at 82% 8%, rgba(0,0,0,0.5), transparent 40%), radial-gradient(ellipse at center, transparent 58%, rgba(0,0,0,0.42) 100%)",
         },
     },
+    /*
     midnight: {
         id: "midnight",
         name: "Midnight",
         label: "🌙",
         vars: {
-            "--dash-bg-page": "#0a0f1a",
-            "--dash-bg-widget": "rgba(13,19,34,0.95)",
-            "--dash-bg-handle": "rgba(19,27,45,0.98)",
-            "--dash-bg-sidebar": "rgba(13,19,34,0.95)",
+            "--dash-bg-page": "#050b14",
+            "--dash-bg-widget": "rgba(10,18,38,0.95)",
+            "--dash-bg-handle": "rgba(15,25,48,0.98)",
+            "--dash-bg-sidebar": "rgba(10,18,38,0.95)",
             "--dash-topbar-bg": "rgba(2,6,18,0.34)",
             "--dash-bottomnav-bg": "rgba(2,6,18,0.34)",
             "--dash-nav-hover-bg": "rgba(255,255,255,0.09)",
@@ -183,15 +184,16 @@ export const BUILT_IN_THEMES: Record<string, ThemeDef> = {
                 "radial-gradient(circle at 50% 50%, rgba(109,157,255,0.20), transparent 44%), radial-gradient(circle at 82% 8%, rgba(0,0,0,0.50), transparent 40%), radial-gradient(ellipse at center, transparent 58%, rgba(0,0,0,0.42) 100%)",
         },
     },
-    forest: {
-        id: "forest",
-        name: "Forest",
+    */
+    emerald: {
+        id: "emerald",
+        name: "Emerald",
         label: "🌿",
         vars: {
             "--dash-bg-page": "#0c120e",
-            "--dash-bg-widget": "rgba(14,22,16,0.93)",
-            "--dash-bg-handle": "rgba(18,30,20,0.97)",
-            "--dash-bg-sidebar": "rgba(14,22,16,0.93)",
+            "--dash-bg-widget": "rgba(20,30,22,0.95)",
+            "--dash-bg-handle": "rgba(24,36,26,0.97)",
+            "--dash-bg-sidebar": "rgba(20,30,22,0.95)",
             "--dash-topbar-bg": "rgba(2,12,6,0.32)",
             "--dash-bottomnav-bg": "rgba(2,12,6,0.32)",
             "--dash-nav-hover-bg": "rgba(255,255,255,0.09)",
@@ -231,9 +233,7 @@ export const BUILT_IN_THEMES: Record<string, ThemeDef> = {
                 "radial-gradient(circle at 50% 50%, rgba(224,85,85,0.2), transparent 44%), radial-gradient(circle at 82% 8%, rgba(0,0,0,0.5), transparent 40%), radial-gradient(ellipse at center, transparent 58%, rgba(0,0,0,0.42) 100%)",
         },
     },
-};
-
-// ── APPLY THEME ───────────────────────────────────────────────────────────────
+}; // ── APPLY THEME ───────────────────────────────────────────────────────────────
 // Writes CSS variables onto :root — safe to call only client-side.
 // Uses --dash-* prefix to avoid colliding with the landing page tokens.
 export function applyTheme(theme: ThemeDef): void {

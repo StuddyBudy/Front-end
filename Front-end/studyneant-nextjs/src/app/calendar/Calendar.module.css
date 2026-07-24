@@ -876,11 +876,6 @@
     background: var(--dash-accent-warm);
 }
 
-/* ── Legacy week aliases kept for backward compat ──────────────────────────── */
-.weekView {
-    /* already defined above */
-}
-
 /* ── SHARED FORM ELEMENTS ────────────────────────────────────────────────────*/
 .inputFull {
     flex: 1;

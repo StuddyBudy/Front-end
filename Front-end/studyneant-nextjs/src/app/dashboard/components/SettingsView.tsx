@@ -438,9 +438,8 @@ export default function SettingsView({
     onUpdateTheme,
     onResetSettings,
 }: Props) {
-    const [settingsDisplay, setSettingsDisplay] = useStorageStore(
-        settingsDisplayStore,
-    );
+    const [settingsDisplay, setSettingsDisplay] =
+        useStorageStore(settingsDisplayStore);
     const [editorOpen, setEditorOpen] = useState(false);
     const [editorMode, setEditorMode] = useState<"create" | "edit">("create");
     const [editingThemeId, setEditingThemeId] = useState<string | null>(null);
@@ -756,7 +755,7 @@ export default function SettingsView({
                                             <button
                                                 type="button"
                                                 key={emoji || "none"}
-                                                className={`${s.emojiBtn} ${emoji === "" ? s.emojiNoneBtn : ""} ${draft.label === emoji ? s.emojiBtnActive : ""}`}
+                                                className={`${s.emojiBtn} ${emoji === "" ? s.emojiNoneBtn : " "} ${draft.label === emoji ? s.emojiBtnActive : " "}`}
                                                 onClick={() =>
                                                     setField("label", emoji)
                                                 }
