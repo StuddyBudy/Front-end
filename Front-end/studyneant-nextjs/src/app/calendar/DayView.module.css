@@ -1,0 +1,65 @@
+.dayView {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+.dayHeader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 4px;
+    flex-shrink: 0;
+    border-bottom: 1px solid var(--dash-border);
+    background: rgba(0, 0, 0, 0.12);
+}
+.dayAllDayRow {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    border-bottom: 1px solid var(--dash-border);
+    min-height: 28px;
+    flex-shrink: 0;
+    background: rgba(0, 0, 0, 0.06);
+}
+.dayAllDayCell {
+    border-right: 1px solid var(--dash-border);
+    padding: 2px 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+.dayGrid {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    min-height: 100%;
+}
+.dayCol {
+    position: relative;
+    border-right: 1px solid var(--dash-border);
+}
+.dayColToday {
+    background: rgba(222, 137, 0, 0.025);
+}
+.dayEvent {
+    position: absolute;
+    left: 3px;
+    right: 3px;
+    border-radius: 5px;
+    padding: 3px 6px;
+    cursor: pointer;
+    overflow: hidden;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    backdrop-filter: blur(4px);
+    transition:
+            opacity 0.13s,
+            filter 0.13s,
+            transform 0.1s;
+}
+.dayEvent:hover {
+    opacity: 0.85;
+    filter: brightness(1.08);
+    transform: scaleX(1.01);
+}
