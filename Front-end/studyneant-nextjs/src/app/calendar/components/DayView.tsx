@@ -49,7 +49,9 @@ export default function DayView({
                                  }: Props) {
     const scrollRef = useRef<HTMLDivElement>(null);
 
-    const dateStr = toYMD(today);
+    const dateStr = toYMD(date);
+    const todayStr = toYMD(today);
+    const isToday = dateStr === todayStr;
     const colorMap = Object.fromEntries(calendars.map((c) => [c.id, c.color]));
 
     // Auto-scroll to current hour on mount
@@ -67,55 +69,59 @@ export default function DayView({
         return ((hours + minutes / 60) / 1) * HOUR_HEIGHT;
     })();
 
+    const allDayEvs = events.filter(
+        (e) =>
+            e.allDay &&
+            e.startDate <= dateStr &&
+            e.endDate >= dateStr &&
+            calendars.find((c) => c.id === e.calendarId)?.visible,
+
+    );
+    const dayEvs = events.filter(
+        (e) =>
+            !e.allDay &&
+            e.startDate === dateStr &&
+            calendars.find((c) => c.id === e.calendarId)?.visible,
+    )
+
     return (
         <div className={s.dayView}>
             {/* ── DAY HEADER ── */}
-            <span className={s.dayHeader}>
-                {DAY_NAMES[date.getDay()]} {date.getDate()}
-            </span>
+            <div className={s.dayHeader}>
+                <span className={s.wkDayName}>
+                    {DAY_NAMES[date.getDay()]} {date.getDate()}
+                </span>
+            </div>
+
             {/* ── ALL-DAY ROW ── */}
-            <div className={s.wkAllDayRow}>
-                <div className={s.wkAllDayLabel}>All-day</div>
-                {days.map((d, di) => {
-                    const allDayEvs = events.filter(
-                        (e) =>
-                            e.allDay &&
-                            e.startDate <= dateStr &&
-                            e.endDate >= dateStr &&
-                            calendars.find((c) => c.id === e.calendarId)
-                                ?.visible,
-                    );
-                    return (
-                        <div key={di} className={s.wkAllDayCell}>
-                            {allDayEvs.map((ev) => {
-                                const color =
-                                    ev.color ||
-                                    colorMap[ev.calendarId] ||
-                                    "#de8900";
-                                return (
-                                    <div
-                                        key={ev.id}
-                                        className={s.wkAllDayChip}
-                                        style={{
-                                            background: color + "33",
-                                            color,
-                                            borderLeft: `3px solid ${color}`,
-                                        }}
-                                        onClick={() => onEventClick(ev)}
-                                    >
-                                        {ev.title || "(No title)"}
-                                    </div>
-                                );
-                            })}
-                        </div>
-                    );
-                })}
+            <div className={s.dayAllDayRow}>
+                <div className={s.wkAllDayLabel}>All-Day</div>
+                <div className={s.dayAllDayCell}>
+                    {allDayEvs.map((ev) => {
+                       const color =
+                            ev.color || colorMap[ev.calendarId] || "#de8900";
+                       return (
+                           <div
+                                key={ev.id}
+                                className={s.wkAllDayChip}
+                                style={{
+                                    background: color + "33",
+                                    color,
+                                    borderLeft: `3px solid ${color}`,
+                                }}
+                                onClick={() => onEventClick(ev)}
+                           >
+                               {ev.title || "(No title)"}
+                           </div>
+                       );
+                    })}
+                </div>
+
             </div>
 
             {/* ── SCROLLABLE GRID ── */}
             <div className={s.wkScroll} ref={scrollRef}>
-                <div className={s.wkGrid}>
-                    {/* Time labels column */}
+                <div className={s.dayGrid}>
                     <div className={s.wkTimeCol}>
                         {HOURS_LABEL.map((label, i) => (
                             <div key={i} className={s.wkTimeSlot}>
@@ -127,92 +133,77 @@ export default function DayView({
                             </div>
                         ))}
                     </div>
-
-                    {/* Day columns */}
-                    {days.map((day, di) => {
-                        const isToday = dateStr === todayStr;
-                        const dayEvs = events.filter(
-                            (e) =>
-                                !e.allDay &&
-                                e.startDate === dateStr &&
-                                calendars.find((c) => c.id === e.calendarId)
-                                    ?.visible,
-                        );
-
-                        return (
-                            <div
-                                key={di}
-                                className={`${s.wkDayCol} ${isToday ? s.wkDayColToday : ""}`}
-                                style={{ height: HOUR_HEIGHT * 24 }}
-                            >
-                                {/* Hour slot backgrounds (for double-click) */}
-                                {HOURS_LABEL.map((_, hi) => (
-                                    <div
-                                        key={hi}
-                                        className={s.wkHourLine}
-                                        style={{
-                                            top: hi * HOUR_HEIGHT,
-                                            height: HOUR_HEIGHT,
-                                        }}
-                                        onDoubleClick={() =>
-                                            onDblClick(dateStr, hi)
-                                        }
-                                    />
-                                ))}
-
-                                {/* Positioned event blocks */}
-                                {dayEvs.map((ev) => {
-                                    const color =
-                                        ev.color ||
-                                        colorMap[ev.calendarId] ||
-                                        "#de8900";
-                                    const top = eventTop(ev.startTime);
-                                    const height = eventHeight(
-                                        ev.startTime,
-                                        ev.endTime,
-                                    );
-                                    return (
-                                        <div
-                                            key={ev.id}
-                                            className={s.wkEvent}
-                                            style={{
-                                                top,
-                                                height,
-                                                background: color + "28",
-                                                borderLeft: `3px solid ${color}`,
-                                                color,
-                                            }}
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                onEventClick(ev);
-                                            }}
-                                            title={ev.title}
-                                        >
-                                            <span className={s.wkEventTitle}>
-                                                {ev.title || "(No title)"}
-                                            </span>
-                                            {height > 30 && (
-                                                <span className={s.wkEventTime}>
-                                                    {ev.startTime} –{" "}
-                                                    {ev.endTime}
-                                                </span>
-                                            )}
-                                        </div>
-                                    );
-                                })}
-
-                                {/* "Now" indicator line — only on today's column */}
-                                {isToday && (
-                                    <div
-                                        className={s.wkNowLine}
-                                        style={{ top: nowTop }}
-                                    />
-                                )}
-                            </div>
-                        );
-                    })}
                 </div>
             </div>
-        </span>
+
+            {/* Single Day Column */}
+            <div
+                className={`${s.dayCol} ${isToday ? s.dayColToday : ""}`}
+                style={{ height: HOUR_HEIGHT * 24 }}
+            >
+                {/* Hour Slot Backgrounds */}
+                {HOURS_LABEL.map((_, hi) => (
+                    <div
+                        key={hi}
+                        className={s.wkHourLine}
+                        style={{
+                            top: hi * HOUR_HEIGHT,
+                            height: HOUR_HEIGHT,
+                        }}
+                        onDoubleClick={() =>
+                            onDblClick(dateStr, hi)
+                        }
+                    />
+                ))}
+
+                {/* Positioned Event Blocks */}
+                {dayEvs.map((ev) => {
+                    const color =
+                        ev.color ||
+                        colorMap[ev.calendarId] ||
+                        "#de8900";
+                    const top = eventTop(ev.startTime);
+                    const height = eventHeight(
+                        ev.startTime,
+                        ev.endTime,
+                    );
+                    return (
+                        <div
+                            key={ev.id}
+                            className={s.dayEvent}
+                            style={{
+                                top,
+                                height,
+                                background: color + "28",
+                                borderLeft: `3px solid ${color}`,
+                                color,
+                            }}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                onEventClick(ev);
+                            }}
+                            title={ev.title}
+                        >
+                            <span>
+                                {height > 20 && (
+                                    <span className={s.wkEventTime}>
+                                        {ev.startTime} - {ev.endTime}
+                                    </span>
+                                )}
+                            </span>
+
+                        </div>
+                    );
+                 })}
+
+                {/* "Now" indicator */}
+                {isToday && (
+                    <div
+                        className={s.wkNowLine}
+                        style={{ top: nowTop }}
+                        />
+                )}
+            </div>
+        </div>
     );
 }
