@@ -4,6 +4,8 @@ import { useEffect, useRef } from "react";
 import type { CalEvent, CalCalendar } from "../types";
 import { toYMD } from "../storage";
 import s from "../Calendar.module.css";
+import ds from "../DayView.module.css"
+
 
 // Constants (same as weekview)
 const HOUR_HEIGHT = 56; // px per hour slot — matches CSS
@@ -85,18 +87,18 @@ export default function DayView({
     )
 
     return (
-        <div className={s.dayView}>
+        <div className={ds.dayView}>
             {/* ── DAY HEADER ── */}
-            <div className={s.dayHeader}>
+            <div className={ds.dayHeader}>
                 <span className={s.wkDayName}>
                     {DAY_NAMES[date.getDay()]} {date.getDate()}
                 </span>
             </div>
 
             {/* ── ALL-DAY ROW ── */}
-            <div className={s.dayAllDayRow}>
+            <div className={ds.dayAllDayRow}>
                 <div className={s.wkAllDayLabel}>All-Day</div>
-                <div className={s.dayAllDayCell}>
+                <div className={ds.dayAllDayCell}>
                     {allDayEvs.map((ev) => {
                        const color =
                             ev.color || colorMap[ev.calendarId] || "#de8900";
@@ -121,7 +123,7 @@ export default function DayView({
 
             {/* ── SCROLLABLE GRID ── */}
             <div className={s.wkScroll} ref={scrollRef}>
-                <div className={s.dayGrid}>
+                <div className={ds.dayGrid}>
                     <div className={s.wkTimeCol}>
                         {HOURS_LABEL.map((label, i) => (
                             <div key={i} className={s.wkTimeSlot}>
@@ -138,7 +140,7 @@ export default function DayView({
 
             {/* Single Day Column */}
             <div
-                className={`${s.dayCol} ${isToday ? s.dayColToday : ""}`}
+                className={`${ds.dayCol} ${isToday ? ds.dayColToday : ""}`}
                 style={{ height: HOUR_HEIGHT * 24 }}
             >
                 {/* Hour Slot Backgrounds */}
@@ -170,7 +172,7 @@ export default function DayView({
                     return (
                         <div
                             key={ev.id}
-                            className={s.dayEvent}
+                            className={ds.dayEvent}
                             style={{
                                 top,
                                 height,

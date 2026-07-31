@@ -40,6 +40,9 @@ export function useCalendar() {
     const [weekStartOverride, setWeekStartOverride] = useState<Date | null>(
         null,
     );
+    const [dayOverride, setDayOverride] = useState<Date | null>(null);
+    const day = dayOverride ?? today;
+
     const defaultWeekStart = useMemo(
         () => (today ? startOfWeek(today) : null),
         [today],
@@ -49,6 +52,7 @@ export function useCalendar() {
     const goToday = () => {
         setYmOverride(null);
         setWeekStartOverride(null);
+        setDayOverride(null);
     };
 
     const goPrev = () => {
@@ -58,11 +62,16 @@ export function useCalendar() {
                     ? { y: year - 1, m: 11 }
                     : { y: year, m: month - 1 },
             );
-        } else {
+        } else if (viewMode === "week"){
             if (!weekStart) return;
             const n = new Date(weekStart);
             n.setDate(n.getDate() - 7);
             setWeekStartOverride(n);
+        } else {
+            if (!day) return;
+            const n = new Date(day);
+            n.setDate(n.getDate()-1);
+            setDayOverride(n);
         }
     };
 
@@ -73,11 +82,16 @@ export function useCalendar() {
                     ? { y: year + 1, m: 0 }
                     : { y: year, m: month + 1 },
             );
-        } else {
+        } else if (viewMode === "week") {
             if (!weekStart) return;
             const n = new Date(weekStart);
             n.setDate(n.getDate() + 7);
             setWeekStartOverride(n);
+        } else {
+            if (!day) return;
+            const n = new Date(day);
+            n.setDate(n.getDate()+1);
+            setDayOverride(n);
         }
     };
 
@@ -116,6 +130,7 @@ export function useCalendar() {
         year,
         month,
         weekStart,
+        day,
         goToday,
         goPrev,
         goNext,

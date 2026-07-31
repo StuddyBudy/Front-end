@@ -12,6 +12,7 @@ type Props = {
     year: number;
     month: number;
     weekStart: Date;
+    day: Date;
     onToday: () => void;
     onPrev: () => void;
     onNext: () => void;
@@ -24,6 +25,7 @@ export default function CalTopBar({
     year,
     month,
     weekStart,
+    day,
     onToday,
     onPrev,
     onNext,
@@ -36,18 +38,25 @@ export default function CalTopBar({
     const label =
         viewMode === "month"
             ? monthLabel(year, month)
-            : (() => {
-                  const end = new Date(weekStart);
-                  end.setDate(end.getDate() + 6);
-                  return `${weekStart.toLocaleDateString("en-US", {
-                      month: "short",
-                      day: "numeric",
-                  })} – ${end.toLocaleDateString("en-US", {
-                      month: "short",
-                      day: "numeric",
-                      year: "numeric",
-                  })}`;
-              })();
+            : viewMode === "week"
+                ? (() => {
+                    const end = new Date(weekStart);
+                    end.setDate(end.getDate() + 6);
+                    return `${weekStart.toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "numeric",
+                    })} – ${end.toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric",
+                    })}`;
+                })()
+                : day.toLocaleDateString("en-US", {
+                    weekday: "long",
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric",
+                });
 
     return (
         <>
@@ -90,6 +99,12 @@ export default function CalTopBar({
                             onClick={() => onViewChange("week")}
                         >
                             Weekly
+                        </button>
+                        <button
+                            className={`${s.viewToggleBtn} ${viewMode == "day" ? s.viewToggleBtnActive : ""}`}
+                            onClick={() => onViewChange("day")}
+                        >
+                            Daily
                         </button>
                     </div>
                 </div>
