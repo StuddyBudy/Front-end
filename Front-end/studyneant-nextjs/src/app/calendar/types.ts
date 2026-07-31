@@ -3,7 +3,7 @@
 // Components use: ViewMode, CalCalendar, CalEvent, RepeatConfig, CalendarState
 
 /** Which view the main grid is showing */
-export type ViewMode = "month" | "week";
+export type ViewMode = "month" | "week" | "day";
 
 /** A user-created calendar (e.g. "Personal", "Classes") */
 export type CalCalendar = {

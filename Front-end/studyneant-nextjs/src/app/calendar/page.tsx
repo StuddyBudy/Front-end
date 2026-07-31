@@ -6,10 +6,11 @@ import type { CalEvent } from "./types";
 import { useCalendar } from "./hooks/useCalendar";
 import { makeEvent, toYMD } from "./storage";
 
-import CalTopBar from "./components/CallTopBar";
+import CalTopBar from "./components/CalTopBar";
 import CalSidebar from "./components/CalSidebar";
 import MonthView from "./components/MonthView";
 import WeekView from "./components/WeekView";
+import DayView from "./components/DayView";
 import EventDetailPopover from "./components/EventDetailPopover";
 import EventModal from "./components/EventModal";
 import BottomNav from "@/components/bottomNav/BottomNav";
@@ -36,7 +37,8 @@ export default function CalendarPage() {
     // and the first client render are identical (hydration safety).
     const today = cal.today;
     const weekStart = cal.weekStart;
-    if (!today || !weekStart) return null;
+    const day = cal.day;
+    if (!today || !weekStart || !day) return null;
 
     // ── Open handlers ──────────────────────────────────────────────────────────
 
@@ -100,6 +102,7 @@ export default function CalendarPage() {
                 year={cal.year}
                 month={cal.month}
                 weekStart={weekStart}
+                day={day}
                 onToday={cal.goToday}
                 onPrev={cal.goPrev}
                 onNext={cal.goNext}
@@ -126,7 +129,7 @@ export default function CalendarPage() {
                             onDblClick={handleCellDblClick}
                             onEventClick={handleEventClick} // ← single click
                         />
-                    ) : (
+                    ) : cal.viewMode === "week" ? (
                         <WeekView
                             weekStart={weekStart}
                             today={today}
@@ -134,6 +137,15 @@ export default function CalendarPage() {
                             calendars={cal.state.calendars}
                             onDblClick={handleCellDblClick}
                             onEventClick={handleEventClick} // ← single click
+                        />
+                    ) : (
+                        <DayView
+                            date={day}
+                            today={today}
+                            events={cal.state.events}
+                            calendars={cal.state.calendars}
+                            onDblClick={handleCellDblClick}
+                            onEventClick={handleEventClick}
                         />
                     )}
                 </div>
